@@ -4,48 +4,49 @@ from art_direction_options import (
     ANTI_SAFE_COMPOSITION,
     choose_action_style,
     choose_art_plan,
+    outfit_variation_for,
     propagation_profile_for,
 )
 
 
 CHARACTER_LOCKS = {
     "千夏": (
-        "千夏：薄荷绿/浅灰绿色中短层次发，后发自然散开，轻微短发狼尾感；"
-        "后顶部偏右只有一小束装饰性小揪发，绑大号薄荷绿蝴蝶结，不是马尾。"
-        "厚重不对称刘海，一侧遮挡额头与部分眼部，另一侧露耳，黑色心形耳饰；粉金渐变瞳。"
-        "气质是紧张但认真、敏感创作者、努力装镇定。"
+        "千夏：严格贴合参考图身份。薄荷绿/浅灰绿色中短层次发，后发自然散开，轻微短发狼尾感；"
+        "后顶部偏右只有一小束装饰性小揪发，绑大号薄荷绿蝴蝶结，绝不是双马尾、长马尾或普通短发。"
+        "厚重不对称刘海，一侧遮挡额头与部分眼部，另一侧露耳，脸侧发束贴脸并带轻微外翘；黑色心形耳饰；粉金渐变瞳。"
+        "气质是紧张但认真、清透、努力装镇定的青春陪伴感。不要用学习记录类道具来定义她。"
     ),
     "南宫": (
         "南宫羽：黑色中短发，厚重整齐齐刘海，短直包脸侧发；"
         "高位短束状双马尾，不是长双马尾，发尾黑色渐变到高饱和粉色/玫红色。"
-        "保留小呆毛、白色猫咪发夹、粉色三角发卡、科技感光环、背后机械小翅膀。"
+        "保留小呆毛、白色猫咪发夹、粉色三角发卡；科技感光环或背后小型机械光片只是可选符号，不要求每张都出现背后结构。"
         "气质是慵懒聪明、狡黠从容、轻微坏笑、掌控现场。"
     ),
     "爱芮": (
         "爱芮：高饱和粉色双马尾，蓬松外翘卷曲，额前明显黑色挑染刘海；"
         "两侧大体积包脸侧发，蓝粉渐变高光眼。"
-        "保留黑色耳机式发饰、蝴蝶结、粉色机械小翅膀、爱心元素。"
+        "保留黑色耳机式发饰、蝴蝶结和爱心元素；粉色机械光片或舞台背光只是可选符号，不要求每张都出现背后结构。"
         "气质是开朗自信的完美 Vocal，甜酷小恶魔偶像但不低幼。"
     ),
     "丹": (
         "丹：浅粉色短发，空气感厚刘海，不对称刘海，两侧包脸短发，发尾外翻；"
         "柔软羽毛感短层次发型，浅粉色头发渐变，粉紫色眼睛。"
-        "可保留银白细头环、蓝银色星形发卡、耳侧轻机械模块。"
-        "气质是安静温柔、略淡漠、未来圣女感，但不成熟化。"
+        "可保留银白细头环、蓝银色星形发卡、耳侧轻机械模块，但这些只是小识别点。"
+        "气质是安静温柔、略淡漠、未来感与透明感，不把服装固定成同一套圣女制服。"
     ),
     "星见雅": (
         "星见雅：黑色长直发，厚重整齐的齐刘海（姬发式），头顶有醒目的黑色兽耳；"
         "长发自然披散且发量丰厚，一侧常伴有明显的单股编发细节。"
-        "锐利的红色眼瞳，常随身携带武士刀（太刀），保留武士风格的绳结与挂饰元素。"
+        "锐利的红色眼瞳，武士风格的绳结、挂饰、红色刀线或武器意象可以作为可选识别元素。"
         "气质是冷静沉稳、严肃认真、凛然的剑客、优雅且极具压迫感。"
-        "不要短发、不要卷发、不要蓬松偶像发型，不要丢失黑色兽耳与太刀识别。"
+        "不要短发、不要卷发、不要蓬松偶像发型；黑色兽耳识别要清楚，但不要求每张都出现实体武器。"
     ),
     "仪玄": (
         "仪玄：银白色长发，发量丰厚且自然蓬松，带有轻微凌乱感，头顶有一根明显的呆毛；"
         "侧分刘海上佩戴着一个醒目的黑色波浪状/闪电状发饰。"
-        "锐利且略带慵懒的金黄色/琥珀色眼瞳，成熟修长的体态，身边常伴有一只发光的黑色鸟类（灵纹乌鸦）。"
+        "锐利且略带慵懒的金黄色/琥珀色眼瞳，成熟修长的体态；黑色羽影、灵鸟剪影或金色术光可以作为可选神秘符号。"
         "气质是成熟从容、慵懒自信、带着些许戏谑与游刃有余的神秘感。"
-        "不要短发、不要少女化、不要过度甜美，不要丢失黑色闪电状发饰与黑色灵鸟识别。"
+        "不要短发、不要少女化、不要过度甜美；黑色闪电状发饰识别要清楚，但不要求每张都出现实体灵鸟。"
     ),
 }
 
@@ -97,9 +98,9 @@ def _visual_direction(plan: dict) -> str:
     核心情绪钩子：{plan["graphic_concept"]}。
     人格化世界：{plan["spatial_structure"]}。
     幻想传播符号：{plan["visual_device"]}。
-    符号预算：本张图最多一个 primary hook symbol，再加一个 secondary support symbol；不要同时堆光环、爱心、UI、翅膀、星星、手机、耳机、漂浮物。
-    构图分配：角色脸、眼睛、发型大形和上半身是第一视觉锚点；角色存在感约 55% 到 75%，背景和幻想元素只负责放大角色魅力。
-    缩略图检查：手机小图里必须先读到角色是谁、她的情绪、主色记忆点和一个大幻想符号。
+    符号预算：本张图最多一个 primary hook symbol，再加一个 secondary support symbol；不要同时堆光环、爱心、UI、背后结构、星星、手持设备、耳机、漂浮物。
+    构图分配：角色脸、眼睛、发型大形、肩线、腰线和膝上姿态是第一视觉锚点；角色存在感约 55% 到 75%，背景和幻想元素只负责放大角色魅力。避免连续生成纯大脸或过近裁切。
+    缩略图检查：小图里优先读到角色是谁、她的情绪、主色记忆点和一个大幻想符号。
     """).strip()
 
 
@@ -120,7 +121,7 @@ def _official_personality_translation(character_name: str) -> str:
     可用缩略图类型：{thumbnail_modes}。
     Primary hook symbol 只能选一个：{primary_symbols}。
     Secondary support symbol 最多选一个：{secondary_symbols}。
-    其他幻想元素必须降级为很小的背景点缀，不能同时抢画面。
+    其他幻想元素降级为很小的背景点缀，不能同时抢画面。
     安全吸引力策略：{profile["safe_sensuality"]}
     高优先级误读惩罚：{suppressed}。
     """).strip()
@@ -136,20 +137,40 @@ def _performance(plan: dict, action: dict) -> str:
     禁忌：{action["avoid_rule"]}。
     视觉企划原始姿态参考：{plan["body_silhouette"]}；如果它和互动语言冲突，以互动语言为准。
     角色不只是被观看，而是在和 viewer 形成关系；允许对视、靠近、通话感、偶像营业感、恋爱感和安全亲密感。
-    表情必须有可传播的情绪钩子：心动、陪伴、秘密感、清爽感、梦境感、崇拜感或被角色选中的感觉。
-    不要让所有角色都变成同一种大脸自拍；根据角色传播人格选择大脸型、半身型、姿态型、色块型、符号型或极简头像型。
+    表情需要有可传播的情绪钩子：心动、陪伴、秘密感、清爽感、梦境感、崇拜感或被角色选中的感觉。
+    不要让所有角色都变成同一种大脸自拍；根据角色传播人格选择膝上型、三分之二身型、姿态型、色块型、符号型或极简头像型。
     """).strip()
 
 
-def _fashion(plan: dict) -> str:
+def _anatomy_control() -> str:
+    return dedent("""
+    【Hand & Foot Control / 手脚稳定】
+    手和脚不是本张图的卖点，除非动作明确需要，否则让手保持简单、自然、低风险。
+    可见手部优先采用：手指自然并拢、轻握小道具、手扶耳机、手放胸前、手藏进袖口、手在身体侧边或被衣袖/道具部分遮挡。
+    避免手指指向屏幕、手指指向 viewer、手掌贴近镜头、广角大手、复杂手势、双手交叉成团、手指张开过大、手指被发丝或饰品切碎。
+    如果需要互动感，用眼神、表情、耳机、麦克风、小道具和身体朝向完成，不使用手机，也不要用食指戳向画面。
+    每只可见手保持清楚的五指结构；不要额外手、缺失手、六指七指、融合手指、断指、反向拇指、畸形指节。
+    如果画到脚或鞋，双脚要有明确落点和方向；避免多余脚、缺失脚、悬空脚、鞋子融合、脚踝扭曲。
+    优先保证脸、眼睛、发型和角色轮廓；手脚不清楚时宁可简化或遮挡，不要强行展示复杂细节。
+    """).strip()
+
+
+def _fashion(character_name: str, plan: dict) -> str:
+    outfit_variation = outfit_variation_for(character_name, plan["name"])
+    outfit_variation_line = (
+        f"本次服装变体：{outfit_variation}。"
+        if outfit_variation
+        else "本次服装变体：跟随服装主题，但不要重复上一张的具体衣形。"
+    )
     return dedent(f"""
     【Fashion & Character Icon / 服装与角色图标】
     服装主题：{plan["outfit_direction"]}。
+    {outfit_variation_line}
     材料语言：{plan["material_language"]}。
     色彩策略：{plan["color_strategy"]}。
-    服装必须服务角色人格和社交传播：轮廓要一眼记住，配色要有角色专属记忆点。
+    服装服务角色人格和社交传播：轮廓要一眼记住，配色要有角色专属记忆点。
     允许更强二次元幻想设计、偶像感、恋爱感、小配件和发光装饰，但不要堆满碎件。
-    头发、眼睛、发饰、领口、袖口、腰线和手部附近的装饰是高细节区；其他区域可以简化成漂亮大色块。
+    头发、眼睛、发饰、领口、袖口和腰线是高细节区；手部附近只保留少量清楚装饰，避免让手部结构变复杂。
     """).strip()
 
 
@@ -159,7 +180,7 @@ def _rendering(plan: dict) -> str:
     光影行为：{plan["lighting_behavior"]}。
     top-tier social anime illustration atmosphere，Pixiv-like premium character artwork quality，clean appealing lineart，beautiful color design。
     high thumbnail impact，strong character aura，memorable color palette，dreamlike fantasy symbols，emotion-first composition。
-    detail hierarchy：最高细节集中在眼睛、脸、发型大形、发饰、手部附近和主幻想符号；背景减少真实建筑细节。
+    detail hierarchy：最高细节集中在眼睛、脸、发型大形、发饰、腰线和主幻想符号；手脚保持清楚但简化，背景减少真实建筑细节。
     画面要像会被收藏转发的二次元角色图、头像级封面、偶像视觉图或梦境角色海报，不是电影截图、游戏 loading 图、UE5 宣传图或西式概念设定稿。
     """).strip()
 
@@ -173,7 +194,7 @@ def _negative() -> str:
     avoid tiny character swallowed by space，avoid complicated architecture，avoid realistic photography logic，avoid gray abandoned building mood。
     avoid overrendering，avoid AI detail noise，avoid excessive texture，avoid oversharpening，avoid plastic anime look。
     avoid random decorative clutter，avoid cheap fantasy effects，avoid generic AI anime style，avoid low-quality fanservice。
-    avoid extra fingers，malformed hands，extra arms，duplicated face，misaligned eyes。
+    avoid extra fingers，missing fingers，six fingers，seven fingers，fused fingers，broken fingers，malformed hands，missing hands，extra hands，extra arms，extra feet，missing feet，twisted ankles，duplicated face，misaligned eyes。
     不要画面文字、英文标牌、角色名拼写、logo 或海报排版文字。
     """).strip()
 
@@ -188,7 +209,9 @@ def prompt_for_art_direction(character_name: str, plan: dict | None = None, acti
 
     {_performance(selected_plan, selected_action)}
 
-    {_fashion(selected_plan)}
+    {_anatomy_control()}
+
+    {_fashion(character_name, selected_plan)}
 
     {_identity_lock(character_name)}
 
