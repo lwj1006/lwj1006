@@ -20,6 +20,7 @@ import pyperclip
 from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
+    choose_action_style,
     choose_plan_and_action,
     collect_cooldown_tags,
     propagation_profile_for,
@@ -87,6 +88,8 @@ MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
+CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄"]
+RUNS_PER_CHARACTER_PER_THEME = 2
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
 
@@ -161,6 +164,10 @@ def choose_character_group() -> tuple[str, list[str]]:
         for file_path in CHARACTER_REFERENCES[name]
     ]
     return character_label, reference_files
+
+
+def reference_files_for_character(character_name: str) -> list[str]:
+    return CHARACTER_REFERENCES[character_name][:]
 
 
 def choose_art_plan_for_outfit(outfit_direction: str) -> dict:
@@ -666,67 +673,105 @@ def main() -> None:
         total_runs = int(sys.argv[runs_index + 1])
 
     recent_visual_tags: list[str] = []
+    used_clothing_themes = load_used_clothing_themes()
+    run_number = 1
+    stop_requested = False
 
-    for run_number in range(1, total_runs + 1):
-        character_name, reference_files = choose_character_group()
-        art_plan, action_style = choose_plan_and_action(character_name, recent_visual_tags)
-        propagation_profile = propagation_profile_for(character_name)
-        theme = art_plan["outfit_direction"]
-        scene = art_plan["spatial_structure"]
-        pose = action_style["body_silhouette"]
-        lighting = art_plan["lighting_behavior"]
-        mood = art_plan["color_strategy"]
-        template_index = 0
-        concept = art_plan["graphic_concept"]
-        prompt_name = prompt_template_name(template_index)
-        prompt = prompt_for_art_direction(character_name, art_plan, action_style)
-
+    while run_number <= total_runs and not stop_requested:
+        theme = choose_unused_clothing_theme(used_clothing_themes)
+        theme_completed = True
+        theme_total_runs = len(CHARACTER_SEQUENCE) * RUNS_PER_CHARACTER_PER_THEME
         print("=" * 72, flush=True)
-        print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
-        print(f"[{run_number:02d}] character: {character_name}", flush=True)
-        print(f"[{run_number:02d}] references: {reference_files}", flush=True)
-        print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
-        print(f"[{run_number:02d}] scene: {scene}", flush=True)
-        print(f"[{run_number:02d}] pose: {pose}", flush=True)
-        print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
-        print(f"[{run_number:02d}] mood: {mood}", flush=True)
-        print(f"[{run_number:02d}] art plan: {art_plan['name']}", flush=True)
-        print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
-        print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
-        print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
-        print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
-        print(f"[{run_number:02d}] material language: {art_plan['material_language']}", flush=True)
-        print(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}", flush=True)
-        print(f"[{run_number:02d}] prompt template: {prompt_name}", flush=True)
-        # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
-
-        uploaded_files = upload_reference_images(reference_files)
-        run_id = log_prompt(
-            run_number,
-            character_name,
-            reference_files,
-            uploaded_files,
-            theme,
-            scene,
-            pose,
-            lighting,
-            mood,
-            prompt_name,
-            prompt,
-            propagation_profile,
+        print(
+            f"Theme batch selected: {theme} "
+            f"({theme_total_runs} runs: {len(CHARACTER_SEQUENCE)} characters x {RUNS_PER_CHARACTER_PER_THEME})",
+            flush=True,
         )
-        send_prompt(prompt)
-        take_screenshot(f"run_{run_number:02d}_sent")
-        screenshot_path = wait_for_generation(run_number)
-        log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
-        recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
-        recent_visual_tags = recent_visual_tags[-12:]
-        if "--once" in sys.argv or "--review-url" in sys.argv:
-            open_images_page_for_review()
 
-        if "--once" in sys.argv:
-            print("--once completed. Review feedback, adjust prompts if needed, then run again.")
-            break
+        for character_name in CHARACTER_SEQUENCE:
+            if stop_requested:
+                break
+
+            for character_repeat in range(1, RUNS_PER_CHARACTER_PER_THEME + 1):
+                if run_number > total_runs:
+                    theme_completed = False
+                    break
+
+                reference_files = reference_files_for_character(character_name)
+                art_plan = choose_art_plan_for_outfit(theme)
+                action_style = choose_action_style(character_name, recent_visual_tags)
+                propagation_profile = propagation_profile_for(character_name)
+                scene = art_plan["spatial_structure"]
+                pose = action_style["body_silhouette"]
+                lighting = art_plan["lighting_behavior"]
+                mood = art_plan["color_strategy"]
+                template_index = 0
+                concept = art_plan["graphic_concept"]
+                prompt_name = prompt_template_name(template_index)
+                prompt = prompt_for_art_direction(character_name, art_plan, action_style)
+
+                print("=" * 72, flush=True)
+                print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
+                print(f"[{run_number:02d}] theme repeat: {character_name} {character_repeat}/{RUNS_PER_CHARACTER_PER_THEME}", flush=True)
+                print(f"[{run_number:02d}] character: {character_name}", flush=True)
+                print(f"[{run_number:02d}] references: {reference_files}", flush=True)
+                print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
+                print(f"[{run_number:02d}] scene: {scene}", flush=True)
+                print(f"[{run_number:02d}] pose: {pose}", flush=True)
+                print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
+                print(f"[{run_number:02d}] mood: {mood}", flush=True)
+                print(f"[{run_number:02d}] art plan: {art_plan['name']}", flush=True)
+                print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
+                print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
+                print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
+                print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
+                print(f"[{run_number:02d}] material language: {art_plan['material_language']}", flush=True)
+                print(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}", flush=True)
+                print(f"[{run_number:02d}] prompt template: {prompt_name}", flush=True)
+                # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
+
+                uploaded_files = upload_reference_images(reference_files)
+                run_id = log_prompt(
+                    run_number,
+                    character_name,
+                    reference_files,
+                    uploaded_files,
+                    theme,
+                    scene,
+                    pose,
+                    lighting,
+                    mood,
+                    prompt_name,
+                    prompt,
+                    propagation_profile,
+                )
+                send_prompt(prompt)
+                take_screenshot(f"run_{run_number:02d}_sent")
+                screenshot_path = wait_for_generation(run_number)
+                log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
+                recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
+                recent_visual_tags = recent_visual_tags[-12:]
+                if "--once" in sys.argv or "--review-url" in sys.argv:
+                    open_images_page_for_review()
+
+                if "--once" in sys.argv:
+                    print("--once completed. Review feedback, adjust prompts if needed, then run again.")
+                    theme_completed = False
+                    stop_requested = True
+                    break
+
+                run_number += 1
+
+            if run_number > total_runs:
+                break
+
+        if theme_completed and not stop_requested:
+            mark_clothing_theme_used(theme, used_clothing_themes)
+        else:
+            print(
+                f"Theme batch not completed; not marking theme as used: {theme}",
+                flush=True,
+            )
 
     print("All runs completed. Safety shutdown remains scheduled.")
 
