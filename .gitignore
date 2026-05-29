@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Runtime output
+screenshots/
+outputs/
+output/
+upload/
+runtime_uploads/
+downloads/
+
+# Logs and prompt history
+*.log
+prompt_log.jsonl
+feedback_log.jsonl
+run_log.jsonl
+config/chatgpt_batch_coords.json
+config/*usage_log.jsonl
+config/*used*.json
+config/utf8_write_test.txt
+
+# Local browser / automation state
+.playwright/
+playwright-profile/
+chrome-profile/
+user_data_dir/
+
+# Local environment
+.env
+.venv/
+venv/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
