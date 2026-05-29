@@ -80,6 +80,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--profile", type=Path, default=PLAYWRIGHT_PROFILE_DIR)
     parser.add_argument("--url", default=CHATGPT_IMAGES_URL)
     parser.add_argument("--dry-run", action="store_true", help="Build and log prompts but do not send to ChatGPT.")
+    parser.add_argument("--login-only", action="store_true", help="Open ChatGPT and save login state, without running a batch.")
     parser.add_argument(
         "--login-wait",
         type=int,
@@ -365,6 +366,12 @@ async def run_batch(args: argparse.Namespace) -> None:
         page = context.pages[0] if context.pages else await context.new_page()
         await page.goto(args.url, wait_until="domcontentloaded")
         await wait_for_composer(page, args.login_wait)
+
+        if args.login_only:
+            print("Login state is ready and saved in the Playwright profile.", flush=True)
+            print("You can close the browser window now, or press Ctrl+C in this terminal.", flush=True)
+            while True:
+                await asyncio.sleep(5)
 
         for run_number in range(1, total_runs + 1):
             character_name, reference_files = choose_character_group()

@@ -25,6 +25,7 @@ python -m playwright install chromium
 First run:
 
 ```powershell
+python .\chatgpt_batch_playwright.py --login-only
 python .\chatgpt_batch_playwright.py --once
 ```
 
