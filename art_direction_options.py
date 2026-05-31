@@ -85,7 +85,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "silver gray, blue violet, soft white",
     },
     "橘福福": {
-        "official_core": "橘色短发，明亮金橙眼睛，虎纹或虎主题小饰品，活泼、可靠、热烈的少女气质。",
+        "official_core": "橘色发色，明亮金橙眼睛，虎纹或虎主题小饰品，活泼、可靠、热烈的少女气质。",
         "identity_tokens": ["short orange hair", "golden-orange eyes", "tiger-themed accessory", "warm lively expression"],
         "viewer_relationship": "像元气地把观众拉进热闹场面，亲近、明亮、行动感强。",
         "thumbnail_strategy": "橘发、金橙眼、虎主题识别要稳定，避免被背景同化。",
