@@ -1,4 +1,4 @@
-from textwrap import dedent
+﻿from textwrap import dedent
 
 from art_direction_options import (
     ANTI_SAFE_COMPOSITION,
@@ -273,3 +273,4 @@ def prompt_for_theme(
     plan = choose_art_direction_plan(character_name)
     action = choose_action_style(character_name)
     return prompt_for_art_direction(character_name, plan, action)
+

@@ -1,4 +1,4 @@
-import random
+﻿import random
 
 ART_DIRECTION_PLANS = [
     {
@@ -2278,3 +2278,41 @@ def outfit_variation_for(character_name: str, plan_name: str | None = None) -> s
         "outfit rule: keep face, hairstyle, eye shape, signature hair accessory, and personality identity stable; clothing is an episode variation, not the fixed default costume; avoid exact same outfit across images"
     )
     return " / ".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Final identity separation patch: Miyabi vs Yeshunguang
+# This patch prevents the model from collapsing both sword girls into the same
+# black-haired beast-ear archetype.
+# ---------------------------------------------------------------------------
+CHARACTER_REQUIRED_IDENTITY_TOKENS.setdefault("星见雅", []).extend([
+    "星见雅必须是黑色长直发、厚重齐刘海、黑色尖兽耳、锐利红眼的冷感剑客",
+    "星见雅使用黑 / 墨绿 / 红色刀线的冷色武士剪影",
+    "星见雅明确不是叶瞬光：不要棕褐长发、不要暖棕大尾巴、不要红色发带、不要白金云岿山师姐服、不要温柔护送感",
+])
+CHARACTER_REQUIRED_IDENTITY_TOKENS.setdefault("叶瞬光", []).extend([
+    "叶瞬光必须是暖棕 / 焦糖色长发，带棕褐色兽耳和蓬松大棕尾",
+    "叶瞬光必须有红色发带 / 红绳 / 红色小花饰之一，红色眼睛，白色云岿山修行服配黑金或黄玉点缀",
+    "叶瞬光明确不是星见雅：不要黑长直姬发、不要黑色尖兽耳、不要黑绿冷色武士制服、不要冷酷压迫审视感、不要红黑太刀少女模板",
+])
+
+if "星见雅" in CHARACTER_PROPAGATION_PROFILES:
+    CHARACTER_PROPAGATION_PROFILES["星见雅"]["official_core"] += " 她必须和叶瞬光区分：黑发、黑尖兽耳、红眼、冷色武士剪影是星见雅；不要画成棕发红绳白金云岿山师姐。"
+    CHARACTER_PROPAGATION_PROFILES["星见雅"].setdefault("suppressed_misreads", []).extend([
+        "叶瞬光化", "棕褐长发", "暖棕大尾巴", "红色发带", "白金云岿山师姐服", "温柔护送感",
+    ])
+if "叶瞬光" in CHARACTER_PROPAGATION_PROFILES:
+    CHARACTER_PROPAGATION_PROFILES["叶瞬光"]["official_core"] += " 她必须和星见雅区分：暖棕长发、棕褐兽耳、蓬松大棕尾、红绳/红花饰、白金云岿山服是叶瞬光；不要画成黑发黑耳冷感武士。"
+    CHARACTER_PROPAGATION_PROFILES["叶瞬光"].setdefault("suppressed_misreads", []).extend([
+        "星见雅化", "黑长直姬发", "黑色尖兽耳", "黑绿冷色武士制服", "冷酷压迫审视感", "红黑太刀少女模板",
+    ])
+
+CHARACTER_OUTFIT_PUSH.setdefault("星见雅", []).extend([
+    "Miyabi-specific variation: black / dark-teal modern blade coat, black straight hair and black sharp beast ears preserved, red eye pressure, explicitly not brown-haired Yeshunguang",
+    "Miyabi-specific variation: minimalist dark sword heroine fashion, clean red blade-line accent, no brown tail, no red ribbon, no white-gold mountain senior-sister outfit",
+])
+CHARACTER_OUTFIT_PUSH.setdefault("叶瞬光", []).extend([
+    "Yeshunguang-specific variation: white cloud-mountain practitioner outfit, black-gold / yellow-jade details, red ribbon or red cord, warm brown hair and large brown tail preserved",
+    "Yeshunguang-specific variation: gentle senior-sister travel outfit, white outer layer, dark inner line, red tassel, sword cord, warm brown beast ears and fluffy tail clearly different from Miyabi",
+    "Yeshunguang-specific variation: rain-stone-step guardian outfit, pale robe jacket, red hair ribbon, sword tassel, soft brown tail, protective warmth not cold pressure",
+])
