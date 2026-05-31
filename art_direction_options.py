@@ -2170,3 +2170,111 @@ for _profile in CHARACTER_PROPAGATION_PROFILES.values():
         "reference_soft_lineart_reinterpretation",
         "intimate_anime_photo_crop",
     })
+
+# ---------------------------------------------------------------------------
+# Final feedback plan: white infinity room
+# Added after all overrides so the plan is present in the effective V3 pool.
+# ---------------------------------------------------------------------------
+WHITE_INFINITY_ROOM_PLAN_FINAL = {
+    "name": "white_infinity_room",
+    "graphic_concept": "a pure white infinite room where the character, silhouette, and one small symbolic accent become the entire visual hook; clean social anime poster feeling",
+    "spatial_structure": "endless white / warm gray / soft cream space with no visible wall clutter, only subtle floor shadow or circular platform to ground the character without swallowing them",
+    "visual_device": "large negative space, crisp character silhouette, one floating minimal symbol, low-contrast geometric shadow, strong thumbnail readability through shape rather than noisy background",
+    "body_silhouette": "single character in full-body, thigh-up, or clean three-quarter standing pose; calm readable limbs, natural hands, no lens-reaching hand, no complex crossed fingers",
+    "outfit_direction": "minimal high-end outfit with character-specific color accents: white, gray, cream, black, or pale neutral base plus one recognizable identity color; avoid locking everyone into the same costume",
+    "material_language": "smooth cloth, matte surfaces, clean lineart, very light glow, no heavy texture, no metallic overload, no studio product-render feeling",
+    "color_strategy": "mostly white / warm gray / cream space, character color used as small controlled accent; avoid full-frame hot pink, magenta, neon background, or same-hue background matching the character accent",
+    "lighting_behavior": "soft shadowless gallery light, gentle floor contact shadow, clean edge light around hair and outfit, quiet but memorable minimalism",
+}
+
+if not any(plan["name"] == WHITE_INFINITY_ROOM_PLAN_FINAL["name"] for plan in ART_DIRECTION_PLANS):
+    ART_DIRECTION_PLANS.append(WHITE_INFINITY_ROOM_PLAN_FINAL)
+
+OUTFIT_DIRECTIONS = [plan["outfit_direction"] for plan in ART_DIRECTION_PLANS]
+
+PLAN_TAGS["white_infinity_room"] = {"minimal", "white_space", "character_icon", "clean_color", "user_feedback"}
+
+for _character_name in list(CHARACTER_PLAN_WEIGHTS):
+    CHARACTER_PLAN_WEIGHTS.setdefault(_character_name, {})["white_infinity_room"] = 3
+
+for _character_name in ["荳ｹ", "蜊怜ｮｫ", "莉ｪ邇・", "譏溯ｧ・寉", "蟶ｭ蠕ｷ"]:
+    CHARACTER_PLAN_WEIGHTS.setdefault(_character_name, {})["white_infinity_room"] = 6
+
+for _profile in CHARACTER_PROPAGATION_PROFILES.values():
+    _profile.setdefault("preferred_hooks", set()).add("white_infinity_room")
+
+# ---------------------------------------------------------------------------
+# Final outfit variation experiment
+# Keep this block at the end. It overrides outfit_variation_for without touching
+# identity locks, so it is easy to remove if the result drifts too far.
+# ---------------------------------------------------------------------------
+OUTFIT_EPISODE_POOL = [
+    "episode outfit: soft daily private clothes, loose cardigan, simple skirt or shorts, small character-color accessory; clearly different from the default reference costume",
+    "episode outfit: light novel date outfit, clean layered top, neat waist detail, coordinated socks or boots, character identity colors kept only as accents",
+    "episode outfit: fantasy idol stage-lite costume, asymmetrical ribbon detail, compact decorative trim, readable silhouette, not a cosplay copy of the reference outfit",
+    "episode outfit: airy studio dress / long shirt layer, matte fabric, minimal jewelry, soft movement in sleeves or hem, face and hair identity unchanged",
+    "episode outfit: modern street casual, cropped jacket or soft hoodie layer, simple pleated bottom, one iconic charm attached to bag / belt / collar",
+    "episode outfit: storybook formal casual, small capelet or shawl, gentle collar shape, polished shoes, elegant but not heavy palace costume",
+    "episode outfit: clean summer outfit, pale inner layer, light outer shirt, short skirt or shorts, breathable fabric, no repeated school-uniform look",
+    "episode outfit: rainy-day transparent coat or soft trench, muted neutral base, one vivid character-color lining, hands kept simple and visible",
+    "episode outfit: white-room minimal fashion, cream / gray / black base, one bold identity-color stripe or accessory, high-end poster silhouette",
+    "episode outfit: RPG town casual fantasy, travel shawl, small pouch, simple boots, festival accent, character personality over armor complexity",
+    "episode outfit: aquarium date styling, blue-white light fabric, translucent small accessory, gentle layered skirt or culotte, calm reflective mood",
+    "episode outfit: practice-room casual, fitted but safe dance top, loose warm-up jacket, sporty skirt or shorts, clean idol rehearsal feeling",
+]
+
+PLAN_OUTFIT_ADAPTER = {
+    "aquarium_blue_date": "scene adapter: add blue-white transparent details and water-reflection softness, avoid paper / pen / creator props",
+    "rainy_clear_umbrella_date": "scene adapter: add raincoat, soft trench, clear umbrella color echo, keep hands simple and not gripping complex objects",
+    "idol_practice_mirror_clean": "scene adapter: add rehearsal wear or warm-up jacket, not full performance costume every time",
+    "rpg_town_square_festival": "scene adapter: add festival ribbon, town-travel layer, small pouch or charm, avoid armor overload",
+    "storybook_castle_balcony": "scene adapter: add light capelet, storybook collar, soft formal trim, avoid heavy royal costume",
+    "game_ui_battle_select": "scene adapter: add compact action-fashion details and clean UI-like color blocking, no weapon requirement unless character identity needs it",
+    "theme_park_twilight": "scene adapter: add date-park outer layer, small glowing accessory, playful but safe silhouette",
+    "white_infinity_room": "scene adapter: simplify into white / gray / cream minimal fashion with one strong identity accent",
+    "reference_soft_lineart_reinterpretation": "scene adapter: preserve reference color memory but redesign outfit as a lighter illustration episode outfit",
+    "intimate_anime_photo_crop": "scene adapter: use soft date-photo clothing with visible collar / waist / shoulder detail, avoid pure bust-only framing",
+}
+
+CHARACTER_OUTFIT_PUSH = {
+    "荳ｹ": [
+        "Dan-specific variation: replace default sacred dress with quiet future-casual white jacket, sea-blue inner layer, soft skirt-pants, and one small halo / water accent",
+        "Dan-specific variation: minimal gallery outfit, cream long shirt, pale aqua sash, matte boots, calm sacred mood without repeating the same dress",
+        "Dan-specific variation: rainy-day gentle coat, muted mint-gray palette, transparent hood edge, elegant but daily enough to feel new",
+    ],
+    "蜊・､・": [
+        "Chinatsu-specific variation: keep mint hair silhouette from reference, use fresh mint daily outfit, bow and heart-earring identity preserved, no artist / paper / pen props",
+        "Chinatsu-specific variation: soft summer date clothes, pale green cardigan, simple skirt, large bow kept, natural companion mood",
+    ],
+    "譏溯ｧ・寉": [
+        "Miyabi-specific variation: black-red modern coat dress or rain-night formal wear, ears and black long hair preserved, no forced sword unless the scene truly benefits",
+        "Miyabi-specific variation: minimalist dark heroine fashion, clean red accent line, strong silhouette without weapon dependency",
+    ],
+}
+
+_BASE_OUTFIT_VARIATION_FOR = outfit_variation_for
+
+
+def outfit_variation_for(character_name: str, plan_name: str | None = None) -> str:
+    character = _primary_character(character_name)
+    parts = []
+
+    character_push = CHARACTER_OUTFIT_PUSH.get(character, [])
+    if character_push and random.random() < 0.75:
+        parts.append(random.choice(character_push))
+    else:
+        original = _BASE_OUTFIT_VARIATION_FOR(character_name, plan_name)
+        if original:
+            parts.append(original)
+
+    if random.random() < 0.9 or not parts:
+        parts.append(random.choice(OUTFIT_EPISODE_POOL))
+
+    adapter = PLAN_OUTFIT_ADAPTER.get(plan_name or "")
+    if adapter:
+        parts.append(adapter)
+
+    parts.append(
+        "outfit rule: keep face, hairstyle, eye shape, signature hair accessory, and personality identity stable; clothing is an episode variation, not the fixed default costume; avoid exact same outfit across images"
+    )
+    return " / ".join(parts)
