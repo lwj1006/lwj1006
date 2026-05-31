@@ -454,6 +454,7 @@ def send_work_reminder(completed_run_number: int) -> None:
         flush=True,
     )
     send_prompt(WORK_REMINDER_TEXT)
+    wait_with_echo(CHECK_INTERVAL_SECONDS, f"[{completed_run_number:02d}] reminder settle")
 
 
 def take_screenshot(label: str) -> Path:
