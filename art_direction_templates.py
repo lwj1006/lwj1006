@@ -40,7 +40,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
-    outfit = outfit_variation_for(character_name, art_plan.get("name"))
+    outfit = outfit_variation_for(character_name, art_plan.get("outfit_direction"))
 
     lines = [
         "Independent image task. Ignore previous context. Uploaded references are identity reference only. One single character.",
@@ -52,7 +52,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         f"Feeling: {profile['viewer_relationship']} {profile['thumbnail_strategy']}",
         "",
         f"Pose and framing: {action_style.get('body_silhouette', '')} {viewer_distance_for(character_name)}.",
-        "Hands and feet: simple, natural, readable; exactly five fingers per visible hand.",
+        "Hands: relaxed, simple, naturally drawn, no exaggerated foreground hands. Feet only need to be clear when visible.",
         "",
         f"Scene: {art_plan.get('graphic_concept', '')} {art_plan.get('spatial_structure', '')}",
         f"Visual focus: {art_plan.get('visual_device', '')}",

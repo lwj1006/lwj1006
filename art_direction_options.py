@@ -7,6 +7,7 @@ OUTFIT_DIRECTIONS = [
     "transparent summer jacket over a sporty camisole, fresh and polished",
     "cafe maid remix outfit, neat apron, ribbons, cute and clean",
     "romantic flower bridal dress, elegant veil or bouquet, non-adult",
+    "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
     "elegant black stockings outfit, refined fashion styling, no explicit posing",
     "white blouse and black stockings, clean heroine styling",
     "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
@@ -462,9 +463,9 @@ def viewer_distance_for(character_name):
     return "medium-close to three-quarter body framing, character occupies a large part of the image"
 
 
-def outfit_variation_for(character_name, plan_name=None):
+def outfit_variation_for(character_name, outfit_direction=None):
     profile = _profile_for(character_name)
-    base = random.choice(OUTFIT_DIRECTIONS)
+    base = outfit_direction if outfit_direction in OUTFIT_DIRECTIONS else random.choice(OUTFIT_DIRECTIONS)
     return (
         f"{base}; adapt the outfit to the current character's own palette: {profile['color_anchor']}; "
         "never change the character's hairstyle, hair color, eye color, or core accessories"
