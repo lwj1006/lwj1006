@@ -1,4 +1,4 @@
-﻿import random
+import random
 
 ART_DIRECTION_PLANS = [
     {
@@ -2438,4 +2438,152 @@ CHARACTER_OUTFIT_VARIATIONS["橘福福"] = [
     "红橙街景短披肩 + 虎形小挂件 + 轻盈裙裤，不变普通猫娘",
     "火光运动短外套 + 暖色束带 + 虎威小装置，动作感清楚但背景自由",
     "摄影棚元气偶像风外套 + 虎纹发饰 + 奶白和橙色对比，明亮可爱但能打",
+]
+
+
+# ---------------------------------------------------------------------------
+# Hotfix 2026-05-31: strict character-lock overrides for weak-following cases.
+# Problem observed in batch output:
+# - 橘福福: prompt over-amplified tiger/beast traits.
+# - 叶瞬光: identity became too generic.
+# - 席德: model ignored the official white/blue mechanic silhouette.
+# These overrides are consumed by art_direction_templates.py and are intentionally
+# written as hard visual locks rather than soft style suggestions.
+# ---------------------------------------------------------------------------
+CHARACTER_HARD_NEGATIVE_TOKENS = {
+    "橘福福": [
+        "no real tiger face", "no tiger snout", "no tiger muzzle", "no striped tiger body",
+        "no heavy animal transformation", "no furry beast body", "no oversized tiger paws",
+        "no orange tiger palette dominating the character", "do not turn her into a tiger girl costume",
+    ],
+    "叶瞬光": [
+        "no generic fox girl", "no random brown-haired swordswoman", "no soft idol redesign",
+        "no missing long blade", "no missing white combat bodysuit", "no loss of brown hair and red eyes",
+        "no replacing the mountain sect operative identity with casual clothing",
+    ],
+    "席德": [
+        "no blue dress", "no idol dress", "no swimsuit", "no casual school outfit",
+        "no missing blue hair", "no missing pale mechanical bodysuit", "no missing large industrial hammer",
+        "no wrong weapon such as sword, gun, microphone, umbrella, or staff",
+        "no fantasy kimono redesign", "no pink dominant palette",
+    ],
+}
+
+CHARACTER_STRICT_IDENTITY_BLOCK = {
+    "橘福福": [
+        "Character must read as 橘福福 / Ju Fufu from Zenless Zone Zero, not a generic tiger mascot.",
+        "Core silhouette: small energetic martial artist girl, orange-brown hair, red-orange eyes, Chinese lion-dance / tiger-cub motif kept as accessories and costume language only.",
+        "Animal motif limit: tiger/lion elements may appear as ears, tail, trim, charm, plush mask, or background icon, but the human face and body must remain fully human anime girl.",
+        "Keep readable Chinese festive martial costume details, red ribbons, compact athletic body language, playful confidence.",
+    ],
+    "叶瞬光": [
+        "Character must read as 叶瞬光 / Ye Shunguang from Zenless Zone Zero.",
+        "Core silhouette: long warm brown hair with darker inner layers, red eyes, white-black-gold combat bodysuit, red ribbon accents, fox/wolf ear-like hair silhouette, large tail-like hair mass, long black/silver blade in hand.",
+        "Keep mountain-sect cyber martial artist identity: elegant, sharp, fast, confident, sword-forward composition.",
+        "Do not soften into a generic idol or casual streetwear girl; the blade and combat uniform are mandatory anchors.",
+    ],
+    "席德": [
+        "Character must read as 席德 / Seed from Zenless Zone Zero OBOL Squad.",
+        "Core silhouette: short light cyan-blue hair, green eyes, soft smile, white/pale gray fitted mechanical operator bodysuit, exposed mechanical arm/tech forearm parts, orange-yellow cable accents, large industrial hammer/tool weapon.",
+        "Keep OBOL Squad sci-fi mechanic identity: clean white-blue engineering palette, heavy tool silhouette, operator hardware, calm professional expression.",
+        "Do not redesign her as a fantasy girl, idol, swimsuit character, or random blue-haired student; hammer/tool and white mechanical outfit are mandatory.",
+    ],
+}
+
+CHARACTER_OUTFIT_LOCKS = {
+    "橘福福": "Use a human martial-girl outfit with Chinese festive red/white/black accents; tiger/lion symbols stay as small trim, charms, tail/ear motif, or background sign only. Avoid full tiger costume or beast body.",
+    "叶瞬光": "Use her official white-black-gold cyber martial combat bodysuit with red ribbons, long blade, waist ornaments, and flowing brown hair; avoid casual clothing unless the blade and bodysuit identity remain obvious.",
+    "席德": "Use her official white/pale-gray mechanical operator bodysuit, cyan hair, green eyes, tech arm pieces, yellow/orange cable accents, and oversized hammer/tool weapon; avoid dress/skirt/casual swaps for this character.",
+}
+
+# Strengthen the existing identity-token dictionaries without deleting older content.
+for _name, _tokens in {
+    "橘福福": [
+        "human anime girl", "orange-brown hair", "red-orange eyes", "Chinese martial festival costume",
+        "small tiger/lion dance accessories only", "red ribbons", "playful martial artist pose",
+        "tiger motif must not become animal body",
+    ],
+    "叶瞬光": [
+        "long warm brown hair", "dark inner hair layers", "red eyes", "white-black-gold combat bodysuit",
+        "red ribbon accents", "long black/silver blade", "mountain sect cyber martial artist",
+        "tail-like flowing hair mass",
+    ],
+    "席德": [
+        "short light cyan-blue hair", "green eyes", "white pale-gray mechanical bodysuit",
+        "exposed mechanical arm parts", "large industrial hammer weapon", "orange-yellow cable accents",
+        "OBOL Squad sci-fi operator", "calm professional smile",
+    ],
+}.items():
+    _old = CHARACTER_REQUIRED_IDENTITY_TOKENS.get(_name, [])
+    CHARACTER_REQUIRED_IDENTITY_TOKENS[_name] = list(dict.fromkeys([*_tokens, *_old]))
+
+# Keep these three characters away from prompt plans that are prone to identity drift.
+for _name, _forbidden in {
+    "橘福福": ["beast_transformation", "animal_form", "wild_tiger", "monster_girl", "full_furry"],
+    "叶瞬光": ["soft_school_date", "pure_idol_stage", "maid_cafe", "sleepwear_room"],
+    "席德": ["fantasy_princess", "idol_stage", "school_uniform", "maid_cafe", "swimsuit_resort", "kimono_festival"],
+}.items():
+    _old = CHARACTER_FORBIDDEN_PLANS.get(_name, [])
+    CHARACTER_FORBIDDEN_PLANS[_name] = list(dict.fromkeys([*_old, *_forbidden]))
+
+# Bias weak-following characters toward clean scenes where identity anchors stay visible.
+CHARACTER_PLAN_WEIGHTS.update({
+    "橘福福": {
+        "studio_fullbody_character_sheet": 4,
+        "kinetic_closeup": 3,
+        "clean_white_magazine_cover": 3,
+        "festival_street_snapshot": 2,
+    },
+    "叶瞬光": {
+        "studio_fullbody_character_sheet": 4,
+        "kinetic_closeup": 3,
+        "magazine_graphic_cover": 3,
+        "rainy_city_overpass": 1,
+    },
+    "席德": {
+        "studio_fullbody_character_sheet": 5,
+        "clean_white_magazine_cover": 3,
+        "mechanic_workshop_portrait": 3,
+        "near_future_station": 2,
+    },
+})
+
+
+def hard_negative_tokens_for(character_name: str) -> list[str]:
+    return CHARACTER_HARD_NEGATIVE_TOKENS.get(character_name, [])
+
+
+def strict_identity_block_for(character_name: str) -> list[str]:
+    return CHARACTER_STRICT_IDENTITY_BLOCK.get(character_name, [])
+
+
+def outfit_lock_for(character_name: str) -> str:
+    return CHARACTER_OUTFIT_LOCKS.get(character_name, "")
+
+# Final override: reduce over-amplified animal traits for 橘福福.
+# Earlier profiles used strong "tiger/fire" wording; that made the model animalize her.
+if "橘福福" in CHARACTER_PROPAGATION_PROFILES:
+    CHARACTER_PROPAGATION_PROFILES["橘福福"].update({
+        "official_core": "橘福福：元气近战少女，核心是人形少女、利落动作、节庆武术感、红白暖色小装饰。动物/虎狮元素只作为小型符号、发饰、挂件、尾巴/耳朵暗示或背景图标，不要把她画成老虎、兽人或完整虎装。",
+        "thumbnail_identity": "先读到人形可爱战斗少女，其次才是少量虎狮/节庆符号；小图不能变成动物角色。",
+        "signature_scene_logic": "明亮摄影棚、节日街景、清爽户外、简洁幻想色块都可以；背景只辅助人形角色，不堆兽面、虎纹和动物图腾。",
+        "suppressed_misreads": "不要真实虎脸、不要虎口鼻、不要满身虎纹、不要虎爪兽腿、不要兽化、不要把角色画成虎玩偶或虎皮套装。",
+    })
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS["橘福福"] = [
+    "human anime girl",
+    "orange-brown / warm brown hair",
+    "red-orange eyes",
+    "compact energetic martial artist body language",
+    "red ribbon or festive small accessory",
+    "Chinese festive martial outfit language",
+    "small tiger/lion motif only as accessory or background icon",
+    "animal motif must not become animal body or tiger costume",
+]
+
+CHARACTER_STRICT_IDENTITY_BLOCK["橘福福"] = [
+    "Character must read as 橘福福 / Ju Fufu from Zenless Zone Zero, not a tiger mascot and not a furry animal character.",
+    "Core silhouette: fully human anime girl, warm brown/orange-brown hair, red-orange eyes, compact martial-artist posture, red/festive accessory accents.",
+    "Animal motif budget is very small: at most ears, tiny charm, ribbon pattern, small tail hint, or background emblem; no tiger face, no tiger muzzle, no full tiger costume, no beast body.",
+    "Keep the image cute, bright, and action-ready; do not let tiger symbols dominate the design.",
 ]

@@ -1,4 +1,4 @@
-﻿from textwrap import dedent
+from textwrap import dedent
 
 from art_direction_options import (
     ANTI_SAFE_COMPOSITION,
@@ -8,6 +8,9 @@ from art_direction_options import (
     propagation_profile_for,
     required_identity_tokens_for,
     viewer_distance_for,
+    hard_negative_tokens_for,
+    strict_identity_block_for,
+    outfit_lock_for,
 )
 
 
@@ -68,6 +71,7 @@ CHARACTER_LOCKS = {
 }
 
 
+
 def _character_names(character_name: str) -> list[str]:
     names = [name.strip() for name in character_name.replace("，", "、").split("、") if name.strip()]
     return names or ["丹"]
@@ -82,183 +86,198 @@ def choose_art_direction_plan(character_name: str | None = None) -> dict:
 
 
 def prompt_template_name(template_index: int = 0) -> str:
-    return "fenjue_v3_social_anime_character"
+    return "fenjue_v4_natural_language_compact"
 
 
 def _compact_prompt(text: str) -> str:
-    lines = [line.strip() for line in text.splitlines()]
+    lines = [line.strip() for line in str(text).splitlines()]
     return "\n".join(line for line in lines if line)
 
 
-def _identity_lock(character_name: str) -> str:
+def _sentence_join(parts: list[str]) -> str:
+    cleaned = []
+    for part in parts:
+        part = " ".join(str(part).split())
+        if part:
+            cleaned.append(part)
+    return " ".join(cleaned)
+
+
+def _safe_get(data: dict, key: str, default: str = "") -> str:
+    value = data.get(key, default) if isinstance(data, dict) else default
+    return str(value).strip()
+
+
+def _identity_text(character_name: str) -> str:
     names = _character_names(character_name)
     locks = " ".join(CHARACTER_LOCKS.get(name, CHARACTER_LOCKS["丹"]) for name in names)
+
     required_tokens = [
         token
         for name in names
         for token in required_identity_tokens_for(name)
     ]
-    required_line = ""
-    if required_tokens:
-        required_line = (
-            "\n【Non-negotiable Identity Tokens / 不可协商身份锚点】\n"
-            f"本角色必须同时满足这些识别 token：{'；'.join(required_tokens)}。\n"
-            "这些 token 的优先级高于服装主题、场景主题、背景符号、构图企划和本轮随机变化。"
-        )
-    if _is_group(names):
-        subject_rule = (
-            "本次虽然保留多人能力，但当前 art direction pipeline 优先单人；如果出现多人，必须逐个锁定对应参考图身份，不允许发型、发色、发饰互换。"
-        )
-    else:
-        subject_rule = (
-            "本次是 single character only，只允许一个人物实体。不要生成其他队友、第二个人物、分身、远处小人、半透明大脸剪影或画中画重复人物。"
-        )
-    return _compact_prompt(dedent(f"""
-    【Identity Lock / 角色锁定】
-    上传图片只作为 {character_name} 的人物身份参考，不复制原图构图。
-    {subject_rule}
-    {locks}
-    {required_line}
-    角色身份优先级高于服装主题、场景主题和视觉企划。服装可以变化，但不能改变头发轮廓、发色、发饰、眼睛、核心符号和人格气质。
-    """))
+    strict_tokens = [
+        token
+        for name in names
+        for token in strict_identity_block_for(name)
+    ]
 
-
-def _visual_direction(plan: dict) -> str:
-    return _compact_prompt(dedent(f"""
-    闭嘴画图不要评论
-    【Fenjue 3.0 / 二次元角色传播企划】
-    你不是电影摄影师，也不是 AAA 概念图画师；请以社交平台头部二次元插画师的判断来设计画面。
-    第一目标是停滑、点击、收藏和传播；角色人格、幻想感、情绪价值和缩略图识别优先于真实空间逻辑。
-    世界从角色人格中生长出来，不是角色进入一个写实场景。
-
-    核心情绪钩子：{plan["graphic_concept"]}。
-    人格化世界：{plan["spatial_structure"]}。
-    幻想传播符号：{plan["visual_device"]}。
-    符号预算：本张图最多一个 primary hook symbol，再加一个 secondary support symbol；不要同时堆光环、爱心、UI、背后结构、星星、手持设备、耳机、漂浮物。
-    构图分配：角色脸、眼睛、发型大形、肩线、腰线和膝上姿态是第一视觉锚点；角色存在感约 55% 到 75%，背景和幻想元素只负责放大角色魅力。避免连续生成纯大脸或过近裁切。
-    缩略图检查：小图里优先读到角色是谁、她的情绪、主色记忆点和一个大幻想符号。
-    """))
-
-
-def _official_personality_translation(character_name: str) -> str:
-    profile = propagation_profile_for(character_name)
-    viewer_distance = viewer_distance_for(character_name)
-    primary_symbols = " / ".join(profile["primary_hook_symbols"])
-    secondary_symbols = " / ".join(profile["secondary_support_symbols"])
-    thumbnail_modes = " / ".join(profile["thumbnail_modes"])
-    suppressed = "；".join(profile["suppressed_misreads"])
-    return _compact_prompt(dedent(f"""
-    【Official Personality Translation / 官方人格传播转译】
-    本次角色不是 generic anime girl。请先遵守角色官方/项目人格核心，再把人格转译成社交平台传播画面。
-    官方/项目核心：{profile["official_core"]}
-    传播人格：{profile["propagation_translation"]}
-    Viewer 关系：{profile["viewer_relationship"]}
-    Viewer distance：{viewer_distance}
-    互动方式硬规则：{profile["interaction_rule"]}
-    缩略图策略：{profile["thumbnail_strategy"]}
-    可用缩略图类型：{thumbnail_modes}。
-    Primary hook symbol 只能选一个：{primary_symbols}。
-    Secondary support symbol 最多选一个：{secondary_symbols}。
-    其他幻想元素降级为很小的背景点缀，不能同时抢画面。
-    安全吸引力策略：{profile["safe_sensuality"]}
-    高优先级误读惩罚：{suppressed}。
-    """))
-
-
-def _performance(character_name: str, plan: dict, action: dict) -> str:
-    viewer_distance = viewer_distance_for(character_name)
-    return _compact_prompt(dedent(f"""
-    【Character Appeal / 角色人格与互动】
-    本次互动语言：{action["name"]}。
-    角色画面表现：{action["body_silhouette"]}。
-    人格驱动：{action["personality_logic"]}。
-    缩略图支撑：{action["support_rule"]}。
-    禁忌：{action["avoid_rule"]}。
-    Viewer distance 执行：{viewer_distance}
-    视觉企划原始姿态参考：{plan["body_silhouette"]}；如果它和互动语言冲突，以互动语言为准。
-    角色不只是被观看，而是在和 viewer 形成关系；互动距离必须服从本角色的 Viewer distance，不要把所有角色都拉成贴脸亲密营业。
-    表情需要有可传播的情绪钩子：心动、陪伴、秘密感、清爽感、梦境感、崇拜感或被角色选中的感觉。
-    不要让所有角色都变成同一种大脸自拍；根据角色传播人格选择膝上型、三分之二身型、姿态型、色块型、符号型或极简头像型。
-    """))
-
-
-def _anatomy_control() -> str:
-    return _compact_prompt(dedent("""
-    【Hand & Foot Control / 手脚稳定】
-    手和脚不是本张图的卖点，除非动作明确需要，否则让手保持简单、自然、低风险。
-    可见手部优先采用：手指自然并拢、轻握小道具、手扶耳机、手放胸前、手藏进袖口、手在身体侧边或被衣袖/道具部分遮挡。
-    避免手指指向屏幕、手指指向 viewer、手掌贴近镜头、广角大手、复杂手势、双手交叉成团、手指张开过大、手指被发丝或饰品切碎。
-    如果需要互动感，用眼神、表情、耳机、麦克风、小道具和身体朝向完成，不使用手机，也不要用食指戳向画面。
-    如果角色有剑客或执剑设定，优先把剑意转译为腰侧小配件、红色线状光轨、剑穗、符纹、衣摆方向线、背景剪影或收刀后的气场；不要强制让手握剑、拔剑、持剑指向画面。
-    每只可见手保持清楚的五指结构；不要额外手、缺失手、六指七指、融合手指、断指、反向拇指、畸形指节。
-    如果画到脚或鞋，双脚要有明确落点和方向；避免多余脚、缺失脚、悬空脚、鞋子融合、脚踝扭曲。
-    优先保证脸、眼睛、发型和角色轮廓；手脚不清楚时宁可简化或遮挡，不要强行展示复杂细节。
-    """))
-
-
-def _fashion(character_name: str, plan: dict) -> str:
-    outfit_variation = outfit_variation_for(character_name, plan["name"])
-    outfit_variation_line = (
-        f"本次服装变体：{outfit_variation}。"
-        if outfit_variation
-        else "本次服装变体：跟随服装主题，但不要重复上一张的具体衣形。"
+    subject_rule = (
+        "Single character only; do not create extra teammates, clones, distant small people, repeated faces, or picture-in-picture copies."
+        if not _is_group(names)
+        else "If multiple characters appear, keep each uploaded reference identity separate and never swap hairstyle, hair color, accessories, or symbols."
     )
-    return _compact_prompt(dedent(f"""
-    【Fashion & Character Icon / 服装与角色图标】
-    服装主题：{plan["outfit_direction"]}。
-    {outfit_variation_line}
-    材料语言：{plan["material_language"]}。
-    色彩策略：{plan["color_strategy"]}。
-    服装服务角色人格和社交传播：轮廓要一眼记住，配色要有角色专属记忆点。
-    允许更强二次元幻想设计、偶像感、恋爱感、小配件和发光装饰，但不要堆满碎件。
-    头发、眼睛、发饰、领口、袖口和腰线是高细节区；手部附近只保留少量清楚装饰，避免让手部结构变复杂。
-    """))
+
+    token_line = ""
+    if required_tokens:
+        token_line += " Required identity tokens: " + "; ".join(required_tokens) + "."
+    if strict_tokens:
+        token_line += " Strict correction tokens: " + "; ".join(strict_tokens) + "."
+
+    return _sentence_join([
+        f"Use the uploaded images only as identity reference for {character_name}, not as composition reference.",
+        subject_rule,
+        locks,
+        token_line,
+        "Character identity has higher priority than outfit, scene, camera angle, and random visual theme.",
+    ])
 
 
-def _rendering(plan: dict) -> str:
-    return _compact_prompt(dedent(f"""
-    【Rendering Layer / Pixiv-Social 完成度】
-    光影行为：{plan["lighting_behavior"]}。
-    top-tier social anime illustration atmosphere，Pixiv-like premium character artwork quality，clean appealing lineart，beautiful color design。
-    high thumbnail impact，strong character aura，memorable color palette，dreamlike fantasy symbols，emotion-first composition。
-    画风融合：轻量手绘感二次元插画、轻小说插画美术、柔和淡彩但不发白、干净动漫线稿、纤细草稿感轮廓线、柔和扁平化配色。
-    线稿优先：以清爽线条、空气感轮廓和明确颜色分区表达角色，不追求厚重材质、3D质感、油画笔触或半写实皮肤。
-    色彩纪律：保持淡彩氛围，但角色主色、服装主色和视觉重点颜色必须清楚；避免整体低饱和雾化、画面发白、主色被冲淡、高饱和霓虹糖果色和过强对比。
-    背景色纪律：背景不能直接铺满角色头发、发饰、服装边线或瞳色的同色相高饱和色；尤其避免整张背景变成高饱和粉色、洋红、紫红、荧光蓝或角色主色。背景应使用米白、浅灰、雾蓝、奶油色、低饱和互补色或有明度差的柔和渐变来托出人物。
-    移动端肖像语法：允许亲近的竖图壁纸感、柔和自然光、金色时段边缘光、脸部强焦点、干净留白和轻微背景虚化；但不要强制极端大头裁切，不要手伸向镜头，不要只剩头肩。
-    detail hierarchy：最高细节集中在眼睛、脸、发型大形、发饰、领口、腰线和主幻想符号；手脚保持清楚但简化，背景减少真实建筑细节。
-    画面要像会被收藏转发的二次元角色图、头像级封面、偶像视觉图、轻小说封面或梦境角色海报，不是电影截图、游戏 loading 图、UE5 宣传图或西式概念设定稿。
-    """))
+def _personality_text(character_name: str) -> str:
+    profile = propagation_profile_for(character_name)
+    primary_symbols = " / ".join(profile.get("primary_hook_symbols", []))
+    secondary_symbols = " / ".join(profile.get("secondary_support_symbols", []))
+    suppressed = " / ".join(profile.get("suppressed_misreads", []))
+
+    return _sentence_join([
+        f"Official personality core: {profile.get('official_core', '')}",
+        f"Social illustration translation: {profile.get('propagation_translation', '')}",
+        f"Viewer relationship: {profile.get('viewer_relationship', '')}",
+        f"Interaction rule: {profile.get('interaction_rule', '')}",
+        f"Viewer distance: {viewer_distance_for(character_name)}",
+        f"Use only one primary hook symbol from: {primary_symbols}." if primary_symbols else "",
+        f"Use at most one secondary support symbol from: {secondary_symbols}." if secondary_symbols else "",
+        f"Avoid these misreads: {suppressed}." if suppressed else "",
+    ])
 
 
-def _negative() -> str:
-    anti_safe = "，".join(ANTI_SAFE_COMPOSITION)
-    return _compact_prompt(dedent(f"""
-    【Avoid / 反安全模板】
-    {anti_safe}。
-    avoid cinematic realism，avoid AAA game key visual，avoid western concept art，avoid UE5 promotional render，avoid industrial hard-surface scene。
-    avoid tiny character swallowed by space，avoid complicated architecture，avoid realistic photography logic，avoid gray abandoned building mood。
-    avoid overrendering，avoid AI detail noise，avoid excessive texture，avoid oversharpening，avoid plastic anime look。
-    avoid random decorative clutter，avoid cheap fantasy effects，avoid generic AI anime style，avoid low-quality fanservice。
-    avoid semi-realistic anime，heavy impasto rendering，oil painting feeling，glossy oily skin，cinematic dramatic shadows，realistic 3D render，heavy material texture，washed-out pastel fog，whitewashed image，diluted clothing main color，neon candy over-saturation，full-frame hot pink background，full-frame magenta background，background same hue as character accent color。
-    avoid extra fingers，missing fingers，six fingers，seven fingers，fused fingers，broken fingers，malformed hands，missing hands，extra hands，extra arms，extra feet，missing feet，twisted ankles，duplicated face，misaligned eyes。
-    不要画面文字、英文标牌、角色名拼写、logo 或海报排版文字。
-    """))
+def _outfit_text(character_name: str, plan: dict) -> str:
+    outfit_variation = outfit_variation_for(character_name, _safe_get(plan, "name"))
+    outfit_lock = outfit_lock_for(character_name)
+
+    return _sentence_join([
+        f"Outfit direction: {_safe_get(plan, 'outfit_direction', 'clean character-focused outfit')}.",
+        f"This outfit variation: {outfit_variation}." if outfit_variation else "Do not repeat the exact same clothing shape from the previous image.",
+        f"Mandatory outfit lock: {outfit_lock}." if outfit_lock else "",
+        f"Material language: {_safe_get(plan, 'material_language', 'clean fabric, simple accessories, clear silhouette')}.",
+        f"Color strategy: {_safe_get(plan, 'color_strategy', 'clear character colors with a clean supporting background')}.",
+        "Keep hair, eyes, face, hair accessories, neckline, shoulders, waistline, and the main character symbol as the most detailed areas.",
+    ])
+
+
+def _action_text(character_name: str, plan: dict, action: dict) -> str:
+    return _sentence_join([
+        f"Action language: {_safe_get(action, 'name', 'natural character pose')}.",
+        f"Body performance: {_safe_get(action, 'body_silhouette', _safe_get(plan, 'body_silhouette', 'clear knee-up or three-quarter character pose'))}.",
+        f"Personality logic: {_safe_get(action, 'personality_logic', '')}.",
+        f"Support rule: {_safe_get(action, 'support_rule', '')}.",
+        f"Action avoid rule: {_safe_get(action, 'avoid_rule', '')}.",
+        "Hands should be simple, readable, and low-risk: near the body, lightly holding one prop, touching hair/accessory, hidden by sleeve, or naturally relaxed.",
+    ])
+
+
+def _scene_text(plan: dict, camera_angle: str = "eye-level medium shot") -> str:
+    return _sentence_join([
+        f"Camera angle: {camera_angle}.",
+        f"Scene concept: {_safe_get(plan, 'graphic_concept', 'clean social anime character illustration')}.",
+        f"Scene structure: {_safe_get(plan, 'spatial_structure', 'simple background that supports the character')}.",
+        f"Visual device: {_safe_get(plan, 'visual_device', 'one clear visual hook only')}.",
+        "The world should grow from the character personality, not from realistic location logic.",
+        "The character should occupy strong visual presence, roughly knee-up to three-quarter framing unless the selected plan clearly needs otherwise.",
+    ])
+
+
+def _rendering_text(plan: dict) -> str:
+    return _sentence_join([
+        "High-quality anime style illustration, crisp cel shading, vibrant and clean colors, precise lineart, polished character design, clean commercial illustration finish.",
+        "Top-tier social anime illustration, Pixiv-like premium character artwork, high thumbnail impact, strong character aura, memorable color palette.",
+        f"Lighting: {_safe_get(plan, 'lighting_behavior', 'soft clear light on the face and eyes')}.",
+        "Detail hierarchy: eyes, face, hairstyle silhouette, hair accessories, neckline, waistline, and the single main fantasy symbol first; hands, feet, and background stay simplified.",
+        "Avoid heavy oil painting, 3D render, cinematic realism, AAA concept art, industrial hard-surface scene, over-detailed architecture, washed-out fog, and noisy AI texture.",
+    ])
+
+
+def _negative_text(character_name: str = "") -> str:
+    anti_safe = ", ".join(ANTI_SAFE_COMPOSITION)
+    hard_negative = ", ".join(hard_negative_tokens_for(character_name)) if character_name else ""
+
+    return _sentence_join([
+        f"Avoid: {anti_safe}." if anti_safe else "",
+        f"Character-specific avoid: {hard_negative}." if hard_negative else "",
+        "Avoid extra fingers, missing fingers, fused fingers, broken hands, extra arms, extra feet, twisted ankles, duplicated face, misaligned eyes, incorrect character features, cluttered background, text, logos, signs, posters, and character-name typography.",
+    ])
+
+
+def build_master_prompt(
+    character_details: str,
+    scene_context: str,
+    camera_angle: str = "eye-level medium shot",
+    outfit_context: str | None = None,
+    action_context: str | None = None,
+    mood_context: str | None = None,
+    negative_context: str | None = None,
+) -> str:
+    """
+    Natural-language master prompt builder.
+
+    This function avoids long tag piles and director-manual style rules.
+    It keeps the prompt readable while preserving the minimum identity, outfit,
+    action, scene, rendering, and negative-control layers.
+    """
+    style_base = (
+        "High-quality anime style illustration, crisp cel shading, vibrant and clean colors, "
+        "precise lineart, polished character design, clean commercial illustration finish."
+    )
+    character_block = f"The central subject is {character_details}. Keep the character identity clear and consistent."
+    outfit_block = f"The outfit is {outfit_context}." if outfit_context else ""
+    action_block = f"The character is {action_context}." if action_context else ""
+    mood_block = f"The mood is {mood_context}." if mood_context else ""
+    direction_block = f"Camera angle: {camera_angle}. {scene_context}"
+    negative_block = (
+        f"Avoid: {negative_context}."
+        if negative_context
+        else "Avoid messy composition, extra limbs, distorted hands, incorrect character features, overly realistic 3D rendering, heavy oil painting texture, cluttered background, text, logos, and posters."
+    )
+    return _sentence_join([style_base, character_block, outfit_block, action_block, mood_block, direction_block, negative_block])
 
 
 def prompt_for_art_direction(character_name: str, plan: dict | None = None, action: dict | None = None) -> str:
     selected_plan = plan or choose_art_direction_plan(character_name)
     selected_action = action or choose_action_style(character_name)
-    return _compact_prompt(dedent(f"""
-    {_visual_direction(selected_plan)}
-    {_official_personality_translation(character_name)}
-    {_identity_lock(character_name)}
-    {_performance(character_name, selected_plan, selected_action)}
-    {_anatomy_control()}
-    {_fashion(character_name, selected_plan)}
-    {_rendering(selected_plan)}
-    {_negative()}
-    """))
+
+    character_details = _sentence_join([
+        _identity_text(character_name),
+        _personality_text(character_name),
+    ])
+    outfit_context = _outfit_text(character_name, selected_plan)
+    action_context = _action_text(character_name, selected_plan, selected_action)
+    scene_context = _scene_text(selected_plan, camera_angle="eye-level medium shot")
+    mood_context = _sentence_join([
+        _rendering_text(selected_plan),
+        "Composition should be character-first, clean, collectible, mobile-friendly, and easy to read as a thumbnail.",
+    ])
+    negative_context = _negative_text(character_name)
+
+    return build_master_prompt(
+        character_details=character_details,
+        scene_context=scene_context,
+        camera_angle="eye-level medium shot",
+        outfit_context=outfit_context,
+        action_context=action_context,
+        mood_context=mood_context,
+        negative_context=negative_context,
+    )
 
 
 def prompt_for_theme(
@@ -273,5 +292,22 @@ def prompt_for_theme(
 ) -> str:
     plan = choose_art_direction_plan(character_name)
     action = choose_action_style(character_name)
+    if scene:
+        plan = dict(plan)
+        plan["spatial_structure"] = scene
+    if theme:
+        plan = dict(plan)
+        plan["outfit_direction"] = theme
+    if concept:
+        plan = dict(plan)
+        plan["graphic_concept"] = concept
+    if pose:
+        action = dict(action)
+        action["body_silhouette"] = pose
+    if lighting:
+        plan = dict(plan)
+        plan["lighting_behavior"] = lighting
+    if mood:
+        plan = dict(plan)
+        plan["color_strategy"] = mood
     return prompt_for_art_direction(character_name, plan, action)
-
