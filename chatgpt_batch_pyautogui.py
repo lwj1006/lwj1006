@@ -26,9 +26,11 @@ from art_direction_options import (
     required_identity_tokens_for,
     viewer_distance_for,
 )
-from art_direction_templates import prompt_for_art_direction, prompt_template_name
 
-
+from art_direction_templates import (
+    prompt_for_art_direction,
+    prompt_template_name,
+)
 # ChatGPT desktop batch automation.
 # Adjust these coordinates if the ChatGPT window position/size changes.
 
@@ -849,8 +851,8 @@ def main() -> None:
     time.sleep(3)
 
     print(
-        f"Fenjue 3.0 social anime character pipeline active: {len(ART_DIRECTION_PLANS)} viral character plans available. "
-        "Priority: thumbnail impact, character personality, fantasy symbols, and viewer interaction.",
+        f"Fenjue stable compact anime pipeline active: {len(ART_DIRECTION_PLANS)} art direction plans available. "
+        "Priority: character identity, clean composition, stable anatomy, and consistent illustration quality.",
         flush=True,
     )
 
