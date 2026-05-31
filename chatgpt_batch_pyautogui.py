@@ -117,6 +117,8 @@ SINGLE_CLICK_HOLD_SECONDS = 0.06
 SEND_CLICK_HOLD_SECONDS = 0.14
 SEND_RELEASE_SETTLE_SECONDS = 0.35
 SEND_MOUSE_AWAY_OFFSET = (-220, -90)
+WORK_REMINDER_INTERVAL = 10
+WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
 
@@ -444,6 +446,14 @@ def send_prompt(prompt: str) -> None:
     wait_with_echo(TEXT_BEFORE_SEND_SECONDS, "Before send")
     print("Prompt: clicking send button", flush=True)
     click_send_button()
+
+
+def send_work_reminder(completed_run_number: int) -> None:
+    print(
+        f"[{completed_run_number:02d}] reminder: sending plain text work reminder, no upload and no image prompt",
+        flush=True,
+    )
+    send_prompt(WORK_REMINDER_TEXT)
 
 
 def take_screenshot(label: str) -> Path:
@@ -952,6 +962,10 @@ def main() -> None:
             batch_completed_characters.append(character_name)
             recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
             recent_visual_tags = recent_visual_tags[-12:]
+
+            if run_number % WORK_REMINDER_INTERVAL == 0 and run_number < total_runs:
+                send_work_reminder(run_number)
+
             if "--once" in sys.argv or "--review-url" in sys.argv:
                 open_images_page_for_review()
 
