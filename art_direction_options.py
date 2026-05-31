@@ -8,6 +8,10 @@ OUTFIT_DIRECTIONS = [
     "fresh meadow picnic outfit, clear color blocks, low ornament density",
     "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
     "minimal sunny studio outfit, face and hair identity as the main focus",
+    "romantic flower bridal dress, elegant veil or bouquet, clean and non-adult",
+    "classic cafe maid outfit, neat apron, ribbons, cute and polished",
+    "elegant black stockings outfit, refined fashion styling, no explicit posing",
+    "white blouse and black stockings, clean light-novel heroine styling",
 ]
 
 
@@ -208,6 +212,42 @@ ART_DIRECTION_PLANS = [
         "lighting_behavior": "晴天花园柔光，空气清透。",
         "tags": ["garden", "tea_table", "fairy_tale"],
     },
+    {
+        "name": "flower_bridal_garden",
+        "graphic_concept": "花嫁感花园插画，浪漫、干净、明亮，重点是角色脸和发型。",
+        "spatial_structure": "浅色花门、白色纱帘、花束和草地，布景轻量不拥挤。",
+        "visual_device": "头纱、花束和花门形成柔和外框。",
+        "body_silhouette": "站姿或坐姿，三分之二身，双手自然捧花或放在裙摆旁。",
+        "outfit_direction": "romantic flower bridal dress, elegant veil or bouquet, clean and non-adult",
+        "material_language": "薄纱、花束、柔软白裙、少量丝带。",
+        "color_strategy": "白色和浅花色托住角色主色，不把角色发色冲淡。",
+        "lighting_behavior": "晴天花园柔光，脸部清晰，整体干净。",
+        "tags": ["bridal", "garden", "flower", "soft_light"],
+    },
+    {
+        "name": "cafe_maid_afternoon",
+        "graphic_concept": "咖啡店女仆风插画，可爱、整洁、带轻营业感。",
+        "spatial_structure": "咖啡桌、甜点盘、浅色墙面和窗光，背景简单。",
+        "visual_device": "围裙轮廓和甜点盘形成清楚记忆点。",
+        "body_silhouette": "站姿或坐在桌边，手部自然放在托盘、裙摆或桌边。",
+        "outfit_direction": "classic cafe maid outfit, neat apron, ribbons, cute and polished",
+        "material_language": "围裙、蝴蝶结、棉布、陶瓷杯、甜点。",
+        "color_strategy": "黑白女仆服作为稳定色块，角色发色和眼睛必须更突出。",
+        "lighting_behavior": "午后咖啡店柔光，眼睛和脸最清楚。",
+        "tags": ["maid", "cafe", "sweets", "warm_light"],
+    },
+    {
+        "name": "black_stockings_tea_room",
+        "graphic_concept": "精致茶室时装插画，黑丝作为优雅服装元素，不做成人化姿态。",
+        "spatial_structure": "小茶桌、椅子、浅色窗帘和花瓶，空间简洁柔和。",
+        "visual_device": "黑白服装对比和角色发色形成强识别。",
+        "body_silhouette": "坐姿或侧身站姿，腿部姿态自然，手部简单清楚。",
+        "outfit_direction": "elegant black stockings outfit, refined fashion styling, no explicit posing",
+        "material_language": "黑色长袜、轻裙摆、白衬衫、丝带、柔软布料。",
+        "color_strategy": "黑白服装压住画面，背景用奶油白和浅木色，角色主色清楚。",
+        "lighting_behavior": "柔和室内自然光，避免强烈阴影。",
+        "tags": ["black_stockings", "tea_room", "fashion", "soft_light"],
+    },
 ]
 
 
@@ -247,14 +287,14 @@ ACTION_STYLES = [
 
 CHARACTER_PLAN_HINTS = {
     "南宫": ["sunny_cafe_window", "pastel_room_sweets", "bookstore_cafe_corner"],
-    "爱芮": ["small_bakery_morning", "garden_tea_table", "pastel_room_sweets"],
+    "爱芮": ["small_bakery_morning", "cafe_maid_afternoon", "pastel_room_sweets"],
     "千夏": ["sunny_cafe_window", "open_grassland_breeze", "picnic_under_tree"],
-    "丹": ["flower_sea_afternoon", "greenhouse_flower_room", "garden_tea_table"],
-    "星见雅": ["garden_tea_table", "bookstore_cafe_corner", "flower_sea_afternoon"],
-    "仪玄": ["greenhouse_flower_room", "garden_tea_table", "bookstore_cafe_corner"],
-    "叶瞬光": ["open_grassland_breeze", "picnic_under_tree", "flower_sea_afternoon"],
-    "席德": ["pastel_room_sweets", "small_bakery_morning", "greenhouse_flower_room"],
-    "橘福福": ["small_bakery_morning", "open_grassland_breeze", "picnic_under_tree"],
+    "丹": ["flower_bridal_garden", "flower_sea_afternoon", "greenhouse_flower_room"],
+    "星见雅": ["black_stockings_tea_room", "garden_tea_table", "bookstore_cafe_corner"],
+    "仪玄": ["flower_bridal_garden", "greenhouse_flower_room", "garden_tea_table"],
+    "叶瞬光": ["open_grassland_breeze", "flower_bridal_garden", "flower_sea_afternoon"],
+    "席德": ["pastel_room_sweets", "cafe_maid_afternoon", "greenhouse_flower_room"],
+    "橘福福": ["small_bakery_morning", "cafe_maid_afternoon", "picnic_under_tree"],
 }
 
 
@@ -343,7 +383,7 @@ def outfit_variation_for(character_name, plan_name=None):
     if character_name == "千夏":
         return f"{base}; no creator desk, no pen-and-paper theme; keep mint short hair and bow faithful to reference"
     if character_name == "席德":
-        return f"{base}; add only tiny blue-violet light marks or soft glass accessories, not hard devices"
+        return f"{base}; add only tiny blue-violet light marks, glass candy, ribbons, or soft floral accessories"
     if character_name == "橘福福":
         return f"{base}; tiger motif should be small and readable, without fixed sect scenery"
     return f"{base}; keep {profile['color_anchor']} as the recognizable palette"

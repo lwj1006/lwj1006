@@ -54,7 +54,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         "Hands and feet: simple, natural, readable; exactly five fingers per visible hand.",
         "",
         f"Scene: {art_plan.get('graphic_concept', '')} {art_plan.get('spatial_structure', '')}",
-        f"Focus device: {art_plan.get('visual_device', '')}",
+        f"Visual focus: {art_plan.get('visual_device', '')}",
         "",
         f"Outfit: {outfit}.",
         f"Color and light: {profile['color_anchor']} as character anchor; {art_plan.get('color_strategy', '')} {art_plan.get('lighting_behavior', '')}",
