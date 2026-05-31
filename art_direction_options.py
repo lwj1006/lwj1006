@@ -586,6 +586,38 @@ NEW_CHARACTER_PLAN_WEIGHTS = {
 for character_name, plan_weights in NEW_CHARACTER_PLAN_WEIGHTS.items():
     CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {}).update(plan_weights)
 
+WHITE_INFINITY_ROOM_PLAN = {
+    "name": "white_infinity_room",
+    "graphic_concept": "纯白无限空间中只有角色和少量符号存在，像轻小说封面或高传播白色极简角色海报",
+    "spatial_structure": "无边界白色或浅灰空间，大量留白托出角色轮廓，背景只保留极少量透明几何块、白色花瓣或柔影",
+    "visual_device": "primary hook 只选一个：透明几何块 / 白色花瓣 / 极简椅子 / 角色专属小符号；secondary support 只允许一块柔影或一条低饱和细线",
+    "body_silhouette": "角色单独站立、缓慢行走或安静坐姿，膝上到三分之二身为主，脸、发型轮廓、肩线和腰线清楚",
+    "outfit_direction": "极简高端时装或未来感白色系穿搭：干净领口、明确腰线、少量角色识别色点缀",
+    "material_language": "哑光白布、透明塑料、细金属、柔和无影棚光",
+    "color_strategy": "白、浅灰、奶油色和极低饱和冷色主导；角色识别色只允许小面积出现，禁止背景同色吞没角色",
+    "lighting_behavior": "极柔和无影棚拍光，脸和眼睛清楚，背景保持白但不发灰、不过曝、不吞轮廓",
+}
+
+if not any(plan["name"] == WHITE_INFINITY_ROOM_PLAN["name"] for plan in ART_DIRECTION_PLANS):
+    ART_DIRECTION_PLANS.append(WHITE_INFINITY_ROOM_PLAN)
+    OUTFIT_DIRECTIONS = [plan["outfit_direction"] for plan in ART_DIRECTION_PLANS]
+
+PLAN_TAGS["white_infinity_room"] = {"minimal", "white_space", "character_icon", "clean_color"}
+
+WHITE_INFINITY_ROOM_WEIGHTS = {
+    "南宫": 5,
+    "丹": 9,
+    "仪玄": 5,
+    "席德": 2,
+    "星见雅": 3,
+}
+for character_name, weight in WHITE_INFINITY_ROOM_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {})["white_infinity_room"] = weight
+
+for character_name in ["南宫", "丹", "仪玄", "席德", "星见雅"]:
+    if character_name in CHARACTER_PROPAGATION_PROFILES:
+        CHARACTER_PROPAGATION_PROFILES[character_name]["preferred_hooks"].add("white_infinity_room")
+
 STRICT_PLAN_CHARACTERS = {"丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福"}
 
 CHARACTER_FORBIDDEN_TAGS = {
@@ -651,6 +683,43 @@ def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | 
         ] or ART_DIRECTION_PLANS[:]
         weights = [1 for _ in candidates]
     return _weighted_choice(candidates, weights)
+
+
+# ---------------------------------------------------------------------------
+# Additional plan late apply: white minimal propagation room
+# ---------------------------------------------------------------------------
+
+WHITE_INFINITY_ROOM_PLAN = {
+    "name": "white_infinity_room",
+    "graphic_concept": "纯白无限空间中只有角色和少量符号存在，像轻小说封面或高传播白色极简角色海报",
+    "spatial_structure": "无边界白色或浅灰空间，大量留白托出角色轮廓，背景只保留极少量透明几何块、白色花瓣或柔影",
+    "visual_device": "primary hook 只选一个：透明几何块 / 白色花瓣 / 极简椅子 / 角色专属小符号；secondary support 只允许一块柔影或一条低饱和细线",
+    "body_silhouette": "角色单独站立、缓慢行走或安静坐姿，膝上到三分之二身为主，脸、发型轮廓、肩线和腰线清楚",
+    "outfit_direction": "极简高端时装或未来感白色系穿搭：干净领口、明确腰线、少量角色识别色点缀",
+    "material_language": "哑光白布、透明塑料、细金属、柔和无影棚光",
+    "color_strategy": "白、浅灰、奶油色和极低饱和冷色主导；角色识别色只允许小面积出现，禁止背景同色吞没角色",
+    "lighting_behavior": "极柔和无影棚拍光，脸和眼睛清楚，背景保持白但不发灰、不过曝、不吞轮廓",
+}
+
+if not any(plan["name"] == WHITE_INFINITY_ROOM_PLAN["name"] for plan in ART_DIRECTION_PLANS):
+    ART_DIRECTION_PLANS.append(WHITE_INFINITY_ROOM_PLAN)
+    OUTFIT_DIRECTIONS = [plan["outfit_direction"] for plan in ART_DIRECTION_PLANS]
+
+PLAN_TAGS["white_infinity_room"] = {"minimal", "white_space", "character_icon", "clean_color"}
+
+WHITE_INFINITY_ROOM_WEIGHTS = {
+    "南宫": 5,
+    "丹": 9,
+    "仪玄": 5,
+    "席德": 2,
+    "星见雅": 3,
+}
+for character_name, weight in WHITE_INFINITY_ROOM_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {})["white_infinity_room"] = weight
+
+for character_name in ["南宫", "丹", "仪玄", "席德", "星见雅"]:
+    if character_name in CHARACTER_PROPAGATION_PROFILES:
+        CHARACTER_PROPAGATION_PROFILES[character_name]["preferred_hooks"].add("white_infinity_room")
 
 
 # ---------------------------------------------------------------------------
@@ -2048,3 +2117,56 @@ def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | 
         ] or ART_DIRECTION_PLANS[:]
         weights = [1 for _ in candidates]
     return _weighted_choice(candidates, weights)
+
+# ---------------------------------------------------------------------------
+# Final user-owned style plans
+# These two plans preserve the user's favorite prompt language as selectable
+# ART_DIRECTION_PLANS instead of only global rendering guidance.
+# ---------------------------------------------------------------------------
+USER_FAVORITE_STYLE_PLANS = [
+    {
+        "name": "reference_soft_lineart_reinterpretation",
+        "graphic_concept": "uploaded reference image reinterpreted as a clean lightweight hand-drawn anime illustration, focused on character identity, collectible charm, and soft fantasy appeal",
+        "spatial_structure": "simple airy illustration space with uncluttered background shapes, character kept as the clear center of attention, no copied reference composition, no heavy cinematic environment",
+        "visual_device": "thin elegant lineart, sketch-like contour rhythm, clear color blocks, soft watercolor / colored pencil / pale marker feeling, one memorable character-color accent",
+        "body_silhouette": "medium to knee-up character framing, natural relaxed pose, both arms readable and simple, hands either resting naturally, holding small safe accessory, or partly hidden by clothing without distortion",
+        "outfit_direction": "preserve the reference outfit color identity while allowing a lighter anime fashion reinterpretation: clean simplified layers, soft ribbons or small accessories, clear clothing color separation, no over-complex material noise",
+        "material_language": "low-to-medium saturation hand-drawn finish, clean anime linework, simple cel shading, soft flat colors, reduced texture complexity, no thick paint, no glossy 3D skin",
+        "color_strategy": "gentle but not washed out; cream skin tones, clear main clothing color, small blush and soft accent colors; avoid gray fog, whitewashed pastel, diluted outfit colors, and full-frame single hot color backgrounds",
+        "lighting_behavior": "soft diffuse studio-like anime light, mild rim light only when useful, minimal hard shadow, fresh light-novel illustration clarity",
+    },
+    {
+        "name": "intimate_anime_photo_crop",
+        "graphic_concept": "high-end anime photography style character visual with intimate viewer relationship, cheerful youthful emotion, strong facial charm, and mobile-wallpaper appeal",
+        "spatial_structure": "medium-close to three-quarter character framing with face as the focal point but enough torso and outfit visible; background is a softly blurred town street, balcony, garden path, or sunset outdoor space",
+        "visual_device": "eyes to smile to hair flow visual path, soft bokeh, golden-hour warmth, clean negative space around the face, candid light-novel photo feeling without copying phone-selfie logic",
+        "body_silhouette": "three-quarter angle, slight below-eye-level or eye-level view, natural shoulders and waist visible, hands kept small and calm: one hand near chest, hair, sleeve, bag strap, or out of frame; no hand reaching toward the lens",
+        "outfit_direction": "date-photo / light-novel portrait fashion: neat layered outfit, soft collar or shoulder detail, character-specific color accents, enough lower-body or waist information to avoid repeated bust-only images",
+        "material_language": "clean anime lineart, soft watercolor-anime hybrid shading, delicate eyelashes, glossy but controlled eyes, transparent anime skin rendering, no realistic skin texture or heavy cinematic grading",
+        "color_strategy": "warm sunset highlights balanced with soft cool shadows; background hues stay lower saturation than the character; avoid magenta/pink full-screen backgrounds unless broken by cream, sky blue, gray, or warm neutral space",
+        "lighting_behavior": "natural golden-hour ambient light, gentle hair rim light, soft depth of field, minimal clutter, emotional warmth over realism",
+    },
+]
+
+_existing_plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
+for _plan in USER_FAVORITE_STYLE_PLANS:
+    if _plan["name"] not in _existing_plan_names:
+        ART_DIRECTION_PLANS.append(_plan)
+        _existing_plan_names.add(_plan["name"])
+
+OUTFIT_DIRECTIONS = [plan["outfit_direction"] for plan in ART_DIRECTION_PLANS]
+
+PLAN_TAGS.update({
+    "reference_soft_lineart_reinterpretation": {"user_favorite", "soft_lineart", "light_novel", "reference_identity", "clean_color"},
+    "intimate_anime_photo_crop": {"user_favorite", "anime_photo", "soft_emotion", "viewer_interaction", "golden_hour"},
+})
+
+for _character_name in list(CHARACTER_PLAN_WEIGHTS):
+    CHARACTER_PLAN_WEIGHTS.setdefault(_character_name, {})["reference_soft_lineart_reinterpretation"] = 4
+    CHARACTER_PLAN_WEIGHTS.setdefault(_character_name, {})["intimate_anime_photo_crop"] = 3
+
+for _profile in CHARACTER_PROPAGATION_PROFILES.values():
+    _profile.setdefault("preferred_hooks", set()).update({
+        "reference_soft_lineart_reinterpretation",
+        "intimate_anime_photo_crop",
+    })
