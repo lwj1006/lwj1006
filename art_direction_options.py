@@ -77,7 +77,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "warm brown, red, ivory",
     },
     "席德": {
-        "official_core": "银灰短发或中短发，蓝紫色眼睛，带少量蓝紫光纹与异质感，天真但危险的少女。",
+        "official_core": "天蓝色发头发 后面有大麻花辫，蓝紫色眼睛，带少量蓝紫光纹与异质感，天真但危险的少女。",
         "identity_tokens": ["silver-gray short hair", "blue-violet eyes", "subtle blue-violet light marks", "innocent dangerous expression"],
         "viewer_relationship": "像天真地展示一个不可思议的小秘密，表情无辜但气氛有轻微危险感。",
         "thumbnail_strategy": "银灰发、蓝紫眼睛和细小光纹必须清楚，避免普通校园少女化。",
