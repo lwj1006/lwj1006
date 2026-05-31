@@ -10,7 +10,7 @@ from art_direction_options import (
 
 STYLE_BASELINE = (
     "clean high-quality anime illustration, crisp lineart, stable cel shading, "
-    "soft clean lighting, sharp face and eyes, clear color separation"
+    "soft clean lighting, sharp face and eyes, clear color separation, fresh trendy lifestyle illustration"
 )
 
 
@@ -44,6 +44,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
 
     lines = [
         "Independent image task. Ignore previous context. Uploaded references are identity reference only. One single character.",
+        "Character identity, scene, outfit, action, and composition are separate layers; apply this scene to the current character without changing identity.",
         "",
         f"Character: {character_name}.",
         f"Identity: {profile['official_core']}",
@@ -55,6 +56,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         "",
         f"Scene: {art_plan.get('graphic_concept', '')} {art_plan.get('spatial_structure', '')}",
         f"Visual focus: {art_plan.get('visual_device', '')}",
+        "Scene rule: the setting supports the character; it must not redefine the character's species, hairstyle, personality, or fixed lore.",
         "",
         f"Outfit: {outfit}.",
         f"Color and light: {profile['color_anchor']} as character anchor; {art_plan.get('color_strategy', '')} {art_plan.get('lighting_behavior', '')}",
