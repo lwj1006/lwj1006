@@ -128,6 +128,11 @@ FEEDBACK_DIR = PROJECT_DIR / "feedback"
 FEEDBACK_DIR.mkdir(parents=True, exist_ok=True)
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
+SHARED_FEEDBACK_DIR = Path(r"\\vmware-host\Shared Folders\develop\feedback")
+SHARED_LOG_MIRRORS = {
+    "prompt_log.jsonl": "vm_prompt_log.jsonl",
+    "feedback_log.jsonl": "vm_feedback_log.jsonl",
+}
 CHATGPT_IMAGES_URL = "https://chatgpt.com/images/"
 
 
@@ -463,9 +468,25 @@ def open_images_page_for_review() -> None:
 
 
 def append_jsonl(path: Path, entry: dict) -> None:
+    safe_entry = _json_safe(entry)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(_json_safe(entry), ensure_ascii=False) + "\n")
+        f.write(json.dumps(safe_entry, ensure_ascii=False) + "\n")
+    mirror_jsonl_to_shared(path, safe_entry)
+
+
+def mirror_jsonl_to_shared(path: Path, entry: dict) -> None:
+    mirror_name = SHARED_LOG_MIRRORS.get(path.name)
+    if not mirror_name:
+        return
+    try:
+        if not SHARED_FEEDBACK_DIR.exists():
+            return
+        mirror_path = SHARED_FEEDBACK_DIR / mirror_name
+        with mirror_path.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except OSError as exc:
+        print(f"Shared log mirror skipped: {exc}", flush=True)
 
 
 def _json_safe(value):
