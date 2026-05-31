@@ -4,10 +4,10 @@ import random
 OUTFIT_DIRECTIONS = [
     "reference-faithful outfit with only small fabric and accessory variation",
     "clean light-novel casual outfit, keeping the character palette recognizable",
-    "soft stage outfit, simple silhouette, no complex props",
-    "seasonal everyday outfit, clear color blocks, low ornament density",
-    "elegant fantasy outfit, simplified layers, no weapon requirement",
-    "minimal studio outfit, face and hair identity as the main focus",
+    "soft bakery or cafe casual outfit, warm and simple",
+    "fresh meadow picnic outfit, clear color blocks, low ornament density",
+    "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
+    "minimal sunny studio outfit, face and hair identity as the main focus",
 ]
 
 
@@ -16,17 +16,17 @@ ANTI_SAFE_COMPOSITION = []
 
 CHARACTER_PROFILES = {
     "南宫": {
-        "official_core": "黑发短双马尾，发尾粉色渐变，齐刘海，粉色眼睛，猫咪发夹，俏皮又危险的赛博少女气质。",
+        "official_core": "黑发短双马尾，发尾粉色渐变，齐刘海，粉色眼睛，猫咪发夹，俏皮又危险的少女气质。",
         "identity_tokens": ["short black twin tails with pink gradient tips", "straight blunt bangs", "pink eyes", "cat hairpin"],
         "viewer_relationship": "像在悄悄观察观众，表情聪明、轻微挑衅，但不夸张。",
         "thumbnail_strategy": "黑粉发色和猫咪小饰品必须在小图里仍然清楚。",
         "interaction_rule": "允许对视、侧身回头、轻笑；避免手指指向镜头。",
-        "safe_sensuality": "保持可爱与精致，不使用成人化表达。",
+        "safe_sensuality": "保持可爱与精致，表达干净。",
         "color_anchor": "black, pink, clean white",
     },
     "爱芮": {
-        "official_core": "高饱和粉色双马尾，黑色挑染刘海，明亮粉蓝眼睛，偶像感、电子感、元气感强。",
-        "identity_tokens": ["vivid pink twin tails", "black streak in bangs", "pink-blue bright eyes", "idol-like cyber accessories"],
+        "official_core": "高饱和粉色双马尾，黑色挑染刘海，明亮粉蓝眼睛，偶像感、元气感强。",
+        "identity_tokens": ["vivid pink twin tails", "black streak in bangs", "pink-blue bright eyes", "idol-like hair accessories"],
         "viewer_relationship": "像正在和观众营业互动，亲近、明亮、有舞台感。",
         "thumbnail_strategy": "粉色双马尾和明亮眼睛是第一识别点。",
         "interaction_rule": "允许挥手、微笑、转身看向观众；避免自拍道具和伸手贴镜头。",
@@ -39,11 +39,11 @@ CHARACTER_PROFILES = {
         "viewer_relationship": "像安静陪伴观众，温柔、干净、带一点害羞。",
         "thumbnail_strategy": "薄荷发色、蝴蝶结、清透眼睛必须稳定，不要改成普通长发角色。",
         "interaction_rule": "允许坐姿、窗边回头、自然整理头发；避免纸笔和创作者设定。",
-        "safe_sensuality": "青春清爽，不使用成人化姿态。",
+        "safe_sensuality": "青春清爽，表达干净。",
         "color_anchor": "mint, pale gold, soft white",
     },
     "丹": {
-        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，安静、透明。",
+        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，安静、透明、梦境感的少女。",
         "identity_tokens": ["pale pink short layered hair", "airy uneven bangs", "pink-purple eyes", "small silver-blue hair accessory"],
         "viewer_relationship": "像从安静梦境里看向观众，神秘但亲近。",
         "thumbnail_strategy": "浅粉短发和透明感眼睛必须稳定，服装可以变化。",
@@ -52,48 +52,48 @@ CHARACTER_PROFILES = {
         "color_anchor": "pale pink, violet, silver blue",
     },
     "星见雅": {
-        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，冷静、锋利、克制。",
+        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，冷静、锋利、克制的剑士气质。",
         "identity_tokens": ["long straight black hair", "hime-cut blunt bangs", "sharp black animal ears", "red eyes"],
         "viewer_relationship": "像冷静地看穿观众，距离感强但角色存在感清楚。",
-        "thumbnail_strategy": "黑长直、黑兽耳、红眼是核心",
+        "thumbnail_strategy": "黑长直、黑兽耳、红眼是核心；剑可以作为气质符号但不是必须手持。",
         "interaction_rule": "允许刀鞘、红色线条、远处剑影；避免复杂手部持物。",
         "safe_sensuality": "冷感优雅，不强调暴露。",
         "color_anchor": "black, red, white",
     },
     "仪玄": {
-        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，成熟安静。",
+        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，成熟安静的神秘术士气质。",
         "identity_tokens": ["long silver-white hair", "small ahoge", "black wave hair ornament", "golden eyes"],
         "viewer_relationship": "像平静地邀请观众进入仪式，沉稳、有神秘感。",
-        "thumbnail_strategy": "银白长发和金眼必须清晰。",
+        "thumbnail_strategy": "银白长发和金眼必须清晰，背景不要压过人物。",
         "interaction_rule": "允许手在胸前、袖摆自然下垂、侧身凝视；避免复杂法阵手势。",
-        "safe_sensuality": "成熟优雅即可，不走成人化描述。",
+        "safe_sensuality": "成熟优雅即可，表达干净。",
         "color_anchor": "silver white, black, gold",
     },
     "叶瞬光": {
-        "official_core": "暖棕长发，棕色兽耳，蓬松棕色尾巴，红色眼睛，红色发带或花饰，温柔可靠。",
+        "official_core": "暖棕长发，棕色兽耳，蓬松棕色尾巴，红色眼睛，红色发带或花饰，温柔可靠的守护者气质。",
         "identity_tokens": ["warm brown long hair", "brown animal ears", "fluffy brown tail", "red eyes", "red ribbon or flower accessory"],
         "viewer_relationship": "像温柔地回头照看观众，亲和但有守护感。",
         "thumbnail_strategy": "暖棕发色、棕色兽耳和尾巴要稳定，不要变成黑发红眼冷剑士。",
-        "interaction_rule": "避免固定宗门或山门元素。",
+        "interaction_rule": "剑是可选符号，不强制手持；避免固定宗门或山门元素。",
         "safe_sensuality": "温柔端正，保持清爽可靠。",
         "color_anchor": "warm brown, red, ivory",
     },
     "席德": {
-        "official_core": "银灰短发或中短发，蓝紫色眼睛，机械少女与危险纯真并存，带轻微电弧、线路或旧式机械伙伴暗示。",
-        "identity_tokens": ["silver-gray short hair", "blue-violet eyes", "mechanical girl details", "tiny electric arcs"],
-        "viewer_relationship": "像天真地向观众展示危险实验，表情无辜但气氛有压迫感。",
-        "thumbnail_strategy": "银灰发、蓝紫电光。",
-        "interaction_rule": "避免复杂机械手和多手结构。",
+        "official_core": "银灰短发或中短发，蓝紫色眼睛，带少量蓝紫光纹与异质感，天真但危险的少女。",
+        "identity_tokens": ["silver-gray short hair", "blue-violet eyes", "subtle blue-violet light marks", "innocent dangerous expression"],
+        "viewer_relationship": "像天真地展示一个不可思议的小秘密，表情无辜但气氛有轻微危险感。",
+        "thumbnail_strategy": "银灰发、蓝紫眼睛和细小光纹必须清楚，避免普通校园少女化。",
+        "interaction_rule": "允许花朵、玻璃糖纸、蓝紫小光点；避免复杂硬质装置和多手结构。",
         "safe_sensuality": "以异质感和可爱危险感为主，保持干净表达。",
-        "color_anchor": "silver gray, blue violet, black",
+        "color_anchor": "silver gray, blue violet, soft white",
     },
     "橘福福": {
-        "official_core": "橘色短发，明亮金橙眼睛，活泼、可靠、热烈的少女气质。",
+        "official_core": "橘色短发，明亮金橙眼睛，虎纹或虎主题小饰品，活泼、可靠、热烈的少女气质。",
         "identity_tokens": ["short orange hair", "golden-orange eyes", "tiger-themed accessory", "warm lively expression"],
         "viewer_relationship": "像元气地把观众拉进热闹场面，亲近、明亮、行动感强。",
-        "thumbnail_strategy": "橘发、金橙眼，避免被背景同化。",
+        "thumbnail_strategy": "橘发、金橙眼、虎主题识别要稳定，避免被背景同化。",
         "interaction_rule": "允许奔跑、回头笑、舞台动作；避免固定宗门或山门元素。",
-        "safe_sensuality": "明快可爱，不走低俗表达。",
+        "safe_sensuality": "明快可爱，表达干净。",
         "color_anchor": "orange, gold, white",
     },
 }
@@ -101,100 +101,112 @@ CHARACTER_PROFILES = {
 
 ART_DIRECTION_PLANS = [
     {
-        "name": "clean_studio_portrait",
-        "graphic_concept": "干净摄影棚感，人物是唯一视觉中心，背景只保留柔和色块。",
-        "spatial_structure": "浅色无缝背景或简单布景，少量投影，不堆道具。",
-        "visual_device": "一块柔和主色背景和一条轻微轮廓光。",
-        "body_silhouette": "三分之二身或膝上构图，身体完整自然，双手可见且动作简单。",
-        "outfit_direction": "minimal studio outfit, face and hair identity as the main focus",
-        "material_language": "柔软布料、干净线条、少量金属或发饰点缀。",
-        "color_strategy": "背景用低饱和中性色，角色主色清楚但不刺眼。",
-        "lighting_behavior": "柔和大面积灯光，脸部和眼睛清晰。",
-        "tags": ["studio", "simple_background", "soft_light"],
+        "name": "sunny_cafe_window",
+        "graphic_concept": "阳光咖啡店窗边，温暖日常感和角色表情优先。",
+        "spatial_structure": "木桌、窗光、咖啡杯或甜点只保留一两个，背景干净柔和。",
+        "visual_device": "窗框和桌面光斑把视线引向角色脸部。",
+        "body_silhouette": "三分之二身或膝上构图，坐姿或轻靠桌边，双手自然可见。",
+        "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
+        "material_language": "棉布、针织、木纹、陶瓷杯、柔软发丝。",
+        "color_strategy": "奶油白、浅木色、角色主色构成清楚温暖的画面。",
+        "lighting_behavior": "午后窗光，脸部明亮，阴影柔和。",
+        "tags": ["cafe", "window", "warm_light"],
     },
     {
-        "name": "summer_window_room",
-        "graphic_concept": "夏日窗边二次元插画，空气感和角色表情优先。",
-        "spatial_structure": "窗、窗帘、桌边或地面光斑，空间元素控制在三种以内。",
-        "visual_device": "窗光形成清晰方向线，背景不过度写实。",
-        "body_silhouette": "坐姿或站姿都可，三分之二身，手自然放在膝边或身侧。",
-        "outfit_direction": "clean light-novel casual outfit, keeping the character palette recognizable",
-        "material_language": "棉布、薄纱、发带、小饰品。",
-        "color_strategy": "清透蓝白或薄荷色背景，角色主色保持明确。",
-        "lighting_behavior": "明亮窗光，软阴影，避免强烈戏剧光。",
-        "tags": ["window", "summer", "daily"],
+        "name": "small_bakery_morning",
+        "graphic_concept": "清晨面包房，柔软香气和生活感支撑角色。",
+        "spatial_structure": "面包架、纸袋、玻璃柜和暖色灯光，元素少而可读。",
+        "visual_device": "圆形面包和暖灯形成柔和重复节奏。",
+        "body_silhouette": "站在柜台旁或轻轻回头，手部动作简单，不做复杂持物。",
+        "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
+        "material_language": "围裙、棉麻、纸袋、木架、柔软烘焙暖光。",
+        "color_strategy": "浅棕、奶油黄和角色识别色平衡，避免整张图发黄。",
+        "lighting_behavior": "暖色室内光加柔和窗光，眼睛保持清楚。",
+        "tags": ["bakery", "morning", "warm_light"],
     },
     {
-        "name": "rainy_city_walk",
-        "graphic_concept": "雨后城市散步，干净反光和情绪氛围服务角色。",
-        "spatial_structure": "简化街角、湿地反光、远处灯牌虚化。",
-        "visual_device": "地面反光把视线引向角色脸部。",
-        "body_silhouette": "行走或回头站立，双手不做复杂持物动作。",
-        "outfit_direction": "seasonal everyday outfit, clear color blocks, low ornament density",
-        "material_language": "湿润地面、轻薄外套、清晰发丝。",
-        "color_strategy": "冷色背景配一个角色专属暖色焦点。",
-        "lighting_behavior": "雨后柔光和远处霓虹，只做轻微点缀。",
-        "tags": ["rain", "city", "reflection"],
+        "name": "open_grassland_breeze",
+        "graphic_concept": "开阔草原微风，清爽自然色和角色轮廓优先。",
+        "spatial_structure": "低矮草地、远处柔和地平线、少量小花，不堆复杂景物。",
+        "visual_device": "风吹发丝和衣摆形成轻方向线。",
+        "body_silhouette": "站姿或轻步行走，三分之二身到全身之间，动作稳定。",
+        "outfit_direction": "fresh meadow picnic outfit, clear color blocks, low ornament density",
+        "material_language": "轻薄布料、草叶、小花、柔软发丝。",
+        "color_strategy": "草地绿色低饱和，角色主色保持明确，不被背景吞掉。",
+        "lighting_behavior": "晴天漫射光，整体明亮但不过曝。",
+        "tags": ["grassland", "breeze", "natural_light"],
     },
     {
-        "name": "sunset_train_window",
-        "graphic_concept": "黄昏列车窗边，安静、亲近、适合角色对视。",
-        "spatial_structure": "列车座位、窗框、远处夕阳，不塞满乘客或广告。",
-        "visual_device": "窗框把角色脸部框住。",
-        "body_silhouette": "坐姿三分之二身，手自然放在座位或衣摆上。",
-        "outfit_direction": "clean light-novel casual outfit, keeping the character palette recognizable",
-        "material_language": "布料、玻璃、柔和逆光发丝。",
-        "color_strategy": "金橙夕阳配角色本色，避免整张图变成单一橙色。",
-        "lighting_behavior": "夕阳边缘光，脸部仍然明亮清楚。",
-        "tags": ["train", "sunset", "quiet"],
+        "name": "flower_sea_afternoon",
+        "graphic_concept": "午后花海，梦幻但不杂乱，人物仍是主视觉。",
+        "spatial_structure": "大片花田作为柔和色块，前景只放少量虚化花朵。",
+        "visual_device": "花海色块围绕角色发色和眼睛形成记忆点。",
+        "body_silhouette": "站姿、坐姿或回头，手可以轻碰花枝但不遮脸。",
+        "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
+        "material_language": "花瓣、轻纱、棉布、发饰，细节密度适中。",
+        "color_strategy": "花色服务角色主色，避免满屏同一种高饱和颜色。",
+        "lighting_behavior": "柔和午后光，脸部清晰，背景轻虚化。",
+        "tags": ["flower_field", "afternoon", "dream"],
     },
     {
-        "name": "flower_glasshouse",
-        "graphic_concept": "玻璃花房，花只做气氛，不抢人物身份。",
-        "spatial_structure": "玻璃墙、少量植物、远景光斑。",
-        "visual_device": "花枝形成外框，角色脸部保持无遮挡。",
+        "name": "picnic_under_tree",
+        "graphic_concept": "树荫野餐，温柔陪伴感和角色亲近度优先。",
+        "spatial_structure": "野餐布、篮子、树荫、远处草地，画面简洁。",
+        "visual_device": "格纹野餐布形成图形底，树影轻轻压住背景。",
+        "body_silhouette": "自然坐姿或跪坐，双手放在膝边、篮子旁或衣摆上。",
+        "outfit_direction": "fresh meadow picnic outfit, clear color blocks, low ornament density",
+        "material_language": "棉布、藤篮、草地、轻柔树影。",
+        "color_strategy": "浅绿、奶油白和角色主色组合，整体清爽。",
+        "lighting_behavior": "树荫斑驳光，但脸部不能被遮暗。",
+        "tags": ["picnic", "tree_shadow", "soft_daylight"],
+    },
+    {
+        "name": "greenhouse_flower_room",
+        "graphic_concept": "阳光玻璃花房，花和绿植只是气氛，不抢人物身份。",
+        "spatial_structure": "玻璃墙、藤蔓、几盆植物和浅色地面，空间轻而干净。",
+        "visual_device": "花枝形成自然外框，角色脸部无遮挡。",
         "body_silhouette": "站姿或坐姿，半身以上到膝上之间，手部简单。",
-        "outfit_direction": "elegant fantasy outfit, simplified layers, no weapon requirement",
+        "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "material_language": "透明玻璃、柔软布料、少量花饰。",
-        "color_strategy": "背景浅绿浅白，角色主色作为记忆点。",
+        "color_strategy": "浅绿浅白背景，角色主色作为记忆点。",
         "lighting_behavior": "扩散自然光，低噪点，清晰线稿。",
-        "tags": ["glasshouse", "flower", "natural_light"],
+        "tags": ["greenhouse", "flower", "natural_light"],
     },
     {
-        "name": "night_vending_light",
-        "graphic_concept": "夜晚自动贩卖机附近的轻剧情感，简单但有颜色记忆。",
-        "spatial_structure": "一台发光机器、简化墙面、少量地面反光。",
-        "visual_device": "机器光照亮角色侧脸。",
-        "body_silhouette": "站姿三分之二身，手放口袋、身侧或轻扶衣摆。",
-        "outfit_direction": "seasonal everyday outfit, clear color blocks, low ornament density",
-        "material_language": "塑料光、布料、清晰发丝。",
-        "color_strategy": "夜色背景加角色专属色光，避免高饱和乱闪。",
-        "lighting_behavior": "低对比夜光，脸部不能黑。",
-        "tags": ["night", "vending", "street"],
+        "name": "bookstore_cafe_corner",
+        "graphic_concept": "书店咖啡角，安静生活感和柔和知识气氛。",
+        "spatial_structure": "书架、圆桌、暖灯、窗边座位，书脊不出现可读文字。",
+        "visual_device": "书架竖线和圆桌形成稳定构图。",
+        "body_silhouette": "坐姿或站在书架旁，手部放松，不拿复杂道具。",
+        "outfit_direction": "clean light-novel casual outfit, keeping the character palette recognizable",
+        "material_language": "纸张、木架、针织、柔软发丝。",
+        "color_strategy": "暖木色和浅奶油色托住角色主色。",
+        "lighting_behavior": "柔和室内灯加窗边自然光。",
+        "tags": ["bookstore", "cafe", "quiet"],
     },
     {
-        "name": "soft_fantasy_stage",
-        "graphic_concept": "轻幻想舞台，不是游戏宣传图，角色像插画主角。",
-        "spatial_structure": "简单圆形舞台、帘幕或光环形构图。",
-        "visual_device": "一个大几何光环强化缩略图识别。",
-        "body_silhouette": "站姿或轻微转身，双手自然，不做复杂武器动作。",
-        "outfit_direction": "soft stage outfit, simple silhouette, no complex props",
-        "material_language": "布料、丝带、少量发光饰品。",
-        "color_strategy": "单一背景主色加角色对比色，避免纯大红大粉铺满画面。",
-        "lighting_behavior": "柔和舞台灯，眼睛和脸是最高对比区域。",
-        "tags": ["stage", "fantasy", "graphic"],
+        "name": "pastel_room_sweets",
+        "graphic_concept": "柔和甜点房间，简约可爱但不幼稚。",
+        "spatial_structure": "浅色墙面、小圆桌、蛋糕或水果盘，背景极简。",
+        "visual_device": "圆桌和甜点成为小型视觉锚点，人物脸部最清楚。",
+        "body_silhouette": "站姿或坐姿，膝上构图，手靠近杯盘或自然下垂。",
+        "outfit_direction": "minimal sunny studio outfit, face and hair identity as the main focus",
+        "material_language": "奶油色布料、陶瓷、甜点、轻柔发饰。",
+        "color_strategy": "淡彩背景，角色发色和眼睛必须更明确。",
+        "lighting_behavior": "柔和室内高调光，避免发白。",
+        "tags": ["sweets", "pastel_room", "soft_light"],
     },
     {
-        "name": "quiet_mechanical_room",
-        "graphic_concept": "安静机械房间，机械元素是背景秩序，不抢人物。",
-        "spatial_structure": "简化控制台、圆形灯、少量线缆和墙面模块。",
-        "visual_device": "圆形冷光从背后勾出角色轮廓。",
-        "body_silhouette": "站姿或坐姿，双手自然可见，不出现复杂机械义肢。",
-        "outfit_direction": "reference-faithful outfit with only small fabric and accessory variation",
-        "material_language": "磨砂金属、软布、干净电光。",
-        "color_strategy": "冷灰蓝背景配角色专属暖色或电光色。",
-        "lighting_behavior": "冷色背光加柔和正面补光。",
-        "tags": ["mechanical", "cool_light", "simple_room"],
+        "name": "garden_tea_table",
+        "graphic_concept": "花园茶桌，精致但轻量的童话日常。",
+        "spatial_structure": "小茶桌、花篱、白色椅子和浅色桌布，布景清楚不拥挤。",
+        "visual_device": "茶桌圆形和花篱弧线围住角色。",
+        "body_silhouette": "坐姿、侧身回头或轻扶椅背，手指清楚自然。",
+        "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
+        "material_language": "桌布、花朵、茶杯、柔软裙摆。",
+        "color_strategy": "白、浅绿、花色点缀，角色主色仍是最高识别。",
+        "lighting_behavior": "晴天花园柔光，空气清透。",
+        "tags": ["garden", "tea_table", "fairy_tale"],
     },
 ]
 
@@ -234,11 +246,15 @@ ACTION_STYLES = [
 
 
 CHARACTER_PLAN_HINTS = {
-    "席德": ["quiet_mechanical_room", "night_vending_light", "clean_studio_portrait"],
-    "橘福福": ["soft_fantasy_stage", "sunset_train_window", "clean_studio_portrait"],
-    "叶瞬光": ["summer_window_room", "sunset_train_window", "flower_glasshouse"],
-    "千夏": ["summer_window_room", "aquarium_blue_light", "clean_studio_portrait"],
-    "丹": ["aquarium_blue_light", "quiet_mechanical_room", "clean_studio_portrait"],
+    "南宫": ["sunny_cafe_window", "pastel_room_sweets", "bookstore_cafe_corner"],
+    "爱芮": ["small_bakery_morning", "garden_tea_table", "pastel_room_sweets"],
+    "千夏": ["sunny_cafe_window", "open_grassland_breeze", "picnic_under_tree"],
+    "丹": ["flower_sea_afternoon", "greenhouse_flower_room", "garden_tea_table"],
+    "星见雅": ["garden_tea_table", "bookstore_cafe_corner", "flower_sea_afternoon"],
+    "仪玄": ["greenhouse_flower_room", "garden_tea_table", "bookstore_cafe_corner"],
+    "叶瞬光": ["open_grassland_breeze", "picnic_under_tree", "flower_sea_afternoon"],
+    "席德": ["pastel_room_sweets", "small_bakery_morning", "greenhouse_flower_room"],
+    "橘福福": ["small_bakery_morning", "open_grassland_breeze", "picnic_under_tree"],
 }
 
 
@@ -261,8 +277,7 @@ def _weighted_choice(items, preferred_names=None, recent_tags=None):
         score = 1.0
         if item["name"] in preferred:
             score += 1.5
-        overlap = len(_tags_of(item) & recent)
-        score -= overlap * 0.6
+        score -= len(_tags_of(item) & recent) * 0.6
         scored.append((max(score, 0.2), item))
     total = sum(score for score, _ in scored)
     pick = random.random() * total
@@ -302,7 +317,7 @@ def propagation_profile_for(character_name):
         "thumbnail_strategy": profile["thumbnail_strategy"],
         "safe_sensuality": profile["safe_sensuality"],
         "color_anchor": profile["color_anchor"],
-        "propagation_translation": "稳定角色身份、清晰构图、干净二次元插画质量优先。",
+        "propagation_translation": "稳定角色身份、温暖柔和场景、干净二次元插画质量优先。",
     }
 
 
@@ -322,13 +337,13 @@ def outfit_variation_for(character_name, plan_name=None):
     profile = CHARACTER_PROFILES.get(character_name, CHARACTER_PROFILES["丹"])
     base = random.choice(OUTFIT_DIRECTIONS)
     if character_name == "丹":
-        return f"{base}; vary Dan's outfit between soft future casual, light dress, simple jacket, and airy uniform while keeping pale pink short hair unchanged"
+        return f"{base}; vary Dan's outfit between soft casual dress, light cardigan, simple blouse, and airy uniform while keeping pale pink short hair unchanged"
     if character_name in {"星见雅", "叶瞬光"}:
         return f"{base}; sword-related items may appear as sheath, distant silhouette, or small accessory, but do not force hand-held sword"
-    if character_name in {"千夏"}:
+    if character_name == "千夏":
         return f"{base}; no creator desk, no pen-and-paper theme; keep mint short hair and bow faithful to reference"
-    if character_name in {"席德"}:
-        return f"{base}; add only small mechanical accessories or light modules, not extra limbs"
-    if character_name in {"橘福福"}:
+    if character_name == "席德":
+        return f"{base}; add only tiny blue-violet light marks or soft glass accessories, not hard devices"
+    if character_name == "橘福福":
         return f"{base}; tiger motif should be small and readable, without fixed sect scenery"
     return f"{base}; keep {profile['color_anchor']} as the recognizable palette"
