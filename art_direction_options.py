@@ -339,6 +339,55 @@ ACTION_STYLES = [
 ]
 
 
+KNOWN_CHARACTER_NAMES = [
+    "南宫",
+    "爱芮",
+    "千夏",
+    "丹",
+    "星见雅",
+    "仪玄",
+    "叶瞬光",
+    "席德",
+    "橘福福",
+]
+
+
+PLAN_TAGS = {
+    plan["name"]: list(plan.get("tags", []))
+    for plan in ART_DIRECTION_PLANS
+}
+
+
+ACTION_TAGS = {
+    action["name"]: list(action.get("tags", []))
+    for action in ACTION_STYLES
+}
+
+
+DEFAULT_PLAN_WEIGHTS = {
+    plan["name"]: 1.0
+    for plan in ART_DIRECTION_PLANS
+}
+
+
+DEFAULT_ACTION_WEIGHTS = {
+    action["name"]: 1.0
+    for action in ACTION_STYLES
+}
+
+
+CHARACTER_PLAN_WEIGHTS = {
+    character_name: dict(DEFAULT_PLAN_WEIGHTS)
+    for character_name in KNOWN_CHARACTER_NAMES
+}
+
+
+CHARACTER_ACTION_WEIGHTS = {
+    character_name: dict(DEFAULT_ACTION_WEIGHTS)
+    for character_name in KNOWN_CHARACTER_NAMES
+}
+
+
 def _profile_for(character_name):
     return CHARACTER_PROFILES.get(character_name, GENERIC_PROFILE)
 
@@ -354,11 +403,13 @@ def _recent_set(recent_tags=None):
     return set(recent_tags)
 
 
-def _weighted_choice(items, recent_tags=None):
+def _weighted_choice(items, recent_tags=None, weights=None):
     recent = _recent_set(recent_tags)
+    weights = weights or {}
     scored = []
     for item in items:
-        score = 1.0 - len(_tags_of(item) & recent) * 0.55
+        score = float(weights.get(item["name"], 1.0))
+        score -= len(_tags_of(item) & recent) * 0.55
         scored.append((max(score, 0.2), item))
     total = sum(score for score, _ in scored)
     pick = random.random() * total
@@ -371,11 +422,13 @@ def _weighted_choice(items, recent_tags=None):
 
 
 def choose_art_plan(character_name=None, recent_tags=None):
-    return dict(_weighted_choice(ART_DIRECTION_PLANS, recent_tags=recent_tags))
+    weights = CHARACTER_PLAN_WEIGHTS.get(character_name or "", DEFAULT_PLAN_WEIGHTS)
+    return dict(_weighted_choice(ART_DIRECTION_PLANS, recent_tags=recent_tags, weights=weights))
 
 
 def choose_action_style(character_name=None, recent_tags=None):
-    return dict(_weighted_choice(ACTION_STYLES, recent_tags=recent_tags))
+    weights = CHARACTER_ACTION_WEIGHTS.get(character_name or "", DEFAULT_ACTION_WEIGHTS)
+    return dict(_weighted_choice(ACTION_STYLES, recent_tags=recent_tags, weights=weights))
 
 
 def choose_plan_and_action(character_name, recent_tags=None):
