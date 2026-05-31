@@ -2342,3 +2342,100 @@ if "星见雅" in CHARACTER_PROPAGATION_PROFILES:
     CHARACTER_PROPAGATION_PROFILES["星见雅"]["official_core"] += " 她的剑客身份可以通过红色刀线、绳结、姿态和冷感剪影表达；不强制每张都画实体太刀。"
 if "叶瞬光" in CHARACTER_PROPAGATION_PROFILES:
     CHARACTER_PROPAGATION_PROFILES["叶瞬光"]["official_core"] += " 她的执剑师姐身份可以通过云岿山服饰、红绳、山风云气、符纹和护人姿态表达；不强制每张都画实体剑。"
+
+# ---------------------------------------------------------------------------
+# Final school/mountain motif cleanup
+# User feedback: Yeshunguang and Ju Fufu should not keep generating fixed
+# Yunkui-mountain / gate / stone-step / talisman scenery. Keep their character
+# identity, remove the repeating faction-location motif.
+# ---------------------------------------------------------------------------
+def _replace_profile_text(character_name: str, replacements: dict[str, str]) -> None:
+    profile = CHARACTER_PROPAGATION_PROFILES.get(character_name)
+    if not profile:
+        return
+    for key, value in list(profile.items()):
+        if isinstance(value, str):
+            for old, new in replacements.items():
+                value = value.replace(old, new)
+            profile[key] = value
+        elif isinstance(value, list):
+            cleaned = []
+            for item in value:
+                if isinstance(item, str):
+                    for old, new in replacements.items():
+                        item = item.replace(old, new)
+                cleaned.append(item)
+            profile[key] = cleaned
+
+
+_YESHUNGUANG_REPLACEMENTS = {
+    "《绝区零》云岿山代理人，": "",
+    "云岿山修行者气质": "温柔可靠的守护者气质",
+    "云岿山气质": "温柔守护者气质",
+    "云岿山": "清亮东方幻想",
+    "晨雾山门": "晨雾光影",
+    "山门": "柔和远景",
+    "山风云气": "轻风与暖色空气感",
+    "山风": "轻风",
+    "云气": "空气流线",
+    "石阶": "浅色地面",
+    "符纹": "红绳纹样",
+    "门派": "固定流派",
+    "护送 viewer 经过柔和远景、雨巷或浅色地面": "温柔引导 viewer 穿过雨巷、庭院或浅色街景",
+}
+_FUFU_REPLACEMENTS = {
+    "《绝区零》云岿山S级火属性击破代理人，": "",
+    "云岿山武修": "虎系元气战斗",
+    "云岿山武修气质": "虎系元气战斗气质",
+    "云岿山": "明亮东方幻想",
+    "伏魔": "行动",
+    "伏魔符纸": "虎纹火光小饰件",
+    "山门练武场": "热闹灯火场景",
+    "云岿山石阶": "暖色街景地面",
+    "练武场风线": "火光风线",
+    "无虎无火无云岿山": "无虎无火",
+    "马上出发行动": "马上出发行动",
+}
+
+_replace_profile_text("叶瞬光", _YESHUNGUANG_REPLACEMENTS)
+_replace_profile_text("橘福福", _FUFU_REPLACEMENTS)
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS["叶瞬光"] = [
+    token for token in CHARACTER_REQUIRED_IDENTITY_TOKENS.get("叶瞬光", [])
+    if "云岿山" not in token and "山门" not in token and "石阶" not in token
+]
+CHARACTER_REQUIRED_IDENTITY_TOKENS["叶瞬光"].extend([
+    "叶瞬光的核心是暖棕长发、棕褐兽耳、大棕尾、红绳/红色发饰、白金系清爽服装和温柔可靠师姐感",
+    "场景不绑定固定东方地点，优先使用雨天街景、庭院、摄影棚、白色空间、节日街景或柔和幻想背景",
+])
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS["橘福福"] = [
+    token for token in CHARACTER_REQUIRED_IDENTITY_TOKENS.get("橘福福", [])
+    if "云岿山" not in token and "武修" not in token and "伏魔" not in token
+]
+CHARACTER_REQUIRED_IDENTITY_TOKENS["橘福福"].extend([
+    "橘福福的核心是虎系元素、火属性暖光、元气师姐感、明亮能打和亲近感",
+    "场景不绑定固定东方地点，优先使用节日街景、摄影棚、明亮室内、主题乐园或暖色幻想背景",
+])
+
+CHARACTER_OUTFIT_PUSH["叶瞬光"] = [
+    "Yeshunguang-specific variation: white and warm-gold clean outfit, red ribbon or red cord, warm brown hair and large brown tail preserved, gentle senior-sister feeling",
+    "Yeshunguang-specific variation: soft travel outfit, white outer layer, dark inner line, red tassel, warm brown beast ears and fluffy tail clearly different from Miyabi",
+    "Yeshunguang-specific variation: rain-day guardian outfit, pale robe jacket, red hair ribbon, soft brown tail, protective warmth not cold pressure",
+]
+CHARACTER_OUTFIT_PUSH["橘福福"] = [
+    "Ju Fufu-specific variation: bright tiger-themed casual battle outfit, warm orange firelight accents, tiger stripe waist detail, energetic senior-sister charm",
+    "Ju Fufu-specific variation: festival street outfit, red-orange short capelet, tiger charm accessory, lively but not ordinary catgirl",
+    "Ju Fufu-specific variation: sporty fire-tiger outfit, warm belt ribbons, tiger-shaped small accessory, readable action silhouette with free modern fantasy background",
+]
+
+CHARACTER_VIEWER_DISTANCE["橘福福"] = (
+    "medium-close / energetic action：可以更有动势和亲近感，必须保留虎系火光、元气、能打和亲近感。"
+)
+
+CHARACTER_OUTFIT_VARIATIONS["橘福福"] = [
+    "明亮虎系节日短外套 + 暖橙腰饰 + 虎纹小配件，元气师姐感优先",
+    "红橙街景短披肩 + 虎形小挂件 + 轻盈裙裤，不变普通猫娘",
+    "火光运动短外套 + 暖色束带 + 虎威小装置，动作感清楚但背景自由",
+    "摄影棚元气偶像风外套 + 虎纹发饰 + 奶白和橙色对比，明亮可爱但能打",
+]
