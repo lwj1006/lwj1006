@@ -288,10 +288,10 @@ ACTION_STYLES = [
     {
         "name": "blade_stillness",
         "tags": {"controlled", "grounded", "hard_geometry", "no_reach", "quiet"},
-        "body_silhouette": "角色以极低幅度拔刀前、收刀后或侧身停步的姿态出现，长发、狐耳、刀鞘和衣摆形成锐利纵向剪影",
-        "personality_logic": "动作服务寡言冷静和顶级执行者气场，危险感来自克制、停顿和空间压迫，而不是大幅度表演",
-        "support_rule": "身体必须稳定落地或靠近硬结构，刀和长发只做方向线，不要变成战斗乱舞",
-        "avoid_rule": "不要朝镜头伸手，不要大跳跃，不要满屏刀光，不要把画面做成复杂战斗场面",
+        "body_silhouette": "角色侧身停步或安静回头，长发、兽耳、衣摆和红色线状光轨形成锐利纵向剪影；如果出现刀鞘，也放在腰侧或背景剪影里，不让手去握",
+        "personality_logic": "动作服务寡言冷静和顶级执行者气场，危险感来自克制、停顿、眼神和空间压迫，而不是实体持刀动作",
+        "support_rule": "身体必须稳定落地或靠近硬结构，刀线、长发和衣摆只做方向线，不要让手、刀柄和刀刃形成复杂接触",
+        "avoid_rule": "不要手握刀柄，不要拔刀动作，不要朝镜头伸手，不要大跳跃，不要满屏刀光，不要把画面做成复杂战斗场面",
     },
     {
         "name": "occult_command",
@@ -304,18 +304,18 @@ ACTION_STYLES = [
     {
         "name": "post_combat_exhaustion",
         "tags": {"grounded", "support", "low_energy", "quiet", "heavy_weight", "no_reach"},
-        "body_silhouette": "角色重心极低，靠在残骸、墙壁、台阶或栏杆上，武器随意拄在地上或垂落，肩线彻底放松",
+        "body_silhouette": "角色重心极低，靠在墙壁、台阶或栏杆上，肩线彻底放松；战斗痕迹用衣摆、尘光、红线或远处道具剪影表达，不让手支撑武器",
         "personality_logic": "动作服务战后真实感和地心引力，展现顶级战力卸下防备的一瞬间，而不是漂亮摆拍",
-        "support_rule": "必须有极强支撑受力点：背靠、手撑、武器支撑或膝盖受力，身体呈现疲惫下坠感",
+        "support_rule": "必须有极强支撑受力点：背靠、手撑墙面、膝盖受力或身体靠栏杆；不要用武器当支撑点",
         "avoid_rule": "不要看镜头营业，不要完美站姿，不要轻飘飘头发，不要满屏特效",
     },
     {
         "name": "half_drawn_tension",
         "tags": {"controlled", "medium_energy", "no_reach", "tension", "grounded"},
-        "body_silhouette": "动作幅度极小，手掌刚覆盖在武器刀柄或法器上，身体微微前倾，重心下压，下颌微收",
-        "personality_logic": "动作服务爆发前一秒的极限拉扯，不直接展现战斗，而是展现纯粹杀气和压迫感",
-        "support_rule": "双脚必须稳稳抓地，肩颈和腰线带有紧绷感，空间线条压向角色",
-        "avoid_rule": "不要完全拔出武器，不要夸张挥砍，不要大幅度肢体伸展，不要前景大手",
+        "body_silhouette": "动作幅度极小，手放在胸前、袖口、腰侧衣褶或身体侧边，身体微微前倾，重心下压，下颌微收；紧张感来自眼神和红色方向线，不来自握武器",
+        "personality_logic": "动作服务爆发前一秒的极限拉扯，不直接展现战斗，而是展现纯粹压迫感和即将行动的气息",
+        "support_rule": "双脚必须稳稳抓地，肩颈和腰线带有紧绷感，空间线条压向角色；手部保持简单并远离刀柄",
+        "avoid_rule": "不要握刀柄，不要拔刀，不要完全拔出武器，不要夸张挥砍，不要大幅度肢体伸展，不要前景大手",
     },
     {
         "name": "over_shoulder_departure",
@@ -2316,3 +2316,29 @@ CHARACTER_OUTFIT_PUSH.setdefault("叶瞬光", []).extend([
     "Yeshunguang-specific variation: gentle senior-sister travel outfit, white outer layer, dark inner line, red tassel, sword cord, warm brown beast ears and fluffy tail clearly different from Miyabi",
     "Yeshunguang-specific variation: rain-stone-step guardian outfit, pale robe jacket, red hair ribbon, sword tassel, soft brown tail, protective warmth not cold pressure",
 ])
+
+# Weapon presence relaxation: Miyabi and Yeshunguang have blade-related
+# identities, but a visible sword should be optional so prompts can produce
+# softer portrait, date, studio, and minimal scenes without forcing weapons.
+CHARACTER_REQUIRED_IDENTITY_TOKENS["星见雅"] = [
+    token for token in CHARACTER_REQUIRED_IDENTITY_TOKENS.get("星见雅", [])
+    if "太刀柄" not in token and "刀鞘" not in token and "至少出现一个" not in token
+]
+CHARACTER_REQUIRED_IDENTITY_TOKENS["星见雅"].extend([
+    "星见雅有冷感剑客背景，但实体太刀、太刀柄或刀鞘不是每张必须出现",
+    "可用红色刀线、武士绳结、收刀后的姿态、冷色武士剪影或压迫眼神暗示剑客身份",
+])
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS["叶瞬光"] = [
+    token for token in CHARACTER_REQUIRED_IDENTITY_TOKENS.get("叶瞬光", [])
+    if "剑 / 剑光 / 剑穗" not in token and "至少出现一个" not in token
+]
+CHARACTER_REQUIRED_IDENTITY_TOKENS["叶瞬光"].extend([
+    "叶瞬光有执剑师姐背景，但实体剑、剑光或剑穗不是每张必须出现",
+    "可用云岿山修行服、红绳/发带、山风云气、符纹、石阶、护人姿态或温柔回身感暗示修行者身份",
+])
+
+if "星见雅" in CHARACTER_PROPAGATION_PROFILES:
+    CHARACTER_PROPAGATION_PROFILES["星见雅"]["official_core"] += " 她的剑客身份可以通过红色刀线、绳结、姿态和冷感剪影表达；不强制每张都画实体太刀。"
+if "叶瞬光" in CHARACTER_PROPAGATION_PROFILES:
+    CHARACTER_PROPAGATION_PROFILES["叶瞬光"]["official_core"] += " 她的执剑师姐身份可以通过云岿山服饰、红绳、山风云气、符纹和护人姿态表达；不强制每张都画实体剑。"
