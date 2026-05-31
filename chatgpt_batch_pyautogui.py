@@ -219,6 +219,7 @@ def load_calibrated_coords() -> None:
 
 
 def save_calibrated_coords() -> None:
+    CALIBRATION_FILE.parent.mkdir(parents=True, exist_ok=True)
     CALIBRATION_FILE.write_text(
         json.dumps(COORDS, ensure_ascii=False, indent=2),
         encoding="utf-8",
