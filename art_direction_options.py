@@ -21,7 +21,7 @@ ANTI_SAFE_COMPOSITION = []
 
 CHARACTER_PROFILES = {
     "南宫": {
-        "official_core": "黑发短双马尾，发尾粉色渐变，齐刘海，粉色眼睛，猫咪发夹，俏皮又危险的少女气质。",
+        "official_core": "黑发短双马尾，发尾粉色渐变，齐刘海，粉色眼睛，猫咪发夹，俏皮。",
         "identity_tokens": ["short black twin tails with pink gradient tips", "straight blunt bangs", "pink eyes", "cat hairpin"],
         "viewer_relationship": "像在悄悄观察观众，表情聪明、轻微挑衅，但不夸张。",
         "thumbnail_strategy": "黑粉发色和猫咪小饰品必须在小图里仍然清楚。",
@@ -37,7 +37,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
-        "official_core": "薄荷灰绿短发，柔软分层发型，侧边小发束与大蝴蝶结，粉金色眼睛，清爽安静的夏日少女。",
+        "official_core": "薄荷中短层次发 + 大号薄荷蝴蝶结 + 不对称刘海 薄荷灰绿，柔软分层发型，侧边小发束与大蝴蝶结，粉金色眼睛，清爽安静。",
         "identity_tokens": ["mint gray-green short layered hair", "large mint bow", "soft asymmetrical bangs", "pink-gold eyes"],
         "viewer_relationship": "像安静陪伴观众，温柔、干净、带一点害羞。",
         "thumbnail_strategy": "薄荷发色、蝴蝶结、清透眼睛必须稳定，不要改成普通长发角色。",
@@ -45,7 +45,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "mint, pale gold, soft white",
     },
     "丹": {
-        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，安静、透明、梦境感的少女。",
+        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，安静、透明。",
         "identity_tokens": ["pale pink short layered hair", "airy uneven bangs", "pink-purple eyes", "small silver-blue hair accessory"],
         "viewer_relationship": "像从安静梦境里看向观众，神秘但亲近。",
         "thumbnail_strategy": "浅粉短发和透明感眼睛必须稳定，服装可以变化。",
@@ -53,7 +53,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "pale pink, violet, silver blue",
     },
     "星见雅": {
-        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，冷静、锋利、克制的剑士气质。",
+        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，冷静、锋利。",
         "identity_tokens": ["long straight black hair", "hime-cut blunt bangs", "sharp black animal ears", "red eyes"],
         "viewer_relationship": "像冷静地看穿观众，距离感强但角色存在感清楚。",
         "thumbnail_strategy": "黑长直、黑兽耳、红眼是核心；剑可以作为气质符号但不是必须手持。",
@@ -61,7 +61,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "black, red, white",
     },
     "仪玄": {
-        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，成熟安静的神秘术士气质。",
+        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，成熟安静。",
         "identity_tokens": ["long silver-white hair", "small ahoge", "black wave hair ornament", "golden eyes"],
         "viewer_relationship": "像平静地邀请观众进入仪式，沉稳、有神秘感。",
         "thumbnail_strategy": "银白长发和金眼必须清晰，背景不要压过人物。",
@@ -69,7 +69,7 @@ CHARACTER_PROFILES = {
         "color_anchor": "silver white, black, gold",
     },
     "叶瞬光": {
-        "official_core": "暖棕长发，棕色兽耳，蓬松棕色尾巴，红色眼睛，红色发带或花饰，温柔可靠的守护者气质。",
+        "official_core": "暖棕长发，棕色兽耳，蓬松棕色尾巴，红色眼睛，红色发带或花饰，温柔可靠。",
         "identity_tokens": ["warm brown long hair", "brown animal ears", "fluffy brown tail", "red eyes", "red ribbon or flower accessory"],
         "viewer_relationship": "像温柔地回头照看观众，亲和但有守护感。",
         "thumbnail_strategy": "暖棕发色、棕色兽耳和尾巴要稳定，不要变成黑发红眼冷剑士。",
