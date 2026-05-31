@@ -20,10 +20,11 @@ import pyperclip
 from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
-    choose_action_style,
     choose_plan_and_action,
     collect_cooldown_tags,
     propagation_profile_for,
+    required_identity_tokens_for,
+    viewer_distance_for,
 )
 from art_direction_templates import prompt_for_art_direction, prompt_template_name
 
@@ -83,13 +84,26 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "仪玄2.jpg"),
         str(PROJECT_DIR / "assets" / "仪玄3.png"),
     ],
+    "叶瞬光": [
+        str(PROJECT_DIR / "assets" / "叶瞬光1.png"),
+        str(PROJECT_DIR / "assets" / "叶瞬光2.png"),
+        str(PROJECT_DIR / "assets" / "叶瞬光3.png"),
+    ],
+    "席德": [
+        str(PROJECT_DIR / "assets" / "席德1.png"),
+        str(PROJECT_DIR / "assets" / "席德2.png"),
+    ],
+    "橘福福": [
+        str(PROJECT_DIR / "assets" / "橘福福2.jpeg"),
+        str(PROJECT_DIR / "assets" / "橘福福3.png"),
+    ],
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
-CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄"]
-RUNS_PER_CHARACTER_PER_THEME = 2
+CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福"]
+CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
 
@@ -127,6 +141,8 @@ COORDS = {
 
 CALIBRATION_FILE = PROJECT_DIR / "config" / "chatgpt_batch_coords.json"
 USED_CLOTHING_THEMES_FILE = PROJECT_DIR / "config" / "used_clothing_themes.json"
+USED_CHARACTER_CLOTHING_THEMES_FILE = PROJECT_DIR / "config" / "used_character_clothing_themes.json"
+USED_CHARACTER_BATCH_FILE = PROJECT_DIR / "config" / "used_character_batches.json"
 CLOTHING_THEME_USAGE_LOG_FILE = PROJECT_DIR / "config" / "clothing_theme_usage_log.jsonl"
 
 
@@ -474,6 +490,8 @@ def log_prompt(
     prompt_name: str,
     prompt: str,
     propagation_profile: dict | None = None,
+    required_identity_tokens: list[str] | None = None,
+    viewer_distance: str = "",
 ) -> str:
     run_id = dt.datetime.now().strftime(f"%Y%m%d_%H%M%S_run_{run_number:03d}")
     append_jsonl(
@@ -492,6 +510,8 @@ def log_prompt(
             "mood": mood,
             "prompt_template": prompt_name,
             "propagation_profile": propagation_profile,
+            "required_identity_tokens": required_identity_tokens or [],
+            "viewer_distance": viewer_distance,
             "prompt": prompt,
         },
     )
@@ -596,6 +616,153 @@ def mark_clothing_theme_used(theme: str, used_themes: list[str]) -> None:
     )
     print(f"Clothing theme permanent log -> {CLOTHING_THEME_USAGE_LOG_FILE}", flush=True)
 
+
+def load_used_character_clothing_themes() -> dict[str, list[str]]:
+    if not USED_CHARACTER_CLOTHING_THEMES_FILE.exists():
+        return {}
+
+    try:
+        data = json.loads(USED_CHARACTER_CLOTHING_THEMES_FILE.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        print(f"Used character clothing theme file is invalid; starting fresh: {USED_CHARACTER_CLOTHING_THEMES_FILE}")
+        return {}
+
+    if not isinstance(data, dict):
+        return {}
+
+    valid_themes = set(CLOTHING_THEMES)
+    normalized: dict[str, list[str]] = {}
+    for character_name, themes in data.items():
+        if not isinstance(character_name, str) or not isinstance(themes, list):
+            continue
+        normalized[character_name] = [
+            theme for theme in themes
+            if isinstance(theme, str) and theme in valid_themes
+        ]
+    return normalized
+
+
+def save_used_character_clothing_themes(used_by_character: dict[str, list[str]]) -> None:
+    USED_CHARACTER_CLOTHING_THEMES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    USED_CHARACTER_CLOTHING_THEMES_FILE.write_text(
+        json.dumps(used_by_character, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def load_used_character_batch() -> list[str]:
+    if not USED_CHARACTER_BATCH_FILE.exists():
+        return []
+
+    try:
+        data = json.loads(USED_CHARACTER_BATCH_FILE.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        print(f"Used character batch file is invalid; starting fresh: {USED_CHARACTER_BATCH_FILE}")
+        return []
+
+    if not isinstance(data, list):
+        return []
+
+    valid_characters = set(CHARACTER_SEQUENCE)
+    return [name for name in data if isinstance(name, str) and name in valid_characters]
+
+
+def save_used_character_batch(used_characters: list[str]) -> None:
+    USED_CHARACTER_BATCH_FILE.parent.mkdir(parents=True, exist_ok=True)
+    USED_CHARACTER_BATCH_FILE.write_text(
+        json.dumps(used_characters, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def choose_character_batch(used_characters: list[str]) -> list[str]:
+    valid_used = [name for name in used_characters if name in CHARACTER_SEQUENCE]
+    used_characters[:] = valid_used
+
+    available = [name for name in CHARACTER_SEQUENCE if name not in used_characters]
+    if not available:
+        print(
+            "All characters have appeared in the current character cycle. Clearing character-cycle history.",
+            flush=True,
+        )
+        used_characters.clear()
+        save_used_character_batch(used_characters)
+        available = CHARACTER_SEQUENCE[:]
+
+    batch_size = min(CHARACTERS_PER_BATCH, len(available))
+    selected = random.sample(available, k=batch_size)
+    print(
+        f"Character cycle: {len(used_characters)}/{len(CHARACTER_SEQUENCE)} used before this batch -> "
+        f"{USED_CHARACTER_BATCH_FILE}",
+        flush=True,
+    )
+    return selected
+
+
+def mark_character_batch_used(selected_characters: list[str], used_characters: list[str]) -> None:
+    for character_name in selected_characters:
+        if character_name in CHARACTER_SEQUENCE and character_name not in used_characters:
+            used_characters.append(character_name)
+    save_used_character_batch(used_characters)
+    print(
+        f"Character cycle after batch: {len(used_characters)}/{len(CHARACTER_SEQUENCE)} used -> "
+        f"{USED_CHARACTER_BATCH_FILE}",
+        flush=True,
+    )
+
+
+def choose_character_plan_and_action(
+    character_name: str,
+    recent_visual_tags: list[str],
+    used_by_character: dict[str, list[str]],
+    batch_used_themes: set[str] | None = None,
+) -> tuple[dict, dict]:
+    batch_used_themes = batch_used_themes or set()
+    used_themes = used_by_character.setdefault(character_name, [])
+    valid_used = [theme for theme in used_themes if theme in CLOTHING_THEMES]
+    used_by_character[character_name] = valid_used
+    used_set = set(valid_used)
+
+    if len(used_set) >= len(CLOTHING_THEMES):
+        print(f"{character_name} clothing theme cycle complete; clearing per-character theme history.", flush=True)
+        used_by_character[character_name] = []
+        used_set = set()
+        save_used_character_clothing_themes(used_by_character)
+
+    fallback: tuple[dict, dict] | None = None
+    for _ in range(24):
+        art_plan, action_style = choose_plan_and_action(character_name, recent_visual_tags)
+        if fallback is None:
+            fallback = (art_plan, action_style)
+        outfit_direction = art_plan["outfit_direction"]
+        if outfit_direction not in used_set and outfit_direction not in batch_used_themes:
+            return art_plan, action_style
+
+    if fallback is not None:
+        print(f"{character_name} could not find an unused theme quickly; using character-safe fallback plan.", flush=True)
+        return fallback
+
+    return choose_plan_and_action(character_name, recent_visual_tags)
+
+
+def mark_character_clothing_theme_used(
+    character_name: str,
+    theme: str,
+    used_by_character: dict[str, list[str]],
+) -> None:
+    if theme not in CLOTHING_THEMES:
+        return
+    used_themes = used_by_character.setdefault(character_name, [])
+    if theme not in used_themes:
+        used_themes.append(theme)
+    save_used_character_clothing_themes(used_by_character)
+    append_clothing_theme_usage_log(f"{character_name}: {theme}", len(used_themes))
+    print(
+        f"{character_name} clothing theme current cycle: {len(used_themes)}/{len(CLOTHING_THEMES)} used -> "
+        f"{USED_CHARACTER_CLOTHING_THEMES_FILE}",
+        flush=True,
+    )
+
 def schedule_safety_shutdown() -> None:
     now = dt.datetime.now()
     target_hour, target_minute = [int(part) for part in SAFETY_SHUTDOWN_TARGET_TIME.split(":", 1)]
@@ -673,105 +840,106 @@ def main() -> None:
         total_runs = int(sys.argv[runs_index + 1])
 
     recent_visual_tags: list[str] = []
-    used_clothing_themes = load_used_clothing_themes()
+    used_by_character = load_used_character_clothing_themes()
+    used_character_batch = load_used_character_batch()
     run_number = 1
     stop_requested = False
 
     while run_number <= total_runs and not stop_requested:
-        theme = choose_unused_clothing_theme(used_clothing_themes)
-        theme_completed = True
-        theme_total_runs = len(CHARACTER_SEQUENCE) * RUNS_PER_CHARACTER_PER_THEME
+        selected_characters = choose_character_batch(used_character_batch)
+        batch_completed_characters: list[str] = []
+        batch_used_themes: set[str] = set()
         print("=" * 72, flush=True)
         print(
-            f"Theme batch selected: {theme} "
-            f"({theme_total_runs} runs: {len(CHARACTER_SEQUENCE)} characters x {RUNS_PER_CHARACTER_PER_THEME})",
+            f"Character-first batch selected ({len(selected_characters)} characters x 1): "
+            f"{'、'.join(selected_characters)}",
             flush=True,
         )
 
-        for character_name in CHARACTER_SEQUENCE:
-            if stop_requested:
-                break
-
-            for character_repeat in range(1, RUNS_PER_CHARACTER_PER_THEME + 1):
-                if run_number > total_runs:
-                    theme_completed = False
-                    break
-
-                reference_files = reference_files_for_character(character_name)
-                art_plan = choose_art_plan_for_outfit(theme)
-                action_style = choose_action_style(character_name, recent_visual_tags)
-                propagation_profile = propagation_profile_for(character_name)
-                scene = art_plan["spatial_structure"]
-                pose = action_style["body_silhouette"]
-                lighting = art_plan["lighting_behavior"]
-                mood = art_plan["color_strategy"]
-                template_index = 0
-                concept = art_plan["graphic_concept"]
-                prompt_name = prompt_template_name(template_index)
-                prompt = prompt_for_art_direction(character_name, art_plan, action_style)
-
-                print("=" * 72, flush=True)
-                print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
-                print(f"[{run_number:02d}] theme repeat: {character_name} {character_repeat}/{RUNS_PER_CHARACTER_PER_THEME}", flush=True)
-                print(f"[{run_number:02d}] character: {character_name}", flush=True)
-                print(f"[{run_number:02d}] references: {reference_files}", flush=True)
-                print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
-                print(f"[{run_number:02d}] scene: {scene}", flush=True)
-                print(f"[{run_number:02d}] pose: {pose}", flush=True)
-                print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
-                print(f"[{run_number:02d}] mood: {mood}", flush=True)
-                print(f"[{run_number:02d}] art plan: {art_plan['name']}", flush=True)
-                print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
-                print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
-                print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
-                print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
-                print(f"[{run_number:02d}] material language: {art_plan['material_language']}", flush=True)
-                print(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}", flush=True)
-                print(f"[{run_number:02d}] prompt template: {prompt_name}", flush=True)
-                # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
-
-                uploaded_files = upload_reference_images(reference_files)
-                run_id = log_prompt(
-                    run_number,
-                    character_name,
-                    reference_files,
-                    uploaded_files,
-                    theme,
-                    scene,
-                    pose,
-                    lighting,
-                    mood,
-                    prompt_name,
-                    prompt,
-                    propagation_profile,
-                )
-                send_prompt(prompt)
-                take_screenshot(f"run_{run_number:02d}_sent")
-                screenshot_path = wait_for_generation(run_number)
-                log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
-                recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
-                recent_visual_tags = recent_visual_tags[-12:]
-                if "--once" in sys.argv or "--review-url" in sys.argv:
-                    open_images_page_for_review()
-
-                if "--once" in sys.argv:
-                    print("--once completed. Review feedback, adjust prompts if needed, then run again.")
-                    theme_completed = False
-                    stop_requested = True
-                    break
-
-                run_number += 1
-
+        for character_name in selected_characters:
             if run_number > total_runs:
                 break
 
-        if theme_completed and not stop_requested:
-            mark_clothing_theme_used(theme, used_clothing_themes)
-        else:
-            print(
-                f"Theme batch not completed; not marking theme as used: {theme}",
-                flush=True,
+            reference_files = reference_files_for_character(character_name)
+            art_plan, action_style = choose_character_plan_and_action(
+                character_name,
+                recent_visual_tags,
+                used_by_character,
+                batch_used_themes,
             )
+            propagation_profile = propagation_profile_for(character_name)
+            required_identity_tokens = required_identity_tokens_for(character_name)
+            viewer_distance = viewer_distance_for(character_name)
+            theme = art_plan["outfit_direction"]
+            batch_used_themes.add(theme)
+            scene = art_plan["spatial_structure"]
+            pose = action_style["body_silhouette"]
+            lighting = art_plan["lighting_behavior"]
+            mood = art_plan["color_strategy"]
+            template_index = 0
+            concept = art_plan["graphic_concept"]
+            prompt_name = prompt_template_name(template_index)
+            prompt = prompt_for_art_direction(character_name, art_plan, action_style)
+
+            print("=" * 72, flush=True)
+            print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
+            print(f"[{run_number:02d}] batch character: {character_name}", flush=True)
+            print(f"[{run_number:02d}] character: {character_name}", flush=True)
+            print(f"[{run_number:02d}] references: {reference_files}", flush=True)
+            print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
+            print(f"[{run_number:02d}] scene: {scene}", flush=True)
+            print(f"[{run_number:02d}] pose: {pose}", flush=True)
+            print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
+            print(f"[{run_number:02d}] mood: {mood}", flush=True)
+            print(f"[{run_number:02d}] art plan: {art_plan['name']}", flush=True)
+            print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
+            print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
+            print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
+            print(f"[{run_number:02d}] required identity tokens: {required_identity_tokens}", flush=True)
+            print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
+            print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
+            print(f"[{run_number:02d}] material language: {art_plan['material_language']}", flush=True)
+            print(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}", flush=True)
+            print(f"[{run_number:02d}] prompt template: {prompt_name}", flush=True)
+            # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
+
+            uploaded_files = upload_reference_images(reference_files)
+            run_id = log_prompt(
+                run_number,
+                character_name,
+                reference_files,
+                uploaded_files,
+                theme,
+                scene,
+                pose,
+                lighting,
+                mood,
+                prompt_name,
+                prompt,
+                propagation_profile,
+                required_identity_tokens,
+                viewer_distance,
+            )
+            send_prompt(prompt)
+            take_screenshot(f"run_{run_number:02d}_sent")
+            screenshot_path = wait_for_generation(run_number)
+            log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
+            mark_character_clothing_theme_used(character_name, theme, used_by_character)
+            batch_completed_characters.append(character_name)
+            recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
+            recent_visual_tags = recent_visual_tags[-12:]
+            if "--once" in sys.argv or "--review-url" in sys.argv:
+                open_images_page_for_review()
+
+            if "--once" in sys.argv:
+                print("--once completed. Review feedback, adjust prompts if needed, then run again.")
+                stop_requested = True
+                break
+
+            run_number += 1
+
+        if batch_completed_characters:
+            mark_character_batch_used(batch_completed_characters, used_character_batch)
 
     print("All runs completed. Safety shutdown remains scheduled.")
 

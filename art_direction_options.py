@@ -463,6 +463,286 @@ def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | 
     return _weighted_choice(candidates, weights)
 
 
+# ---------------------------------------------------------------------------
+# ZZZ new characters + stricter plan gates
+# ---------------------------------------------------------------------------
+
+if "CHARACTER_PROPAGATION_PROFILES" not in globals():
+    CHARACTER_PROPAGATION_PROFILES = {}
+if "CHARACTER_OUTFIT_VARIATIONS" not in globals():
+    CHARACTER_OUTFIT_VARIATIONS = {}
+if "CHARACTER_PLAN_WEIGHTS" not in globals():
+    CHARACTER_PLAN_WEIGHTS = {}
+if "CHARACTER_REQUIRED_IDENTITY_TOKENS" not in globals():
+    CHARACTER_REQUIRED_IDENTITY_TOKENS = {}
+if "CHARACTER_FORBIDDEN_PLANS" not in globals():
+    CHARACTER_FORBIDDEN_PLANS = {}
+if "CHARACTER_VIEWER_DISTANCE" not in globals():
+    CHARACTER_VIEWER_DISTANCE = {}
+
+NEW_CHARACTER_PROPAGATION_PROFILES = {
+    "叶瞬光": {
+        "official_core": "《绝区零》云岿山代理人，温柔可靠的师姐型执剑少女；核心是云岿山修行者气质、清亮剑光、承担感和保护他人的稳定强者气场。",
+        "propagation_translation": "gentle blade senior sister：她不是冷酷杀手，而是温柔、可靠、会回身护人的执剑强者。",
+        "viewer_relationship": "像师姐在晨雾山门前回头确认 viewer 是否安全；亲近但克制，可靠而有距离。",
+        "interaction_rule": "她保护 viewer。画面关系是守护、承担、温柔引导和安静剑意，不是甜美营业或压迫挑衅。",
+        "thumbnail_strategy": "脸 + 清亮眼神 + 云岿山气质 + 剑/剑光 + 山风云气 + 温柔师姐感；小图里必须读到云岿山、剑、可靠保护者。",
+        "thumbnail_modes": ["温柔师姐半身型", "山门剑光型", "回身保护型", "云雾头像型"],
+        "primary_hook_symbols": ["剑光", "云岿山山风", "符纹", "晨雾山门"],
+        "secondary_support_symbols": ["剑穗", "竹影", "云气", "石阶"],
+        "fantasy_symbols": ["剑光", "剑穗", "符纹", "山风", "云气", "竹影", "山门石阶", "月色剑痕"],
+        "safe_sensuality": "吸引力来自温柔可靠、清亮剑意和保护感；不要做冷酷杀手、媚态营业或现代普通校园少女。",
+        "preferred_hooks": {"modern_guofeng_character_poster", "rainy_clear_umbrella_date", "storybook_castle_balcony", "train_window_weekend", "dream_mist_portrait", "ritual_star_idol"},
+        "preferred_actions": {"dreamy_side_glance", "symbolic_center_pose", "direct_eye_contact"},
+        "suppressed_misreads": ["纯冷酷杀手", "现代普通校园少女", "无剑无门派气质", "甜妹营业", "西式骑士少女"],
+    },
+    "席德": {
+        "official_core": "《绝区零》S级电属性强攻代理人，天真危险的机械改造少女；核心是机械、改造、老席德、电弧、花朵反差和不按常识理解世界的童真逻辑。",
+        "propagation_translation": "electric mechanic innocent danger：她用纯真的表情展示危险改造，机械与花朵形成强反差。",
+        "viewer_relationship": "像认真把危险机械装置当新玩具展示给 viewer；可爱、离谱、带一点危险。",
+        "interaction_rule": "她向 viewer 展示改造。画面关系是童真说明、机械共犯感和电光危险，不是军武冷酷或普通机器人展示。",
+        "thumbnail_strategy": "脸 + 电弧蓝紫光 + 机械零件/机库 + 老席德或大型机械伙伴痕迹 + 花朵反差；小图里必须读到机械改造、电光、席德式童真。",
+        "thumbnail_modes": ["电光机械半身型", "驾驶舱头像型", "机械伙伴肩上型", "花与零件反差型"],
+        "primary_hook_symbols": ["蓝紫电弧", "机械改造零件", "老席德机械痕迹", "花朵反差"],
+        "secondary_support_symbols": ["四叶草", "油菜花", "电路纹", "机械手臂"],
+        "fantasy_symbols": ["蓝紫电弧", "电路纹", "机械手臂", "驾驶舱光", "老席德残影", "四叶草", "油菜花", "机械手心开花"],
+        "safe_sensuality": "吸引力来自天真危险和机械花朵反差；不要普通军服少女、无机械元素、纯冷酷机器人或过度武器炫耀。",
+        "preferred_hooks": {"game_ui_battle_select", "pixel_cloud_savepoint", "neon_call_night", "gacha_capsule_corner", "arcade_prize_date"},
+        "preferred_actions": {"direct_eye_contact", "symbolic_center_pose", "dreamy_side_glance"},
+        "suppressed_misreads": ["普通军服少女", "无机械元素", "纯冷酷机器人", "普通机甲驾驶员", "只有花没有电光机械"],
+    },
+    "橘福福": {
+        "official_core": "《绝区零》云岿山S级火属性击破代理人，虎系元气师姐；核心是虎系元素、火属性暖光、云岿山武修、虎威或虎形装置和猛虎伏魔感。",
+        "propagation_translation": "tiger fire senior sister：她明亮、热情、能打，像会拉着你去吃饭又马上冲出去伏魔的虎系师姐。",
+        "viewer_relationship": "像热闹招呼 viewer 加入队伍；亲近、元气、可靠，下一秒就能跃起伏魔。",
+        "interaction_rule": "她带动 viewer。画面关系是元气召唤、热情陪伴和虎虎生风的行动感，不是普通猫娘卖萌。",
+        "thumbnail_strategy": "脸 + 虎系特征 + 火光虎纹 + 云岿山武修气质 + 虎威/虎形装置；小图里必须读到虎、火、云岿山。",
+        "thumbnail_modes": ["火光虎纹半身型", "跃起伏魔型", "灯笼庙会型", "练武场元气型"],
+        "primary_hook_symbols": ["虎纹火焰", "虎威装置", "虎耳/虎系轮廓", "伏魔符纸"],
+        "secondary_support_symbols": ["灯笼火光", "山门练武场", "红色符纸", "点心小袋"],
+        "fantasy_symbols": ["虎纹火焰", "虎形剪影", "虎威装置", "伏魔符纸", "灯笼火光", "云岿山石阶", "练武场风线"],
+        "safe_sensuality": "吸引力来自元气、火光、能打和师姐感；不要普通猫娘、过度阴暗、无虎无火无云岿山。",
+        "preferred_hooks": {"rpg_town_square_festival", "fantasy_cooking_class", "theme_park_twilight", "game_ui_battle_select", "idol_practice_mirror_clean", "modern_guofeng_character_poster"},
+        "preferred_actions": {"symbolic_center_pose", "direct_eye_contact", "idol_business_smile"},
+        "suppressed_misreads": ["普通猫娘", "过度阴暗", "无虎无火无云岿山", "柔弱软妹", "纯偶像舞台少女"],
+    },
+}
+
+CHARACTER_PROPAGATION_PROFILES.update(NEW_CHARACTER_PROPAGATION_PROFILES)
+
+NEW_CHARACTER_OUTFIT_VARIATIONS = {
+    "叶瞬光": [
+        "云岿山修行短披肩 + 清亮浅色内搭 + 剑穗小饰件，温柔师姐感优先",
+        "雨后石阶轻外套 + 中式盘扣腰线 + 剑鞘或剑穗，清爽可靠",
+        "竹影练剑服：简洁修行外袍 + 轻裙裤 + 符纹边，不做厚重古装",
+        "晨雾山门服：浅色披帛 + 干净领口 + 细剑光配饰，清亮不冷酷",
+    ],
+    "席德": [
+        "机库改造短外套 + 电路纹内搭 + 四叶草小配饰，机械与花朵反差清楚",
+        "驾驶舱轻机能服 + 蓝紫电光边 + 小花贴纸，天真危险感优先",
+        "维修台私服：短夹克 + 工具带简化 + 机械手臂小光片，不做军武厚重",
+        "大型机械伙伴旁的轻量装甲裙裤 + 油菜花色点缀 + 电弧发光扣",
+    ],
+    "橘福福": [
+        "云岿山练武短外套 + 虎纹腰饰 + 暖色裙裤，元气师姐感优先",
+        "灯笼庙会服：红橙短披肩 + 伏魔符纸小饰件 + 虎纹边，不变普通猫娘",
+        "石阶跃起战斗服：轻便武修上衣 + 火光束带 + 虎威小装置",
+        "早市点心日常服：明亮短外套 + 点心袋配饰 + 虎纹发饰，热闹但能打",
+    ],
+}
+for character_name, outfit_list in NEW_CHARACTER_OUTFIT_VARIATIONS.items():
+    CHARACTER_OUTFIT_VARIATIONS.setdefault(character_name, []).extend(outfit_list)
+
+NEW_CHARACTER_PLAN_WEIGHTS = {
+    "叶瞬光": {
+        "modern_guofeng_character_poster": 10,
+        "rainy_clear_umbrella_date": 6,
+        "storybook_castle_balcony": 5,
+        "dream_mist_portrait": 7,
+        "ritual_star_idol": 6,
+        "train_window_weekend": 4,
+        "planetarium_soft_date": 3,
+        "fairy_tale_bookshop": 2,
+    },
+    "席德": {
+        "game_ui_battle_select": 9,
+        "neon_call_night": 6,
+        "gacha_capsule_corner": 6,
+        "pixel_cloud_savepoint": 6,
+        "arcade_prize_date": 4,
+        "pajama_game_party": 3,
+        "ultra_minimal_character_poster": 3,
+    },
+    "橘福福": {
+        "modern_guofeng_character_poster": 8,
+        "rpg_town_square_festival": 8,
+        "fantasy_cooking_class": 6,
+        "theme_park_twilight": 5,
+        "game_ui_battle_select": 5,
+        "idol_practice_mirror_clean": 4,
+        "bakery_morning_window": 4,
+    },
+}
+for character_name, plan_weights in NEW_CHARACTER_PLAN_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {}).update(plan_weights)
+
+STRICT_PLAN_CHARACTERS = {"丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福"}
+
+CHARACTER_FORBIDDEN_TAGS = {
+    "丹": {"idol", "practice", "theme_park", "gacha", "collectible"},
+    "星见雅": {"cute", "theme_park", "home", "daily", "flower"},
+    "仪玄": {"cute", "home", "domestic_daily", "theme_park"},
+    "叶瞬光": {"cute", "theme_park", "gacha", "home"},
+    "席德": {"soft_emotion", "flower", "warm_light"},
+    "橘福福": {"quiet", "blue_light", "aquarium"},
+}
+
+
+def _default_plan_weight_for(character: str) -> int:
+    return 0 if character in STRICT_PLAN_CHARACTERS else CHARACTER_PLAN_WEIGHT_FLOOR
+
+
+def _allowed_plan_for_character(character: str, plan_name: str) -> bool:
+    if plan_name in CHARACTER_FORBIDDEN_PLANS.get(character, set()):
+        return False
+    plan_tags = PLAN_TAGS.get(plan_name, set())
+    forbidden_tags = CHARACTER_FORBIDDEN_TAGS.get(character, set())
+    return not (plan_tags & forbidden_tags)
+
+
+def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | None = None) -> dict:
+    character = _primary_character(character_name or "丹")
+    profile = propagation_profile_for(character)
+    weights_by_name = CHARACTER_PLAN_WEIGHTS.get(character, CHARACTER_PLAN_WEIGHTS["丹"])
+    default_weight = _default_plan_weight_for(character)
+    blocked = _blocked_tags(recent_tags)
+    candidates = []
+    weights = []
+    for plan in ART_DIRECTION_PLANS:
+        plan_name = plan["name"]
+        if not _allowed_plan_for_character(character, plan_name):
+            continue
+        tags = PLAN_TAGS.get(plan_name, set())
+        if tags & blocked:
+            continue
+        weight = weights_by_name.get(plan_name, default_weight)
+        if weight <= 0:
+            continue
+        candidates.append(plan)
+        weights.append(_profile_adjusted_weight(plan_name, weight, profile["preferred_hooks"]))
+    if not candidates:
+        candidates = [
+            plan for plan in ART_DIRECTION_PLANS
+            if _allowed_plan_for_character(character, plan["name"])
+            and weights_by_name.get(plan["name"], default_weight) > 0
+        ]
+        weights = [
+            _profile_adjusted_weight(
+                plan["name"],
+                weights_by_name.get(plan["name"], default_weight),
+                profile["preferred_hooks"],
+            )
+            for plan in candidates
+        ]
+    if not candidates:
+        candidates = [
+            plan for plan in ART_DIRECTION_PLANS
+            if _allowed_plan_for_character(character, plan["name"])
+        ] or ART_DIRECTION_PLANS[:]
+        weights = [1 for _ in candidates]
+    return _weighted_choice(candidates, weights)
+
+
+# ---------------------------------------------------------------------------
+# New character action weights + stricter theme safety gates
+# ---------------------------------------------------------------------------
+
+CHARACTER_ACTION_WEIGHTS.update({
+    "叶瞬光": {
+        "dreamy_side_glance": 7,
+        "direct_eye_contact": 5,
+        "symbolic_center_pose": 6,
+        "floating_daydream_pose": 2,
+        "near_camera_whisper": 0,
+        "earpiece_call_gaze": 0,
+        "idol_business_smile": 0,
+    },
+    "席德": {
+        "direct_eye_contact": 6,
+        "symbolic_center_pose": 7,
+        "earpiece_call_gaze": 3,
+        "dreamy_side_glance": 2,
+        "floating_daydream_pose": 1,
+        "near_camera_whisper": 0,
+        "idol_business_smile": 0,
+    },
+    "橘福福": {
+        "direct_eye_contact": 6,
+        "symbolic_center_pose": 6,
+        "idol_business_smile": 4,
+        "dreamy_side_glance": 2,
+        "floating_daydream_pose": 1,
+        "near_camera_whisper": 0,
+        "earpiece_call_gaze": 0,
+    },
+})
+
+NEW_CHARACTER_PLAN_WEIGHTS.update({
+    "叶瞬光": {
+        "modern_guofeng_character_poster": 12,
+        "dream_mist_portrait": 9,
+        "ritual_star_idol": 7,
+        "rainy_clear_umbrella_date": 4,
+        "train_window_weekend": 2,
+        "storybook_castle_balcony": 1,
+        "planetarium_soft_date": 1,
+        "fairy_tale_bookshop": 1,
+    },
+    "席德": {
+        "game_ui_battle_select": 10,
+        "neon_call_night": 7,
+        "gacha_capsule_corner": 6,
+        "arcade_prize_date": 5,
+        "ultra_minimal_character_poster": 4,
+    },
+    "橘福福": {
+        "modern_guofeng_character_poster": 10,
+        "rpg_town_square_festival": 9,
+        "game_ui_battle_select": 6,
+        "fantasy_cooking_class": 4,
+        "theme_park_twilight": 2,
+        "idol_practice_mirror_clean": 1,
+        "bakery_morning_window": 0,
+    },
+})
+for character_name, plan_weights in NEW_CHARACTER_PLAN_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {}).update(plan_weights)
+
+CHARACTER_FORBIDDEN_PLANS.update({
+    "橘福福": {
+        "planetarium_soft_date",
+        "fairy_tale_bookshop",
+        "laundry_sun_room",
+        "aquarium_blue_date",
+        "bakery_morning_window",
+    },
+})
+
+CHARACTER_FORBIDDEN_TAGS.update({
+    "席德": {"warm_light"},
+})
+
+CHARACTER_PROPAGATION_PROFILES["叶瞬光"]["interaction_rule"] += (
+    " 叶瞬光的剑意必须是护人而不是杀人；如果使用约会类主题，必须转译为师姐护送 viewer 经过山门、雨巷或石阶。"
+)
+CHARACTER_PROPAGATION_PROFILES["席德"]["interaction_rule"] += (
+    " 席德的可爱必须来自天真地展示危险改造；花朵只能作为机械反差点缀，不能变成普通花园少女。"
+)
+CHARACTER_PROPAGATION_PROFILES["橘福福"]["interaction_rule"] += (
+    " 橘福福的元气必须带能打和伏魔气质；日常或料理主题必须转译为虎系师姐招呼 viewer 后马上出发伏魔。"
+)
+
+
 def choose_action_style(character_name: str, recent_tags: list[str] | None = None) -> dict:
     character = _primary_character(character_name)
     weights_by_name = CHARACTER_ACTION_WEIGHTS.get(character, CHARACTER_ACTION_WEIGHTS["丹"])
@@ -584,13 +864,13 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "ultra_minimal_character_poster",
-        "graphic_concept": "超级简约角色海报：只保留角色脸、发型大形、一个专属符号和一块高记忆纯色背景",
-        "spatial_structure": "没有真实空间，背景是干净纯色、轻微渐变或单一大色块；角色以膝上或三分之二身构图为主，避免连续纯胸像",
-        "visual_device": "primary hook 只选一个：角色专属发饰 / 一个小道具 / 一个简洁图形符号；secondary support 只允许一条细线、一个小光点或一块纯色",
+        "graphic_concept": "超级简约角色海报：只保留角色脸、发型大形、一个专属符号和一块克制的中性/低饱和背景",
+        "spatial_structure": "没有真实空间，背景是米白、浅灰、雾蓝、淡奶油或低饱和互补色的干净纯色/轻微渐变；角色以膝上或三分之二身构图为主，避免连续纯胸像",
+        "visual_device": "primary hook 只选一个：角色专属发饰 / 一个小道具 / 一个简洁图形符号；secondary support 只允许一条细线、一个小光点或一块低饱和背景色",
         "body_silhouette": "角色正面或三分之二身，脸、眼睛、头发轮廓、肩线和手部小动作极清楚，姿态克制但有情绪",
         "outfit_direction": "极简但有角色识别的膝上服装：干净领口、明确肩线、腰线提示、一个小配饰或一处角色色",
         "material_language": "平滑色块、干净线稿、少量柔光、无复杂材质",
-        "color_strategy": "最多两到三种主色，角色专属色必须一眼记住，背景不抢脸",
+        "color_strategy": "最多两到三种主色，角色专属高饱和色只能用于头发、发饰、领口、细线和小符号；背景必须低饱和且与角色主色拉开色相/明度，禁止整张背景使用高饱和粉、洋红、紫红或角色同色",
         "lighting_behavior": "柔亮均匀光，眼睛和脸部最清楚，不追求真实阴影和复杂光效",
     },
     {
@@ -1007,7 +1287,7 @@ CHARACTER_PROPAGATION_PROFILES = {
         "propagation_translation": "playful controller idol：她不是向 viewer 撒娇，而是在调度 viewer，把观众拉进自己的节奏里。",
         "viewer_relationship": "轻挑衅对视、主导镜头、像已经看穿 viewer；关系感是“你被她锁定/选中”。",
         "interaction_rule": "她调度 viewer。画面关系是命令、锁定、控场和轻挑衅，不是撒娇或求关注。",
-        "thumbnail_strategy": "脸 + 黑发齐刘海 + 粉色渐变短双马尾 + 坏笑 + 科技光环/猫发夹/背后光片 + 粉黑大色块；背后光片为可选符号，不固定成背翼形态。",
+        "thumbnail_strategy": "脸 + 黑发齐刘海 + 粉色渐变短双马尾 + 坏笑 + 科技光环/猫发夹/背后光片 + 中性背景里的粉黑小面积强记忆点；背后光片为可选符号，不固定成背翼形态。",
         "thumbnail_modes": ["膝上控场型", "表情命令型", "符号锁定型", "极简头像型"],
         "primary_hook_symbols": ["科技光环", "节奏 UI", "猫发夹", "坏笑表情"],
         "secondary_support_symbols": ["背后小型机械光片", "粉黑舞台光", "心跳波形"],
@@ -1161,4 +1441,610 @@ def choose_action_style(character_name: str, recent_tags: list[str] | None = Non
             _profile_adjusted_weight(action["name"], weights_by_name.get(action["name"], 0), profile["preferred_actions"])
             for action in candidates
         ]
+    return _weighted_choice(candidates, weights)
+
+
+# ---------------------------------------------------------------------------
+# Extra scene / outfit theme expansion
+# 追加位置建议：放在 art_direction_options.py 文件末尾。
+# 只追加新场景、新标签、新角色权重、新服装变体；不改 build_prompt、动作逻辑和自动化脚本。
+# ---------------------------------------------------------------------------
+
+EXTRA_SCENE_PLANS = [{'name': 'neon_call_night',
+  'graphic_concept': '深夜通话感角色图：屏幕光、耳机线和小型聊天光晕把 viewer 拉进一对一陪伴场景',
+  'spatial_structure': '夜色房间或城市窗边被压成蓝紫色块，背景只保留柔和灯点和窗外光斑，角色占据膝上到三分之二身主视觉',
+  'visual_device': 'primary hook 只选一个：发光耳机线 / 通话光晕 / 窗边夜色；secondary support 只选一个：小聊天气泡 / 柔蓝补光 / 远处灯点',
+  'body_silhouette': '角色轻扶耳机或发饰，视线连接 viewer，手部动作靠近脸侧或胸前，保持清楚五指结构',
+  'outfit_direction': '深夜通话感私服：宽松短外套、柔软内搭、高腰裙裤、耳机或发饰小配件，轮廓亲近但干净',
+  'material_language': '柔软棉布、磨砂亚克力、耳机线微光、细小金属扣',
+  'color_strategy': '蓝紫夜色托脸，角色识别色集中在头发、发饰、领口或耳机线，整体干净不脏暗',
+  'lighting_behavior': '柔和屏幕光照亮脸和眼睛，边缘有轻微夜色反光，暗部保持透明'},
+ {'name': 'arcade_prize_date',
+  'graphic_concept': '游戏厅约会感：夹娃娃机、奖品灯箱和角色笑意形成高点击二次元日常',
+  'spatial_structure': '游戏厅背景被简化成粉蓝灯箱、大色块机器和少量圆形高光，不展开复杂店内透视',
+  'visual_device': 'primary hook 只选一个：毛绒奖品 / 游戏币 / 发光按钮；secondary support 只选一个：粉蓝灯箱 / 小星点 / 透明亚克力反光',
+  'body_silhouette': '角色膝上或三分之二身靠近机器侧边，手握小奖品或游戏币，姿态轻快但不冲镜头',
+  'outfit_direction': '游戏厅约会私服：短款夹克、轻甜内搭、高腰短裙或裙裤、厚底鞋袜和一个小型玩具配饰',
+  'material_language': '亮面贴纸、透明亚克力、柔软毛绒、棉质短外套',
+  'color_strategy': '粉蓝、奶白、亮黄和角色主色形成明亮记忆点，背景亮但不抢脸',
+  'lighting_behavior': '灯箱柔光和店内漫射光混合，眼睛与发色高光清楚'},
+ {'name': 'gacha_capsule_corner',
+  'graphic_concept': '扭蛋角落的收集欲：透明胶囊、迷你奖品和角色表情构成可收藏画面',
+  'spatial_structure': '扭蛋机圆形阵列变成背景图形，机器细节压缩成圆点节奏和大色块',
+  'visual_device': 'primary hook 只选一个：透明扭蛋胶囊 / 小奖品 / 圆形按钮；secondary support 只选一个：机器圆阵列 / 彩色贴纸 / 柔光反射',
+  'body_silhouette': '角色半蹲或侧身回头，手里轻握胶囊，脸和发型保持第一视觉锚点',
+  'outfit_direction': '轻快街头可爱私服：短卫衣或短夹克、高腰裙裤、彩色袜饰和一个圆形小配件',
+  'material_language': '透明塑料、亮面贴纸、软棉布、少量金属边',
+  'color_strategy': '糖果色圆点背景配角色识别色，色彩明亮但层级清楚',
+  'lighting_behavior': '店内柔光加透明胶囊小高光，脸部干净明亮'},
+ {'name': 'game_ui_battle_select',
+  'graphic_concept': '游戏角色选择界面感：角色像被选中进入队伍，UI 只作为干净图形支撑',
+  'spatial_structure': '背景是抽象选择界面、发光卡片框和角色色块，不出现真实游戏文字或 logo',
+  'visual_device': 'primary hook 只选一个：选中框 / 能量卡片 / 角色图标光环；secondary support 只选一个：细 UI 线 / 圆形按钮 / 半透明面板',
+  'body_silhouette': '角色三分之二身或膝上站在卡片框前，姿态像封面主视觉，表情明确',
+  'outfit_direction': '游戏活动限定服：短披肩、收腰外套、裙摆或裙裤、少量发光边和角色专属小徽章',
+  'material_language': '半透明面板、亮面织物、细金属饰件、柔软内搭',
+  'color_strategy': '角色主色加一种高对比辅助色，UI 降低透明度，只托出人物轮廓',
+  'lighting_behavior': '前方柔光保证脸部，背后选择框提供轮廓光，不做硬核科幻厚重感'},
+ {'name': 'rpg_town_square_festival',
+  'graphic_concept': '明亮 RPG 小镇节日：彩旗、摊位和幻想小物围绕角色，像游戏活动插画',
+  'spatial_structure': '小镇广场被压成圆形喷泉、彩旗和浅色屋顶色块，透视简化，角色是主视觉',
+  'visual_device': 'primary hook 只选一个：节日彩旗 / 小喷泉 / 活动徽章；secondary support 只选一个：摊位灯 / 花瓣 / 软色块',
+  'body_silhouette': '角色站在画面中近景或轻侧身，手持小甜点、花束或活动徽章，姿态清楚',
+  'outfit_direction': '幻想小镇节日服：短斗篷或小披肩、蝴蝶结、轻裙摆或裙裤、柔软靴袜组合',
+  'material_language': '棉麻、软皮革、丝带、少量金属小扣',
+  'color_strategy': '奶白、天空蓝、暖黄和角色色形成快乐但不低幼的游戏节日感',
+  'lighting_behavior': '晴天柔光和节日小灯点，脸部与眼睛最亮'},
+ {'name': 'pixel_cloud_savepoint',
+  'graphic_concept': '像素云存档点：云朵、发光存档水晶和角色安静站姿形成游戏幻想封面',
+  'spatial_structure': '天空、云层和平台被平面化成大色块，存档点作为唯一幻想装置',
+  'visual_device': 'primary hook 只选一个：存档水晶 / 像素云 / 发光平台；secondary support 只选一个：小星点 / 方块光粒 / 柔色圆环',
+  'body_silhouette': '角色站立、轻坐或侧身回头，身体轮廓稳定，画面有可爱游戏 UI 空气但没有文字',
+  'outfit_direction': '云端游戏冒险服：轻短外套、柔软裙裤、小披肩或袜靴，带一点像素色块装饰',
+  'material_language': '柔软布料、半透明水晶、方块光粒、雾面渐变',
+  'color_strategy': '天空蓝、奶白、淡紫和角色识别色组成清爽高记忆色盘',
+  'lighting_behavior': '云层漫射光包裹角色，存档水晶只提供小范围补光'},
+ {'name': 'storybook_castle_balcony',
+  'graphic_concept': '童话城堡阳台：圆窗、花藤和天空色块托出角色，不做复杂古堡背景',
+  'spatial_structure': '阳台栏杆、圆窗和花藤被设计成简洁图形框，背景只保留天空和远处城堡剪影',
+  'visual_device': 'primary hook 只选一个：圆窗 / 小皇冠 / 花藤；secondary support 只选一个：云朵 / 星点 / 飘带',
+  'body_silhouette': '角色膝上到三分之二身倚在阳台边，轻回头或微笑，动作优雅清楚',
+  'outfit_direction': '童话约会小礼服：短披肩、简洁领口、轻盈裙摆或裙裤、一个小皇冠或花饰重点',
+  'material_language': '薄纱、软缎、丝带、圆润金属小饰件',
+  'color_strategy': '奶白、淡粉、天空蓝或浅金与角色色融合，画面明亮柔软',
+  'lighting_behavior': '童话棚光和天空柔光并存，脸与发型最清楚'},
+ {'name': 'fairy_tale_bookshop',
+  'graphic_concept': '童话书店约会：发光绘本、书页小精灵和角色眼神形成温柔收藏感',
+  'spatial_structure': '书架被压成暖色大色块，前景只保留一本发光书或小书签作为核心装置',
+  'visual_device': 'primary hook 只选一个：发光绘本 / 书签丝带 / 小精灵光点；secondary support 只选一个：暖色书架 / 窗光 / 小花纹',
+  'body_silhouette': '角色坐在书店角落或轻靠书架，手部轻扶书页，表情安静亲近',
+  'outfit_direction': '书店约会私服：柔软针织、短外套、高腰裙裤、书签或小蝴蝶结配饰',
+  'material_language': '纸张暖光、针织、棉布、细丝带、磨砂玻璃',
+  'color_strategy': '奶茶色、浅粉、薄荷或淡紫承托角色发色，整体温暖不昏暗',
+  'lighting_behavior': '窗边自然光加绘本微光，眼睛和脸部保持清楚'},
+ {'name': 'blooming_flower_cart',
+  'graphic_concept': '街角花车日常：花束、透明包装纸和角色发色形成柔软高收藏插画',
+  'spatial_structure': '街角背景简化成花车、伞棚和浅色墙面，花朵作为大色块而不是碎细节',
+  'visual_device': 'primary hook 只选一个：大花束 / 透明包装纸 / 小花车；secondary support 只选一个：软伞棚 / 花瓣 / 暖色光斑',
+  'body_silhouette': '角色抱花、侧身回头或站在花车旁，手部被花束自然简化，脸部不被遮挡',
+  'outfit_direction': '花车日常服：短开衫、轻衬衫、高腰裙裤、透明花束包装与小发饰呼应',
+  'material_language': '棉布、薄纱、透明包装纸、柔软花瓣、木质小车色块',
+  'color_strategy': '花色只保留两三组主色，角色色是第一记忆点，背景保持浅色空气',
+  'lighting_behavior': '午后柔光和花束反射光，脸部明亮，阴影干净'},
+ {'name': 'seaside_date_kiosk',
+  'graphic_concept': '海边小卖部约会：汽水、海风和蓝白遮阳棚让角色变成夏日封面',
+  'spatial_structure': '海、天空和小卖部棚顶压成三层色块，空间开阔但角色占据主视觉',
+  'visual_device': 'primary hook 只选一个：透明汽水瓶 / 蓝白遮阳棚 / 海风发丝；secondary support 只选一个：波光 / 小贝壳 / 云朵',
+  'body_silhouette': '角色坐在高脚凳、靠近柜台或轻回头，手持汽水，姿态清爽自然',
+  'outfit_direction': '海边约会私服：短衬衫、轻薄外套、高腰裙裤、凉鞋或轻运动鞋，透明小饰件点缀',
+  'material_language': '棉麻、透明玻璃、湿润波光、轻薄布料',
+  'color_strategy': '海蓝、奶白、淡黄和角色色形成高明度夏日记忆',
+  'lighting_behavior': '海边明亮漫射光，发丝和眼睛有清楚高光'},
+ {'name': 'aquarium_blue_date',
+  'graphic_concept': '水族馆蓝色约会：鱼群光影和角色侧脸制造安静心动感',
+  'spatial_structure': '巨大水槽被简化成蓝色发光墙，鱼群只做剪影节奏，角色靠近前景',
+  'visual_device': 'primary hook 只选一个：鱼群剪影 / 水波光 / 透明水母；secondary support 只选一个：蓝色光墙 / 小气泡 / 柔亮边光',
+  'body_silhouette': '角色侧身看向水槽或回头看 viewer，手部靠近玻璃但不贴近镜头',
+  'outfit_direction': '水族馆约会服：柔软短外套、轻裙摆或裙裤、透明蓝色小饰件和干净领口',
+  'material_language': '玻璃反射、软针织、透明亚克力、水波光纹',
+  'color_strategy': '深浅蓝作为环境，角色发色和眼睛是第一阅读点，局部用暖色制造心动感',
+  'lighting_behavior': '水波柔光从侧面包裹脸和头发，背景保持干净蓝色'},
+ {'name': 'train_window_weekend',
+  'graphic_concept': '周末电车窗边日常：窗外流动色块和角色安静表情形成旅行前一刻',
+  'spatial_structure': '车窗、座椅和窗外风景压缩成横向色块，空间清楚但不写实堆细节',
+  'visual_device': 'primary hook 只选一个：车窗反光 / 小票根 / 旅行饮料；secondary support 只选一个：窗外云 / 座椅色块 / 柔光线',
+  'body_silhouette': '角色坐在窗边或侧身回头，手部轻握票根或饮料，姿态稳定亲近',
+  'outfit_direction': '周末出行私服：短外套、柔软上衣、高腰裙裤、肩包或小票根配饰，清楚腰线和领口',
+  'material_language': '棉布、软皮肩带、玻璃反光、纸张小物',
+  'color_strategy': '奶白、浅蓝、灰粉或角色色组合，形成舒适日常封面',
+  'lighting_behavior': '窗边大面积自然光，脸和眼睛明亮，车厢暗部简化'},
+ {'name': 'laundry_sun_room',
+  'graphic_concept': '阳光洗衣房日常：白衬布、泡泡和光斑形成干净生活感二次元画面',
+  'spatial_structure': '洗衣房被简化成白色布料、圆形洗衣机窗和阳光色块，背景不杂乱',
+  'visual_device': 'primary hook 只选一个：白衬布 / 圆形洗衣机窗 / 泡泡；secondary support 只选一个：阳光光斑 / 小夹子 / 柔色墙面',
+  'body_silhouette': '角色抱着柔软衣物或坐在洗衣篮旁，手被布料自然简化，表情明亮亲近',
+  'outfit_direction': '清洁感居家私服：宽松短衬衫、柔软内搭、高腰短裤或软裙、袜饰和小发夹',
+  'material_language': '白棉布、柔软毛巾、透明泡泡、磨砂塑料圆窗',
+  'color_strategy': '白、奶油黄、浅蓝和角色色形成干净生活感，不变灰脏',
+  'lighting_behavior': '午后阳光和室内柔光，布料反光托亮脸部'},
+ {'name': 'bakery_morning_window',
+  'graphic_concept': '清晨面包店约会：暖光、纸袋和玻璃橱窗让角色有柔软生活气',
+  'spatial_structure': '橱窗、木质柜台和街景被压成暖色块，食物只做少量图形点缀',
+  'visual_device': 'primary hook 只选一个：面包纸袋 / 橱窗反光 / 小托盘；secondary support 只选一个：晨光 / 暖色灯点 / 细小花纹',
+  'body_silhouette': '角色轻靠柜台或抱纸袋回头，手部动作简单，表情温柔清楚',
+  'outfit_direction': '清晨约会私服：短开衫、柔软衬衫、高腰裙裤、围巾或小包作为一个重点配饰',
+  'material_language': '纸袋纹理、针织、棉布、玻璃暖反光',
+  'color_strategy': '奶油棕、暖白、淡粉或角色色构成温柔食物系色盘',
+  'lighting_behavior': '清晨窗光加面包店暖光，脸部不偏黄，眼睛保持通透'},
+ {'name': 'theme_park_twilight',
+  'graphic_concept': '游乐园黄昏约会：旋转木马灯、气球和角色表情形成高传播幻想日常',
+  'spatial_structure': '游乐设施被压成圆形灯点和大色块剪影，背景梦幻但不拥挤',
+  'visual_device': 'primary hook 只选一个：旋转木马灯 / 气球 / 游乐票；secondary support 只选一个：黄昏天空 / 小星灯 / 彩色旗帜',
+  'body_silhouette': '角色站在灯点前或侧身回头，手握气球绳或票根，姿态清楚甜美',
+  'outfit_direction': '游乐园约会服：短外套、轻裙摆或裙裤、发饰和小包，整体明亮可爱但有设计感',
+  'material_language': '亮面小饰件、柔软布料、纸票、气球反光',
+  'color_strategy': '黄昏橙粉、奶白、蓝紫和角色色形成梦幻停滑色彩',
+  'lighting_behavior': '黄昏逆光加游乐园小灯补光，脸和发型保持第一阅读'},
+ {'name': 'rainy_clear_umbrella_date',
+  'graphic_concept': '雨天透明伞约会：水滴、伞面反光和角色眼神形成温柔心动图',
+  'spatial_structure': '街道背景压成浅灰蓝色块和少量灯点，透明伞是主要空间框架',
+  'visual_device': 'primary hook 只选一个：透明雨伞 / 水滴 / 小雨靴；secondary support 只选一个：路灯光斑 / 湿润地面 / 柔蓝空气',
+  'body_silhouette': '角色握伞站立或轻回头，手部被伞柄简化，身体稳定，脸不被伞骨遮挡',
+  'outfit_direction': '雨天约会私服：防水短外套、柔软裙裤、设计感雨靴或袜靴、一个透明小配饰',
+  'material_language': '透明 PVC、湿润布料、柔软针织、细小水滴高光',
+  'color_strategy': '浅灰蓝雨色配角色识别色，局部暖光制造约会感，不进入暗黑雨夜',
+  'lighting_behavior': '阴天柔光和路灯微暖补光，透明伞反光托出脸部'},
+ {'name': 'pajama_game_party',
+  'graphic_concept': '居家游戏会：手柄、抱枕和零食小物围绕角色，形成轻松可爱的直播前画面',
+  'spatial_structure': '房间被简化成沙发、地毯和屏幕色块，物件数量少而清楚，角色占画面主体',
+  'visual_device': 'primary hook 只选一个：游戏手柄 / 抱枕 / 发光屏幕色块；secondary support 只选一个：小零食 / 贴纸 / 柔光灯串',
+  'body_silhouette': '角色坐在地毯或沙发边，手持手柄或抱枕，表情有陪玩感，手部不复杂张开',
+  'outfit_direction': '居家游戏私服：宽松短外套、软质短裤或裙裤、袜子、可爱发夹或小抱枕配饰',
+  'material_language': '毛绒、棉布、磨砂塑料手柄、柔光灯串',
+  'color_strategy': '奶油白、粉蓝、薰衣草紫和角色色组成舒适高点击色盘',
+  'lighting_behavior': '室内柔光加屏幕冷光，脸和眼睛比屏幕更清楚'},
+ {'name': 'idol_practice_mirror_clean',
+  'graphic_concept': '偶像练习室的干净瞬间：镜面、毛巾和水瓶形成努力感，而不是舞台大爆炸',
+  'spatial_structure': '练习室镜面和地面线条被简化成干净几何，背景只有少量反射色块',
+  'visual_device': 'primary hook 只选一个：镜面反射 / 练习水瓶 / 毛巾；secondary support 只选一个：地面光线 / 简洁音响 / 柔色墙面',
+  'body_silhouette': '角色膝上到三分之二身，刚练习完轻微回头或整理发饰，身体线条清楚',
+  'outfit_direction': '偶像练习室私服：短运动外套、修身内搭、高腰裙裤、干净运动鞋袜和一个小毛巾配饰',
+  'material_language': '弹力布、棉质毛巾、镜面反射、磨砂水瓶',
+  'color_strategy': '白、浅灰、角色主色和一个高纯点缀色，干净专业但不男性化',
+  'lighting_behavior': '练习室柔光和镜面补光，脸部清楚，身体结构稳定'},
+ {'name': 'planetarium_soft_date',
+  'graphic_concept': '天文馆柔软约会：星空穹顶、座椅暗色块和角色眼神形成安静幻想感',
+  'spatial_structure': '星空穹顶变成大面积圆弧色块，座椅只保留简洁暗部轮廓，角色靠近前景',
+  'visual_device': 'primary hook 只选一个：星空穹顶 / 小星图票根 / 投影光点；secondary support 只选一个：圆弧光线 / 暖色座椅 / 小星点',
+  'body_silhouette': '角色坐在座椅边或侧身回头，手握票根或轻触发饰，姿态安静亲近',
+  'outfit_direction': '天文馆约会服：轻披肩、柔软短外套、高腰裙裤、星形小饰件和干净领口',
+  'material_language': '软缎、针织、纸质票根、投影柔光、细小星形饰件',
+  'color_strategy': '深蓝紫星空配角色识别色和少量暖粉或金色，暗部干净透明',
+  'lighting_behavior': '穹顶投影弱光加脸部柔暖补光，眼睛高光清楚'},
+ {'name': 'fantasy_cooking_class',
+  'graphic_concept': '幻想料理教室：甜点、魔法蒸汽和角色认真表情形成日常可爱传播图',
+  'spatial_structure': '厨房背景压成浅色柜台、圆形盘子和柔和蒸汽，食物只保留一两个主形',
+  'visual_device': 'primary hook 只选一个：小蛋糕 / 发光蒸汽 / 搅拌碗；secondary support 只选一个：围裙丝带 / 圆盘色块 / 小星点',
+  'body_silhouette': '角色站在柜台前或轻侧身，手持搅拌器、盘子或小蛋糕，手部动作简单清楚',
+  'outfit_direction': '料理课日常服：短袖上衣、轻围裙、高腰裙裤、袖口和发饰形成可爱重点',
+  'material_language': '棉布围裙、陶瓷光泽、奶油质感、柔软蒸汽光',
+  'color_strategy': '奶白、淡黄、浅粉和角色色形成甜点系明亮画面',
+  'lighting_behavior': '厨房柔光和甜点反光，脸部明亮，蒸汽不遮挡五官'}]
+
+ART_DIRECTION_PLANS.extend(EXTRA_SCENE_PLANS)
+OUTFIT_DIRECTIONS = [plan["outfit_direction"] for plan in ART_DIRECTION_PLANS]
+
+PLAN_TAGS.update({'neon_call_night': {'viewer_interaction', 'night_call', 'screen_glow', 'intimate'},
+ 'arcade_prize_date': {'game', 'viewer_interaction', 'date', 'daily', 'high_color'},
+ 'gacha_capsule_corner': {'game', 'collectible', 'daily', 'cute', 'high_color'},
+ 'game_ui_battle_select': {'thumbnail', 'poster', 'ui', 'game', 'symbolic'},
+ 'rpg_town_square_festival': {'game', 'daily', 'festival', 'high_color', 'fairytale'},
+ 'pixel_cloud_savepoint': {'dream', 'soft_emotion', 'sky', 'game', 'symbolic'},
+ 'storybook_castle_balcony': {'soft_emotion', 'romance', 'date', 'fairytale'},
+ 'fairy_tale_bookshop': {'bookshop', 'quiet', 'soft_emotion', 'date', 'fairytale'},
+ 'blooming_flower_cart': {'soft_emotion', 'flower', 'date', 'daily'},
+ 'seaside_date_kiosk': {'date', 'daily', 'airy', 'clean_color', 'summer'},
+ 'aquarium_blue_date': {'aquarium', 'soft_emotion', 'date', 'blue_light'},
+ 'train_window_weekend': {'travel', 'soft_emotion', 'quiet', 'daily'},
+ 'laundry_sun_room': {'soft_emotion', 'clean_color', 'home', 'daily'},
+ 'bakery_morning_window': {'soft_emotion', 'date', 'daily', 'warm_light'},
+ 'theme_park_twilight': {'romance', 'date', 'high_color', 'theme_park'},
+ 'rainy_clear_umbrella_date': {'soft_emotion', 'clean_color', 'rain', 'date'},
+ 'pajama_game_party': {'soft_emotion', 'home', 'game', 'intimate'},
+ 'idol_practice_mirror_clean': {'clean_color', 'practice', 'idol', 'daily'},
+ 'planetarium_soft_date': {'dream', 'night', 'romance', 'date'},
+ 'fantasy_cooking_class': {'soft_emotion', 'daily', 'cute', 'warm_light'}})
+
+EXTRA_CHARACTER_PLAN_WEIGHTS = {'千夏': {'arcade_prize_date': 3,
+        'gacha_capsule_corner': 3,
+        'game_ui_battle_select': 2,
+        'rpg_town_square_festival': 4,
+        'pixel_cloud_savepoint': 6,
+        'storybook_castle_balcony': 4,
+        'fairy_tale_bookshop': 6,
+        'blooming_flower_cart': 7,
+        'seaside_date_kiosk': 8,
+        'aquarium_blue_date': 6,
+        'train_window_weekend': 7,
+        'laundry_sun_room': 6,
+        'bakery_morning_window': 5,
+        'theme_park_twilight': 4,
+        'rainy_clear_umbrella_date': 6,
+        'pajama_game_party': 5,
+        'idol_practice_mirror_clean': 4,
+        'planetarium_soft_date': 5,
+        'fantasy_cooking_class': 5,
+        'neon_call_night': 3},
+ '南宫': {'arcade_prize_date': 5,
+        'gacha_capsule_corner': 4,
+        'game_ui_battle_select': 8,
+        'rpg_town_square_festival': 5,
+        'pixel_cloud_savepoint': 4,
+        'storybook_castle_balcony': 5,
+        'fairy_tale_bookshop': 3,
+        'blooming_flower_cart': 3,
+        'seaside_date_kiosk': 3,
+        'aquarium_blue_date': 4,
+        'train_window_weekend': 4,
+        'laundry_sun_room': 2,
+        'bakery_morning_window': 3,
+        'theme_park_twilight': 5,
+        'rainy_clear_umbrella_date': 4,
+        'pajama_game_party': 5,
+        'idol_practice_mirror_clean': 6,
+        'planetarium_soft_date': 5,
+        'fantasy_cooking_class': 2,
+        'neon_call_night': 8},
+ '爱芮': {'arcade_prize_date': 8,
+        'gacha_capsule_corner': 7,
+        'game_ui_battle_select': 6,
+        'rpg_town_square_festival': 8,
+        'pixel_cloud_savepoint': 5,
+        'storybook_castle_balcony': 7,
+        'fairy_tale_bookshop': 4,
+        'blooming_flower_cart': 5,
+        'seaside_date_kiosk': 6,
+        'aquarium_blue_date': 4,
+        'train_window_weekend': 3,
+        'laundry_sun_room': 3,
+        'bakery_morning_window': 5,
+        'theme_park_twilight': 9,
+        'rainy_clear_umbrella_date': 3,
+        'pajama_game_party': 7,
+        'idol_practice_mirror_clean': 8,
+        'planetarium_soft_date': 4,
+        'fantasy_cooking_class': 6,
+        'neon_call_night': 6},
+ '丹': {'arcade_prize_date': 1,
+       'gacha_capsule_corner': 2,
+       'game_ui_battle_select': 3,
+       'rpg_town_square_festival': 2,
+       'pixel_cloud_savepoint': 7,
+       'storybook_castle_balcony': 6,
+       'fairy_tale_bookshop': 7,
+       'blooming_flower_cart': 5,
+       'seaside_date_kiosk': 4,
+       'aquarium_blue_date': 7,
+       'train_window_weekend': 6,
+       'laundry_sun_room': 7,
+       'bakery_morning_window': 5,
+       'theme_park_twilight': 3,
+       'rainy_clear_umbrella_date': 7,
+       'pajama_game_party': 6,
+       'idol_practice_mirror_clean': 2,
+       'planetarium_soft_date': 8,
+       'fantasy_cooking_class': 4,
+       'neon_call_night': 0},
+ '星见雅': {'arcade_prize_date': 1,
+         'gacha_capsule_corner': 1,
+         'game_ui_battle_select': 5,
+         'rpg_town_square_festival': 2,
+         'pixel_cloud_savepoint': 2,
+         'storybook_castle_balcony': 4,
+         'fairy_tale_bookshop': 2,
+         'blooming_flower_cart': 1,
+         'seaside_date_kiosk': 1,
+         'aquarium_blue_date': 3,
+         'train_window_weekend': 3,
+         'laundry_sun_room': 1,
+         'bakery_morning_window': 1,
+         'theme_park_twilight': 2,
+         'rainy_clear_umbrella_date': 4,
+         'pajama_game_party': 1,
+         'idol_practice_mirror_clean': 2,
+         'planetarium_soft_date': 6,
+         'fantasy_cooking_class': 1,
+         'neon_call_night': 5},
+ '仪玄': {'arcade_prize_date': 1,
+        'gacha_capsule_corner': 1,
+        'game_ui_battle_select': 6,
+        'rpg_town_square_festival': 2,
+        'pixel_cloud_savepoint': 2,
+        'storybook_castle_balcony': 4,
+        'fairy_tale_bookshop': 3,
+        'blooming_flower_cart': 1,
+        'seaside_date_kiosk': 1,
+        'aquarium_blue_date': 3,
+        'train_window_weekend': 2,
+        'laundry_sun_room': 1,
+        'bakery_morning_window': 1,
+        'theme_park_twilight': 2,
+        'rainy_clear_umbrella_date': 3,
+        'pajama_game_party': 1,
+        'idol_practice_mirror_clean': 2,
+        'planetarium_soft_date': 6,
+        'fantasy_cooking_class': 1,
+        'neon_call_night': 7}}
+for character_name, plan_weights in EXTRA_CHARACTER_PLAN_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {}).update(plan_weights)
+
+EXTRA_CHARACTER_OUTFIT_VARIATIONS = {'丹': ['水族馆蓝光短披肩 + 奶白内搭 + 透明蓝色小饰件 + 柔软裙裤，保持安静透明感',
+       '天文馆约会轻披肩 + 星形小扣 + 浅粉高腰裙裤，像安静梦境收藏海报',
+       '雨天透明伞短外套 + 银蓝细腰线 + 柔软袜靴，清爽而不固定成圣女制服',
+       '居家游戏宽松短衬衫 + 云朵抱枕配饰 + 浅色软裙裤，亲近但保持淡漠气质',
+       '童话书店针织短开衫 + 书签丝带 + 奶白裙裤，温柔但不过度日常化',
+       '云端存档点轻短外套 + 半透明水晶小扣 + 浅色裙裤，强化未来梦境感'],
+ '千夏': ['薄荷夏日短衬衫 + 奶白高腰裙裤 + 透明饮料小配饰，清透青春感',
+        '花车日常短开衫 + 浅色裙裤 + 小花束配饰，保留薄荷空气和陪伴感',
+        '周末电车轻外套 + 小票根配饰 + 柔软袜鞋，安静出行感',
+        '海边约会蓝白轻衬衫 + 高腰短裙裤 + 透明小饰件，清爽但不强营业'],
+ '南宫': ['游戏选择界面限定短披肩 + 粉黑收腰外套 + 半透明 UI 小徽章，控场感清楚',
+        '游戏厅约会短夹克 + 高腰裙裤 + 小奖品挂件，轻挑衅但不甜腻',
+        '深夜通话黑粉短外套 + 发光耳机线 + 清楚腰线，像锁定 viewer 的私密频道',
+        '练习室短运动外套 + 细节腰带 + 猫发夹呼应，聪明从容的队长私服'],
+ '爱芮': ['游乐园约会短夹克 + 亮色裙摆 + 气球小配饰，偶像营业感强',
+        '游戏厅高色块短外套 + 毛绒奖品挂件 + 厚底鞋袜，粉丝互动感',
+        '居家游戏宽松外套 + 可爱手柄配饰 + 软质短裙裤，直播前的亲近感',
+        '偶像练习室短运动外套 + 水瓶或毛巾配饰 + 高腰裙裤，努力感和舞台感兼具']}
+for character_name, outfit_list in EXTRA_CHARACTER_OUTFIT_VARIATIONS.items():
+    CHARACTER_OUTFIT_VARIATIONS.setdefault(character_name, []).extend(outfit_list)
+
+EXTRA_PROFILE_PREFERRED_HOOKS = {'千夏': {'blooming_flower_cart',
+        'fairy_tale_bookshop',
+        'pixel_cloud_savepoint',
+        'rainy_clear_umbrella_date',
+        'seaside_date_kiosk',
+        'train_window_weekend'},
+ '南宫': {'arcade_prize_date',
+        'game_ui_battle_select',
+        'idol_practice_mirror_clean',
+        'neon_call_night',
+        'pajama_game_party'},
+ '爱芮': {'arcade_prize_date',
+        'gacha_capsule_corner',
+        'idol_practice_mirror_clean',
+        'pajama_game_party',
+        'rpg_town_square_festival',
+        'theme_park_twilight'},
+ '丹': {'aquarium_blue_date',
+       'fairy_tale_bookshop',
+       'laundry_sun_room',
+       'pixel_cloud_savepoint',
+       'planetarium_soft_date',
+       'rainy_clear_umbrella_date'},
+ '星见雅': {'game_ui_battle_select', 'planetarium_soft_date', 'rainy_clear_umbrella_date', 'neon_call_night'},
+ '仪玄': {'game_ui_battle_select', 'planetarium_soft_date', 'neon_call_night', 'storybook_castle_balcony'}}
+for character_name, hook_names in EXTRA_PROFILE_PREFERRED_HOOKS.items():
+    if character_name in CHARACTER_PROPAGATION_PROFILES:
+        CHARACTER_PROPAGATION_PROFILES[character_name]["preferred_hooks"].update(hook_names)
+
+
+# ---------------------------------------------------------------------------
+# Character-first safety layer
+#
+# Keep this block after all plan/profile expansions so it can gate future added
+# scenes too. New characters can opt in by adding profile data and, when needed,
+# required identity tokens or forbidden plans below.
+# ---------------------------------------------------------------------------
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS = {
+    "丹": [
+        "浅粉色短发",
+        "不对称空气感厚刘海",
+        "粉紫色眼睛",
+        "银白细头环 / 蓝银星形发卡 / 耳侧轻机械模块 / 透明蓝银小光片，至少出现一个",
+    ],
+    "星见雅": [
+        "黑色长直发",
+        "厚重整齐齐刘海",
+        "黑色兽耳",
+        "锐利红色眼瞳",
+        "红色刀线 / 太刀柄 / 刀鞘 / 武士绳结，至少出现一个",
+    ],
+}
+
+CHARACTER_FORBIDDEN_PLANS = {
+    "星见雅": {
+        "arcade_prize_date",
+        "bakery_morning_window",
+        "blooming_flower_cart",
+        "fantasy_cooking_class",
+        "laundry_sun_room",
+        "pajama_game_party",
+        "seaside_date_kiosk",
+        "theme_park_twilight",
+    },
+    "丹": {
+        "arcade_prize_date",
+        "gacha_capsule_corner",
+        "idol_practice_mirror_clean",
+        "neon_call_night",
+        "theme_park_twilight",
+    },
+}
+
+CHARACTER_VIEWER_DISTANCE = {
+    "爱芮": "close / idol interaction：可以更靠近 viewer，强调偶像营业、心动、收藏欲。",
+    "南宫": "medium-close / teasing control：可以近，但关系是控场、锁定和轻挑衅。",
+    "千夏": "medium / shy companion：保持青春陪伴感，靠近但不压迫镜头。",
+    "丹": "medium-distant / quiet healing：保持透明、安静、轻未来距离感，不强营业，不贴脸。",
+    "星见雅": "distant / pressure gaze：保持凛然压迫、冷感距离和被审视感，不软化成约会少女。",
+    "仪玄": "ritual / mature mystery：保持仪式感、神秘距离和成熟牵引，不变成甜妹互动。",
+}
+
+CHARACTER_PLAN_WEIGHT_FLOOR = 1
+
+
+def required_identity_tokens_for(character_name: str) -> list[str]:
+    character = _primary_character(character_name)
+    return CHARACTER_REQUIRED_IDENTITY_TOKENS.get(character, [])
+
+
+def viewer_distance_for(character_name: str) -> str:
+    character = _primary_character(character_name)
+    return CHARACTER_VIEWER_DISTANCE.get(
+        character,
+        "medium / character-first：新增角色默认保持中距离，先稳身份，再增加互动强度。",
+    )
+
+
+def _allowed_plan_for_character(character: str, plan_name: str) -> bool:
+    return plan_name not in CHARACTER_FORBIDDEN_PLANS.get(character, set())
+
+
+def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | None = None) -> dict:
+    character = _primary_character(character_name or "丹")
+    profile = propagation_profile_for(character)
+    weights_by_name = CHARACTER_PLAN_WEIGHTS.get(character, CHARACTER_PLAN_WEIGHTS["丹"])
+    blocked = _blocked_tags(recent_tags)
+    candidates = []
+    weights = []
+    for plan in ART_DIRECTION_PLANS:
+        plan_name = plan["name"]
+        if not _allowed_plan_for_character(character, plan_name):
+            continue
+        tags = PLAN_TAGS.get(plan_name, set())
+        if tags & blocked:
+            continue
+        weight = weights_by_name.get(plan_name, CHARACTER_PLAN_WEIGHT_FLOOR)
+        if weight <= 0:
+            continue
+        candidates.append(plan)
+        weights.append(_profile_adjusted_weight(plan_name, weight, profile["preferred_hooks"]))
+    if not candidates:
+        candidates = [
+            plan for plan in ART_DIRECTION_PLANS
+            if _allowed_plan_for_character(character, plan["name"])
+            and weights_by_name.get(plan["name"], CHARACTER_PLAN_WEIGHT_FLOOR) > 0
+        ]
+        weights = [
+            _profile_adjusted_weight(
+                plan["name"],
+                weights_by_name.get(plan["name"], CHARACTER_PLAN_WEIGHT_FLOOR),
+                profile["preferred_hooks"],
+            )
+            for plan in candidates
+        ]
+    if not candidates:
+        candidates = ART_DIRECTION_PLANS[:]
+        weights = [1 for _ in candidates]
+    return _weighted_choice(candidates, weights)
+
+CHARACTER_REQUIRED_IDENTITY_TOKENS.update({
+    "叶瞬光": [
+        "云岿山修行者气质",
+        "剑 / 剑光 / 剑穗，至少出现一个",
+        "温柔可靠的师姐感",
+        "清亮、承担型保护者气场",
+    ],
+    "席德": [
+        "机械改造元素",
+        "蓝紫电弧 / 电路纹，至少出现一个",
+        "老席德或大型机械伙伴痕迹",
+        "花朵反差与天真危险感",
+    ],
+    "橘福福": [
+        "虎系元素 / 虎纹 / 虎耳或虎尾气质，至少出现一个",
+        "火属性暖光",
+        "云岿山武修气质",
+        "虎威或虎形装置 / 伏魔符纸，至少出现一个",
+    ],
+})
+
+CHARACTER_FORBIDDEN_PLANS.update({
+    "叶瞬光": {"arcade_prize_date", "gacha_capsule_corner", "pajama_game_party", "theme_park_twilight"},
+    "席德": {"bakery_morning_window", "blooming_flower_cart", "laundry_sun_room", "seaside_date_kiosk", "rainy_clear_umbrella_date"},
+    "橘福福": {"planetarium_soft_date", "fairy_tale_bookshop", "laundry_sun_room", "aquarium_blue_date"},
+})
+
+CHARACTER_VIEWER_DISTANCE.update({
+    "叶瞬光": "medium / protective senior sister：保持温柔可靠的保护距离，可以回身看向 viewer，但不贴脸营业。",
+    "席德": "medium-close / innocent dangerous demo：可以靠近展示机械，但手和装置不要冲镜头，危险感来自电光和机械伙伴。",
+    "橘福福": "medium-close / energetic action：可以更有动势和亲近感，但必须保留虎系火光与云岿山武修气质。",
+})
+
+# Late apply: the V3 section above redefines the profile dictionaries, so apply
+# the new character data and stricter gates again at the very end.
+CHARACTER_PROPAGATION_PROFILES.update(NEW_CHARACTER_PROPAGATION_PROFILES)
+
+for character_name, outfit_list in NEW_CHARACTER_OUTFIT_VARIATIONS.items():
+    CHARACTER_OUTFIT_VARIATIONS.setdefault(character_name, []).extend(outfit_list)
+
+for character_name, plan_weights in NEW_CHARACTER_PLAN_WEIGHTS.items():
+    CHARACTER_PLAN_WEIGHTS.setdefault(character_name, {}).update(plan_weights)
+
+STRICT_PLAN_CHARACTERS = {"丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福"}
+
+CHARACTER_FORBIDDEN_TAGS = {
+    "丹": {"idol", "practice", "theme_park", "gacha", "collectible"},
+    "星见雅": {"cute", "theme_park", "home", "daily", "flower"},
+    "仪玄": {"cute", "home", "domestic_daily", "theme_park"},
+    "叶瞬光": {"cute", "theme_park", "gacha", "home"},
+    "席德": {"soft_emotion", "flower", "warm_light"},
+    "橘福福": {"quiet", "blue_light", "aquarium"},
+}
+
+
+def _default_plan_weight_for(character: str) -> int:
+    return 0 if character in STRICT_PLAN_CHARACTERS else CHARACTER_PLAN_WEIGHT_FLOOR
+
+
+def _allowed_plan_for_character(character: str, plan_name: str) -> bool:
+    if plan_name in CHARACTER_FORBIDDEN_PLANS.get(character, set()):
+        return False
+    plan_tags = PLAN_TAGS.get(plan_name, set())
+    forbidden_tags = CHARACTER_FORBIDDEN_TAGS.get(character, set())
+    return not (plan_tags & forbidden_tags)
+
+
+def choose_art_plan(character_name: str | None = None, recent_tags: list[str] | None = None) -> dict:
+    character = _primary_character(character_name or "丹")
+    profile = propagation_profile_for(character)
+    weights_by_name = CHARACTER_PLAN_WEIGHTS.get(character, CHARACTER_PLAN_WEIGHTS["丹"])
+    default_weight = _default_plan_weight_for(character)
+    blocked = _blocked_tags(recent_tags)
+    candidates = []
+    weights = []
+    for plan in ART_DIRECTION_PLANS:
+        plan_name = plan["name"]
+        if not _allowed_plan_for_character(character, plan_name):
+            continue
+        tags = PLAN_TAGS.get(plan_name, set())
+        if tags & blocked:
+            continue
+        weight = weights_by_name.get(plan_name, default_weight)
+        if weight <= 0:
+            continue
+        candidates.append(plan)
+        weights.append(_profile_adjusted_weight(plan_name, weight, profile["preferred_hooks"]))
+    if not candidates:
+        candidates = [
+            plan for plan in ART_DIRECTION_PLANS
+            if _allowed_plan_for_character(character, plan["name"])
+            and weights_by_name.get(plan["name"], default_weight) > 0
+        ]
+        weights = [
+            _profile_adjusted_weight(
+                plan["name"],
+                weights_by_name.get(plan["name"], default_weight),
+                profile["preferred_hooks"],
+            )
+            for plan in candidates
+        ]
+    if not candidates:
+        candidates = [
+            plan for plan in ART_DIRECTION_PLANS
+            if _allowed_plan_for_character(character, plan["name"])
+        ] or ART_DIRECTION_PLANS[:]
+        weights = [1 for _ in candidates]
     return _weighted_choice(candidates, weights)
