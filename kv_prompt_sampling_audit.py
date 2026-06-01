@@ -48,6 +48,12 @@ PROBLEMATIC_TRUNCATION_PATTERNS = [
     "storyboo...",
     "butterfl...",
     "character's...",
+    "instead of.",
+    "across the.",
+    "feel.",
+    "were a.",
+    "in a soft.",
+    "through the.",
 ]
 
 
@@ -113,6 +119,12 @@ def check_sample(row):
     if row["action_name"] not in compatible_names:
         issues.append("action_plan_incompatible")
 
+    compatible_visuals = {
+        visual["name"] for visual in options._visuals_for_plan(row["plan"])
+    }
+    if row["visual_name"] not in compatible_visuals:
+        issues.append("visual_plan_incompatible")
+
     if "high_camera" in plan_tags and "low" in modes:
         issues.append("camera_conflict:high_plan_low_prompt")
     if "low_camera" in plan_tags and "high" in modes:
@@ -142,7 +154,7 @@ def main():
         recent_tags = []
         plan = options.choose_art_plan(character, recent_tags)
         action = options.choose_compatible_action_style(character, recent_tags, plan)
-        visual = options.choose_visual_design(recent_tags)
+        visual = options.choose_visual_design(recent_tags, plan)
         prompt = prompt_for_art_direction(character, plan, action, recent_tags, visual)
         row = {
             "index": index,

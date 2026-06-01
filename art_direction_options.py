@@ -388,7 +388,7 @@ ART_DIRECTION_PLANS.extend([
         "name": "afternoon_cafe_large_negative_space",
         "graphic_concept": "light-novel CG style afternoon cafe interior; the image reads first as warm window light, cream wall color blocks, wooden table planes, and quiet air, then the character appears as a small emotional point inside the space",
         "spatial_structure": "wide composition with large negative space; character placed off-center near one corner or window edge; foreground table edge, chair back, or curtain can partially block the view; clear perspective from floor, table, and window frame",
-        "visual_device": "open book, half-finished drink, small dessert plate, flower vase, and sunlight falling across the tabletop create the story before the pose is noticed",
+        "visual_device": "open book, half-finished drink, dessert plate, flower vase, and tabletop sunlight form a clear daily story",
         "body_silhouette": "small to medium figure, seated sideways or turned back slightly, not centered, calm expression and natural hands near the table",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "wood grain, ceramic cup, paper book pages, sheer curtain, soft fabric, small reflective highlights on glass",
@@ -400,7 +400,7 @@ ART_DIRECTION_PLANS.extend([
         "name": "library_corner_sunset_silence",
         "graphic_concept": "quiet library corner as an anime novel CG; shelves, amber dust light, and rectangular shadow shapes are the main thumbnail design",
         "spatial_structure": "deep corner perspective with bookcases forming a frame; character sits or stands near the lower third, partly hidden by shelf edge or desk lamp; large empty wall or floor area remains visible",
-        "visual_device": "opened books, stacked notes, bookmark ribbon, half-drunk tea, and a thin strip of sunset on the desk guide the eye through the scene",
+        "visual_device": "opened books, stacked notes, bookmark ribbon, tea cup, and sunset strip on the desk guide the eye",
         "body_silhouette": "back view or looking back over shoulder; face may be smaller but identity hair shape and eyes remain clear when visible",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "paper, wood shelf, brass lamp, matte cloth, dust in light, quiet floor reflection",
@@ -412,7 +412,7 @@ ART_DIRECTION_PLANS.extend([
         "name": "classroom_sunset_doorframe",
         "graphic_concept": "after-school classroom anime screenshot feeling; desks, blackboard, doorway frame, and orange light establish the scene before the character",
         "spatial_structure": "view from hallway through a doorframe or window frame; character placed near frame edge or half out of frame; rows of desks create perspective and reading order",
-        "visual_device": "open notebook, pencil case, drink carton, loose paper, and wind moving the curtain make the space feel recently lived in",
+        "visual_device": "open notebook, pencil case, drink carton, loose paper, and moving curtain show a recent after-school moment",
         "body_silhouette": "standing by the window, back turned or slight over-shoulder glance; relaxed posture, no centered idol pose",
         "outfit_direction": "white blouse and black stockings, clean heroine styling",
         "material_language": "chalkboard matte surface, varnished desk wood, fabric curtain, paper, school bag strap",
@@ -459,7 +459,7 @@ ART_DIRECTION_PLANS.extend([
     {
         "name": "dessert_shop_mirror_glance",
         "graphic_concept": "small dessert shop with mirror reflection; the viewer first reads pastel wall blocks, display case geometry, and reflected light",
-        "spatial_structure": "mirror or glass display creates a secondary character view; real character is off-center, partly cropped by counter edge or doorframe",
+        "spatial_structure": "mirror or glass display shows only a partial reflection of the same single character; no second person, no clone, no picture-in-picture duplicate",
         "visual_device": "cake slices, fork, receipt, flower wrapping, and a half-finished drink create a natural after-moment instead of a staged pose",
         "body_silhouette": "looking back through mirror or over shoulder; hands simple, close to prop or counter, no reaching toward camera",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
@@ -522,9 +522,9 @@ ART_DIRECTION_PLANS.extend([
     },
     {
         "name": "telephoto_layered_interior",
-        "graphic_concept": "compressed telephoto interior or garden view; multiple vertical layers make the image feel observed rather than staged",
+        "graphic_concept": "compressed telephoto interior or garden view; multiple vertical layers make the image look found inside the scene",
         "spatial_structure": "camera looks through shelves, curtains, plants, doorframes, or glass; foreground and background stack tightly while character remains off-center",
-        "visual_device": "repeating frames and soft occlusion create depth; character is found between layers instead of presented frontally",
+        "visual_device": "repeating frames and soft occlusion create depth; character appears between layers, not flat in front",
         "body_silhouette": "side or back view, partial crop allowed, face not required to dominate as long as identity hair and accessory cues remain visible",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "glass reflection, curtain layers, shelf edges, leaves, ceramic, paper, soft cloth",
@@ -628,7 +628,7 @@ VISUAL_MOTIF_SYSTEMS = [
         "layering": "foreground gift ribbons and dessert glass; midground character and outfit details; background packaging-like color blocks and ornamental frames",
         "shape_rhythm": "rounded boxes, bow loops, skirt waves, pearl chains, flower circles, logo-like silhouette",
         "light_bloom": "milky pastel bloom, warm cream highlights crossing cool mint or lavender shadows, glossy candy reflections",
-        "poetic_line": "a sweet commercial illustration arranged like luxury dessert packaging, lace ribbons and glass sweets floating around the character as if the whole scene were a collectible box",
+        "poetic_line": "a sweet commercial illustration arranged like luxury dessert packaging, with lace ribbons and glass sweets around the character",
     },
     {
         "name": "fairy_tale_anniversary_kv",
@@ -665,8 +665,96 @@ VISUAL_MOTIF_SYSTEMS = [
 ]
 
 
-def choose_visual_design(recent_tags=None):
-    return dict(random.choice(VISUAL_MOTIF_SYSTEMS))
+VISUAL_TAG_COMPATIBILITY = {
+    "moonlit_toy_window_kv": {
+        "fairy_tale",
+        "zero_gravity",
+        "dream",
+        "night",
+        "white_room",
+        "flower",
+        "toy",
+    },
+    "pastel_lolita_packaging_kv": {
+        "cafe",
+        "bakery",
+        "dessert_shop",
+        "maid",
+        "bridal",
+        "tea_room",
+        "pastel",
+        "toy",
+        "flower",
+        "packaging",
+        "studio",
+    },
+    "fairy_tale_anniversary_kv": {
+        "fairy_tale",
+        "flower",
+        "garden",
+        "greenhouse",
+        "zero_gravity",
+        "bridal",
+        "packaging",
+        "studio",
+    },
+    "candy_air_parlor_kv": {
+        "cafe",
+        "bakery",
+        "dessert_shop",
+        "toy",
+        "pastel",
+        "candy_display",
+        "packaging",
+        "studio",
+    },
+    "guofeng_ribbon_window_kv": {
+        "guofeng",
+        "decorative",
+        "window_frame",
+        "garden",
+        "tea_table",
+        "reflection",
+        "flower",
+    },
+    "acrylic_package_display_kv": {
+        "packaging",
+        "studio",
+        "pure_white",
+        "candy_display",
+        "minimal",
+        "poster",
+        "graphic",
+        "toy",
+    },
+}
+
+
+DAYLIGHT_PLAN_TAGS = {"morning", "afternoon", "summer", "sunset", "warm_light", "natural_light", "classroom", "seaside"}
+
+
+def _visuals_for_plan(plan=None):
+    if not plan:
+        return VISUAL_MOTIF_SYSTEMS
+    plan_tags = _tags_of(plan)
+    compatible = []
+    for visual in VISUAL_MOTIF_SYSTEMS:
+        allowed_tags = VISUAL_TAG_COMPATIBILITY.get(visual["name"], set())
+        if plan_tags & allowed_tags:
+            compatible.append(visual)
+    if plan_tags & DAYLIGHT_PLAN_TAGS:
+        compatible = [
+            visual for visual in compatible
+            if visual["name"] != "moonlit_toy_window_kv"
+        ]
+    return compatible or [
+        visual for visual in VISUAL_MOTIF_SYSTEMS
+        if visual["name"] in {"pastel_lolita_packaging_kv", "acrylic_package_display_kv"}
+    ]
+
+
+def choose_visual_design(recent_tags=None, plan=None):
+    return dict(random.choice(_visuals_for_plan(plan)))
 
 
 KNOWN_CHARACTER_NAMES = [

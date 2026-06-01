@@ -20,7 +20,7 @@ NEGATIVE_GUARDRAILS = (
 
 
 SCENE_FIRST_RULES = (
-    "KV design first: visual design > world atmosphere > shape rhythm > character."
+    "Identity first; then pose/composition, selected scene, and compatible decorative KV motifs."
 )
 
 
@@ -56,12 +56,15 @@ def _clip_text(value, limit):
     if len(text) <= limit:
         return text
     clipped = text[:limit].rstrip()
-    for marker in ("; ", ", ", "，", "。", " "):
+    for marker in (". ", "。", "; ", "；"):
         cut = clipped.rfind(marker)
-        if cut >= int(limit * 0.62):
-            clipped = clipped[: cut + len(marker)].rstrip()
-            break
-    return clipped.rstrip(";,，。.") + "."
+        if cut >= int(limit * 0.45):
+            return clipped[: cut + len(marker)].strip().rstrip(";,，；。.") + "."
+    for marker in (", ", "，", " "):
+        cut = clipped.rfind(marker)
+        if cut >= int(limit * 0.72):
+            return clipped[:cut].strip().rstrip(";,，；。.") + "."
+    return clipped.strip().rstrip(";,，；。.") + "."
 
 
 def prompt_for_art_direction(character_name, art_plan=None, action_style=None, recent_tags=None, visual_design=None):
@@ -70,7 +73,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
     if action_style is None:
         action_style = choose_compatible_action_style(character_name, recent_tags, art_plan)
     if visual_design is None:
-        visual_design = choose_visual_design(recent_tags)
+        visual_design = choose_visual_design(recent_tags, art_plan)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
