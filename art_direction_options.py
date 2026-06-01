@@ -6,9 +6,9 @@ OUTFIT_DIRECTIONS = [
     "clean light-novel casual outfit, character palette stays recognizable",
     "transparent summer jacket over a sporty camisole, fresh and polished",
     "cafe maid remix outfit, neat apron, ribbons, cute and clean",
-    "romantic flower bridal dress, elegant veil or bouquet, non-adult",
+    "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
     "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
-    "elegant black stockings outfit, refined fashion styling, no explicit posing",
+    "elegant black stockings outfit, refined fashion styling, graceful pose",
     "white blouse and black stockings, clean heroine styling",
     "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
     "soft bakery or cafe casual outfit, warm and simple",
@@ -103,7 +103,7 @@ GENERIC_PROFILE = {
     "viewer_relationship": "让角色像真实拥有自己的日常和情绪，亲近但不做作。",
     "thumbnail_strategy": "缩小后仍然能读出发型、眼睛、主色和核心饰品。",
     "interaction_rule": "动作自然，手部简单，不使用复杂持物。",
-    "color_anchor": "the character's own main colors, clean white, soft black",
+    "color_anchor": "reference main colors, clean white, soft black",
 }
 
 
@@ -258,7 +258,7 @@ ART_DIRECTION_PLANS = [
         "spatial_structure": "浅色花门、白色纱帘、花束和草地，布景轻量不拥挤。",
         "visual_device": "头纱、花束和花门形成柔和外框。",
         "body_silhouette": "站姿或坐姿，三分之二身，双手自然捧花或放在裙摆旁。",
-        "outfit_direction": "romantic flower bridal dress, elegant veil or bouquet, non-adult",
+        "outfit_direction": "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
         "material_language": "薄纱、花束、柔软白裙、少量丝带。",
         "color_strategy": "白色和浅花色托住角色主色，不把角色发色冲淡。",
         "lighting_behavior": "晴天花园柔光，脸部清晰，整体干净。",
@@ -278,11 +278,11 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "black_stockings_tea_room",
-        "graphic_concept": "精致茶室时装插画，黑丝作为优雅服装元素，不做成人化姿态。",
+        "graphic_concept": "精致茶室时装插画，黑丝作为优雅服装元素，姿态干净高级。",
         "spatial_structure": "小茶桌、椅子、浅色窗帘和花瓶，空间简洁柔和。",
         "visual_device": "黑白服装对比和角色发色形成强识别。",
         "body_silhouette": "坐姿或侧身站姿，腿部姿态自然，手部简单清楚。",
-        "outfit_direction": "elegant black stockings outfit, refined fashion styling, no explicit posing",
+        "outfit_direction": "elegant black stockings outfit, refined fashion styling, graceful pose",
         "material_language": "黑色长袜、轻裙摆、白衬衫、丝带、柔软布料。",
         "color_strategy": "黑白服装压住画面，背景用奶油白和浅木色，角色主色清楚。",
         "lighting_behavior": "柔和室内自然光，避免强烈阴影。",
@@ -823,6 +823,6 @@ def outfit_variation_for(character_name, outfit_direction=None):
     profile = _profile_for(character_name)
     base = outfit_direction if outfit_direction in OUTFIT_DIRECTIONS else random.choice(OUTFIT_DIRECTIONS)
     return (
-        f"{base}; adapt the outfit to the current character's own palette: {profile['color_anchor']}; "
-        "never change the character's hairstyle, hair color, eye color, or core accessories"
+        f"{base}; adapt to character palette: {profile['color_anchor']}; "
+        "keep hairstyle, hair color, eye color, and core accessories"
     )

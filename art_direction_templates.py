@@ -64,12 +64,13 @@ def _clip_text(value, limit):
     return clipped.rstrip(";,，。") + "..."
 
 
-def prompt_for_art_direction(character_name, art_plan=None, action_style=None, recent_tags=None):
+def prompt_for_art_direction(character_name, art_plan=None, action_style=None, recent_tags=None, visual_design=None):
     if art_plan is None:
         art_plan = choose_art_plan(character_name, recent_tags)
     if action_style is None:
         action_style = choose_compatible_action_style(character_name, recent_tags, art_plan)
-    visual_design = choose_visual_design(recent_tags)
+    if visual_design is None:
+        visual_design = choose_visual_design(recent_tags)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
@@ -80,25 +81,25 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         "Apply scene/outfit/action/composition without changing identity.",
         "",
         f"Character: {character_name}.",
-        f"Identity: {_clip_text(profile['official_core'], 120)}",
+        f"Identity: {_clip_text(profile['official_core'], 100)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
         "",
-        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 135)} {viewer_distance_for(character_name)}.",
+        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 115)} {viewer_distance_for(character_name)}.",
         "Hands simple and natural; feet clear only when visible.",
         "",
         SCENE_FIRST_RULES,
-        f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 135)} {_clip_text(art_plan.get('spatial_structure', ''), 150)}",
-        f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 120)}",
-        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 95)}; {_clip_text(visual_design.get('layering', ''), 115)}.",
-        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 105)}.",
+        f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 115)} {_clip_text(art_plan.get('spatial_structure', ''), 130)}",
+        f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 105)}",
+        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 85)}; {_clip_text(visual_design.get('layering', ''), 100)}.",
+        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 95)}.",
         READING_ORDER_RULES,
         COMPOSITION_RULES,
         CAMERA_PERSPECTIVE_RULES,
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
-        f"Outfit: {_clip_text(outfit, 170)}.",
-        f"Color/light: {_clip_text(profile['color_anchor'], 75)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 95)} {_clip_text(visual_design.get('light_bloom', ''), 120)}",
-        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 155)}.",
+        f"Outfit: {_clip_text(outfit, 145)}.",
+        f"Color/light: {_clip_text(profile['color_anchor'], 70)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 80)} {_clip_text(visual_design.get('light_bloom', ''), 105)}",
+        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 135)}.",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a product package / VTuber anniversary key visual, not a normal portrait.",
