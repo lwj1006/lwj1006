@@ -61,7 +61,7 @@ def _clip_text(value, limit):
         if cut >= int(limit * 0.62):
             clipped = clipped[: cut + len(marker)].rstrip()
             break
-    return clipped.rstrip(";,，。") + "..."
+    return clipped.rstrip(";,，。.") + "."
 
 
 def prompt_for_art_direction(character_name, art_plan=None, action_style=None, recent_tags=None, visual_design=None):
@@ -90,16 +90,16 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         SCENE_FIRST_RULES,
         f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 115)} {_clip_text(art_plan.get('spatial_structure', ''), 130)}",
         f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 105)}",
-        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 85)}; {_clip_text(visual_design.get('layering', ''), 100)}.",
-        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 95)}.",
+        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 85)} {_clip_text(visual_design.get('layering', ''), 100)}",
+        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 95)}",
         READING_ORDER_RULES,
         COMPOSITION_RULES,
         CAMERA_PERSPECTIVE_RULES,
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
-        f"Outfit: {_clip_text(outfit, 145)}.",
+        f"Outfit: {_clip_text(outfit, 145)}",
         f"Color/light: {_clip_text(profile['color_anchor'], 70)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 80)} {_clip_text(visual_design.get('light_bloom', ''), 105)}",
-        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 135)}.",
+        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 170)}",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a product package / VTuber anniversary key visual, not a normal portrait.",

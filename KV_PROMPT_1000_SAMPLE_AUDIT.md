@@ -1,11 +1,11 @@
 # KV Prompt 1000 Sample Audit
 
-- generated_at: 2026-06-01T22:56:36
+- generated_at: 2026-06-01T23:45:43
 - random_seed: 20260601
 - sample_count: 1000
 - issue_samples: 0
-- max_prompt_length: 2878 (席德 / telephoto_layered_interior / looking_back_from_edge / candy_air_parlor_kv)
-- min_prompt_length: 2247 (星见雅 / sunny_cafe_window / gentle_side_glance / moonlit_toy_window_kv)
+- max_prompt_length: 2796 (席德 / telephoto_layered_interior / looking_back_from_edge / candy_air_parlor_kv)
+- min_prompt_length: 2191 (南宫 / small_bakery_morning / holding_small_cute_prop / candy_air_parlor_kv)
 
 ## Issue Summary
 
@@ -13,16 +13,16 @@
 
 ## Character Distribution
 
-- 星见雅: 120, avg_len=2538.8, max_len=2688
-- 橘福福: 112, avg_len=2579.8, max_len=2778
-- 南宫: 107, avg_len=2497.1, max_len=2675
-- 新角色测试: 102, avg_len=2523.0, max_len=2711
-- 席德: 97, avg_len=2707.8, max_len=2878
-- 丹: 95, avg_len=2489.9, max_len=2692
-- 爱芮: 95, avg_len=2521.6, max_len=2692
-- 仪玄: 93, avg_len=2460.7, max_len=2689
-- 叶瞬光: 93, avg_len=2671.4, max_len=2824
-- 千夏: 86, avg_len=2527.3, max_len=2710
+- 星见雅: 120, avg_len=2479.7, max_len=2631
+- 橘福福: 112, avg_len=2519.1, max_len=2725
+- 南宫: 107, avg_len=2437.9, max_len=2615
+- 新角色测试: 102, avg_len=2466.4, max_len=2662
+- 席德: 97, avg_len=2642.4, max_len=2796
+- 丹: 95, avg_len=2440.3, max_len=2641
+- 爱芮: 95, avg_len=2463.4, max_len=2629
+- 仪玄: 93, avg_len=2406.3, max_len=2631
+- 叶瞬光: 93, avg_len=2532.9, max_len=2693
+- 千夏: 86, avg_len=2454.3, max_len=2646
 
 ## Visual Motif Distribution
 

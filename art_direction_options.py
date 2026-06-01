@@ -39,57 +39,57 @@ CHARACTER_PROFILES = {
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
-        "official_core": "薄荷中短层次发 + 大号薄荷蝴蝶结 + 不对称刘海 薄荷灰绿，柔软分层发型，侧边小发束与大蝴蝶结，粉金色眼睛，清爽安静。",
+        "official_core": "薄荷中短层次发 + 大号薄荷蝴蝶结 + 不对称刘海，侧边小发束，粉金色眼睛，表情轻、眼神干净。",
         "identity_tokens": ["mint gray-green short layered hair", "large mint bow", "soft asymmetrical bangs", "pink-gold eyes"],
-        "viewer_relationship": "像安静陪伴观众，温柔、干净、带一点害羞。",
+        "viewer_relationship": "轻轻看向观众，嘴角很小，肩颈放松。",
         "thumbnail_strategy": "薄荷发色、蝴蝶结、清透眼睛必须稳定，不要改成普通长发角色。",
         "interaction_rule": "允许坐姿、窗边回头、自然整理头发；避免纸笔和创作者设定。",
         "color_anchor": "mint, pale gold, soft white",
     },
     "丹": {
-        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，安静、透明。",
+        "official_core": "浅粉短发，空气感碎刘海，粉紫眼睛，小银蓝发饰，脸部留白多。",
         "identity_tokens": ["pale pink short layered hair", "airy uneven bangs", "pink-purple eyes", "small silver-blue hair accessory"],
-        "viewer_relationship": "像从安静梦境里看向观众，神秘但亲近。",
+        "viewer_relationship": "轻轻看向观众，表情小，身体动作少。",
         "thumbnail_strategy": "浅粉短发和透明感眼睛必须稳定，服装可以变化。",
         "interaction_rule": "允许站立、坐姿、侧脸、轻微回头；避免固定同一套服装。",
         "color_anchor": "pale pink, violet, silver blue",
     },
     "星见雅": {
-        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，冷静、锋利。",
+        "official_core": "黑色长直发，姬发式齐刘海，尖锐黑色兽耳，红色眼睛，一侧细编发。",
         "identity_tokens": ["long straight black hair", "hime-cut blunt bangs", "sharp black animal ears", "red eyes", "single side braid detail"],
-        "viewer_relationship": "像冷静地看穿观众，距离感强但角色存在感清楚。",
-        "thumbnail_strategy": "黑长直、黑兽耳、红眼是核心；剑可以作为气质符号但不是必须手持。",
+        "viewer_relationship": "正面或侧面看向观众，表情少，眼睛和发型轮廓清楚。",
+        "thumbnail_strategy": "黑长直、黑兽耳、红眼和一侧细编发是核心；刀鞘或红线只是小点缀。",
         "interaction_rule": "允许刀鞘、红色线条、远处剑影；避免复杂手部持物。",
         "color_anchor": "black, red, white",
     },
     "仪玄": {
-        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，成熟安静。",
+        "official_core": "银白长发，柔软呆毛，黑色雷纹或波纹发饰，金色眼睛，长袖或垂坠衣摆。",
         "identity_tokens": ["long silver-white hair", "small ahoge", "black wave or lightning-shaped hair ornament", "golden eyes"],
-        "viewer_relationship": "像平静地邀请观众进入仪式，沉稳、有神秘感。",
+        "viewer_relationship": "正面或侧身看向观众，手部靠近袖口或胸前，动作慢。",
         "thumbnail_strategy": "银白长发和金眼必须清晰，背景不要压过人物。",
         "interaction_rule": "允许手在胸前、袖摆自然下垂、侧身凝视；避免复杂手势。",
         "color_anchor": "silver white, black, gold",
     },
     "叶瞬光": {
-        "official_core": "暖棕长发，深色内层发，棕色兽耳，蓬松棕色尾巴，红色眼睛，红色发带或花形发饰，白黑金战斗服，温柔可靠的执剑师姐。",
-        "identity_tokens": ["long warm brown hair", "dark inner hair layers", "brown animal ears", "large fluffy brown tail", "red eyes", "red ribbon or flower hair accessory", "white black gold combat outfit", "long blade or sword tassel"],
-        "viewer_relationship": "像温柔地回头照看观众，亲和但有守护感。",
-        "thumbnail_strategy": "暖棕发、深色内层发、棕色兽耳、蓬松尾巴、红眼和剑客气质要稳定，不要变成黑发红眼冷剑士。",
-        "interaction_rule": "剑是重要识别符号，但不强制每张手持；允许剑光、剑穗、红绳、回身守护姿态；避免固定宗门或山门元素。",
+        "official_core": "暖棕长发，深色内层发，红色眼睛，红色发带或花形发饰，白黑金服装，人类耳朵。",
+        "identity_tokens": ["long warm brown hair", "dark inner hair layers", "red eyes", "red ribbon or flower hair accessory", "white black gold outfit", "human ears only"],
+        "viewer_relationship": "回头看向观众，表情轻，手部和肩线放松。",
+        "thumbnail_strategy": "暖棕长发、深色内层发、红眼、红色发饰和白黑金服装要稳定；不要添加动物耳朵、尾巴，也不要变成黑发红眼冷角色。",
+        "interaction_rule": "允许红绳、细长饰带、清亮光痕或小型刀剑配饰作为点缀；不要强制手持武器，不要加入动物耳朵、尾巴、固定宗门或山门元素。",
         "color_anchor": "warm brown, red, ivory, black gold",
     },
     "席德": {
-        "official_core": "浅青蓝短发，后侧明显蓝色大辫子，青绿色眼睛，白灰机械改造服，机械手臂，黄橙线缆，OBOL小队，天真但危险。",
+        "official_core": "浅青蓝短发，后侧明显蓝色大辫子，青绿色眼睛，白灰机械改造服，机械手臂，黄橙线缆，OBOL小队。",
         "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "white gray mechanical bodysuit", "exposed mechanical arm parts", "orange-yellow cable accents", "industrial hammer weapon", "OBOL Squad operator"],
-        "viewer_relationship": "像天真地把危险机械当玩具展示给观众，表情无辜但有机械危险感。",
+        "viewer_relationship": "把机械部件靠近身边展示，眼睛睁大，表情轻。",
         "thumbnail_strategy": "浅青蓝短发、蓝色大辫子、青绿色眼睛、白灰机械服和机械手臂必须清楚；不要变成普通蓝发校园少女。",
         "interaction_rule": "允许机械手臂、锤形武器、驾驶舱、电弧、小花贴纸；避免普通花园少女、普通军服少女和纯机器人化。",
         "color_anchor": "light cyan blue, white gray, teal green, orange yellow",
     },
     "橘福福": {
-        "official_core": "金橙短发，黄绿色眼睛，虎耳与蓬松虎尾，红白节庆装饰，元气可靠、能打的人形少女。",
+        "official_core": "金橙短发，黄绿色眼睛，虎耳与蓬松虎尾，红白节庆装饰，动作幅度大的人形少女。",
         "identity_tokens": ["golden-orange short hair", "green or yellow-green eyes", "small tiger ears", "large fluffy tiger tail", "red festive accessory", "human girl, not animalized"],
-        "viewer_relationship": "像元气地把观众拉进热闹场面，亲近、明亮、行动感强。",
+        "viewer_relationship": "回头笑或向前跑，虎尾形成大弧线，画面偏暖。",
         "thumbnail_strategy": "金橙发、黄绿色眼睛、虎耳、蓬松虎尾和红白装饰要稳定；不要变成虎兽人。",
         "interaction_rule": "允许奔跑、回头笑、节庆武术动作、虎尾动势；避免真实虎脸、虎口鼻、虎爪兽腿、完整虎皮套装。",
         "color_anchor": "golden orange, yellow green, warm white, red",
@@ -98,7 +98,7 @@ CHARACTER_PROFILES = {
 
 
 GENERIC_PROFILE = {
-    "official_core": "严格保留上传参考图中的发型、发色、眼睛、核心饰品、脸型和气质。",
+    "official_core": "严格保留上传参考图中的发型、发色、眼睛、核心饰品、脸型和表情距离。",
     "identity_tokens": ["reference hairstyle", "reference hair color", "reference eyes", "reference accessories"],
     "viewer_relationship": "让角色像真实拥有自己的日常和情绪，亲近但不做作。",
     "thumbnail_strategy": "缩小后仍然能读出发型、眼睛、主色和核心饰品。",
@@ -194,7 +194,7 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "picnic_under_tree",
-        "graphic_concept": "树荫野餐，温柔陪伴感和角色亲近度优先。",
+        "graphic_concept": "树荫野餐，低矮餐布、藤篮、饮料杯和近距离回头表情优先。",
         "spatial_structure": "野餐布、篮子、树荫、远处草地，画面简洁。",
         "visual_device": "格纹野餐布形成图形底，树影轻轻压住背景。",
         "body_silhouette": "自然坐姿或跪坐，双手放在膝边、篮子旁或衣摆上。",
@@ -218,7 +218,7 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "bookstore_cafe_corner",
-        "graphic_concept": "书店咖啡角，安静生活感和柔和知识气氛。",
+        "graphic_concept": "书店咖啡角，书架竖线、圆桌、杯子、翻开的书和窗边暖光组成画面。",
         "spatial_structure": "书架、圆桌、暖灯、窗边座位，书脊不出现可读文字。",
         "visual_device": "书架竖线和圆桌形成稳定构图。",
         "body_silhouette": "坐姿或站在书架旁，手部放松，不拿复杂道具。",
@@ -389,14 +389,14 @@ ART_DIRECTION_PLANS.extend([
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "thin curtain, glass door, metal railing, ceramic pot, polished floor reflection, soft cotton",
         "color_strategy": "large white and sky-blue color fields with one warm accent from the character or prop",
-        "lighting_behavior": "bright exterior light, interior in gentle shade, thin rim light on hair and shoulder",
+        "lighting_behavior": "bright exterior light, interior in pale shade, thin rim light on hair and shoulder",
         "tags": ["balcony", "large_space", "half_out_frame", "foreground_occlusion", "breeze", "daily", "novel_cg"],
     },
     {
         "name": "greenhouse_terrace_reflection",
         "graphic_concept": "flower greenhouse terrace with glass reflections; plants, window grids, and pale green light define the image more than the pose",
         "spatial_structure": "layered glasshouse perspective; character placed behind plants or reflected faintly in glass; foreground leaves partially cover edges without hiding identity essentials",
-        "visual_device": "flower bouquet, watering can, small sweets tray, folded ribbon, and sun patches on tile floor build a gentle story",
+        "visual_device": "flower bouquet, watering can, small sweets tray, folded ribbon, and sun patches on tile floor build a small daily scene",
         "body_silhouette": "three-quarter back view or quiet side glance, small figure inside deep space, not centered",
         "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "material_language": "glass, leaf translucency, ceramic tile, bouquet paper, lace or ribbon, soft moisture shine",
@@ -508,7 +508,7 @@ ACTION_STYLES = [
     },
     {
         "name": "seated_quiet_pose",
-        "body_silhouette": "安静坐姿，膝上到全身之间，双手自然放在膝边或座位上。",
+        "body_silhouette": "坐姿，膝上到全身之间，双手自然放在膝边或座位上。",
         "tags": ["seated", "stable_hands"],
     },
     {
@@ -596,7 +596,7 @@ VISUAL_MOTIF_SYSTEMS = [
         "layering": "foreground book pages and petals; midground character floating through decorative rhythm; background giant storybook window or flower arch",
         "shape_rhythm": "storybook rectangle, flower arch curve, S-shaped hair, drifting ribbon spiral, repeated star and butterfly marks",
         "light_bloom": "golden fairy light against cool blue or pale green air, edge glow, translucent bloom, small sparkling overexposure",
-        "poetic_line": "a fairy-tale anniversary key visual where storybook pages, glowing butterflies, and tiny ornaments orbit the character like a gentle dream stage",
+        "poetic_line": "a fairy-tale anniversary key visual where storybook pages, glowing butterflies, and tiny ornaments orbit the character in a soft circular stage",
     },
     {
         "name": "candy_air_parlor_kv",
@@ -816,7 +816,7 @@ def required_identity_tokens_for(character_name):
 
 
 def viewer_distance_for(character_name):
-    return "camera distance and character scale follow the selected scene; character may be small, off-center, half-cropped, or partially hidden when the perspective needs it"
+    return "camera distance follows the selected scene; keep face, hair silhouette, eyes, and main accessories readable"
 
 
 def outfit_variation_for(character_name, outfit_direction=None):
