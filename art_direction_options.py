@@ -356,30 +356,6 @@ ART_DIRECTION_PLANS.extend([
         "lighting_behavior": "柔和窗光穿过窗棂，在脸、发丝和衣摆上留下浅色切光。",
         "tags": ["guofeng", "decorative", "window_frame", "ribbon", "soft_light", "kv"],
     },
-    {
-        "name": "fairy_tale_studio_package",
-        "graphic_concept": "梦幻童话摄影棚商品 KV，角色像站在可收藏包装盒世界里，玩偶、玻璃球、蝴蝶结和糖果色背景板组成主视觉。",
-        "spatial_structure": "白棚或浅色摄影棚，背景有大型弧形色块和包装盒边框；前景放少量玩偶、玻璃球或丝带，角色保持中近景。",
-        "visual_device": "大蝴蝶结、圆形玻璃球、包装盒边框和角色发型轮廓互相呼应，缩略图像商品主图。",
-        "body_silhouette": "膝上到三分之二身，站姿、跪坐或轻侧身，手部动作简单，不能像普通证件照。",
-        "outfit_direction": "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
-        "material_language": "亚克力光泽、玻璃球、缎带、软毛玩偶、哑光背景板、透明糖纸。",
-        "color_strategy": "糖果色只做大色块和小装饰，角色主色必须比背景更明确。",
-        "lighting_behavior": "高调棚拍光加局部糖果反射，边缘有轻微 bloom，但不发白。",
-        "tags": ["studio", "fairy_tale", "packaging", "toy", "candy_color", "kv"],
-    },
-    {
-        "name": "white_candy_display_stage",
-        "graphic_concept": "纯白糖果展示台，白底、透明展示盒、彩色小糖果和丝带把角色做成清爽商品视觉。",
-        "spatial_structure": "无缝白底或浅灰地台，角色在展示台中央偏侧，前景只有透明盒、丝带或糖果碎片作为尺度参照。",
-        "visual_device": "白色大面积留白、透明盒边线、圆形糖果点和角色主色构成清楚缩略图。",
-        "body_silhouette": "坐在展示台边缘或轻靠透明盒，脸和发型是第一焦点，手自然放在膝边、盒边或丝带旁。",
-        "outfit_direction": "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
-        "material_language": "白色地台、透明亚克力盒、玻璃糖、缎带、少量金属小扣。",
-        "color_strategy": "白色占主导，角色主色和一到两种糖果色作为记忆点，避免整张图变成纯空白。",
-        "lighting_behavior": "柔和棚拍光、透明盒高光和地台反射让人物轮廓清楚。",
-        "tags": ["pure_white", "studio", "candy_display", "packaging", "minimal", "kv"],
-    },
 ])
 
 
@@ -623,12 +599,12 @@ VISUAL_MOTIF_SYSTEMS = [
         "poetic_line": "a cathedral-like moonlit window filled with floating petals and soft glowing toys, ribbons and tiny ornaments drifting through the air like fragments of a dream",
     },
     {
-        "name": "pastel_lolita_packaging_kv",
-        "motifs": "lace, bows, flower boxes, paper tags, glass dessert cups, pearl chains, butterflies, small gift cards",
-        "layering": "foreground gift ribbons and dessert glass; midground character and outfit details; background packaging-like color blocks and ornamental frames",
+        "name": "pastel_lolita_decorative_kv",
+        "motifs": "lace, bows, flower trays, glass dessert cups, pearl chains, butterflies, small ribbon cards without text",
+        "layering": "foreground lace ribbon and dessert glass; midground character and outfit details; background soft color panels and ornamental frames",
         "shape_rhythm": "rounded boxes, bow loops, skirt waves, pearl chains, flower circles, logo-like silhouette",
         "light_bloom": "milky pastel bloom, warm cream highlights crossing cool mint or lavender shadows, glossy candy reflections",
-        "poetic_line": "a sweet commercial illustration arranged like luxury dessert packaging, with lace ribbons and glass sweets around the character",
+        "poetic_line": "a sweet decorative anime KV with lace ribbons, pearl chains, butterflies, and glass desserts arranged around the character",
     },
     {
         "name": "fairy_tale_anniversary_kv",
@@ -654,14 +630,6 @@ VISUAL_MOTIF_SYSTEMS = [
         "light_bloom": "warm white window light with pale gold reflection, small red cord accents, clean jade-green shadows",
         "poetic_line": "a decorative guofeng key visual where umbrella arcs, red cords, silk flowers, and window-grid light arrange the character like an elegant collectible illustration",
     },
-    {
-        "name": "acrylic_package_display_kv",
-        "motifs": "acrylic display box, large bow, glass candy, small plush toy, price-tag shaped card without text, pearl dots",
-        "layering": "foreground acrylic edge and candy dots; midground character as the package centerpiece; background clean color panels and soft toy silhouettes",
-        "shape_rhythm": "box frame, bow loops, candy circles, pearl dots, clean diagonal light cuts",
-        "light_bloom": "white studio bloom, transparent acrylic highlights, pastel reflections, clear rim light around hair",
-        "poetic_line": "a clean product-display anime KV where acrylic edges, candy dots, bows, and soft toys make the character feel like a premium collectible package",
-    },
 ]
 
 
@@ -675,7 +643,7 @@ VISUAL_TAG_COMPATIBILITY = {
         "flower",
         "toy",
     },
-    "pastel_lolita_packaging_kv": {
+    "pastel_lolita_decorative_kv": {
         "cafe",
         "bakery",
         "dessert_shop",
@@ -685,7 +653,6 @@ VISUAL_TAG_COMPATIBILITY = {
         "pastel",
         "toy",
         "flower",
-        "packaging",
         "studio",
     },
     "fairy_tale_anniversary_kv": {
@@ -695,7 +662,6 @@ VISUAL_TAG_COMPATIBILITY = {
         "greenhouse",
         "zero_gravity",
         "bridal",
-        "packaging",
         "studio",
     },
     "candy_air_parlor_kv": {
@@ -704,8 +670,6 @@ VISUAL_TAG_COMPATIBILITY = {
         "dessert_shop",
         "toy",
         "pastel",
-        "candy_display",
-        "packaging",
         "studio",
     },
     "guofeng_ribbon_window_kv": {
@@ -716,16 +680,6 @@ VISUAL_TAG_COMPATIBILITY = {
         "tea_table",
         "reflection",
         "flower",
-    },
-    "acrylic_package_display_kv": {
-        "packaging",
-        "studio",
-        "pure_white",
-        "candy_display",
-        "minimal",
-        "poster",
-        "graphic",
-        "toy",
     },
 }
 
@@ -749,7 +703,7 @@ def _visuals_for_plan(plan=None):
         ]
     return compatible or [
         visual for visual in VISUAL_MOTIF_SYSTEMS
-        if visual["name"] in {"pastel_lolita_packaging_kv", "acrylic_package_display_kv"}
+        if visual["name"] in {"pastel_lolita_decorative_kv", "candy_air_parlor_kv"}
     ]
 
 
@@ -818,8 +772,6 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "greenhouse_terrace_reflection": 2.8,
     "white_room_floor_window": 2.8,
     "guofeng_decorative_kv": 2.9,
-    "fairy_tale_studio_package": 3.0,
-    "white_candy_display_stage": 2.9,
     "dessert_shop_mirror_glance": 2.8,
     "summer_courtyard_soft_shadow": 2.8,
     "bookstore_cafe_corner": 2.4,

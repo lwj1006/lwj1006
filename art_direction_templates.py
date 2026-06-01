@@ -105,7 +105,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 170)}",
         "",
         f"Style: {STYLE_BASELINE}.",
-        "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a product package / VTuber anniversary key visual, not a normal portrait.",
+        "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",
         NEGATIVE_GUARDRAILS,
     ]
     return _compact_lines(lines)
