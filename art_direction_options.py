@@ -13,6 +13,8 @@ OUTFIT_DIRECTIONS = [
     "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
     "soft bakery or cafe casual outfit, warm and simple",
     "minimal sunny studio outfit, face and hair identity as the main focus",
+    "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
+    "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
 ]
 
 
@@ -301,6 +303,46 @@ ART_DIRECTION_PLANS = [
 ]
 
 
+ART_DIRECTION_PLANS.extend([
+    {
+        "name": "pure_white_character_focus",
+        "graphic_concept": "纯白背景角色主视觉，去掉复杂场景，让人物身份、发型、眼睛和服装成为全部重点。",
+        "spatial_structure": "无缝纯白背景，只有少量柔和投影和角色主色小图形点缀，不出现真实地点。",
+        "visual_device": "大面积白底、角色主色、少量黑色线条形成清楚缩略图。",
+        "body_silhouette": "近景膝上或三分之二身，角色占画面大，姿势自然稳定。",
+        "outfit_direction": "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
+        "material_language": "干净布料、少量丝带、小饰品、柔软发丝。",
+        "color_strategy": "白色占主导，角色自己的主色作为唯一强记忆点，避免背景抢戏。",
+        "lighting_behavior": "高调柔光，脸部和眼睛极清楚，不能发灰或发脏。",
+        "tags": ["pure_white", "studio", "minimal", "close_character"],
+    },
+    {
+        "name": "zero_gravity_fairy_tale_call",
+        "graphic_concept": "童话通话场景的无重力版本，像角色在柔软梦境里悬浮接听一段秘密通话。",
+        "spatial_structure": "浅色童话房间或云朵空间，枕头、花瓣、书页、丝带、小玩偶轻轻漂浮。",
+        "visual_device": "漂浮物围绕角色形成圆形节奏，视线回到角色脸和眼睛。",
+        "body_silhouette": "人物轻微悬浮，身体自然蜷曲或侧躺在空中，手部简单，不做复杂持物。",
+        "outfit_direction": "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
+        "material_language": "轻纱、丝带、云朵、花瓣、柔软玩偶、微光粒子。",
+        "color_strategy": "浅色童话背景配角色主色，整体清透，避免杂乱高饱和。",
+        "lighting_behavior": "柔和梦境光，轮廓轻盈，脸部保持清楚。",
+        "tags": ["zero_gravity", "fairy_tale", "phone_call_mood", "floating"],
+    },
+    {
+        "name": "zero_gravity_fairy_garden",
+        "graphic_concept": "无重力童话花园，角色像漂浮在花瓣和阳光之间，轻盈、梦幻、可收藏。",
+        "spatial_structure": "浅色花园、云朵、花瓣、透明泡泡和小型童话装饰物漂浮，空间不拥挤。",
+        "visual_device": "花瓣和泡泡形成上升流线，强化人物悬浮感。",
+        "body_silhouette": "角色悬浮在画面中央或稍偏上，膝上到全身之间，四肢放松自然。",
+        "outfit_direction": "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
+        "material_language": "轻纱、花瓣、透明泡泡、丝带、柔软发丝。",
+        "color_strategy": "花色只做点缀，角色主色必须是画面记忆点。",
+        "lighting_behavior": "明亮自然柔光，边缘有轻微发光空气感。",
+        "tags": ["zero_gravity", "fairy_tale", "flower", "floating"],
+    },
+])
+
+
 ACTION_STYLES = [
     {
         "name": "steady_eye_contact",
@@ -338,6 +380,15 @@ ACTION_STYLES = [
         "tags": ["small_prop", "stable_hands"],
     },
 ]
+
+
+ACTION_STYLES.append(
+    {
+        "name": "post_workout_stretch",
+        "body_silhouette": "运动后拉伸动作，坐姿或单膝跪姿，身体微微前倾，肩颈和腰线放松，手部自然扶膝盖、鞋带或地面。",
+        "tags": ["stretch", "sporty", "stable_hands"],
+    }
+)
 
 
 KNOWN_CHARACTER_NAMES = [
