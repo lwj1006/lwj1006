@@ -20,15 +20,11 @@ KNOWN_CHARACTERS = [
 ]
 SAMPLE_CHARACTERS = KNOWN_CHARACTERS + ["新角色测试"]
 BAD_SCENE_WORDS = [
-    "机械",
     "工厂",
-    "机库",
     "雨天",
     "霓虹",
     "城市夜景",
-    "mechanical",
     "factory",
-    "hangar",
     "rainy",
     "neon",
 ]
