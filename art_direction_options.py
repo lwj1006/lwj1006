@@ -114,11 +114,11 @@ CHARACTER_PROFILES = {
         "color_anchor": "coral red, green yellow, dark brown, soft pink",
     },
     "爱丽丝": {
-        "official_core": "soft blonde long hair, cat ears, warm orange-red eyes, round white hair ornaments.",
-        "identity_tokens": ["soft blonde long hair", "cat ears", "warm orange-red eyes", "round white hair ornaments"],
+        "official_core": "soft blonde long twin-tail hair, long pointed pink head accessory, warm orange-red eyes, white round disk hair ornaments, red cylindrical hair ties near the hair ends.",
+        "identity_tokens": ["soft blonde long twin-tail hair", "long pointed pink head accessory", "warm orange-red eyes", "white round disk hair ornaments", "red cylindrical hair ties near the hair ends"],
         "viewer_relationship": "natural expression, relaxed posture, and clean eye readability.",
-        "thumbnail_strategy": "blonde hair, cat ears, warm orange-red eyes, and round white ornaments must stay clear.",
-        "interaction_rule": "head tilt, seated pose, or small daily gesture are fine; keep her as a living character and avoid forcing tools, fixed role details, or artificial body structure.",
+        "thumbnail_strategy": "blonde twin-tail silhouette, long pointed pink head accessory, warm orange-red eyes, white round disks, and red hair-end ties must stay clear.",
+        "interaction_rule": "head tilt, seated pose, small daily gesture, or side glance are fine; keep the long twin-tail silhouette and round hair ornaments clear, and avoid forcing tools or fixed role details.",
         "color_anchor": "blonde, warm orange red, soft white, muted red",
     },
     "普罗米娅": {
@@ -150,7 +150,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["mint green twin tails", "straight bangs", "purple eyes", "round X-shaped hair ornaments"],
         "viewer_relationship": "natural expression and simple readable posture.",
         "thumbnail_strategy": "mint twin tails, purple eyes, and X-shaped hair ornaments must stay clear.",
-        "interaction_rule": "small hand gesture or quiet pose are fine; keep her as a living character and avoid forcing large hand-held objects, fixed role details, or artificial body structure.",
+        "interaction_rule": "small hand gesture, quiet pose, or natural side glance are fine; keep her expression and posture natural, and avoid forcing large hand-held objects or fixed role details.",
         "color_anchor": "mint green, purple, black, soft gray",
     },
     "艾莲": {
@@ -657,7 +657,7 @@ VISUAL_MOTIF_SYSTEMS = [
         "poetic_line": "a cathedral-like moonlit window filled with floating petals and soft glowing toys, ribbons and tiny ornaments drifting through the air like fragments of a dream",
     },
     {
-        "name": "pastel_lolita_decorative_kv",
+        "name": "pastel_lace_decorative_kv",
         "motifs": "lace, bows, flower trays, glass dessert cups, pearl chains, butterflies, small ribbon cards without text",
         "layering": "foreground lace ribbon and dessert glass; midground character and outfit details; background soft color panels and ornamental frames",
         "shape_rhythm": "rounded boxes, bow loops, skirt waves, pearl chains, flower circles, logo-like silhouette",
@@ -666,7 +666,7 @@ VISUAL_MOTIF_SYSTEMS = [
     },
     {
         "name": "fairy_tale_anniversary_kv",
-        "motifs": "glowing butterflies, flower petals, ribbons, tiny crowns, paper stars, crystal drops, soft dolls, decorative window cards",
+        "motifs": "glowing butterflies, flower petals, ribbons, tiny crowns, paper stars, crystal drops, soft plush ornaments, decorative window cards",
         "layering": "foreground petals and ribbon cards; midground character floating through decorative rhythm; background giant arched window or flower arch",
         "shape_rhythm": "arched window curve, flower arch curve, S-shaped hair, drifting ribbon spiral, repeated star and butterfly marks",
         "light_bloom": "golden fairy light against cool blue or pale green air, edge glow, translucent bloom, small sparkling overexposure",
@@ -701,7 +701,7 @@ VISUAL_TAG_COMPATIBILITY = {
         "flower",
         "toy",
     },
-    "pastel_lolita_decorative_kv": {
+    "pastel_lace_decorative_kv": {
         "cafe",
         "bakery",
         "dessert_shop",
@@ -766,7 +766,7 @@ def _visuals_for_plan(plan=None):
         ]
     return compatible or [
         visual for visual in VISUAL_MOTIF_SYSTEMS
-        if visual["name"] in {"pastel_lolita_decorative_kv", "candy_air_parlor_kv"}
+        if visual["name"] in {"pastel_lace_decorative_kv", "candy_air_parlor_kv"}
     ]
 
 
