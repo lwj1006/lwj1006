@@ -72,7 +72,14 @@ def _clip_text(value, limit):
     return clipped.strip().rstrip(";,，；。.") + "."
 
 
-def prompt_for_art_direction(character_name, art_plan=None, action_style=None, recent_tags=None, visual_design=None):
+def prompt_for_art_direction(
+    character_name,
+    art_plan=None,
+    action_style=None,
+    recent_tags=None,
+    visual_design=None,
+    outfit_direction=None,
+):
     if art_plan is None:
         art_plan = choose_art_plan(character_name, recent_tags)
     if action_style is None:
@@ -82,7 +89,7 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
-    outfit = outfit_variation_for(character_name, art_plan.get("outfit_direction"))
+    outfit = outfit_variation_for(character_name, outfit_direction or art_plan.get("outfit_direction"))
 
     lines = [
         "Independent image task. References are identity only. One single character.",

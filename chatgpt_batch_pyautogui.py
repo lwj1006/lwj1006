@@ -121,6 +121,7 @@ WORK_REMINDER_INTERVAL = 10
 WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
+LOW_PROBABILITY_BRAND_OUTFIT_CHANCE = 0.08
 
 SCREENSHOT_DIR = PROJECT_DIR / "screenshots"
 SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
@@ -130,6 +131,15 @@ if USE_RUNTIME_UPLOAD_COPIES:
     RUNTIME_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 FEEDBACK_DIR = PROJECT_DIR / "feedback"
 FEEDBACK_DIR.mkdir(parents=True, exist_ok=True)
+
+LOW_PROBABILITY_BRAND_THEMES = [
+    theme for theme in CLOTHING_THEMES
+    if "Adidas-inspired" in theme or "Yonex-inspired" in theme
+]
+REGULAR_CLOTHING_THEMES = [
+    theme for theme in CLOTHING_THEMES
+    if theme not in LOW_PROBABILITY_BRAND_THEMES
+]
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
 SHARED_FEEDBACK_DIR = Path(r"\\vmware-host\Shared Folders\develop\feedback")
@@ -622,10 +632,13 @@ def save_used_clothing_themes(used_themes: list[str]) -> None:
 
 
 def choose_unused_clothing_theme(used_themes: list[str]) -> str:
-    valid_used = [theme for theme in used_themes if theme in CLOTHING_THEMES]
+    valid_used = [theme for theme in used_themes if theme in REGULAR_CLOTHING_THEMES]
     used_themes[:] = valid_used
 
-    available = [theme for theme in CLOTHING_THEMES if theme not in used_themes]
+    if LOW_PROBABILITY_BRAND_THEMES and random.random() < LOW_PROBABILITY_BRAND_OUTFIT_CHANCE:
+        return random.choice(LOW_PROBABILITY_BRAND_THEMES)
+
+    available = [theme for theme in REGULAR_CLOTHING_THEMES if theme not in used_themes]
     if not available:
         print(
             "All clothing themes have been used in the current cycle. Clearing current-cycle history and starting a new cycle.",
@@ -634,7 +647,37 @@ def choose_unused_clothing_theme(used_themes: list[str]) -> str:
         print(f"Permanent clothing usage log is kept at: {CLOTHING_THEME_USAGE_LOG_FILE}", flush=True)
         used_themes.clear()
         save_used_clothing_themes(used_themes)
-        available = CLOTHING_THEMES[:]
+        available = REGULAR_CLOTHING_THEMES[:]
+
+    return random.choice(available)
+
+
+def choose_character_clothing_theme(
+    character_name: str,
+    used_by_character: dict[str, list[str]],
+    batch_used_themes: set[str] | None = None,
+) -> str:
+    batch_used_themes = batch_used_themes or set()
+    used_themes = used_by_character.setdefault(character_name, [])
+    valid_used = [theme for theme in used_themes if theme in REGULAR_CLOTHING_THEMES]
+    used_by_character[character_name] = valid_used
+    used_set = set(valid_used)
+
+    if LOW_PROBABILITY_BRAND_THEMES and random.random() < LOW_PROBABILITY_BRAND_OUTFIT_CHANCE:
+        return random.choice(LOW_PROBABILITY_BRAND_THEMES)
+
+    available = [
+        theme for theme in REGULAR_CLOTHING_THEMES
+        if theme not in used_set and theme not in batch_used_themes
+    ]
+    if not available:
+        print(f"{character_name} regular clothing theme cycle complete; clearing per-character theme history.", flush=True)
+        used_by_character[character_name] = []
+        save_used_character_clothing_themes(used_by_character)
+        available = [
+            theme for theme in REGULAR_CLOTHING_THEMES
+            if theme not in batch_used_themes
+        ] or REGULAR_CLOTHING_THEMES[:]
 
     return random.choice(available)
 
@@ -858,11 +901,6 @@ def choose_character_plan_and_action(
     batch_used_themes = batch_used_themes or set()
     batch_used_plans = batch_used_plans or set()
 
-    used_themes = used_themes_by_character.setdefault(character_name, [])
-    valid_used = [theme for theme in used_themes if theme in CLOTHING_THEMES]
-    used_themes_by_character[character_name] = valid_used
-    used_set = set(valid_used)
-
     valid_plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
     used_plans = used_plans_by_character.setdefault(character_name, [])
     valid_used_plans = [
@@ -872,12 +910,6 @@ def choose_character_plan_and_action(
     used_plans_by_character[character_name] = valid_used_plans
     used_plan_set = set(valid_used_plans)
 
-    if len(used_set) >= len(CLOTHING_THEMES):
-        print(f"{character_name} clothing theme cycle complete; clearing per-character theme history.", flush=True)
-        used_themes_by_character[character_name] = []
-        used_set = set()
-        save_used_character_clothing_themes(used_themes_by_character)
-
     if len(used_plan_set) >= len(ART_DIRECTION_PLANS):
         print(f"{character_name} art-plan cycle complete; clearing per-character plan history.", flush=True)
         used_plans_by_character[character_name] = []
@@ -885,51 +917,34 @@ def choose_character_plan_and_action(
         save_used_character_art_plans(used_plans_by_character)
 
     best_unused_plan: tuple[dict, dict] | None = None
-    best_unused_theme: tuple[dict, dict] | None = None
     fallback: tuple[dict, dict] | None = None
     for _ in range(180):
         art_plan, action_style = choose_plan_and_action(character_name, recent_visual_tags)
         if fallback is None:
             fallback = (art_plan, action_style)
-        outfit_direction = art_plan["outfit_direction"]
         plan_name = art_plan["name"]
         plan_is_unused = plan_name not in used_plan_set and plan_name not in batch_used_plans
-        theme_is_unused = outfit_direction not in used_set and outfit_direction not in batch_used_themes
 
-        if plan_is_unused and theme_is_unused:
+        if plan_is_unused:
             return art_plan, action_style
         if plan_is_unused and best_unused_plan is None:
             best_unused_plan = (art_plan, action_style)
-        if theme_is_unused and best_unused_theme is None:
-            best_unused_theme = (art_plan, action_style)
 
     unused_plans = [
         plan for plan in ART_DIRECTION_PLANS
         if plan["name"] not in used_plan_set and plan["name"] not in batch_used_plans
     ]
     if unused_plans:
-        unused_themes = {
-            theme for theme in CLOTHING_THEMES
-            if theme not in used_set and theme not in batch_used_themes
-        }
-        theme_matching_plans = [
-            plan for plan in unused_plans
-            if plan["outfit_direction"] in unused_themes
-        ]
-        candidate_plans = theme_matching_plans or unused_plans
-        art_plan = random.choice(candidate_plans)
+        art_plan = random.choice(unused_plans)
         action_style = choose_compatible_action_style(character_name, recent_visual_tags, art_plan)
         print(f"{character_name} selected from explicit unused art-plan pool after random attempts.", flush=True)
         return dict(art_plan), action_style
 
     if best_unused_plan is not None:
-        print(f"{character_name} could not keep both plan and outfit fresh; prioritizing unused art plan.", flush=True)
+        print(f"{character_name} selected an unused art plan after random attempts.", flush=True)
         return best_unused_plan
-    if best_unused_theme is not None:
-        print(f"{character_name} could not keep both plan and outfit fresh; prioritizing unused outfit theme.", flush=True)
-        return best_unused_theme
     if fallback is not None:
-        print(f"{character_name} could not find a fresh plan/theme combination; using character-safe fallback plan.", flush=True)
+        print(f"{character_name} could not find a fresh art plan; using character-safe fallback plan.", flush=True)
         return fallback
 
     return choose_plan_and_action(character_name, recent_visual_tags)
@@ -940,7 +955,8 @@ def mark_character_clothing_theme_used(
     theme: str,
     used_by_character: dict[str, list[str]],
 ) -> None:
-    if theme not in CLOTHING_THEMES:
+    if theme not in REGULAR_CLOTHING_THEMES:
+        append_clothing_theme_usage_log(f"{character_name}: {theme} (low-probability brand, not cycle-counted)", 0)
         return
     used_themes = used_by_character.setdefault(character_name, [])
     if theme not in used_themes:
@@ -1088,7 +1104,11 @@ def main() -> None:
             propagation_profile = propagation_profile_for(character_name)
             required_identity_tokens = required_identity_tokens_for(character_name)
             viewer_distance = viewer_distance_for(character_name)
-            theme = art_plan["outfit_direction"]
+            theme = choose_character_clothing_theme(
+                character_name,
+                used_by_character,
+                batch_used_themes,
+            )
             plan_name = art_plan["name"]
             batch_used_themes.add(theme)
             batch_used_plans.add(plan_name)
@@ -1099,7 +1119,12 @@ def main() -> None:
             template_index = 0
             concept = art_plan["graphic_concept"]
             prompt_name = prompt_template_name(template_index)
-            prompt = prompt_for_art_direction(character_name, art_plan, action_style)
+            prompt = prompt_for_art_direction(
+                character_name,
+                art_plan,
+                action_style,
+                outfit_direction=theme,
+            )
 
             print("=" * 72, flush=True)
             print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
