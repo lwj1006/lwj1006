@@ -20,6 +20,7 @@ import pyperclip
 from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
+    choose_compatible_action_style,
     choose_plan_and_action,
     collect_cooldown_tags,
     propagation_profile_for,
@@ -149,6 +150,7 @@ COORDS = {
 CALIBRATION_FILE = PROJECT_DIR / "config" / "chatgpt_batch_coords.json"
 USED_CLOTHING_THEMES_FILE = PROJECT_DIR / "config" / "used_clothing_themes.json"
 USED_CHARACTER_CLOTHING_THEMES_FILE = PROJECT_DIR / "config" / "used_character_clothing_themes.json"
+USED_CHARACTER_ART_PLANS_FILE = PROJECT_DIR / "config" / "used_character_art_plans.json"
 USED_CHARACTER_BATCH_FILE = PROJECT_DIR / "config" / "used_character_batches.json"
 CLOTHING_THEME_USAGE_LOG_FILE = PROJECT_DIR / "config" / "clothing_theme_usage_log.jsonl"
 
@@ -696,6 +698,39 @@ def save_used_character_clothing_themes(used_by_character: dict[str, list[str]])
     )
 
 
+def load_used_character_art_plans() -> dict[str, list[str]]:
+    if not USED_CHARACTER_ART_PLANS_FILE.exists():
+        return {}
+
+    try:
+        data = json.loads(USED_CHARACTER_ART_PLANS_FILE.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        print(f"Used character art-plan file is invalid; starting fresh: {USED_CHARACTER_ART_PLANS_FILE}")
+        return {}
+
+    if not isinstance(data, dict):
+        return {}
+
+    valid_plans = {plan["name"] for plan in ART_DIRECTION_PLANS}
+    normalized: dict[str, list[str]] = {}
+    for character_name, plan_names in data.items():
+        if not isinstance(character_name, str) or not isinstance(plan_names, list):
+            continue
+        normalized[character_name] = [
+            plan_name for plan_name in plan_names
+            if isinstance(plan_name, str) and plan_name in valid_plans
+        ]
+    return normalized
+
+
+def save_used_character_art_plans(used_by_character: dict[str, list[str]]) -> None:
+    USED_CHARACTER_ART_PLANS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    USED_CHARACTER_ART_PLANS_FILE.write_text(
+        json.dumps(used_by_character, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
 def load_used_character_batch() -> list[str]:
     if not USED_CHARACTER_BATCH_FILE.exists():
         return []
@@ -814,32 +849,86 @@ def mark_character_batch_used(selected_characters: list[str], used_characters: l
 def choose_character_plan_and_action(
     character_name: str,
     recent_visual_tags: list[str],
-    used_by_character: dict[str, list[str]],
+    used_themes_by_character: dict[str, list[str]],
+    used_plans_by_character: dict[str, list[str]],
     batch_used_themes: set[str] | None = None,
+    batch_used_plans: set[str] | None = None,
 ) -> tuple[dict, dict]:
     batch_used_themes = batch_used_themes or set()
-    used_themes = used_by_character.setdefault(character_name, [])
+    batch_used_plans = batch_used_plans or set()
+
+    used_themes = used_themes_by_character.setdefault(character_name, [])
     valid_used = [theme for theme in used_themes if theme in CLOTHING_THEMES]
-    used_by_character[character_name] = valid_used
+    used_themes_by_character[character_name] = valid_used
     used_set = set(valid_used)
+
+    valid_plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
+    used_plans = used_plans_by_character.setdefault(character_name, [])
+    valid_used_plans = [
+        plan_name for plan_name in used_plans
+        if plan_name in valid_plan_names
+    ]
+    used_plans_by_character[character_name] = valid_used_plans
+    used_plan_set = set(valid_used_plans)
 
     if len(used_set) >= len(CLOTHING_THEMES):
         print(f"{character_name} clothing theme cycle complete; clearing per-character theme history.", flush=True)
-        used_by_character[character_name] = []
+        used_themes_by_character[character_name] = []
         used_set = set()
-        save_used_character_clothing_themes(used_by_character)
+        save_used_character_clothing_themes(used_themes_by_character)
 
+    if len(used_plan_set) >= len(ART_DIRECTION_PLANS):
+        print(f"{character_name} art-plan cycle complete; clearing per-character plan history.", flush=True)
+        used_plans_by_character[character_name] = []
+        used_plan_set = set()
+        save_used_character_art_plans(used_plans_by_character)
+
+    best_unused_plan: tuple[dict, dict] | None = None
+    best_unused_theme: tuple[dict, dict] | None = None
     fallback: tuple[dict, dict] | None = None
-    for _ in range(24):
+    for _ in range(180):
         art_plan, action_style = choose_plan_and_action(character_name, recent_visual_tags)
         if fallback is None:
             fallback = (art_plan, action_style)
         outfit_direction = art_plan["outfit_direction"]
-        if outfit_direction not in used_set and outfit_direction not in batch_used_themes:
-            return art_plan, action_style
+        plan_name = art_plan["name"]
+        plan_is_unused = plan_name not in used_plan_set and plan_name not in batch_used_plans
+        theme_is_unused = outfit_direction not in used_set and outfit_direction not in batch_used_themes
 
+        if plan_is_unused and theme_is_unused:
+            return art_plan, action_style
+        if plan_is_unused and best_unused_plan is None:
+            best_unused_plan = (art_plan, action_style)
+        if theme_is_unused and best_unused_theme is None:
+            best_unused_theme = (art_plan, action_style)
+
+    unused_plans = [
+        plan for plan in ART_DIRECTION_PLANS
+        if plan["name"] not in used_plan_set and plan["name"] not in batch_used_plans
+    ]
+    if unused_plans:
+        unused_themes = {
+            theme for theme in CLOTHING_THEMES
+            if theme not in used_set and theme not in batch_used_themes
+        }
+        theme_matching_plans = [
+            plan for plan in unused_plans
+            if plan["outfit_direction"] in unused_themes
+        ]
+        candidate_plans = theme_matching_plans or unused_plans
+        art_plan = random.choice(candidate_plans)
+        action_style = choose_compatible_action_style(character_name, recent_visual_tags, art_plan)
+        print(f"{character_name} selected from explicit unused art-plan pool after random attempts.", flush=True)
+        return dict(art_plan), action_style
+
+    if best_unused_plan is not None:
+        print(f"{character_name} could not keep both plan and outfit fresh; prioritizing unused art plan.", flush=True)
+        return best_unused_plan
+    if best_unused_theme is not None:
+        print(f"{character_name} could not keep both plan and outfit fresh; prioritizing unused outfit theme.", flush=True)
+        return best_unused_theme
     if fallback is not None:
-        print(f"{character_name} could not find an unused theme quickly; using character-safe fallback plan.", flush=True)
+        print(f"{character_name} could not find a fresh plan/theme combination; using character-safe fallback plan.", flush=True)
         return fallback
 
     return choose_plan_and_action(character_name, recent_visual_tags)
@@ -862,6 +951,26 @@ def mark_character_clothing_theme_used(
         f"{USED_CHARACTER_CLOTHING_THEMES_FILE}",
         flush=True,
     )
+
+
+def mark_character_art_plan_used(
+    character_name: str,
+    plan_name: str,
+    used_by_character: dict[str, list[str]],
+) -> None:
+    valid_plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
+    if plan_name not in valid_plan_names:
+        return
+    used_plans = used_by_character.setdefault(character_name, [])
+    if plan_name not in used_plans:
+        used_plans.append(plan_name)
+    save_used_character_art_plans(used_by_character)
+    print(
+        f"{character_name} art-plan current cycle: {len(used_plans)}/{len(ART_DIRECTION_PLANS)} used -> "
+        f"{USED_CHARACTER_ART_PLANS_FILE}",
+        flush=True,
+    )
+
 
 def schedule_safety_shutdown() -> None:
     now = dt.datetime.now()
@@ -932,6 +1041,7 @@ def main() -> None:
 
     recent_visual_tags: list[str] = []
     used_by_character = load_used_character_clothing_themes()
+    used_plans_by_character = load_used_character_art_plans()
     used_character_batch = load_used_character_batch()
     fixed_character_selection = prompt_character_selection()
     run_number = 1
@@ -946,6 +1056,7 @@ def main() -> None:
         )
         batch_completed_characters: list[str] = []
         batch_used_themes: set[str] = set()
+        batch_used_plans: set[str] = set()
         validate_reference_files_for_characters(selected_characters)
         print("=" * 72, flush=True)
         print(
@@ -964,13 +1075,17 @@ def main() -> None:
                 character_name,
                 recent_visual_tags,
                 used_by_character,
+                used_plans_by_character,
                 batch_used_themes,
+                batch_used_plans,
             )
             propagation_profile = propagation_profile_for(character_name)
             required_identity_tokens = required_identity_tokens_for(character_name)
             viewer_distance = viewer_distance_for(character_name)
             theme = art_plan["outfit_direction"]
+            plan_name = art_plan["name"]
             batch_used_themes.add(theme)
+            batch_used_plans.add(plan_name)
             scene = art_plan["spatial_structure"]
             pose = action_style["body_silhouette"]
             lighting = art_plan["lighting_behavior"]
@@ -990,7 +1105,7 @@ def main() -> None:
             print(f"[{run_number:02d}] pose: {pose}", flush=True)
             print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
             print(f"[{run_number:02d}] mood: {mood}", flush=True)
-            print(f"[{run_number:02d}] art plan: {art_plan['name']}", flush=True)
+            print(f"[{run_number:02d}] art plan: {plan_name}", flush=True)
             print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
             print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
             print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
@@ -1024,6 +1139,7 @@ def main() -> None:
             screenshot_path = wait_for_generation(run_number)
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             mark_character_clothing_theme_used(character_name, theme, used_by_character)
+            mark_character_art_plan_used(character_name, plan_name, used_plans_by_character)
             batch_completed_characters.append(character_name)
             recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
             recent_visual_tags = recent_visual_tags[-12:]

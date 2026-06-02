@@ -15,7 +15,7 @@ STYLE_BASELINE = (
 
 
 NEGATIVE_GUARDRAILS = (
-    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background."
+    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, forced weapon, forced vehicle."
 )
 
 
@@ -86,9 +86,9 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         f"Character: {character_name}.",
         f"Identity: {_clip_text(profile['official_core'], 100)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
-        f"Character rule: {_clip_text(profile['interaction_rule'], 130)}",
+        f"Character rule: {_clip_text(profile['interaction_rule'], 240)}",
         "",
-        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 115)} {viewer_distance_for(character_name)}.",
+        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 140).rstrip('.')}. {viewer_distance_for(character_name)}.",
         "Hands simple and natural; feet clear only when visible.",
         "",
         SCENE_FIRST_RULES,
