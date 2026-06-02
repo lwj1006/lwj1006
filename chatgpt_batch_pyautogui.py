@@ -69,7 +69,6 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "千夏2.png"),
         str(PROJECT_DIR / "assets" / "千夏3.png"),
         str(PROJECT_DIR / "assets" / "千夏4.jpg"),
-        str(PROJECT_DIR / "assets" / "千夏5.png"),
     ],
     "丹": [
         str(PROJECT_DIR / "assets" / "dan.png"),
@@ -98,12 +97,55 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "橘福福2.jpeg"),
         str(PROJECT_DIR / "assets" / "橘福福3.png"),
     ],
+    "柚叶": [
+        str(PROJECT_DIR / "assets" / "柚叶1.png"),
+        str(PROJECT_DIR / "assets" / "柚叶2.png"),
+        str(PROJECT_DIR / "assets" / "柚叶3.png"),
+    ],
+    "爱丽丝": [
+        str(PROJECT_DIR / "assets" / "爱丽丝1.png"),
+        str(PROJECT_DIR / "assets" / "爱丽丝2.png"),
+        str(PROJECT_DIR / "assets" / "爱丽丝3.png"),
+    ],
+    "普罗米娅": [
+        str(PROJECT_DIR / "assets" / "普罗米娅1.png"),
+        str(PROJECT_DIR / "assets" / "普罗米娅2.png"),
+        str(PROJECT_DIR / "assets" / "普罗米娅3.png"),
+    ],
+    "薇薇安": [
+        str(PROJECT_DIR / "assets" / "薇薇安1.png"),
+        str(PROJECT_DIR / "assets" / "薇薇安2.png"),
+        str(PROJECT_DIR / "assets" / "薇薇安3.png"),
+    ],
+    "安比": [
+        str(PROJECT_DIR / "assets" / "安比1.png"),
+        str(PROJECT_DIR / "assets" / "安比2.jpg"),
+        str(PROJECT_DIR / "assets" / "安比3.png"),
+    ],
+    "可琳": [
+        str(PROJECT_DIR / "assets" / "可琳1.png"),
+        str(PROJECT_DIR / "assets" / "可琳2.png"),
+    ],
+    "艾莲": [
+        str(PROJECT_DIR / "assets" / "艾莲1.png"),
+        str(PROJECT_DIR / "assets" / "艾莲2.png"),
+        str(PROJECT_DIR / "assets" / "艾莲3.png"),
+    ],
+    "琉音": [
+        str(PROJECT_DIR / "assets" / "琉音1.png"),
+        str(PROJECT_DIR / "assets" / "琉音2.png"),
+    ],
+    "耀嘉音": [
+        str(PROJECT_DIR / "assets" / "耀嘉音1.png"),
+        str(PROJECT_DIR / "assets" / "耀嘉音2.png"),
+        str(PROJECT_DIR / "assets" / "耀嘉音3.png"),
+    ],
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
-CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福"]
+CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音"]
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
