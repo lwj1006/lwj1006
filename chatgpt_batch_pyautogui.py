@@ -408,21 +408,10 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         *LOW_PROBABILITY_BRAND_THEMES,
     ],
     "white_room_floor_window": [
-        PURE_WHITE_OUTFIT,
-        SUNNY_STUDIO_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *CLOTHING_THEMES,
     ],
     "pure_white_character_focus": [
-        PURE_WHITE_OUTFIT,
-        SUNNY_STUDIO_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *CLOTHING_THEMES,
     ],
     "zero_gravity_fairy_room": [
         FAIRY_FLOATING_OUTFIT,
@@ -1296,8 +1285,8 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
         return None
 
     selected: list[str] = []
-    if choice.isdigit() and all(char != "0" for char in choice):
-        tokens = list(choice)
+    if choice.isdigit():
+        tokens = [choice]
     else:
         normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
         tokens = [token.strip() for token in normalized.split(",") if token.strip()]
@@ -1327,7 +1316,7 @@ def prompt_character_selection() -> list[str] | None:
     print("Choose characters for this run:", flush=True)
     for index, character_name in enumerate(CHARACTER_SEQUENCE, start=1):
         print(f"  {index}. {character_name}", flush=True)
-    print("Input examples: Enter/r/random = full random cycle; 123 = characters 1,2,3; 1 3 8 or 南宫,千夏,席德 are also OK.", flush=True)
+    print("Input examples: Enter/r/random = full random cycle; 1 2 3 = characters 1,2,3; 16 17 18 = characters 16,17,18; names are also OK.", flush=True)
 
     while True:
         raw_choice = input("Character selection: ")
