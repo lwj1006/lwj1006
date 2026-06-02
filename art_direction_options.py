@@ -18,6 +18,14 @@ OUTFIT_DIRECTIONS = [
     "minimal sunny studio outfit, face and hair identity as the main focus",
     "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
     "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
+    "pure white sundress with a straw hat, fresh summer date mood",
+    "medium-short blue-and-white gingham shirt over a white tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned",
+    "soft light-blue windbreaker jacket, white low-neck tank top, athletic shorts, round-frame glasses",
+    "thin white off-shoulder long T-shirt, green camisole inner layer visible at neckline, shorts",
+    "lace off-shoulder dress with puff sleeves, clean romantic styling",
+    "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory",
+    "bright red short one-piece dress, youthful clean date styling",
+    "five-sleeve white light-sport T-shirt with gray shorts or denim shorts",
 ]
 
 
@@ -1003,7 +1011,13 @@ def viewer_distance_for(character_name):
 def outfit_variation_for(character_name, outfit_direction=None):
     profile = _profile_for(character_name)
     base = outfit_direction if outfit_direction in OUTFIT_DIRECTIONS else random.choice(OUTFIT_DIRECTIONS)
+    sanrio_detail = ""
+    if random.random() < 0.06:
+        sanrio_detail = (
+            "; optional low-key Sanrio-inspired pastel charm detail, such as a tiny hair clip, "
+            "bag charm, sticker, or soft motif; no readable logo and no exact mascot costume"
+        )
     return (
-        f"{base}; adapt to character palette: {profile['color_anchor']}; "
+        f"{base}{sanrio_detail}; adapt to character palette: {profile['color_anchor']}; "
         "keep hairstyle, hair color, eye color, and core accessories"
     )

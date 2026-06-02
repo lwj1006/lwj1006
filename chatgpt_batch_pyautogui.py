@@ -163,7 +163,7 @@ WORK_REMINDER_INTERVAL = 10
 WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
-LOW_PROBABILITY_BRAND_OUTFIT_CHANCE = 0.08
+LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
 
 SCREENSHOT_DIR = PROJECT_DIR / "screenshots"
 SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
@@ -178,9 +178,375 @@ LOW_PROBABILITY_BRAND_THEMES = [
     theme for theme in CLOTHING_THEMES
     if "Adidas-inspired" in theme or "Yonex-inspired" in theme
 ]
+STRONG_SCENE_ONLY_CLOTHING_THEMES = [
+    theme for theme in CLOTHING_THEMES
+    if theme in LOW_PROBABILITY_BRAND_THEMES
+    or "dark-hosiery" in theme
+    or "maid remix" in theme
+    or "bridal dress" in theme
+]
 REGULAR_CLOTHING_THEMES = [
     theme for theme in CLOTHING_THEMES
-    if theme not in LOW_PROBABILITY_BRAND_THEMES
+    if theme not in STRONG_SCENE_ONLY_CLOTHING_THEMES
+]
+REFERENCE_OUTFIT = "reference-faithful outfit with small fashionable variation"
+LIGHT_NOVEL_OUTFIT = "clean light-novel casual outfit, character palette stays recognizable"
+YOUNG_CASUAL_OUTFIT = "young casual tops: white short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit"
+SOFT_DATE_OUTFIT = "soft date outfit: fitted cardigan, simple camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
+CAFE_MAID_OUTFIT = "cafe maid remix outfit, neat apron, ribbons, cute and clean"
+BRIDAL_OUTFIT = "romantic flower bridal dress, elegant veil or bouquet, clean and elegant"
+FLOWER_FANTASY_OUTFIT = "elegant flower-field fantasy outfit, simplified layers, no weapon requirement"
+DARK_HOSIERY_OUTFIT = "rare refined dark-hosiery fashion outfit, restrained and non-fetishized"
+YOUTHFUL_CASUAL_OUTFIT = "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis"
+PICNIC_OUTFIT = "fresh picnic outfit, short jacket or light cardigan, clear color blocks"
+BAKERY_CAFE_OUTFIT = "soft bakery or cafe casual outfit, warm and simple"
+SUNNY_STUDIO_OUTFIT = "minimal sunny studio outfit, face and hair identity as the main focus"
+PURE_WHITE_OUTFIT = "clean pure-white studio outfit, simple silhouette, character colors as the only accent"
+FAIRY_FLOATING_OUTFIT = "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling"
+WHITE_SUNDRESS_STRAW_HAT_OUTFIT = "pure white sundress with a straw hat, fresh summer date mood"
+BLUE_GINGHAM_DENIM_OUTFIT = "medium-short blue-and-white gingham shirt over a white tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned"
+LIGHT_BLUE_WINDBREAKER_OUTFIT = "soft light-blue windbreaker jacket, white low-neck tank top, athletic shorts, round-frame glasses"
+ASYMMETRIC_WHITE_T_OUTFIT = "thin white off-shoulder long T-shirt, green camisole inner layer visible at neckline, shorts"
+LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, clean romantic styling"
+BASEBALL_SPECTATOR_OUTFIT = "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory"
+BRIGHT_RED_SHORT_DRESS_OUTFIT = "bright red short one-piece dress, youthful clean date styling"
+FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve white light-sport T-shirt with gray shorts or denim shorts"
+SAFE_DAILY_CLOTHING_POOL = [
+    LIGHT_NOVEL_OUTFIT,
+    YOUNG_CASUAL_OUTFIT,
+    SOFT_DATE_OUTFIT,
+    YOUTHFUL_CASUAL_OUTFIT,
+    PICNIC_OUTFIT,
+    BAKERY_CAFE_OUTFIT,
+    SUNNY_STUDIO_OUTFIT,
+    PURE_WHITE_OUTFIT,
+    WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+    BLUE_GINGHAM_DENIM_OUTFIT,
+    LIGHT_BLUE_WINDBREAKER_OUTFIT,
+    ASYMMETRIC_WHITE_T_OUTFIT,
+    BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+]
+PLAN_COMPATIBLE_CLOTHING_THEMES = {
+    "trend_mirror_studio": [
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LIGHT_BLUE_WINDBREAKER_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        *LOW_PROBABILITY_BRAND_THEMES,
+    ],
+    "capsule_toy_corner": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "graphic_poster_studio": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "afternoon_cafe_negative_space": [
+        BAKERY_CAFE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "small_bakery_morning": [
+        BAKERY_CAFE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+    ],
+    "bookstore_cafe_corner": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        BAKERY_CAFE_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "library_corner_sunset_silence": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "balcony_breeze_half_out_frame": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "summer_courtyard_soft_shadow": [
+        PICNIC_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+    ],
+    "open_grassland_breeze": [
+        PICNIC_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+    ],
+    "greenhouse_terrace_reflection": [
+        FLOWER_FANTASY_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BRIDAL_OUTFIT,
+        FAIRY_FLOATING_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "flower_sea_afternoon": [
+        FLOWER_FANTASY_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BRIDAL_OUTFIT,
+        FAIRY_FLOATING_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "garden_tea_table": [
+        FLOWER_FANTASY_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BAKERY_CAFE_OUTFIT,
+        FAIRY_FLOATING_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "flower_bridal_garden": [
+        BRIDAL_OUTFIT,
+        FLOWER_FANTASY_OUTFIT,
+        FAIRY_FLOATING_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "dessert_shop_mirror_glance": [
+        BAKERY_CAFE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "city_date_window_stroll": [
+        SOFT_DATE_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LIGHT_BLUE_WINDBREAKER_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        *LOW_PROBABILITY_BRAND_THEMES,
+    ],
+    "park_date_riverside_breeze": [
+        SOFT_DATE_OUTFIT,
+        PICNIC_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LIGHT_BLUE_WINDBREAKER_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        *LOW_PROBABILITY_BRAND_THEMES,
+    ],
+    "pastel_room_sweets": [
+        SUNNY_STUDIO_OUTFIT,
+        BAKERY_CAFE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "cafe_maid_afternoon": [
+        CAFE_MAID_OUTFIT,
+        BAKERY_CAFE_OUTFIT,
+    ],
+    "sunny_seaside_train": [
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        PICNIC_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LIGHT_BLUE_WINDBREAKER_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        *LOW_PROBABILITY_BRAND_THEMES,
+    ],
+    "white_room_floor_window": [
+        PURE_WHITE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "pure_white_character_focus": [
+        PURE_WHITE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "zero_gravity_fairy_room": [
+        FAIRY_FLOATING_OUTFIT,
+        FLOWER_FANTASY_OUTFIT,
+        BRIDAL_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "zero_gravity_fairy_garden": [
+        FAIRY_FLOATING_OUTFIT,
+        FLOWER_FANTASY_OUTFIT,
+        BRIDAL_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "guofeng_decorative_kv": [
+        REFERENCE_OUTFIT,
+        FLOWER_FANTASY_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "overhead_deep_perspective_space": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+    ],
+    "low_angle_foreground_depth": [
+        PICNIC_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LIGHT_BLUE_WINDBREAKER_OUTFIT,
+        BASEBALL_SPECTATOR_OUTFIT,
+        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+    ],
+    "far_shot_small_figure_room": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "telephoto_layered_interior": [
+        BAKERY_CAFE_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+    ],
+    "black_stockings_tea_room": [
+        DARK_HOSIERY_OUTFIT,
+    ],
+}
+LOW_PROBABILITY_SCENE_ONLY_CLOTHING_BY_PLAN = {
+    "trend_mirror_studio": LOW_PROBABILITY_BRAND_THEMES,
+    "city_date_window_stroll": LOW_PROBABILITY_BRAND_THEMES,
+    "park_date_riverside_breeze": LOW_PROBABILITY_BRAND_THEMES,
+    "sunny_seaside_train": LOW_PROBABILITY_BRAND_THEMES,
+}
+SCENE_CATEGORY_OPTIONS = [
+    {
+        "key": "studio_mirror",
+        "label": "练习室 / 镜子棚拍",
+        "plan_names": ["trend_mirror_studio", "graphic_poster_studio"],
+    },
+    {
+        "key": "cafe_bakery_sweets",
+        "label": "咖啡 / 烘焙 / 甜品",
+        "plan_names": [
+            "afternoon_cafe_negative_space",
+            "small_bakery_morning",
+            "bookstore_cafe_corner",
+            "dessert_shop_mirror_glance",
+            "pastel_room_sweets",
+        ],
+    },
+    {
+        "key": "dream_garden_floating",
+        "label": "梦幻 / 花园 / 漂浮",
+        "plan_names": [
+            "summer_courtyard_soft_shadow",
+            "open_grassland_breeze",
+            "greenhouse_terrace_reflection",
+            "flower_sea_afternoon",
+            "garden_tea_table",
+            "flower_bridal_garden",
+            "park_date_riverside_breeze",
+            "zero_gravity_fairy_room",
+            "zero_gravity_fairy_garden",
+        ],
+    },
+    {
+        "key": "pure_white_minimal",
+        "label": "纯白 / 极简棚拍",
+        "plan_names": ["white_room_floor_window", "pure_white_character_focus"],
+    },
+    {
+        "key": "distance_perspective_interior",
+        "label": "远景 / 透视 / 室内构图",
+        "plan_names": [
+            "city_date_window_stroll",
+            "sunny_seaside_train",
+            "library_corner_sunset_silence",
+            "balcony_breeze_half_out_frame",
+            "overhead_deep_perspective_space",
+            "low_angle_foreground_depth",
+            "far_shot_small_figure_room",
+            "telephoto_layered_interior",
+        ],
+    },
+    {
+        "key": "special_limited",
+        "label": "特殊限定",
+        "plan_names": ["capsule_toy_corner", "cafe_maid_afternoon", "black_stockings_tea_room", "guofeng_decorative_kv"],
+    },
 ]
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
@@ -677,9 +1043,6 @@ def choose_unused_clothing_theme(used_themes: list[str]) -> str:
     valid_used = [theme for theme in used_themes if theme in REGULAR_CLOTHING_THEMES]
     used_themes[:] = valid_used
 
-    if LOW_PROBABILITY_BRAND_THEMES and random.random() < LOW_PROBABILITY_BRAND_OUTFIT_CHANCE:
-        return random.choice(LOW_PROBABILITY_BRAND_THEMES)
-
     available = [theme for theme in REGULAR_CLOTHING_THEMES if theme not in used_themes]
     if not available:
         print(
@@ -705,9 +1068,6 @@ def choose_character_clothing_theme(
     used_by_character[character_name] = valid_used
     used_set = set(valid_used)
 
-    if LOW_PROBABILITY_BRAND_THEMES and random.random() < LOW_PROBABILITY_BRAND_OUTFIT_CHANCE:
-        return random.choice(LOW_PROBABILITY_BRAND_THEMES)
-
     available = [
         theme for theme in REGULAR_CLOTHING_THEMES
         if theme not in used_set and theme not in batch_used_themes
@@ -722,6 +1082,70 @@ def choose_character_clothing_theme(
         ] or REGULAR_CLOTHING_THEMES[:]
 
     return random.choice(available)
+
+
+def choose_compatible_clothing_theme(
+    character_name: str,
+    art_plan: dict,
+    used_by_character: dict[str, list[str]],
+    batch_used_themes: set[str] | None = None,
+) -> str:
+    compatible_themes = [
+        theme for theme in PLAN_COMPATIBLE_CLOTHING_THEMES.get(art_plan["name"], [])
+        if theme in CLOTHING_THEMES
+    ]
+    if not compatible_themes:
+        compatible_themes = SAFE_DAILY_CLOTHING_POOL[:]
+
+    batch_used_themes = batch_used_themes or set()
+    regular_compatible = [
+        theme for theme in compatible_themes
+        if theme in REGULAR_CLOTHING_THEMES
+    ]
+    scene_only_compatible = [
+        theme for theme in compatible_themes
+        if theme in STRONG_SCENE_ONLY_CLOTHING_THEMES
+    ]
+    low_probability_scene_themes = [
+        theme for theme in LOW_PROBABILITY_SCENE_ONLY_CLOTHING_BY_PLAN.get(art_plan["name"], [])
+        if theme in compatible_themes
+    ]
+
+    if (
+        low_probability_scene_themes
+        and random.random() < LOW_PROBABILITY_SCENE_OUTFIT_CHANCE
+    ):
+        return random.choice(low_probability_scene_themes)
+
+    used_themes = used_by_character.setdefault(character_name, [])
+    valid_used = [
+        theme for theme in used_themes
+        if theme in REGULAR_CLOTHING_THEMES
+    ]
+    used_by_character[character_name] = valid_used
+    used_set = set(valid_used)
+
+    available = [
+        theme for theme in regular_compatible
+        if theme not in used_set and theme not in batch_used_themes
+    ]
+    if available:
+        return random.choice(available)
+
+    available = [
+        theme for theme in regular_compatible
+        if theme not in batch_used_themes
+    ]
+    if available:
+        return random.choice(available)
+
+    if regular_compatible:
+        return random.choice(regular_compatible)
+
+    if scene_only_compatible:
+        return random.choice(scene_only_compatible)
+
+    return random.choice(SAFE_DAILY_CLOTHING_POOL)
 
 
 
@@ -920,6 +1344,68 @@ def prompt_character_selection() -> list[str] | None:
         return selected
 
 
+def _parse_scene_category_selection(raw_choice: str) -> list[str] | None:
+    choice = raw_choice.strip()
+    if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
+        return None
+
+    if choice.isdigit() and all(char != "0" for char in choice):
+        tokens = list(choice)
+    else:
+        normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
+        tokens = [token.strip() for token in normalized.split(",") if token.strip()]
+
+    selected_plan_names: list[str] = []
+    key_to_option = {option["key"].lower(): option for option in SCENE_CATEGORY_OPTIONS}
+    label_to_option = {option["label"].lower(): option for option in SCENE_CATEGORY_OPTIONS}
+    for token in tokens:
+        option = None
+        if token.isdigit():
+            index = int(token)
+            if 1 <= index <= len(SCENE_CATEGORY_OPTIONS):
+                option = SCENE_CATEGORY_OPTIONS[index - 1]
+        else:
+            option = key_to_option.get(token.lower()) or label_to_option.get(token.lower())
+
+        if not option:
+            raise ValueError(f"Unknown scene selection: {token!r}")
+        for plan_name in option["plan_names"]:
+            if plan_name not in selected_plan_names:
+                selected_plan_names.append(plan_name)
+
+    if not selected_plan_names:
+        raise ValueError("No valid scenes selected")
+    return selected_plan_names
+
+
+def prompt_scene_category_selection() -> list[str] | None:
+    print("=" * 72, flush=True)
+    print("Choose scene category for this run:", flush=True)
+    for index, option in enumerate(SCENE_CATEGORY_OPTIONS, start=1):
+        print(f"  {index}. {option['label']}", flush=True)
+    print("Input examples: Enter/r/random = all scenes; 1 = category 1; 135 = categories 1,3,5.", flush=True)
+    print("Clothing is still chosen automatically from the selected scene's compatible pool.", flush=True)
+
+    while True:
+        raw_choice = input("Scene selection: ")
+        try:
+            selected_plan_names = _parse_scene_category_selection(raw_choice)
+        except ValueError as exc:
+            print(f"{exc}. Please try again.", flush=True)
+            continue
+
+        if selected_plan_names is None:
+            print("Scene mode: full random art-plan cycle.", flush=True)
+        else:
+            selected_labels = [
+                option["label"]
+                for option in SCENE_CATEGORY_OPTIONS
+                if any(plan_name in selected_plan_names for plan_name in option["plan_names"])
+            ]
+            print(f"Scene mode: fixed category -> {'、'.join(selected_labels)}", flush=True)
+        return selected_plan_names
+
+
 def mark_character_batch_used(selected_characters: list[str], used_characters: list[str]) -> None:
     for character_name in selected_characters:
         if character_name in CHARACTER_SEQUENCE and character_name not in used_characters:
@@ -939,11 +1425,22 @@ def choose_character_plan_and_action(
     used_plans_by_character: dict[str, list[str]],
     batch_used_themes: set[str] | None = None,
     batch_used_plans: set[str] | None = None,
+    allowed_plan_names: list[str] | None = None,
 ) -> tuple[dict, dict]:
     batch_used_themes = batch_used_themes or set()
     batch_used_plans = batch_used_plans or set()
 
     valid_plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
+    if allowed_plan_names:
+        valid_plan_names &= set(allowed_plan_names)
+    plan_pool = [
+        plan for plan in ART_DIRECTION_PLANS
+        if plan["name"] in valid_plan_names
+    ]
+    if not plan_pool:
+        plan_pool = ART_DIRECTION_PLANS[:]
+        valid_plan_names = {plan["name"] for plan in plan_pool}
+
     used_plans = used_plans_by_character.setdefault(character_name, [])
     valid_used_plans = [
         plan_name for plan_name in used_plans
@@ -952,7 +1449,7 @@ def choose_character_plan_and_action(
     used_plans_by_character[character_name] = valid_used_plans
     used_plan_set = set(valid_used_plans)
 
-    if len(used_plan_set) >= len(ART_DIRECTION_PLANS):
+    if len(used_plan_set) >= len(plan_pool):
         print(f"{character_name} art-plan cycle complete; clearing per-character plan history.", flush=True)
         used_plans_by_character[character_name] = []
         used_plan_set = set()
@@ -962,6 +1459,8 @@ def choose_character_plan_and_action(
     fallback: tuple[dict, dict] | None = None
     for _ in range(180):
         art_plan, action_style = choose_plan_and_action(character_name, recent_visual_tags)
+        if art_plan["name"] not in valid_plan_names:
+            continue
         if fallback is None:
             fallback = (art_plan, action_style)
         plan_name = art_plan["name"]
@@ -973,7 +1472,7 @@ def choose_character_plan_and_action(
             best_unused_plan = (art_plan, action_style)
 
     unused_plans = [
-        plan for plan in ART_DIRECTION_PLANS
+        plan for plan in plan_pool
         if plan["name"] not in used_plan_set and plan["name"] not in batch_used_plans
     ]
     if unused_plans:
@@ -989,7 +1488,9 @@ def choose_character_plan_and_action(
         print(f"{character_name} could not find a fresh art plan; using character-safe fallback plan.", flush=True)
         return fallback
 
-    return choose_plan_and_action(character_name, recent_visual_tags)
+    art_plan = random.choice(plan_pool)
+    action_style = choose_compatible_action_style(character_name, recent_visual_tags, art_plan)
+    return dict(art_plan), action_style
 
 
 def mark_character_clothing_theme_used(
@@ -998,7 +1499,7 @@ def mark_character_clothing_theme_used(
     used_by_character: dict[str, list[str]],
 ) -> None:
     if theme not in REGULAR_CLOTHING_THEMES:
-        append_clothing_theme_usage_log(f"{character_name}: {theme} (low-probability brand, not cycle-counted)", 0)
+        append_clothing_theme_usage_log(f"{character_name}: {theme} (scene-only strong outfit, not cycle-counted)", 0)
         return
     used_themes = used_by_character.setdefault(character_name, [])
     if theme not in used_themes:
@@ -1006,7 +1507,7 @@ def mark_character_clothing_theme_used(
     save_used_character_clothing_themes(used_by_character)
     append_clothing_theme_usage_log(f"{character_name}: {theme}", len(used_themes))
     print(
-        f"{character_name} clothing theme current cycle: {len(used_themes)}/{len(CLOTHING_THEMES)} used -> "
+        f"{character_name} clothing theme current cycle: {len(used_themes)}/{len(REGULAR_CLOTHING_THEMES)} used -> "
         f"{USED_CHARACTER_CLOTHING_THEMES_FILE}",
         flush=True,
     )
@@ -1103,6 +1604,7 @@ def main() -> None:
     used_plans_by_character = load_used_character_art_plans()
     used_character_batch = load_used_character_batch()
     fixed_character_selection = prompt_character_selection()
+    fixed_scene_plan_names = prompt_scene_category_selection()
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
         flush=True,
@@ -1129,6 +1631,11 @@ def main() -> None:
             f"{'、'.join(selected_characters)}",
             flush=True,
         )
+        print(
+            "Scene category: "
+            + ("full random" if fixed_scene_plan_names is None else f"{len(fixed_scene_plan_names)} allowed art plans"),
+            flush=True,
+        )
 
         for character_name in selected_characters:
             if run_number > total_runs:
@@ -1142,12 +1649,14 @@ def main() -> None:
                 used_plans_by_character,
                 batch_used_themes,
                 batch_used_plans,
+                fixed_scene_plan_names,
             )
             propagation_profile = propagation_profile_for(character_name)
             required_identity_tokens = required_identity_tokens_for(character_name)
             viewer_distance = viewer_distance_for(character_name)
-            theme = choose_character_clothing_theme(
+            theme = choose_compatible_clothing_theme(
                 character_name,
+                art_plan,
                 used_by_character,
                 batch_used_themes,
             )
