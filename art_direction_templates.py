@@ -10,7 +10,7 @@ from art_direction_options import (
 
 
 STYLE_BASELINE = (
-    "high-quality Japanese commercial anime KV, decorative fantasy illustration, crisp lineart, clean color separation"
+    "high-quality Japanese commercial anime KV, crisp lineart, clean color separation"
 )
 
 
@@ -30,12 +30,17 @@ READING_ORDER_RULES = (
 
 
 COMPOSITION_RULES = (
-    "Composition: foreground/midground/background layers, occlusion, frames/reflection, arcs, S-curves, repeated circles/ribbons, strong light cuts."
+    "Composition: layered foreground/midground/background, occlusion, frames/reflection, clear light cuts."
 )
 
 
 CAMERA_PERSPECTIVE_RULES = (
-    "Camera: keep one clear perspective; let floor/window/table/path lines prove depth."
+    "Camera: candid cinematic shot, not a posed character standee; use floor/window/table/path lines to prove depth."
+)
+
+
+CANDID_GAZE_RULES = (
+    "Gaze: prefer eyes away from lens, attention caught by scene or movement; direct eye contact is rare and accidental."
 )
 
 
@@ -84,26 +89,27 @@ def prompt_for_art_direction(character_name, art_plan=None, action_style=None, r
         "Apply scene/outfit/action/composition without changing identity.",
         "",
         f"Character: {character_name}.",
-        f"Identity: {_clip_text(profile['official_core'], 100)}",
+        f"Identity: {_clip_text(profile['official_core'], 90)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
-        f"Character rule: {_clip_text(profile['interaction_rule'], 240)}",
+        f"Character rule: {_clip_text(profile['interaction_rule'], 190)}",
         "",
-        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 140).rstrip('.')}. {viewer_distance_for(character_name)}.",
+        f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 115).rstrip('.')}. {viewer_distance_for(character_name)}.",
         "Hands simple and natural; feet clear only when visible.",
         "",
         SCENE_FIRST_RULES,
-        f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 115)} {_clip_text(art_plan.get('spatial_structure', ''), 130)}",
-        f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 105)}",
-        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 85)} {_clip_text(visual_design.get('layering', ''), 100)}",
-        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 95)}",
+        f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 95)} {_clip_text(art_plan.get('spatial_structure', ''), 105)}",
+        f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 85)}",
+        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 65)} {_clip_text(visual_design.get('layering', ''), 75)}",
+        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 70)}",
         READING_ORDER_RULES,
         COMPOSITION_RULES,
         CAMERA_PERSPECTIVE_RULES,
+        CANDID_GAZE_RULES,
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
-        f"Outfit: {_clip_text(outfit, 145)}",
-        f"Color/light: {_clip_text(profile['color_anchor'], 70)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 80)} {_clip_text(visual_design.get('light_bloom', ''), 105)}",
-        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 170)}",
+        f"Outfit: {_clip_text(outfit, 125)}",
+        f"Color/light: {_clip_text(profile['color_anchor'], 60)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 65)} {_clip_text(visual_design.get('light_bloom', ''), 80)}",
+        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 120)}",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",

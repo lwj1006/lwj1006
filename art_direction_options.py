@@ -25,9 +25,9 @@ CHARACTER_PROFILES = {
     "南宫": {
         "official_core": "short black twin tails with pink gradient tips, straight blunt bangs, pink eyes, cat hairpin, playful but clean expression.",
         "identity_tokens": ["short black twin tails with pink gradient tips", "straight blunt bangs", "pink eyes", "cat hairpin"],
-        "viewer_relationship": "clever eye contact, slightly playful, never exaggerated.",
+        "viewer_relationship": "clever presence, slightly playful, never exaggerated; gaze may drift away from the lens.",
         "thumbnail_strategy": "black-pink hair color and the small cat accessory must stay readable at thumbnail size.",
-        "interaction_rule": "eye contact, side glance, or a small smile are fine; avoid pointing fingers toward the camera.",
+        "interaction_rule": "side glance, eyes-away moment, or a small smile are fine; direct eye contact is rare, avoid pointing fingers toward the camera.",
         "color_anchor": "black, pink, clean white",
     },
     "爱芮": {
@@ -35,7 +35,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["vivid pink twin tails", "black streak in bangs", "pink-blue bright eyes", "idol-like hair accessories"],
         "viewer_relationship": "bright and friendly, like a clean idol-stage interaction.",
         "thumbnail_strategy": "pink twin tails and bright eyes are the first recognition points.",
-        "interaction_rule": "waving, smiling, or turning toward the viewer are fine; avoid selfie props and hands reaching into the lens.",
+        "interaction_rule": "waving, smiling, or moving through the scene are fine; avoid selfie props, deliberate lens-facing poses, and hands reaching into the lens.",
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
@@ -73,7 +73,7 @@ CHARACTER_PROFILES = {
     "叶瞬光": {
         "official_core": "long warm brown hair, dark inner hair layers, red eyes, red ribbon or flower hair accessory, white-black-gold outfit, human ears only.",
         "identity_tokens": ["long warm brown hair", "dark inner hair layers", "red eyes", "red ribbon or flower hair accessory", "white black gold outfit", "human ears only"],
-        "viewer_relationship": "looking back toward the viewer, light expression, relaxed hands and shoulder line.",
+        "viewer_relationship": "quiet off-camera attention, light expression, relaxed hands and shoulder line.",
         "thumbnail_strategy": "warm brown hair, dark inner layers, red eyes, red accessory, and white-black-gold outfit must stay stable; do not add animal ears or tail.",
         "interaction_rule": "red cord, slim ribbon, clean light streak, or small distant blade-like ornament may be an accent; do not force a hand-held weapon, sect gate, mountain temple, animal ears, or tail.",
         "color_anchor": "warm brown, red, ivory, black gold",
@@ -89,9 +89,9 @@ CHARACTER_PROFILES = {
     "橘福福": {
         "official_core": "golden-orange short hair, yellow-green eyes, small tiger ears, large fluffy tiger tail, red-white festive accessory, energetic human girl.",
         "identity_tokens": ["golden-orange short hair", "green or yellow-green eyes", "small tiger ears", "large fluffy tiger tail", "red festive accessory", "human girl, not animalized"],
-        "viewer_relationship": "looking back with a smile or moving forward, tail forming a large arc, warm image mood.",
+        "viewer_relationship": "moving forward or caught mid-motion with a smile, tail forming a large arc, warm image mood.",
         "thumbnail_strategy": "golden-orange hair, yellow-green eyes, tiger ears, fluffy tail, and red-white accessory must stay stable; do not turn her into a tiger beast-person.",
-        "interaction_rule": "running, looking back, festive motion, and tail movement are fine; avoid realistic tiger face, animal muzzle, animal legs, claws, or full tiger-suit design.",
+        "interaction_rule": "running, side attention, festive motion, and tail movement are fine; avoid realistic tiger face, animal muzzle, animal legs, claws, or full tiger-suit design.",
         "color_anchor": "golden orange, yellow green, warm white, red",
     },
 }
@@ -110,7 +110,7 @@ GENERIC_PROFILE = {
 ART_DIRECTION_PLANS = [
     {
         "name": "trend_mirror_studio",
-        "graphic_concept": "bright practice-room or mirror-studio key visual; the character feels freshly finished with training and turns toward the viewer with clean energy",
+        "graphic_concept": "bright practice-room or mirror-studio key visual; the character feels freshly finished with training, caught by the camera during a natural pause",
         "spatial_structure": "large mirror, pale floor, window light, and a few circular lamp dots; keep the background spacious and uncluttered",
         "visual_device": "mirror reflection and window light make the hair silhouette, face, and main accessory read clearly at thumbnail size",
         "body_silhouette": "close knee-up or seated pose, character relatively large in frame, hands relaxed near the face, jacket, or lap",
@@ -161,7 +161,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "quiet morning bakery scene; warm shelves, paper bags, and soft pastry shapes support the character without stealing identity",
         "spatial_structure": "bread rack, paper bags, glass case, warm lamps, and a simple walking path; elements stay few and readable",
         "visual_device": "round bread shapes and small warm lamps create a gentle repeated rhythm",
-        "body_silhouette": "standing near the counter or turning back lightly; hands simple, no complicated held object",
+        "body_silhouette": "standing near the counter or shifting attention sideways; hands simple, no complicated held object",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "apron cotton, linen, paper bag, wood shelf, glass case, warm bakery glow",
         "color_strategy": "light brown and cream support the character palette; avoid making the whole image yellow",
@@ -185,7 +185,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "quiet library corner as an anime novel CG; shelves, amber dust light, and rectangular shadow shapes are the main thumbnail design",
         "spatial_structure": "deep corner perspective with bookcases forming a frame; character near the lower third, partly hidden by shelf edge or desk lamp; large empty wall or floor remains visible",
         "visual_device": "stacked notes, thin ribbon marker as a small accent, tea cup, desk lamp, and sunset strip on the desk guide the eye",
-        "body_silhouette": "back view or looking back over shoulder; face may be smaller but identity hair shape and eyes remain clear when visible",
+        "body_silhouette": "back view, profile, or small side attention; face may be smaller but identity hair shape and eyes remain clear when visible",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "paper, wood shelf, brass lamp, matte cloth, dust in light, quiet floor reflection",
         "color_strategy": "large warm amber and muted green-brown blocks, with character colors as the final focal accent",
@@ -209,7 +209,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "home balcony breeze scene; curtain, sky, railing, and white interior wall carry the first read, with the character as an emotional note near the edge",
         "spatial_structure": "interior looking toward balcony or balcony looking inward; character half out of frame or placed low to one side; doorframe and curtain create foreground layers",
         "visual_device": "wind-blown curtain, small plant pot, sandals, glass with condensation, and reflected floor light create domestic narrative",
-        "body_silhouette": "side or back silhouette, looking outside or glancing back; hair and accessories move lightly in wind",
+        "body_silhouette": "side or back silhouette, looking outside or following the breeze; hair and accessories move lightly in wind",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "thin curtain, glass door, metal railing, ceramic pot, polished floor reflection, soft cotton",
         "color_strategy": "large white and sky-blue color fields with one warm accent from the character or nearby object",
@@ -221,7 +221,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "summer courtyard or small garden as a light animation screenshot; tree shadow, white wall, stepping stones, and sky color dominate the thumbnail",
         "spatial_structure": "high or low camera angle with character placed at the edge of the path; foreground leaves, doorframe, or fence line may crop the image",
         "visual_device": "cold drink, flower basket, folded handkerchief, wind on leaves, and reflected light on stone give the place memory",
-        "body_silhouette": "walking away, pausing, or turning back slightly; medium-small figure inside a clear environment",
+        "body_silhouette": "walking away, pausing, or shifting attention toward the path; medium-small figure inside a clear environment",
         "outfit_direction": "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
         "material_language": "stone, leaf shadow, painted wood, glass bottle, small paper slips, light summer fabric",
         "color_strategy": "large blocks of white wall, green shade, and pale sky; character palette stays as the emotional accent",
@@ -257,7 +257,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "afternoon flower field; dreamy but not cluttered, with the character still acting as the main visual subject",
         "spatial_structure": "broad flower field as soft color blocks; only a few blurred foreground flowers",
         "visual_device": "flower color fields frame the character hair color and eyes as the memory point",
-        "body_silhouette": "standing, seated, or looking back; hand may lightly touch a flower branch without covering the face",
+        "body_silhouette": "standing, seated, or profile-facing the flower field; hand may lightly touch a flower branch without covering the face",
         "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "material_language": "petals, light gauze, cotton, hair ornament, moderate detail density",
         "color_strategy": "flower colors support the character palette; avoid filling the image with one high-saturation color",
@@ -293,7 +293,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "small dessert shop with mirror reflection; pastel wall blocks, display case geometry, and reflected light read before the pose",
         "spatial_structure": "mirror or glass display shows only a partial reflection of the same single character; no second person, no clone, no picture-in-picture duplicate",
         "visual_device": "cake slices, fork, receipt, flower wrapping, and a half-finished drink create a natural after-moment instead of a staged pose",
-        "body_silhouette": "looking back through mirror or over shoulder; hands simple and close to counter, no reaching toward camera",
+        "body_silhouette": "seen through a mirror or side reflection; hands simple and close to counter, no reaching toward camera",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "glass display, porcelain plate, cream, paper receipt, polished counter, soft knit or blouse fabric",
         "color_strategy": "large pastel wall and cream counter blocks, character colors echoed in one dessert or flower accent",
@@ -462,12 +462,12 @@ ART_DIRECTION_PLANS = [
 ACTION_STYLES = [
     {
         "name": "steady_eye_contact",
-        "body_silhouette": "natural standing pose or slight side turn, looking toward the viewer, hands resting near sides, jacket edge, or skirt edge",
+        "body_silhouette": "rare direct-eye-contact moment, natural slight side turn, hands resting near sides, jacket edge, or skirt edge; do not make it a stiff front-facing pose",
         "tags": ["eye_contact", "stable_pose"],
     },
     {
         "name": "gentle_side_glance",
-        "body_silhouette": "three-quarter side turn with a gentle look back, hair moving naturally, hands relaxed and readable",
+        "body_silhouette": "three-quarter side angle with eyes drifting away from the camera, hair moving naturally, hands relaxed and readable",
         "tags": ["side_glance", "stable_pose"],
     },
     {
@@ -497,8 +497,23 @@ ACTION_STYLES = [
     },
     {
         "name": "looking_back_from_edge",
-        "body_silhouette": "off-center figure near the image edge, back turned or three-quarter back view, softly looking back over shoulder; identity hair shape and eyes remain readable but the room and light lead the image",
+        "body_silhouette": "off-center figure near the image edge, back turned or three-quarter back view; if looking back, it is only a brief accidental glance, while the room and light lead the image",
         "tags": ["back_view", "edge_framing", "story_pose"],
+    },
+    {
+        "name": "unaware_candid_moment",
+        "body_silhouette": "candid moment as if the camera arrived unexpectedly; character is not posing, eyes look toward window, table, floor light, or scene detail instead of the lens",
+        "tags": ["candid", "eyes_away", "story_pose", "stable_hands"],
+    },
+    {
+        "name": "interrupted_daily_motion",
+        "body_silhouette": "caught mid-daily motion, just before or after a small action; body weight is natural, gaze slightly off-camera, no deliberate portrait pose",
+        "tags": ["candid", "after_moment", "eyes_away", "story_pose"],
+    },
+    {
+        "name": "profile_observed_from_distance",
+        "body_silhouette": "profile or three-quarter profile observed from a distance; character attention stays inside the scene, not at the viewer",
+        "tags": ["profile", "eyes_away", "far_shot", "story_pose"],
     },
     {
         "name": "half_hidden_by_foreground",
@@ -743,14 +758,17 @@ NARRATIVE_SPACE_ACTION_WEIGHT_OVERRIDES = {
     "tiny_figure_in_depth": 3.2,
     "camera_looking_down": 3.0,
     "camera_from_low_foreground": 3.0,
-    "looking_back_from_edge": 2.8,
+    "unaware_candid_moment": 3.1,
+    "interrupted_daily_motion": 2.9,
+    "profile_observed_from_distance": 2.7,
+    "looking_back_from_edge": 1.1,
     "half_hidden_by_foreground": 2.6,
     "quiet_prop_after_moment": 2.6,
-    "gentle_side_glance": 1.8,
+    "gentle_side_glance": 1.4,
     "seated_quiet_pose": 1.7,
     "nearby_small_scene_prop": 0.9,
     "walking_forward": 1.3,
-    "steady_eye_contact": 0.6,
+    "steady_eye_contact": 0.25,
     "hands_near_chest": 0.75,
     "post_workout_stretch": 0.2,
 }
@@ -768,10 +786,10 @@ _apply_weight_overrides(DEFAULT_ACTION_WEIGHTS, CHARACTER_ACTION_WEIGHTS, NARRAT
 
 
 PLAN_ACTION_COMPATIBILITY = [
-    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view"}),
-    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view"}),
-    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view"}),
-    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand"}),
+    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away"}),
+    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away"}),
+    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away"}),
+    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away"}),
 ]
 
 

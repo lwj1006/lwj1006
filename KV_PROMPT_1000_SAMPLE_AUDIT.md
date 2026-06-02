@@ -1,28 +1,28 @@
 # KV Prompt 1000 Sample Audit
 
-- generated_at: 2026-06-02T22:24:18
+- generated_at: 2026-06-02T22:30:44
 - random_seed: 20260601
 - sample_count: 1000
-- issue_samples: 28
-- max_prompt_length: 3083 (席德 / afternoon_cafe_negative_space / camera_from_low_foreground / guofeng_ribbon_window_kv)
-- min_prompt_length: 2633 (新角色测试 / pastel_room_sweets / half_hidden_by_foreground / candy_air_parlor_kv)
+- issue_samples: 0
+- max_prompt_length: 2881 (席德 / dessert_shop_mirror_glance / quiet_prop_after_moment / pastel_lolita_decorative_kv)
+- min_prompt_length: 2492 (新角色测试 / summer_courtyard_soft_shadow / unaware_candid_moment / fairy_tale_anniversary_kv)
 
 ## Issue Summary
 
-- length>3000: 28
+- none
 
 ## Character Distribution
 
-- 星见雅: 122, avg_len=2817.5, max_len=2923
-- 南宫: 117, avg_len=2801.7, max_len=2908
-- 新角色测试: 109, avg_len=2745.0, max_len=2836
-- 橘福福: 103, avg_len=2906.4, max_len=3021
-- 丹: 99, avg_len=2818.2, max_len=2887
-- 席德: 99, avg_len=2959.7, max_len=3083
-- 仪玄: 97, avg_len=2809.8, max_len=2903
-- 千夏: 88, avg_len=2821.1, max_len=2933
-- 爱芮: 85, avg_len=2822.1, max_len=2929
-- 叶瞬光: 81, avg_len=2936.4, max_len=3022
+- 星见雅: 122, avg_len=2642.1, max_len=2764
+- 南宫: 117, avg_len=2618.2, max_len=2720
+- 新角色测试: 109, avg_len=2572.5, max_len=2672
+- 橘福福: 103, avg_len=2731.5, max_len=2806
+- 丹: 99, avg_len=2593.2, max_len=2683
+- 席德: 99, avg_len=2776.6, max_len=2881
+- 仪玄: 97, avg_len=2582.9, max_len=2691
+- 千夏: 88, avg_len=2627.0, max_len=2725
+- 爱芮: 85, avg_len=2624.4, max_len=2707
+- 叶瞬光: 81, avg_len=2734.3, max_len=2830
 
 ## Visual Motif Distribution
 
@@ -57,51 +57,27 @@
 
 ## Top Action Distribution
 
-- looking_back_from_edge: 172
-- camera_from_low_foreground: 145
-- tiny_figure_in_depth: 135
-- camera_looking_down: 116
-- quiet_prop_after_moment: 96
-- half_hidden_by_foreground: 87
-- gentle_side_glance: 48
-- seated_quiet_pose: 47
-- adjusting_hair: 38
-- walking_forward: 37
-- hands_near_chest: 29
-- nearby_small_scene_prop: 22
-- steady_eye_contact: 20
-- post_workout_stretch: 8
+- interrupted_daily_motion: 123
+- unaware_candid_moment: 119
+- profile_observed_from_distance: 100
+- camera_looking_down: 99
+- camera_from_low_foreground: 98
+- tiny_figure_in_depth: 91
+- half_hidden_by_foreground: 73
+- quiet_prop_after_moment: 69
+- looking_back_from_edge: 40
+- seated_quiet_pose: 36
+- gentle_side_glance: 34
+- adjusting_hair: 33
+- walking_forward: 25
+- hands_near_chest: 23
+- nearby_small_scene_prop: 23
+- steady_eye_contact: 8
+- post_workout_stretch: 6
 
 ## Issue Samples
 
-- #70 席德 / dessert_shop_mirror_glance / camera_from_low_foreground / guofeng_ribbon_window_kv: length>3000:3057
-- #150 席德 / guofeng_decorative_kv / steady_eye_contact / guofeng_ribbon_window_kv: length>3000:3022
-- #191 席德 / telephoto_layered_interior / hands_near_chest / guofeng_ribbon_window_kv: length>3000:3043
-- #195 席德 / classroom_sunset_doorframe / post_workout_stretch / guofeng_ribbon_window_kv: length>3000:3026
-- #209 叶瞬光 / afternoon_cafe_negative_space / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3002
-- #279 席德 / guofeng_decorative_kv / camera_looking_down / guofeng_ribbon_window_kv: length>3000:3034
-- #283 席德 / telephoto_layered_interior / hands_near_chest / guofeng_ribbon_window_kv: length>3000:3043
-- #292 橘福福 / afternoon_cafe_negative_space / camera_from_low_foreground / guofeng_ribbon_window_kv: length>3000:3021
-- #295 席德 / classroom_sunset_doorframe / camera_from_low_foreground / guofeng_ribbon_window_kv: length>3000:3037
-- #328 席德 / guofeng_decorative_kv / camera_from_low_foreground / guofeng_ribbon_window_kv: length>3000:3039
-- #351 席德 / classroom_sunset_doorframe / hands_near_chest / guofeng_ribbon_window_kv: length>3000:3010
-- #412 席德 / library_corner_sunset_silence / camera_looking_down / candy_air_parlor_kv: length>3000:3006
-- #415 席德 / afternoon_cafe_negative_space / camera_from_low_foreground / guofeng_ribbon_window_kv: length>3000:3083
-- #422 席德 / afternoon_cafe_negative_space / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3068
-- #453 席德 / classroom_sunset_doorframe / steady_eye_contact / guofeng_ribbon_window_kv: length>3000:3020
-- #458 席德 / telephoto_layered_interior / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3055
-- #462 叶瞬光 / zero_gravity_fairy_garden / camera_from_low_foreground / fairy_tale_anniversary_kv: length>3000:3022
-- #471 席德 / classroom_sunset_doorframe / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3022
-- #501 席德 / afternoon_cafe_negative_space / camera_from_low_foreground / candy_air_parlor_kv: length>3000:3033
-- #511 席德 / classroom_sunset_doorframe / looking_back_from_edge / guofeng_ribbon_window_kv: length>3000:3010
-- #615 席德 / zero_gravity_fairy_garden / camera_from_low_foreground / moonlit_toy_window_kv: length>3000:3004
-- #676 席德 / afternoon_cafe_negative_space / camera_looking_down / guofeng_ribbon_window_kv: length>3000:3078
-- #707 席德 / telephoto_layered_interior / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3055
-- #712 席德 / afternoon_cafe_negative_space / quiet_prop_after_moment / guofeng_ribbon_window_kv: length>3000:3068
-- #764 叶瞬光 / library_corner_sunset_silence / camera_from_low_foreground / pastel_lolita_decorative_kv: length>3000:3016
-- #788 席德 / afternoon_cafe_negative_space / camera_from_low_foreground / candy_air_parlor_kv: length>3000:3033
-- #898 席德 / guofeng_decorative_kv / hands_near_chest / guofeng_ribbon_window_kv: length>3000:3012
-- #946 席德 / dessert_shop_mirror_glance / hands_near_chest / guofeng_ribbon_window_kv: length>3000:3030
+- none
 
 ## Full Samples
 
