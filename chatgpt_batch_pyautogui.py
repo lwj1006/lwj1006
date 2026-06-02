@@ -73,7 +73,6 @@ CHARACTER_REFERENCES = {
     "丹": [
         str(PROJECT_DIR / "assets" / "dan.png"),
         str(PROJECT_DIR / "assets" / "dan2.png"),
-        str(PROJECT_DIR / "assets" / "丹.png"),
     ],
     "星见雅": [
         str(PROJECT_DIR / "assets" / "星见雅1.png"),
@@ -192,6 +191,19 @@ def choose_character_group() -> tuple[str, list[str]]:
 
 def reference_files_for_character(character_name: str) -> list[str]:
     return CHARACTER_REFERENCES[character_name][:]
+
+
+def validate_reference_files_for_characters(character_names: list[str]) -> None:
+    reference_files = [
+        path
+        for character_name in character_names
+        for path in CHARACTER_REFERENCES[character_name]
+    ]
+    missing = [path for path in reference_files if not Path(path).exists()]
+    if missing:
+        raise FileNotFoundError(
+            f"Missing reference files for {'、'.join(character_names)}: {missing}"
+        )
 
 
 def choose_art_plan_for_outfit(outfit_direction: str) -> dict:
@@ -897,15 +909,6 @@ def main() -> None:
     else:
         load_calibrated_coords()
 
-    all_reference_files = [
-        path
-        for reference_files in CHARACTER_REFERENCES.values()
-        for path in reference_files
-    ]
-    missing = [p for p in all_reference_files if not Path(p).exists()]
-    if missing:
-        raise FileNotFoundError(f"Missing reference files: {missing}")
-
     print("Keep ChatGPT desktop open, unlocked, and focused.")
     print("Press Ctrl+C in this terminal to abort. Moving the mouse to a virtual-screen corner pauses the next click.")
     if "--shutdown" in sys.argv:
@@ -943,6 +946,7 @@ def main() -> None:
         )
         batch_completed_characters: list[str] = []
         batch_used_themes: set[str] = set()
+        validate_reference_files_for_characters(selected_characters)
         print("=" * 72, flush=True)
         print(
             f"Character-first batch selected ({len(selected_characters)} characters x 1, "
