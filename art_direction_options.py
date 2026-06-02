@@ -5,11 +5,14 @@ OUTFIT_DIRECTIONS = [
     "reference-faithful outfit with small fashionable variation",
     "clean light-novel casual outfit, character palette stays recognizable",
     "young casual tops: white short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit",
+    "clean Adidas-inspired sporty date outfit: white track jacket, black three-stripe side detail, pleated skirt or shorts, minimal logo-like accents",
+    "clean Yonex-inspired sporty date outfit: crisp badminton warm-up jacket, white tennis skirt or shorts, blue-green stripe accents, fresh athletic styling",
+    "soft date outfit: fitted cardigan, simple camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
     "cafe maid remix outfit, neat apron, ribbons, cute and clean",
     "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
     "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
     "rare refined dark-hosiery fashion outfit, restrained and non-fetishized",
-    "clean school-inspired casual outfit, blouse or light cardigan, no stocking emphasis",
+    "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
     "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
     "soft bakery or cafe casual outfit, warm and simple",
     "minimal sunny studio outfit, face and hair identity as the main focus",
@@ -25,9 +28,9 @@ CHARACTER_PROFILES = {
     "南宫": {
         "official_core": "short black twin tails with pink gradient tips, straight blunt bangs, pink eyes, cat hairpin, playful but clean expression.",
         "identity_tokens": ["short black twin tails with pink gradient tips", "straight blunt bangs", "pink eyes", "cat hairpin"],
-        "viewer_relationship": "clever presence, slightly playful, never exaggerated; gaze may drift away from the lens.",
+        "viewer_relationship": "clever presence, slightly playful, never exaggerated; gaze can meet the lens or drift away naturally.",
         "thumbnail_strategy": "black-pink hair color and the small cat accessory must stay readable at thumbnail size.",
-        "interaction_rule": "side glance, eyes-away moment, or a small smile are fine; direct eye contact is rare, avoid pointing fingers toward the camera.",
+        "interaction_rule": "side glance, eyes-away moment, natural eye contact, or a small smile are fine; avoid always forcing a camera-facing pose or pointing fingers toward the camera.",
         "color_anchor": "black, pink, clean white",
     },
     "爱芮": {
@@ -82,7 +85,7 @@ CHARACTER_PROFILES = {
         "official_core": "short light cyan-blue hair, large blue back braid, green or teal-green eyes, white-gray mechanical bodysuit, mechanical arm parts, orange-yellow cable accents, OBOL Squad operator.",
         "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "white gray mechanical bodysuit", "exposed mechanical arm parts", "orange-yellow cable accents", "OBOL Squad operator"],
         "viewer_relationship": "mechanical parts stay close to the body, eyes open and clear, expression light.",
-        "thumbnail_strategy": "cyan-blue short hair, blue back braid, teal-green eyes, white-gray suit, and mechanical arm must stay clear; do not turn her into a generic blue-haired schoolgirl.",
+        "thumbnail_strategy": "cyan-blue short hair, blue back braid, teal-green eyes, white-gray suit, and mechanical arm must stay clear; do not turn her into a generic blue-haired girl.",
         "interaction_rule": "mechanical arm, cables, and functional bodysuit are identity anchors; scooter, hammer weapon, and hand-held items are not fixed identity and should be absent by default; avoid generic garden girl, military uniform girl, or full robot transformation.",
         "color_anchor": "light cyan blue, white gray, teal green, orange yellow",
     },
@@ -193,18 +196,6 @@ ART_DIRECTION_PLANS = [
         "tags": ["library", "corner_composition", "back_view", "large_space", "story_props", "sunset", "novel_cg"],
     },
     {
-        "name": "classroom_sunset_doorframe",
-        "graphic_concept": "after-school classroom anime screenshot; desks, blackboard, doorway frame, and orange light establish the scene before the character",
-        "spatial_structure": "view from hallway through a doorframe or window frame; character near the frame edge or half out of frame; rows of desks create perspective and reading order",
-        "visual_device": "pencil case, drink carton, loose paper slips, small bag strap, and moving curtain show a recent after-school moment",
-        "body_silhouette": "standing by the window, back turned or slight over-shoulder glance; relaxed posture, no centered idol pose",
-        "outfit_direction": "clean school-inspired casual outfit, blouse or light cardigan, no stocking emphasis",
-        "material_language": "chalkboard matte surface, varnished desk wood, fabric curtain, paper, school bag strap",
-        "color_strategy": "large orange sunset block, pale classroom wall, dark desk grid, and a clean character-color accent",
-        "lighting_behavior": "strong horizontal sunset beam cuts across desks and character; face can be partly rim-lit instead of front-lit",
-        "tags": ["classroom", "doorframe", "window_frame", "back_view", "sunset", "story_props", "novel_cg"],
-    },
-    {
         "name": "balcony_breeze_half_out_frame",
         "graphic_concept": "home balcony breeze scene; curtain, sky, railing, and white interior wall carry the first read, with the character as an emotional note near the edge",
         "spatial_structure": "interior looking toward balcony or balcony looking inward; character half out of frame or placed low to one side; doorframe and curtain create foreground layers",
@@ -299,6 +290,30 @@ ART_DIRECTION_PLANS = [
         "color_strategy": "large pastel wall and cream counter blocks, character colors echoed in one dessert or flower accent",
         "lighting_behavior": "soft shop light with reflective highlights and clean shadow separation under the counter",
         "tags": ["dessert_shop", "mirror", "reflection", "story_props", "corner_composition", "pastel", "novel_cg"],
+    },
+    {
+        "name": "city_date_window_stroll",
+        "graphic_concept": "casual city date moment with boutique window light, cafe signs without readable text, and soft evening reflections; single character only, the date partner stays implied off-camera",
+        "spatial_structure": "street corner, glass storefront, cafe terrace edge, and sidewalk perspective lines; character offset from center as if caught during a walk",
+        "visual_device": "small shoulder bag, wrapped dessert box, drink cup, window reflections, and warm shop light make the date mood readable without adding another person",
+        "body_silhouette": "walking, pausing near a window, or turning attention toward an off-camera sound; gaze may meet the lens or drift aside naturally, hands simple",
+        "outfit_direction": "clean Adidas-inspired sporty date outfit: white track jacket, black three-stripe side detail, pleated skirt or shorts, minimal logo-like accents",
+        "material_language": "white track jacket fabric, black stripe detail, pleated skirt or shorts, glass storefront, paper dessert box, polished sidewalk reflection",
+        "color_strategy": "warm shop light and cool street shadows frame the character palette; brand or sign shapes must stay non-readable",
+        "lighting_behavior": "evening window glow with gentle rim light on hair and shoulders; face remains readable but not front-lit like a studio portrait",
+        "tags": ["date", "city", "window_frame", "reflection", "warm_light", "daily", "novel_cg"],
+    },
+    {
+        "name": "park_date_riverside_breeze",
+        "graphic_concept": "fresh park date scene by a riverside path; benches, railing, trees, and water reflections set a gentle everyday mood; single character only, no couple pose",
+        "spatial_structure": "curving path, riverside railing, bench, tree shadow, and distant water line create depth; character placed to one side in a candid frame",
+        "visual_device": "small bouquet, folded scarf, takeout drink, shoulder bag, and wind on hair suggest a date without forcing hand-held objects",
+        "body_silhouette": "light walking pause, seated on a bench edge, or profile looking toward the river; avoid posed front-facing stance",
+        "outfit_direction": "clean Yonex-inspired sporty date outfit: crisp badminton warm-up jacket, white tennis skirt or shorts, blue-green stripe accents, fresh athletic styling",
+        "material_language": "sport jacket fabric, white skirt or shorts, blue-green stripe accents, bench wood, water reflection, soft leaves",
+        "color_strategy": "fresh green, white, and pale blue support the character palette; sporty brand-like stripes remain small accents",
+        "lighting_behavior": "soft daylight or late-afternoon light through leaves, with clear hair edge and gentle water sparkle",
+        "tags": ["date", "park", "riverside", "breeze", "natural_light", "daily", "novel_cg"],
     },
     {
         "name": "pastel_room_sweets",
@@ -399,7 +414,7 @@ ART_DIRECTION_PLANS = [
     {
         "name": "overhead_deep_perspective_space",
         "graphic_concept": "high-angle anime CG composition; room plan, floor shape, table edges, and window light pattern are the main thumbnail before the character",
-        "spatial_structure": "camera looks down from above or stair height; floor tiles, desk rows, railing, or tabletop lines create clear depth; character is small and offset from center",
+        "spatial_structure": "camera looks down from above or stair height; floor tiles, railing, tabletop lines, or furniture edges create clear depth; character is small and offset from center",
         "visual_device": "strong foreground-middle-background separation; the eye follows floor perspective and light shapes before reaching the character",
         "body_silhouette": "small figure seen from above, head and hair silhouette readable, relaxed posture, not posing toward camera",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
@@ -462,8 +477,8 @@ ART_DIRECTION_PLANS = [
 ACTION_STYLES = [
     {
         "name": "steady_eye_contact",
-        "body_silhouette": "rare direct-eye-contact moment, natural slight side turn, hands resting near sides, jacket edge, or skirt edge; do not make it a stiff front-facing pose",
-        "tags": ["eye_contact", "stable_pose"],
+        "body_silhouette": "natural direct-eye-contact moment, slight side turn or relaxed pause, hands resting near sides, jacket edge, or skirt edge; avoid stiff front-facing portrait pose",
+        "tags": ["eye_contact", "stable_pose", "simple_hand"],
     },
     {
         "name": "gentle_side_glance",
@@ -502,17 +517,17 @@ ACTION_STYLES = [
     },
     {
         "name": "unaware_candid_moment",
-        "body_silhouette": "candid moment as if the camera arrived unexpectedly; character is not posing, eyes look toward window, table, floor light, or scene detail instead of the lens",
+        "body_silhouette": "candid moment as if the camera arrived unexpectedly; character is not posing, gaze may briefly meet the lens or stay on window, table, floor light, or scene detail",
         "tags": ["candid", "eyes_away", "story_pose", "stable_hands"],
     },
     {
         "name": "interrupted_daily_motion",
-        "body_silhouette": "caught mid-daily motion, just before or after a small action; body weight is natural, gaze slightly off-camera, no deliberate portrait pose",
+        "body_silhouette": "caught mid-daily motion, just before or after a small action; body weight is natural, gaze can be slightly off-camera or briefly toward the camera, no deliberate portrait pose",
         "tags": ["candid", "after_moment", "eyes_away", "story_pose"],
     },
     {
         "name": "profile_observed_from_distance",
-        "body_silhouette": "profile or three-quarter profile observed from a distance; character attention stays inside the scene, not at the viewer",
+        "body_silhouette": "profile or three-quarter profile observed from a distance; character attention mostly stays inside the scene, with optional natural eye contact if composition supports it",
         "tags": ["profile", "eyes_away", "far_shot", "story_pose"],
     },
     {
@@ -610,6 +625,8 @@ VISUAL_TAG_COMPATIBILITY = {
         "cafe",
         "bakery",
         "dessert_shop",
+        "date",
+        "city",
         "maid",
         "bridal",
         "tea_room",
@@ -622,6 +639,7 @@ VISUAL_TAG_COMPATIBILITY = {
         "fairy_tale",
         "flower",
         "garden",
+        "park",
         "greenhouse",
         "zero_gravity",
         "bridal",
@@ -631,6 +649,8 @@ VISUAL_TAG_COMPATIBILITY = {
         "cafe",
         "bakery",
         "dessert_shop",
+        "date",
+        "city",
         "toy",
         "pastel",
         "studio",
@@ -647,7 +667,7 @@ VISUAL_TAG_COMPATIBILITY = {
 }
 
 
-DAYLIGHT_PLAN_TAGS = {"morning", "afternoon", "summer", "sunset", "warm_light", "natural_light", "classroom", "seaside"}
+DAYLIGHT_PLAN_TAGS = {"morning", "afternoon", "summer", "sunset", "warm_light", "natural_light", "seaside"}
 
 
 def _visuals_for_plan(plan=None):
@@ -735,12 +755,13 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "telephoto_layered_interior": 3.2,
     "afternoon_cafe_negative_space": 3.2,
     "library_corner_sunset_silence": 3.0,
-    "classroom_sunset_doorframe": 3.0,
     "balcony_breeze_half_out_frame": 3.0,
     "greenhouse_terrace_reflection": 2.8,
     "white_room_floor_window": 2.8,
     "guofeng_decorative_kv": 2.9,
     "dessert_shop_mirror_glance": 2.8,
+    "city_date_window_stroll": 2.6,
+    "park_date_riverside_breeze": 2.5,
     "summer_courtyard_soft_shadow": 2.8,
     "bookstore_cafe_corner": 2.4,
     "garden_tea_table": 2.2,
@@ -768,7 +789,7 @@ NARRATIVE_SPACE_ACTION_WEIGHT_OVERRIDES = {
     "seated_quiet_pose": 1.7,
     "nearby_small_scene_prop": 0.9,
     "walking_forward": 1.3,
-    "steady_eye_contact": 0.25,
+    "steady_eye_contact": 1.25,
     "hands_near_chest": 0.75,
     "post_workout_stretch": 0.2,
 }
@@ -786,10 +807,10 @@ _apply_weight_overrides(DEFAULT_ACTION_WEIGHTS, CHARACTER_ACTION_WEIGHTS, NARRAT
 
 
 PLAN_ACTION_COMPATIBILITY = [
-    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away"}),
-    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away"}),
-    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away"}),
-    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away"}),
+    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away", "eye_contact"}),
+    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away", "eye_contact"}),
+    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away", "eye_contact"}),
+    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away", "eye_contact"}),
 ]
 
 

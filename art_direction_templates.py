@@ -40,7 +40,7 @@ CAMERA_PERSPECTIVE_RULES = (
 
 
 CANDID_GAZE_RULES = (
-    "Gaze: prefer eyes away from lens, attention caught by scene or movement; direct eye contact is rare and accidental."
+    "Gaze: vary naturally; direct eye contact is allowed sometimes, but avoid making every image a deliberate camera-facing pose."
 )
 
 
