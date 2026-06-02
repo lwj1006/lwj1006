@@ -211,6 +211,7 @@ LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, cle
 BASEBALL_SPECTATOR_OUTFIT = "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory"
 BRIGHT_RED_SHORT_DRESS_OUTFIT = "bright red short one-piece dress, youthful clean date styling"
 FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve white light-sport T-shirt with gray shorts or denim shorts"
+WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "white lace long dress as the main element, freely designed elegant silhouette, paired with white high heels"
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
     YOUNG_CASUAL_OUTFIT,
@@ -283,6 +284,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "balcony_breeze_half_out_frame": [
         LIGHT_NOVEL_OUTFIT,
@@ -292,6 +294,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "summer_courtyard_soft_shadow": [
         PICNIC_OUTFIT,
@@ -367,6 +370,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BASEBALL_SPECTATOR_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
         *LOW_PROBABILITY_BRAND_THEMES,
     ],
     "park_date_riverside_breeze": [
@@ -405,6 +409,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         ASYMMETRIC_WHITE_T_OUTFIT,
         BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
         *LOW_PROBABILITY_BRAND_THEMES,
     ],
     "white_room_floor_window": [
@@ -442,6 +447,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "low_angle_foreground_depth": [
         PICNIC_OUTFIT,
@@ -452,6 +458,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
         BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "far_shot_small_figure_room": [
         LIGHT_NOVEL_OUTFIT,
@@ -461,6 +468,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "telephoto_layered_interior": [
         BAKERY_CAFE_OUTFIT,
@@ -469,6 +477,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "black_stockings_tea_room": [
         DARK_HOSIERY_OUTFIT,

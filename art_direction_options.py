@@ -26,6 +26,7 @@ OUTFIT_DIRECTIONS = [
     "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory",
     "bright red short one-piece dress, youthful clean date styling",
     "five-sleeve white light-sport T-shirt with gray shorts or denim shorts",
+    "white lace long dress as the main element, freely designed elegant silhouette, paired with white high heels",
 ]
 
 
@@ -635,6 +636,11 @@ ACTION_STYLES = [
         "body_silhouette": "seen from low foreground height through a table edge, floor, plant, or railing; character is midground and off-center, not frontally staged",
         "tags": ["low_camera", "foreground_depth", "story_pose"],
     },
+    {
+        "name": "clean_crouching_pose",
+        "body_silhouette": "clean crouching pose with knees bent and body weight low, hands naturally near knee, skirt edge, floor, or shoe; keep the angle modest and composition-led",
+        "tags": ["crouching", "low_pose", "stable_hands", "story_pose"],
+    },
 ]
 
 
@@ -674,11 +680,11 @@ VISUAL_MOTIF_SYSTEMS = [
     },
     {
         "name": "candy_air_parlor_kv",
-        "motifs": "transparent candy jars, cream flowers, curled ribbons, glass marbles, paper confetti, plush mascots, floating bubbles",
-        "layering": "foreground glass candy and confetti; midground character framed by ribbons; background soft parlor shelves, window light, and blurred ornaments",
-        "shape_rhythm": "jar circles, bubble dots, ribbon curls, hair S-curve, repeated small mascot silhouettes",
+        "motifs": "small glass dessert accents, cream flowers, curled ribbons, glass marbles, paper confetti, tiny plush accents, floating bubbles",
+        "layering": "foreground tiny glass dessert detail and confetti; midground character framed by ribbons; background soft parlor shelves, window light, and blurred ornaments",
+        "shape_rhythm": "small glass circles, bubble dots, ribbon curls, hair S-curve, repeated tiny plush silhouettes",
         "light_bloom": "cold cyan shadows crossed with peach-pink candy highlights, glass bloom, bright rim cuts, airy haze",
-        "poetic_line": "a candy-colored parlor world where glass jars, plush mascots, and floating bubbles become the visual rhythm around the character",
+        "poetic_line": "a soft candy-colored parlor accent where tiny glass dessert details, ribbons, and floating bubbles stay secondary to the character",
     },
     {
         "name": "guofeng_ribbon_window_kv",
@@ -726,14 +732,9 @@ VISUAL_TAG_COMPATIBILITY = {
         "studio",
     },
     "candy_air_parlor_kv": {
-        "cafe",
-        "bakery",
         "dessert_shop",
-        "date",
-        "city",
         "toy",
         "pastel",
-        "studio",
     },
     "guofeng_ribbon_window_kv": {
         "guofeng",
@@ -766,7 +767,7 @@ def _visuals_for_plan(plan=None):
         ]
     return compatible or [
         visual for visual in VISUAL_MOTIF_SYSTEMS
-        if visual["name"] in {"pastel_lace_decorative_kv", "candy_air_parlor_kv"}
+        if visual["name"] in {"pastel_lace_decorative_kv"}
     ]
 
 
@@ -881,6 +882,7 @@ NARRATIVE_SPACE_ACTION_WEIGHT_OVERRIDES = {
     "steady_eye_contact": 1.25,
     "hands_near_chest": 0.75,
     "post_workout_stretch": 0.2,
+    "clean_crouching_pose": 1.35,
 }
 
 
@@ -896,10 +898,11 @@ _apply_weight_overrides(DEFAULT_ACTION_WEIGHTS, CHARACTER_ACTION_WEIGHTS, NARRAT
 
 
 PLAN_ACTION_COMPATIBILITY = [
-    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away", "eye_contact"}),
-    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away", "eye_contact"}),
-    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away", "eye_contact"}),
-    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away", "eye_contact"}),
+    ({"white_room", "pure_white", "minimal"}, {"crouching", "low_pose", "stable_hands", "simple_hand", "eyes_away", "eye_contact", "stable_pose"}),
+    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
+    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
+    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
+    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away", "eye_contact", "crouching", "low_pose"}),
 ]
 
 
