@@ -1293,18 +1293,32 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
 
     name_to_character = {name.lower(): name for name in CHARACTER_SEQUENCE}
     for token in tokens:
-        character_name = None
-        if token.isdigit():
+        character_names: list[str] = []
+        if "-" in token:
+            start_text, end_text = token.split("-", 1)
+            if not start_text.isdigit() or not end_text.isdigit():
+                raise ValueError(f"Unknown character selection: {token!r}")
+            start_index = int(start_text)
+            end_index = int(end_text)
+            if start_index > end_index:
+                raise ValueError(f"Character range must be ascending: {token!r}")
+            if start_index < 1 or end_index > len(CHARACTER_SEQUENCE):
+                raise ValueError(f"Character range out of bounds: {token!r}")
+            character_names = CHARACTER_SEQUENCE[start_index - 1:end_index]
+        elif token.isdigit():
             index = int(token)
             if 1 <= index <= len(CHARACTER_SEQUENCE):
-                character_name = CHARACTER_SEQUENCE[index - 1]
+                character_names = [CHARACTER_SEQUENCE[index - 1]]
         else:
             character_name = name_to_character.get(token.lower())
+            if character_name:
+                character_names = [character_name]
 
-        if not character_name:
+        if not character_names:
             raise ValueError(f"Unknown character selection: {token!r}")
-        if character_name not in selected:
-            selected.append(character_name)
+        for character_name in character_names:
+            if character_name not in selected:
+                selected.append(character_name)
 
     if not selected:
         raise ValueError("No valid characters selected")
@@ -1316,7 +1330,7 @@ def prompt_character_selection() -> list[str] | None:
     print("Choose characters for this run:", flush=True)
     for index, character_name in enumerate(CHARACTER_SEQUENCE, start=1):
         print(f"  {index}. {character_name}", flush=True)
-    print("Input examples: Enter/r/random = full random cycle; 1 2 3 = characters 1,2,3; 16 17 18 = characters 16,17,18; names are also OK.", flush=True)
+    print("Input examples: Enter/r/random = full random cycle; 1 2 3 = characters 1,2,3; 10-15 = characters 10 through 15; 16 17 18 = characters 16,17,18; names are also OK.", flush=True)
 
     while True:
         raw_choice = input("Character selection: ")
