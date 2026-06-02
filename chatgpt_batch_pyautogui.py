@@ -115,6 +115,7 @@ ECHO_COUNTDOWN_LAST_SECONDS = 20
 SINGLE_CLICK_HOLD_SECONDS = 0.06
 SEND_CLICK_HOLD_SECONDS = 0.14
 SEND_RELEASE_SETTLE_SECONDS = 0.35
+POST_CHARACTER_SELECTION_DELAY_SECONDS = 3
 SEND_MOUSE_AWAY_OFFSET = (-220, -90)
 WORK_REMINDER_INTERVAL = 10
 WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
@@ -1044,6 +1045,11 @@ def main() -> None:
     used_plans_by_character = load_used_character_art_plans()
     used_character_batch = load_used_character_batch()
     fixed_character_selection = prompt_character_selection()
+    print(
+        f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
+        flush=True,
+    )
+    time.sleep(POST_CHARACTER_SELECTION_DELAY_SECONDS)
     run_number = 1
     stop_requested = False
 
