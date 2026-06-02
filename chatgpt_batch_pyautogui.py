@@ -42,7 +42,7 @@ REFERENCE_FILES = [
     # # r"D:\workspace\2.png",
     # r"D:\workspace\5.png",
     # r"D:\workspace\6.jpg",
-    str(PROJECT_DIR / "assets" / "千夏.png"),
+    str(PROJECT_DIR / "assets" / "千夏1.jpg"),
     str(PROJECT_DIR / "assets" / "南宫.png"),
     str(PROJECT_DIR / "assets" / "爱芮.jpeg"),
 ]
@@ -64,7 +64,6 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "爱芮5.png"),
     ],
     "千夏": [
-        str(PROJECT_DIR / "assets" / "千夏.png"),
         str(PROJECT_DIR / "assets" / "千夏1.jpg"),
         str(PROJECT_DIR / "assets" / "千夏2.png"),
         str(PROJECT_DIR / "assets" / "千夏3.png"),
@@ -734,6 +733,60 @@ def choose_character_batch(used_characters: list[str]) -> list[str]:
     return selected
 
 
+def _parse_character_selection(raw_choice: str) -> list[str] | None:
+    choice = raw_choice.strip()
+    if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
+        return None
+
+    selected: list[str] = []
+    if choice.isdigit() and all(char != "0" for char in choice):
+        tokens = list(choice)
+    else:
+        normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
+        tokens = [token.strip() for token in normalized.split(",") if token.strip()]
+
+    name_to_character = {name.lower(): name for name in CHARACTER_SEQUENCE}
+    for token in tokens:
+        character_name = None
+        if token.isdigit():
+            index = int(token)
+            if 1 <= index <= len(CHARACTER_SEQUENCE):
+                character_name = CHARACTER_SEQUENCE[index - 1]
+        else:
+            character_name = name_to_character.get(token.lower())
+
+        if not character_name:
+            raise ValueError(f"Unknown character selection: {token!r}")
+        if character_name not in selected:
+            selected.append(character_name)
+
+    if not selected:
+        raise ValueError("No valid characters selected")
+    return selected
+
+
+def prompt_character_selection() -> list[str] | None:
+    print("=" * 72, flush=True)
+    print("Choose characters for this run:", flush=True)
+    for index, character_name in enumerate(CHARACTER_SEQUENCE, start=1):
+        print(f"  {index}. {character_name}", flush=True)
+    print("Input examples: Enter/r/random = full random cycle; 123 = characters 1,2,3; 1 3 8 or 南宫,千夏,席德 are also OK.", flush=True)
+
+    while True:
+        raw_choice = input("Character selection: ")
+        try:
+            selected = _parse_character_selection(raw_choice)
+        except ValueError as exc:
+            print(f"{exc}. Please try again.", flush=True)
+            continue
+
+        if selected is None:
+            print("Character mode: full random cycle.", flush=True)
+        else:
+            print(f"Character mode: fixed selection -> {'、'.join(selected)}", flush=True)
+        return selected
+
+
 def mark_character_batch_used(selected_characters: list[str], used_characters: list[str]) -> None:
     for character_name in selected_characters:
         if character_name in CHARACTER_SEQUENCE and character_name not in used_characters:
@@ -877,16 +930,23 @@ def main() -> None:
     recent_visual_tags: list[str] = []
     used_by_character = load_used_character_clothing_themes()
     used_character_batch = load_used_character_batch()
+    fixed_character_selection = prompt_character_selection()
     run_number = 1
     stop_requested = False
 
     while run_number <= total_runs and not stop_requested:
-        selected_characters = choose_character_batch(used_character_batch)
+        random_character_mode = fixed_character_selection is None
+        selected_characters = (
+            choose_character_batch(used_character_batch)
+            if random_character_mode
+            else fixed_character_selection[:]
+        )
         batch_completed_characters: list[str] = []
         batch_used_themes: set[str] = set()
         print("=" * 72, flush=True)
         print(
-            f"Character-first batch selected ({len(selected_characters)} characters x 1): "
+            f"Character-first batch selected ({len(selected_characters)} characters x 1, "
+            f"{'random cycle' if random_character_mode else 'fixed selection'}): "
             f"{'、'.join(selected_characters)}",
             flush=True,
         )
@@ -978,7 +1038,8 @@ def main() -> None:
             run_number += 1
 
         if batch_completed_characters:
-            mark_character_batch_used(batch_completed_characters, used_character_batch)
+            if random_character_mode:
+                mark_character_batch_used(batch_completed_characters, used_character_batch)
 
     print("All runs completed. Safety shutdown remains scheduled.")
 

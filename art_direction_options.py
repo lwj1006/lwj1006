@@ -80,10 +80,10 @@ CHARACTER_PROFILES = {
     },
     "席德": {
         "official_core": "浅青蓝短发，后侧明显蓝色大辫子，青绿色眼睛，白灰机械改造服，机械手臂，黄橙线缆，OBOL小队。",
-        "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "white gray mechanical bodysuit", "exposed mechanical arm parts", "orange-yellow cable accents", "industrial hammer weapon", "OBOL Squad operator"],
+        "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "white gray mechanical bodysuit", "exposed mechanical arm parts", "orange-yellow cable accents", "OBOL Squad operator"],
         "viewer_relationship": "把机械部件靠近身边展示，眼睛睁大，表情轻。",
         "thumbnail_strategy": "浅青蓝短发、蓝色大辫子、青绿色眼睛、白灰机械服和机械手臂必须清楚；不要变成普通蓝发校园少女。",
-        "interaction_rule": "允许机械手臂、锤形武器、驾驶舱、电弧、小花贴纸；避免普通花园少女、普通军服少女和纯机器人化。",
+        "interaction_rule": "机械手臂、线缆和机能服是身份核心；滑板车、锤形武器和任何手持物件都不是固定设定，默认不要出现；避免普通花园少女、普通军服少女和纯机器人化。",
         "color_anchor": "light cyan blue, white gray, teal green, orange yellow",
     },
     "橘福福": {
@@ -760,6 +760,11 @@ CHARACTER_ACTION_WEIGHTS = {
 }
 
 
+CHARACTER_ACTION_EXCLUSIONS = {
+    "席德": {"holding_small_cute_prop"},
+}
+
+
 NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "overhead_deep_perspective_space": 3.4,
     "low_angle_foreground_depth": 3.4,
@@ -863,7 +868,12 @@ def choose_art_plan(character_name=None, recent_tags=None):
 
 def choose_action_style(character_name=None, recent_tags=None):
     weights = CHARACTER_ACTION_WEIGHTS.get(character_name or "", DEFAULT_ACTION_WEIGHTS)
-    return dict(_weighted_choice(ACTION_STYLES, recent_tags=recent_tags, weights=weights))
+    excluded = CHARACTER_ACTION_EXCLUSIONS.get(character_name or "", set())
+    action_pool = [
+        action for action in ACTION_STYLES
+        if action["name"] not in excluded
+    ]
+    return dict(_weighted_choice(action_pool or ACTION_STYLES, recent_tags=recent_tags, weights=weights))
 
 
 def _compatible_actions_for_plan(plan):
@@ -884,6 +894,11 @@ def _compatible_actions_for_plan(plan):
 def choose_compatible_action_style(character_name=None, recent_tags=None, plan=None):
     weights = CHARACTER_ACTION_WEIGHTS.get(character_name or "", DEFAULT_ACTION_WEIGHTS)
     action_pool = _compatible_actions_for_plan(plan or {})
+    excluded = CHARACTER_ACTION_EXCLUSIONS.get(character_name or "", set())
+    action_pool = [
+        action for action in action_pool
+        if action["name"] not in excluded
+    ]
     return dict(_weighted_choice(action_pool, recent_tags=recent_tags, weights=weights))
 
 
