@@ -485,9 +485,14 @@ LOW_PROBABILITY_SCENE_ONLY_CLOTHING_BY_PLAN = {
 }
 SCENE_CATEGORY_OPTIONS = [
     {
-        "key": "studio_mirror",
-        "label": "练习室 / 镜子棚拍",
-        "plan_names": ["trend_mirror_studio", "graphic_poster_studio"],
+        "key": "studio_closeup",
+        "label": "棚拍 / 近景 / 白色落地窗",
+        "plan_names": [
+            "trend_mirror_studio",
+            "capsule_toy_corner",
+            "graphic_poster_studio",
+            "white_room_floor_window",
+        ],
     },
     {
         "key": "cafe_bakery_sweets",
@@ -501,33 +506,39 @@ SCENE_CATEGORY_OPTIONS = [
         ],
     },
     {
-        "key": "dream_garden_floating",
-        "label": "梦幻 / 花园 / 漂浮",
+        "key": "daily_outdoor_date",
+        "label": "日常 / 户外 / 约会",
         "plan_names": [
+            "balcony_breeze_half_out_frame",
             "summer_courtyard_soft_shadow",
             "open_grassland_breeze",
+            "city_date_window_stroll",
+            "park_date_riverside_breeze",
+            "sunny_seaside_train",
+        ],
+    },
+    {
+        "key": "dream_garden_dress",
+        "label": "花园 / 梦幻 / 礼服",
+        "plan_names": [
             "greenhouse_terrace_reflection",
             "flower_sea_afternoon",
             "garden_tea_table",
             "flower_bridal_garden",
-            "park_date_riverside_breeze",
             "zero_gravity_fairy_room",
             "zero_gravity_fairy_garden",
         ],
     },
     {
-        "key": "pure_white_minimal",
-        "label": "纯白 / 极简棚拍",
-        "plan_names": ["white_room_floor_window", "pure_white_character_focus"],
+        "key": "pure_white",
+        "label": "纯白",
+        "plan_names": ["pure_white_character_focus"],
     },
     {
-        "key": "distance_perspective_interior",
-        "label": "远景 / 透视 / 室内构图",
+        "key": "perspective_camera_composition",
+        "label": "透视 / 镜头构图 / 室内空间",
         "plan_names": [
-            "city_date_window_stroll",
-            "sunny_seaside_train",
             "library_corner_sunset_silence",
-            "balcony_breeze_half_out_frame",
             "overhead_deep_perspective_space",
             "low_angle_foreground_depth",
             "far_shot_readable_room",
@@ -537,7 +548,7 @@ SCENE_CATEGORY_OPTIONS = [
     {
         "key": "special_limited",
         "label": "特殊限定",
-        "plan_names": ["capsule_toy_corner", "cafe_maid_afternoon", "black_stockings_tea_room", "guofeng_decorative_kv"],
+        "plan_names": ["cafe_maid_afternoon", "black_stockings_tea_room", "guofeng_decorative_kv"],
     },
 ]
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
@@ -1400,7 +1411,7 @@ def prompt_scene_category_selection() -> list[str] | None:
     print("Choose scene category for this run:", flush=True)
     for index, option in enumerate(SCENE_CATEGORY_OPTIONS, start=1):
         print(f"  {index}. {option['label']}", flush=True)
-    print("Input examples: Enter/r/random = all scenes; 1 = category 1; 135 = categories 1,3,5.", flush=True)
+    print("Input examples: Enter/r/random = all scenes; 1 = category 1; 137 = categories 1,3,7.", flush=True)
     print("Clothing is still chosen automatically from the selected scene's compatible pool.", flush=True)
 
     while True:
