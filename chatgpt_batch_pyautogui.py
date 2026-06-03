@@ -208,7 +208,6 @@ BLUE_GINGHAM_DENIM_OUTFIT = "medium-short blue-and-white gingham shirt over a wh
 LIGHT_BLUE_WINDBREAKER_OUTFIT = "soft light-blue windbreaker jacket, white low-neck tank top, athletic shorts, round-frame glasses"
 ASYMMETRIC_WHITE_T_OUTFIT = "thin white off-shoulder long T-shirt, green camisole inner layer visible at neckline, shorts"
 LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, clean romantic styling"
-BASEBALL_SPECTATOR_OUTFIT = "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory"
 BRIGHT_RED_SHORT_DRESS_OUTFIT = "bright red short one-piece dress, youthful clean date styling"
 FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve white light-sport T-shirt with gray shorts or denim shorts"
 WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "white lace long dress as the main element, freely designed elegant silhouette, paired with white high heels"
@@ -303,7 +302,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
     ],
     "open_grassland_breeze": [
@@ -313,7 +311,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
     ],
     "greenhouse_terrace_reflection": [
@@ -367,7 +364,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
@@ -382,7 +378,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
         *LOW_PROBABILITY_BRAND_THEMES,
     ],
@@ -407,7 +402,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
         *LOW_PROBABILITY_BRAND_THEMES,
@@ -456,7 +450,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
-        BASEBALL_SPECTATOR_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],

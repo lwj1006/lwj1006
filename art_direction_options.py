@@ -23,7 +23,6 @@ OUTFIT_DIRECTIONS = [
     "soft light-blue windbreaker jacket, white low-neck tank top, athletic shorts, round-frame glasses",
     "thin white off-shoulder long T-shirt, green camisole inner layer visible at neckline, shorts",
     "lace off-shoulder dress with puff sleeves, clean romantic styling",
-    "baseball stadium spectator outfit, casual sporty top, shorts or skirt, cap or small cheering accessory",
     "bright red short one-piece dress, youthful clean date styling",
     "five-sleeve white light-sport T-shirt with gray shorts or denim shorts",
     "white lace long dress as the main element, freely designed elegant silhouette, paired with white high heels",
