@@ -463,7 +463,7 @@ ART_DIRECTION_PLANS = [
     {
         "name": "white_room_floor_window",
         "graphic_concept": "quiet white room with floor-to-ceiling window; white wall, pale floor reflection, curtain shadow, and one character-color accent build the composition",
-        "spatial_structure": "very wide white space; character small and off-center near a window, sofa edge, or low table; strong empty areas remain intentionally visible",
+        "spatial_structure": "very wide white space; character off-center but medium-large and clearly readable near a window, sofa edge, or low table; strong empty areas remain intentionally visible",
         "visual_device": "thin curtain, small jewelry tray, flower stem, glass cup, folded cloth, and soft floor reflection create minimal narrative detail",
         "body_silhouette": "sitting on floor or standing near window, front three-quarter or relaxed side angle, calm and cinematic",
         "outfit_direction": "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
@@ -904,7 +904,7 @@ CHARACTER_ACTION_EXCLUSIONS = {
 
 
 NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
-    "overhead_deep_perspective_space": 3.4,
+    "overhead_deep_perspective_space": 1.65,
     "low_angle_foreground_depth": 3.4,
     "far_shot_readable_room": 2.2,
     "telephoto_layered_interior": 3.2,
