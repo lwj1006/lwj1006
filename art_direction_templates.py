@@ -2,6 +2,7 @@ from art_direction_options import (
     choose_compatible_action_style,
     choose_art_plan,
     choose_visual_design,
+    choose_shot_scale,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -35,12 +36,12 @@ COMPOSITION_RULES = (
 
 
 CAMERA_PERSPECTIVE_RULES = (
-    "Camera: candid cinematic shot, not a posed character standee; use floor/window/table/path lines to prove depth."
+    "Camera: cinematic composition with clear depth; natural front three-quarter, front-facing, or gentle side angles are all valid."
 )
 
 
 CANDID_GAZE_RULES = (
-    "Gaze: vary naturally; direct eye contact is allowed sometimes, but avoid making every image a deliberate camera-facing pose."
+    "Gaze/body direction: vary naturally; prefer front-facing, front three-quarter attention, or gentle side angles; direct eye contact and eyes-away moments are both allowed."
 )
 
 
@@ -79,6 +80,7 @@ def prompt_for_art_direction(
     recent_tags=None,
     visual_design=None,
     outfit_direction=None,
+    shot_scale=None,
 ):
     if art_plan is None:
         art_plan = choose_art_plan(character_name, recent_tags)
@@ -86,6 +88,8 @@ def prompt_for_art_direction(
         action_style = choose_compatible_action_style(character_name, recent_tags, art_plan)
     if visual_design is None:
         visual_design = choose_visual_design(recent_tags, art_plan)
+    if shot_scale is None:
+        shot_scale = choose_shot_scale(recent_tags, art_plan)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
@@ -100,6 +104,7 @@ def prompt_for_art_direction(
         f"Must keep visible: {_join_list(identity_tokens)}.",
         f"Character rule: {_clip_text(profile['interaction_rule'], 190)}",
         "",
+        f"Shot scale: {_clip_text(shot_scale.get('description', ''), 150)}.",
         f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 115).rstrip('.')}. {viewer_distance_for(character_name)}.",
         "Hands simple and natural; feet clear only when visible.",
         "",

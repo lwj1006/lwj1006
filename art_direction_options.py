@@ -62,7 +62,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["pale pink short layered hair", "airy uneven bangs", "pink-purple eyes", "small silver-blue hair accessory"],
         "viewer_relationship": "quiet gaze, subtle expression, low-intensity body motion.",
         "thumbnail_strategy": "pale pink short hair and transparent-looking eyes must stay stable; styling may vary.",
-        "interaction_rule": "standing, seated, profile, or slight turn-back poses are fine; avoid locking her into one repeated visual formula.",
+        "interaction_rule": "standing, seated, front three-quarter, or gentle side-angle poses are fine; avoid locking her into one repeated visual formula.",
         "color_anchor": "pale pink, violet, silver blue",
     },
     "星见雅": {
@@ -124,9 +124,9 @@ CHARACTER_PROFILES = {
     "普罗米娅": {
         "official_core": "deep blue-purple hair, heavy side-swept bangs covering one eye, visible violet eye, long segmented braid.",
         "identity_tokens": ["deep blue-purple hair", "side-swept bangs covering one eye", "violet eye", "long segmented braid"],
-        "viewer_relationship": "profile, half-hidden face, or natural gaze direction are fine.",
+        "viewer_relationship": "front three-quarter, gentle side angle, half-hidden face, or natural gaze direction are fine.",
         "thumbnail_strategy": "blue-purple hair, one-eye-covered bangs, visible violet eye, and segmented braid must stay clear.",
-        "interaction_rule": "profile framing or half-hidden face is fine; avoid forcing fixed role details, heavy covering layers, mechanical props, or hand-held objects.",
+        "interaction_rule": "front three-quarter framing, gentle side angle, or half-hidden face is fine; avoid forcing fixed role details, heavy covering layers, mechanical props, or hand-held objects.",
         "color_anchor": "deep blue, violet, black, silver",
     },
     "薇薇安": {
@@ -190,6 +190,35 @@ GENERIC_PROFILE = {
 }
 
 
+SHOT_SCALE_OPTIONS = [
+    {
+        "name": "full_body_readable",
+        "description": "full-body framing, head-to-toe visible when possible, character occupies a medium-large readable area as the clear subject",
+        "weight": 2.3,
+    },
+    {
+        "name": "knee_up_medium",
+        "description": "knee-up or thigh-up framing, character is clearly larger than a distant figure, face, hair, outfit silhouette, and hands are readable",
+        "weight": 3.0,
+    },
+    {
+        "name": "waist_up_half_body",
+        "description": "waist-up or half-body framing, face and upper body become the main read while the scene still frames the character",
+        "weight": 2.4,
+    },
+    {
+        "name": "bust_close",
+        "description": "bust shot, face, eyes, hair silhouette, shoulders, and main accessories are prominent; keep enough background to preserve the selected scene",
+        "weight": 1.2,
+    },
+    {
+        "name": "close_upper_body",
+        "description": "close upper-body framing, face and identity details dominate; background appears as layered atmosphere rather than empty space",
+        "weight": 0.8,
+    },
+]
+
+
 ART_DIRECTION_PLANS = [
     {
         "name": "trend_mirror_studio",
@@ -232,7 +261,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "light-novel CG style afternoon cafe interior; warm window light, cream wall blocks, wooden table planes, and quiet air read before the character",
         "spatial_structure": "wide composition with large negative space; character placed off-center near a corner or window; foreground table edge, chair back, or curtain may partially block the view",
         "visual_device": "half-finished drink, dessert plate, flower vase, receipt slip, and tabletop sunlight form a clear daily story",
-        "body_silhouette": "small to medium figure, seated sideways or turned back slightly, calm expression, natural hands near the table",
+        "body_silhouette": "medium readable seated or standing figure, three-quarter front or gentle side angle, calm expression, natural hands near the table",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "wood grain, ceramic cup, folded receipt paper, sheer curtain, soft fabric, small glass highlights",
         "color_strategy": "large soft blocks of cream, honey, pale wood, and character palette; low clutter, readable silhouette",
@@ -268,19 +297,19 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "quiet library corner as an anime novel CG; shelves, amber dust light, and rectangular shadow shapes are the main thumbnail design",
         "spatial_structure": "deep corner perspective with bookcases forming a frame; character near the lower third, partly hidden by shelf edge or desk lamp; large empty wall or floor remains visible",
         "visual_device": "stacked notes, thin ribbon marker as a small accent, tea cup, desk lamp, and sunset strip on the desk guide the eye",
-        "body_silhouette": "back view, profile, or small side attention; face may be smaller but identity hair shape and eyes remain clear when visible",
+        "body_silhouette": "three-quarter front, seated reading pause, or side attention inside the library; face, hair shape, and eyes remain readable",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "paper, wood shelf, brass lamp, matte cloth, dust in light, quiet floor reflection",
         "color_strategy": "large warm amber and muted green-brown blocks, with character colors as the final focal accent",
         "lighting_behavior": "low sunset light through a high window, hard rectangular cuts on shelf and floor, soft shadow around the character",
-        "tags": ["library", "corner_composition", "back_view", "large_space", "story_props", "sunset", "novel_cg"],
+        "tags": ["library", "corner_composition", "large_space", "story_props", "sunset", "novel_cg"],
     },
     {
         "name": "balcony_breeze_half_out_frame",
         "graphic_concept": "home balcony breeze scene; curtain, sky, railing, and white interior wall carry the first read, with the character as an emotional note near the edge",
         "spatial_structure": "interior looking toward balcony or balcony looking inward; character half out of frame or placed low to one side; doorframe and curtain create foreground layers",
         "visual_device": "wind-blown curtain, small plant pot, sandals, glass with condensation, and reflected floor light create domestic narrative",
-        "body_silhouette": "side or back silhouette, looking outside or following the breeze; hair and accessories move lightly in wind",
+        "body_silhouette": "front three-quarter or relaxed side angle near the balcony breeze; hair and accessories move lightly in wind while face stays readable",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "thin curtain, glass door, metal railing, ceramic pot, polished floor reflection, soft cotton",
         "color_strategy": "large white and sky-blue color fields with one warm accent from the character or nearby object",
@@ -292,7 +321,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "summer courtyard or small garden as a light animation screenshot; tree shadow, white wall, stepping stones, and sky color dominate the thumbnail",
         "spatial_structure": "high or low camera angle with character placed at the edge of the path; foreground leaves, doorframe, or fence line may crop the image",
         "visual_device": "cold drink, flower basket, folded handkerchief, wind on leaves, and reflected light on stone give the place memory",
-        "body_silhouette": "walking away, pausing, or shifting attention toward the path; medium-small figure inside a clear environment",
+        "body_silhouette": "walking, pausing, or shifting attention along the path; medium readable figure inside a clear environment",
         "outfit_direction": "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
         "material_language": "stone, leaf shadow, painted wood, glass bottle, small paper slips, light summer fabric",
         "color_strategy": "large blocks of white wall, green shade, and pale sky; character palette stays as the emotional accent",
@@ -316,7 +345,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "flower greenhouse terrace with glass reflections; plants, window grids, and pale green light define the image more than the pose",
         "spatial_structure": "layered glasshouse perspective; character behind plants or faintly reflected in glass; foreground leaves partially cover edges without hiding identity essentials",
         "visual_device": "flower bouquet, watering can, small sweets tray, folded ribbon, and sun patches on tile floor build a small daily scene",
-        "body_silhouette": "three-quarter back view or quiet side glance, small figure inside deep space, not centered",
+        "body_silhouette": "three-quarter front or quiet side glance, medium readable figure inside deep space, not centered",
         "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "material_language": "glass, leaf translucency, ceramic tile, bouquet paper, lace or ribbon, soft moisture shine",
         "color_strategy": "large pale green and white blocks, flower colors as controlled accents, character palette preserved",
@@ -328,7 +357,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "afternoon flower field; dreamy but not cluttered, with the character still acting as the main visual subject",
         "spatial_structure": "broad flower field as soft color blocks; only a few blurred foreground flowers",
         "visual_device": "flower color fields frame the character hair color and eyes as the memory point",
-        "body_silhouette": "standing, seated, or profile-facing the flower field; hand may lightly touch a flower branch without covering the face",
+        "body_silhouette": "standing, seated, or gentle side-angle facing the flower field; hand may lightly touch a flower branch without covering the face",
         "outfit_direction": "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "material_language": "petals, light gauze, cotton, hair ornament, moderate detail density",
         "color_strategy": "flower colors support the character palette; avoid filling the image with one high-saturation color",
@@ -376,7 +405,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "casual city date moment with boutique window light, cafe signs without readable text, and soft evening reflections; single character only, the date partner stays implied off-camera",
         "spatial_structure": "street corner, glass storefront, cafe terrace edge, and sidewalk perspective lines; character offset from center as if caught during a walk",
         "visual_device": "small shoulder bag, wrapped dessert box, drink cup, window reflections, and warm shop light make the date mood readable without adding another person",
-        "body_silhouette": "walking, pausing near a window, or turning attention toward an off-camera sound; gaze may meet the lens or drift aside naturally, hands simple",
+        "body_silhouette": "walking or pausing near a window, front three-quarter angle preferred; gaze may meet the lens or drift aside naturally, hands simple",
         "outfit_direction": "soft date outfit: fitted cardigan, simple camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
         "material_language": "soft datewear fabric, small shoulder bag, glass storefront, paper dessert box, polished sidewalk reflection",
         "color_strategy": "warm shop light and cool street shadows frame the character palette; brand or sign shapes must stay non-readable",
@@ -388,7 +417,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "fresh park date scene by a riverside path; benches, railing, trees, and water reflections set a gentle everyday mood; single character only, no couple pose",
         "spatial_structure": "curving path, riverside railing, bench, tree shadow, and distant water line create depth; character placed to one side in a candid frame",
         "visual_device": "small bouquet, folded scarf, takeout drink, shoulder bag, and wind on hair suggest a date without forcing hand-held objects",
-        "body_silhouette": "light walking pause, seated on a bench edge, or profile looking toward the river; avoid posed front-facing stance",
+        "body_silhouette": "light walking pause or seated on a bench edge, front three-quarter or relaxed side angle; avoid stiff posed stance",
         "outfit_direction": "soft date outfit: fitted cardigan, simple camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
         "material_language": "soft casual datewear fabric, small bag, bench wood, leaf shadow, water reflection",
         "color_strategy": "fresh green, white, and pale blue support the character palette; sporty brand-like stripes remain small accents",
@@ -436,7 +465,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "quiet white room with floor-to-ceiling window; white wall, pale floor reflection, curtain shadow, and one character-color accent build the composition",
         "spatial_structure": "very wide white space; character small and off-center near a window, sofa edge, or low table; strong empty areas remain intentionally visible",
         "visual_device": "thin curtain, small jewelry tray, flower stem, glass cup, folded cloth, and soft floor reflection create minimal narrative detail",
-        "body_silhouette": "sitting on floor or standing near window, profile or back view, calm and cinematic",
+        "body_silhouette": "sitting on floor or standing near window, front three-quarter or relaxed side angle, calm and cinematic",
         "outfit_direction": "clean pure-white studio outfit, simple silhouette, character colors as the only accent",
         "material_language": "white cotton, glass, polished floor, thin curtain, small metal accessory, matte wall",
         "color_strategy": "dominant white and pale gray with character palette as the memory point; no busy background",
@@ -494,9 +523,9 @@ ART_DIRECTION_PLANS = [
     {
         "name": "overhead_deep_perspective_space",
         "graphic_concept": "high-angle anime CG composition; room plan, floor shape, table edges, and window light pattern are the main thumbnail before the character",
-        "spatial_structure": "camera looks down from above or stair height; floor tiles, railing, tabletop lines, or furniture edges create clear depth; character is small and offset from center",
+        "spatial_structure": "camera looks down from above or stair height; floor tiles, railing, tabletop lines, or furniture edges create clear depth; character stays medium-readable and offset from center",
         "visual_device": "strong foreground-middle-background separation; the eye follows floor perspective and light shapes before reaching the character",
-        "body_silhouette": "small figure seen from above, head and hair silhouette readable, relaxed posture, not posing toward camera",
+        "body_silhouette": "medium readable figure seen from above, head, face direction, and hair silhouette readable, relaxed posture",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "floor reflection, table plane, window frame, soft cloth, paper, glass highlight",
         "color_strategy": "large floor or wall color block dominates; character palette is a controlled focal accent",
@@ -505,10 +534,10 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "low_angle_foreground_depth",
-        "graphic_concept": "low-angle anime screenshot composition; large foreground objects, deeper midground character, and ceiling or window verticals give scale",
-        "spatial_structure": "camera near floor, tabletop, chair level, or garden path level; foreground edge is big and slightly cropped; midground character off-center; background recedes clearly",
-        "visual_device": "foreground object, middle character, and far window, door, or plant layer form a readable three-depth stack",
-        "body_silhouette": "medium-small figure seen through low perspective, back, side, or over-shoulder angle preferred, simple hands",
+        "graphic_concept": "low-angle upward anime screenshot composition; camera looks slightly up from floor, table, stairs, or garden-path height while the character stays readable",
+        "spatial_structure": "camera near floor, tabletop, stair, chair, or garden path level, looking upward through a foreground edge; midground character remains medium-readable and off-center; background rises behind the character",
+        "visual_device": "low foreground object, middle character, and rising window, door, wall, tree, or ceiling line form a readable upward three-depth stack",
+        "body_silhouette": "medium readable figure seen from a low upward perspective, front three-quarter or clean side angle preferred, simple hands",
         "outfit_direction": "fresh picnic outfit, short jacket or light cardigan, clear color blocks",
         "material_language": "large blurred foreground edge, polished floor or stone path, glass, curtain, plant leaves, fabric",
         "color_strategy": "foreground shadow mass plus bright background plane; character color sits between them as the second read",
@@ -516,23 +545,23 @@ ART_DIRECTION_PLANS = [
         "tags": ["low_camera", "foreground_depth", "deep_perspective", "foreground_occlusion", "novel_cg"],
     },
     {
-        "name": "far_shot_small_figure_room",
-        "graphic_concept": "far-shot light-novel CG; environment carries the emotion, with the character as a small memory point inside a readable room or terrace",
-        "spatial_structure": "long distance from camera; wide room, courtyard, library aisle, cafe floor, or balcony visible; character occupies a small part of the frame near a third or corner",
-        "visual_device": "large empty wall, floor, or window area and repeated perspective lines create scale; small silhouette placement creates quiet warmth or loneliness",
-        "body_silhouette": "small full-body or three-quarter figure, back view or side view, identity kept by hair shape, color, and accessory silhouette",
+        "name": "far_shot_readable_room",
+        "graphic_concept": "wide light-novel CG; environment carries emotion while the character remains the readable subject inside a room or terrace",
+        "spatial_structure": "longer camera distance with wide room, courtyard, library aisle, cafe floor, or balcony visible; character occupies a medium-readable area near a third or corner",
+        "visual_device": "large empty wall, floor, or window area and repeated perspective lines create scale; readable character placement creates quiet warmth or loneliness",
+        "body_silhouette": "readable full-body, knee-up, or three-quarter figure; identity kept by face, hair shape, color, and accessory silhouette",
         "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
         "material_language": "wall, floor, window, shelf, railing, curtain, table plane, soft reflection",
         "color_strategy": "dominant environment colors with one character-color accent; avoid filling the frame with the body",
         "lighting_behavior": "large soft light field, long shadow, or window beam gives spatial scale",
-        "tags": ["far_shot", "small_figure", "large_space", "negative_space", "deep_perspective", "novel_cg"],
+        "tags": ["far_shot", "readable_subject", "large_space", "negative_space", "deep_perspective", "novel_cg"],
     },
     {
         "name": "telephoto_layered_interior",
         "graphic_concept": "compressed telephoto interior or garden view; multiple vertical layers make the image feel found inside the scene",
         "spatial_structure": "camera looks through shelves, curtains, plants, doorframes, or glass; foreground and background stack tightly while character remains off-center",
         "visual_device": "repeating frames and soft occlusion create depth; character appears between layers, not flat in front",
-        "body_silhouette": "side or back view, partial crop allowed, face not required to dominate as long as identity hair and accessory cues remain visible",
+        "body_silhouette": "front three-quarter or relaxed side view, partial crop allowed, face and identity hair/accessory cues remain visible",
         "outfit_direction": "soft bakery or cafe casual outfit, warm and simple",
         "material_language": "glass reflection, curtain layers, shelf edges, leaves, ceramic, paper, soft cloth",
         "color_strategy": "stacked muted color planes; one sharper character-color accent controls the focal point",
@@ -592,7 +621,7 @@ ACTION_STYLES = [
     },
     {
         "name": "looking_back_from_edge",
-        "body_silhouette": "off-center figure near the image edge, back turned or three-quarter back view; if looking back, it is only a brief accidental glance, while the room and light lead the image",
+        "body_silhouette": "rare turn-back moment near the image edge; use sparingly, face still readable, and avoid making this the default body direction",
         "tags": ["back_view", "edge_framing", "story_pose"],
     },
     {
@@ -606,9 +635,9 @@ ACTION_STYLES = [
         "tags": ["candid", "after_moment", "eyes_away", "story_pose"],
     },
     {
-        "name": "profile_observed_from_distance",
-        "body_silhouette": "profile or three-quarter profile observed from a distance; character attention mostly stays inside the scene, with optional natural eye contact if composition supports it",
-        "tags": ["profile", "eyes_away", "far_shot", "story_pose"],
+        "name": "three_quarter_observed_from_distance",
+        "body_silhouette": "front three-quarter observation or soft side-angle variation; character attention mostly stays inside the scene, with optional natural eye contact if composition supports it",
+        "tags": ["three_quarter", "natural_gaze", "far_shot", "story_pose"],
     },
     {
         "name": "half_hidden_by_foreground",
@@ -621,18 +650,18 @@ ACTION_STYLES = [
         "tags": ["story_props", "after_moment", "simple_hand"],
     },
     {
-        "name": "tiny_figure_in_depth",
-        "body_silhouette": "small figure placed deep in the room or path; full environment remains visible, body does not fill the frame, silhouette and hair/accessory shape carry identity",
-        "tags": ["small_figure", "far_shot", "deep_perspective", "story_pose"],
+        "name": "readable_figure_in_depth",
+        "body_silhouette": "readable figure placed within the room or path; environment remains visible while the character stays large enough for identity details",
+        "tags": ["readable_subject", "far_shot", "deep_perspective", "story_pose"],
     },
     {
         "name": "camera_looking_down",
-        "body_silhouette": "seen from a high angle, head and shoulders/floor relation readable; pose stays simple so the perspective and space are the main effect",
+        "body_silhouette": "occasional moderate high-angle view; head, face, shoulders, and hair remain readable, with controlled floor space",
         "tags": ["high_camera", "deep_perspective", "story_pose"],
     },
     {
         "name": "camera_from_low_foreground",
-        "body_silhouette": "seen from low foreground height through a table edge, floor, plant, or railing; character is midground and off-center, not frontally staged",
+        "body_silhouette": "low-angle upward shot from floor, table, stair, chair, or garden-path height; foreground edge is near camera while the character remains medium-readable in the midground",
         "tags": ["low_camera", "foreground_depth", "story_pose"],
     },
     {
@@ -774,6 +803,43 @@ def choose_visual_design(recent_tags=None, plan=None):
     return dict(random.choice(_visuals_for_plan(plan)))
 
 
+def choose_shot_scale(recent_tags=None, plan=None):
+    plan_tags = _tags_of(plan or {})
+    options = [dict(option) for option in SHOT_SCALE_OPTIONS]
+    if plan_tags & {"close_character", "studio", "pure_white", "white_room"}:
+        bonuses = {
+            "knee_up_medium": 0.7,
+            "waist_up_half_body": 0.9,
+            "bust_close": 0.45,
+            "close_upper_body": 0.25,
+        }
+    elif plan_tags & {"far_shot", "readable_subject", "deep_perspective", "large_space"}:
+        bonuses = {
+            "full_body_readable": 0.65,
+            "knee_up_medium": 0.55,
+            "waist_up_half_body": 0.25,
+        }
+    else:
+        bonuses = {
+            "full_body_readable": 0.25,
+            "knee_up_medium": 0.55,
+            "waist_up_half_body": 0.45,
+            "bust_close": 0.15,
+        }
+
+    weighted = []
+    for option in options:
+        weighted.append((max(option["weight"] + bonuses.get(option["name"], 0.0), 0.2), option))
+    total = sum(weight for weight, _ in weighted)
+    pick = random.random() * total
+    cursor = 0.0
+    for weight, option in weighted:
+        cursor += weight
+        if pick <= cursor:
+            return option
+    return weighted[-1][1]
+
+
 KNOWN_CHARACTER_NAMES = [
     "南宫",
     "爱芮",
@@ -840,7 +906,7 @@ CHARACTER_ACTION_EXCLUSIONS = {
 NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "overhead_deep_perspective_space": 3.4,
     "low_angle_foreground_depth": 3.4,
-    "far_shot_small_figure_room": 3.5,
+    "far_shot_readable_room": 2.2,
     "telephoto_layered_interior": 3.2,
     "afternoon_cafe_negative_space": 3.2,
     "library_corner_sunset_silence": 3.0,
@@ -865,21 +931,22 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
 }
 
 NARRATIVE_SPACE_ACTION_WEIGHT_OVERRIDES = {
-    "tiny_figure_in_depth": 3.2,
-    "camera_looking_down": 3.0,
-    "camera_from_low_foreground": 3.0,
+    "readable_figure_in_depth": 0.75,
+    "camera_looking_down": 1.25,
+    "camera_from_low_foreground": 3.35,
     "unaware_candid_moment": 3.1,
-    "interrupted_daily_motion": 2.9,
-    "profile_observed_from_distance": 2.7,
-    "looking_back_from_edge": 1.1,
-    "half_hidden_by_foreground": 2.6,
-    "quiet_prop_after_moment": 2.6,
-    "gentle_side_glance": 1.4,
-    "seated_quiet_pose": 1.7,
+    "interrupted_daily_motion": 1.7,
+    "three_quarter_observed_from_distance": 0.85,
+    "looking_back_from_edge": 0.18,
+    "half_hidden_by_foreground": 1.15,
+    "quiet_prop_after_moment": 1.4,
+    "gentle_side_glance": 1.0,
+    "seated_quiet_pose": 2.2,
     "nearby_small_scene_prop": 0.9,
-    "walking_forward": 1.3,
-    "steady_eye_contact": 1.25,
-    "hands_near_chest": 0.75,
+    "walking_forward": 2.0,
+    "steady_eye_contact": 2.2,
+    "hands_near_chest": 1.45,
+    "adjusting_hair": 1.6,
     "post_workout_stretch": 0.2,
     "clean_crouching_pose": 1.35,
 }
@@ -897,11 +964,11 @@ _apply_weight_overrides(DEFAULT_ACTION_WEIGHTS, CHARACTER_ACTION_WEIGHTS, NARRAT
 
 
 PLAN_ACTION_COMPATIBILITY = [
-    ({"white_room", "pure_white", "minimal"}, {"crouching", "low_pose", "stable_hands", "simple_hand", "eyes_away", "eye_contact", "stable_pose"}),
-    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "small_figure", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
-    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
-    ({"far_shot", "small_figure"}, {"far_shot", "small_figure", "deep_perspective", "back_view", "eyes_away", "eye_contact", "crouching", "low_pose"}),
-    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "back_view", "simple_hand", "eyes_away", "eye_contact", "crouching", "low_pose"}),
+    ({"white_room", "pure_white", "minimal"}, {"crouching", "low_pose", "stable_hands", "simple_hand", "eye_contact", "stable_pose", "hair_touch", "hands_visible", "seated", "walking"}),
+    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "readable_subject", "eye_contact", "stable_pose", "crouching", "low_pose", "seated"}),
+    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "eye_contact", "stable_pose", "crouching", "low_pose", "seated", "walking"}),
+    ({"far_shot", "readable_subject"}, {"far_shot", "readable_subject", "deep_perspective", "eye_contact", "stable_pose", "crouching", "low_pose", "walking", "seated"}),
+    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "simple_hand", "eye_contact", "stable_pose", "crouching", "low_pose", "hair_touch", "hands_visible", "seated"}),
 ]
 
 
@@ -1007,7 +1074,7 @@ def required_identity_tokens_for(character_name):
 
 
 def viewer_distance_for(character_name):
-    return "camera distance follows the selected scene; keep face, hair silhouette, eyes, and main accessories readable"
+    return "camera distance keeps the character at least medium-readable as the clear subject; face, hair silhouette, eyes, outfit shape, and main accessories stay readable"
 
 
 def outfit_variation_for(character_name, outfit_direction=None):

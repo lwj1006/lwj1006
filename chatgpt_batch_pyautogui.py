@@ -21,6 +21,7 @@ from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
     choose_compatible_action_style,
+    choose_shot_scale,
     choose_plan_and_action,
     collect_cooldown_tags,
     propagation_profile_for,
@@ -453,7 +454,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
-    "far_shot_small_figure_room": [
+    "far_shot_readable_room": [
         LIGHT_NOVEL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
@@ -529,7 +530,7 @@ SCENE_CATEGORY_OPTIONS = [
             "balcony_breeze_half_out_frame",
             "overhead_deep_perspective_space",
             "low_angle_foreground_depth",
-            "far_shot_small_figure_room",
+            "far_shot_readable_room",
             "telephoto_layered_interior",
         ],
     },
@@ -959,6 +960,7 @@ def log_prompt(
     propagation_profile: dict | None = None,
     required_identity_tokens: list[str] | None = None,
     viewer_distance: str = "",
+    shot_scale: dict | None = None,
 ) -> str:
     run_id = dt.datetime.now().strftime(f"%Y%m%d_%H%M%S_run_{run_number:03d}")
     append_jsonl(
@@ -979,6 +981,7 @@ def log_prompt(
             "propagation_profile": propagation_profile,
             "required_identity_tokens": required_identity_tokens or [],
             "viewer_distance": viewer_distance,
+            "shot_scale": shot_scale,
             "prompt": prompt,
         },
     )
@@ -1668,6 +1671,7 @@ def main() -> None:
             propagation_profile = propagation_profile_for(character_name)
             required_identity_tokens = required_identity_tokens_for(character_name)
             viewer_distance = viewer_distance_for(character_name)
+            shot_scale = choose_shot_scale(recent_visual_tags, art_plan)
             theme = choose_compatible_clothing_theme(
                 character_name,
                 art_plan,
@@ -1689,6 +1693,7 @@ def main() -> None:
                 art_plan,
                 action_style,
                 outfit_direction=theme,
+                shot_scale=shot_scale,
             )
 
             print("=" * 72, flush=True)
@@ -1705,6 +1710,7 @@ def main() -> None:
             print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
             print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
             print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
+            print(f"[{run_number:02d}] shot scale: {shot_scale['name']} -> {shot_scale['description']}", flush=True)
             print(f"[{run_number:02d}] required identity tokens: {required_identity_tokens}", flush=True)
             print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
             print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
@@ -1729,6 +1735,7 @@ def main() -> None:
                 propagation_profile,
                 required_identity_tokens,
                 viewer_distance,
+                shot_scale,
             )
             send_prompt(prompt)
             take_screenshot(f"run_{run_number:02d}_sent")
