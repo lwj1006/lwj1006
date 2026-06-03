@@ -1086,7 +1086,13 @@ def outfit_variation_for(character_name, outfit_direction=None):
             "; optional low-key Sanrio-inspired pastel charm detail, such as a tiny hair clip, "
             "bag charm, sticker, or soft motif; no readable logo and no exact mascot costume"
         )
+    eyewear_detail = ""
+    if "glasses" not in base.lower() and random.random() < 0.07:
+        eyewear_detail = (
+            "; optional subtle eyewear accessory, such as round-frame glasses, thin oval glasses, "
+            "or lightweight rimless glasses; keep it low-key and do not hide the eyes"
+        )
     return (
-        f"{base}{sanrio_detail}; adapt to character palette: {profile['color_anchor']}; "
+        f"{base}{sanrio_detail}{eyewear_detail}; adapt to character palette: {profile['color_anchor']}; "
         "keep hairstyle, hair color, eye color, and core accessories"
     )
