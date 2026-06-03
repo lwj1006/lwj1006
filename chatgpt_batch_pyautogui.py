@@ -816,6 +816,13 @@ def click_send_button() -> None:
     time.sleep(1.0)
 
 
+def focus_chatgpt_input() -> None:
+    plus_x, plus_y = COORDS["plus_button"]
+    input_x = int(plus_x + 100)
+    input_y = int(plus_y)
+    click_slow(input_x, input_y, after=0.35)
+
+
 def paste_text(text: str) -> None:
     pyperclip.copy(text)
     time.sleep(0.2)
@@ -862,6 +869,8 @@ def upload_reference_images(reference_files: list[str]) -> list[str]:
 
 
 def send_prompt(prompt: str) -> None:
+    print("Prompt: focusing ChatGPT input", flush=True)
+    focus_chatgpt_input()
     print("Prompt: pasting text", flush=True)
     paste_text(prompt)
 
