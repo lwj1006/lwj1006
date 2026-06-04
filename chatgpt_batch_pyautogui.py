@@ -169,9 +169,9 @@ LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
 RUNTIME_CONFIG_PATH = PROJECT_DIR / "config" / "runtime_art_direction.json"
 RUNTIME_GIT_PULL_INTERVAL_SECONDS = 300
 RUNTIME_GIT_PULL_TIMEOUT_SECONDS = 60
-DEFAULT_BLACK_HOSIERY_CHANCE = 0.20
+DEFAULT_BLACK_HOSIERY_CHANCE = 0.23
 CHARACTER_BLACK_HOSIERY_CHANCES = {
-    "艾莲": 0.40,
+    "艾莲": 0.47,
 }
 BLACK_HOSIERY_ACCENT = (
     "paired with refined black sheer tights or stockings as a subtle styling accent, "
