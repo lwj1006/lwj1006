@@ -230,7 +230,7 @@ CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
     "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights",
     "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
@@ -252,9 +252,9 @@ REGULAR_CLOTHING_THEMES = [
     theme for theme in CLOTHING_THEMES
     if theme not in STRONG_SCENE_ONLY_CLOTHING_THEMES
 ]
-REFERENCE_OUTFIT = "reference-faithful outfit with small fashionable variation"
+REFERENCE_OUTFIT = "character-signature outfit with a small fashionable variation"
 LIGHT_NOVEL_OUTFIT = "clean light-novel casual outfit, character palette stays recognizable"
-YOUNG_CASUAL_OUTFIT = "young casual tops: short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit"
+YOUNG_CASUAL_OUTFIT = "young casual top: sleeveless tank with cropped casual layering, clean youthful styling"
 SOFT_DATE_OUTFIT = "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
 CAFE_MAID_OUTFIT = "cafe maid remix outfit, neat apron, ribbons, cute and clean"
 BRIDAL_OUTFIT = "romantic flower bridal dress, elegant veil or bouquet, clean and elegant"
@@ -267,12 +267,12 @@ SUNNY_STUDIO_OUTFIT = "minimal sunny studio outfit, face and hair identity as th
 PURE_WHITE_OUTFIT = "clean minimal studio outfit, simple silhouette, palette selected to support character identity"
 FAIRY_FLOATING_OUTFIT = "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling"
 WHITE_SUNDRESS_STRAW_HAT_OUTFIT = "fresh sundress with a straw hat, summer date mood"
-BLUE_GINGHAM_DENIM_OUTFIT = "medium-short gingham shirt over a tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned"
+BLUE_GINGHAM_DENIM_OUTFIT = "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow"
 LIGHT_BLUE_WINDBREAKER_OUTFIT = "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses"
 ASYMMETRIC_WHITE_T_OUTFIT = "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts"
 LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, clean romantic styling"
 BRIGHT_RED_SHORT_DRESS_OUTFIT = "short one-piece dress, youthful clean date styling"
-FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve light-sport T-shirt with shorts or denim shorts"
+FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
 WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
 CLOTHING_DISPLAY_LABELS = {
     REFERENCE_OUTFIT: "参考图服装微调",
@@ -326,7 +326,7 @@ CLOTHING_DISPLAY_LABELS = {
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant": "洛丽塔女仆风",
     "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette": "抹胸度假长裙",
     "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style": "抹胸开衫居家风",
-    "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear": "印花短T运动长裤",
+    "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear": "印花短T运动长裤",
     "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt": "幻想风礼服",
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear": "吊带包臀小礼裙",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style": "短款运动上衣",
@@ -335,7 +335,7 @@ CLOTHING_DISPLAY_LABELS = {
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels": "不对称拖尾迷你礼服",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots": "挂脖荷叶边高低摆礼服",
     "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights": "复古运动啦啦队套装",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights": "复古运动啦啦队套装",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers": "挂脖飘带上衣长裤",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
     "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
@@ -541,7 +541,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         PICNIC_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
-        "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear",
+        "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     ],
     "ribbon_installation_space": [
         FLOWER_FANTASY_OUTFIT,
@@ -568,7 +568,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         "ribbed tank top, satin shorts, minimal summer lounge style",
         "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-        "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear",
+        "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     ],
     "hosiery_tea_room": [
         DARK_HOSIERY_OUTFIT,
@@ -2215,5 +2215,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 

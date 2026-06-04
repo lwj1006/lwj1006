@@ -9,11 +9,11 @@ RUNTIME_CONFIG_REVISION = "python-default"
 
 
 OUTFIT_DIRECTIONS = [
-    "reference-faithful outfit with small fashionable variation",
+    "character-signature outfit with a small fashionable variation",
     "clean light-novel casual outfit, character palette stays recognizable",
-    "young casual tops: short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit",
-    "clean Adidas-inspired sporty date outfit: cropped hoodie or sleeveless cropped athletic tank, classic stripe accents, short skirt or shorts",
-    "clean Yonex-inspired sporty date outfit: cropped hoodie or sleeveless cropped athletic tank, short skirt or shorts, tiny sporty stripe accent",
+    "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
+    "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
+    "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent",
     "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
     "cafe maid remix outfit, neat apron, ribbons, cute and clean",
     "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
@@ -27,12 +27,12 @@ OUTFIT_DIRECTIONS = [
     "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
     "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
     "fresh sundress with a straw hat, summer date mood",
-    "medium-short gingham shirt over a tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned",
+    "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
     "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
     "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
     "lace off-shoulder dress with puff sleeves, clean romantic styling",
     "short one-piece dress, youthful clean date styling",
-    "five-sleeve light-sport T-shirt with shorts or denim shorts",
+    "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
     "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
     "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style",
     "fitted camisole, sheer off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
@@ -62,7 +62,7 @@ OUTFIT_DIRECTIONS = [
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
     "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
     "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-    "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear",
+    "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
@@ -71,7 +71,7 @@ OUTFIT_DIRECTIONS = [
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim",
     "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
@@ -503,7 +503,7 @@ ART_DIRECTION_PLANS = [
         "spatial_structure": "rolled backdrops, folded stands, prop boxes, fabric bundles, and a clear walking path create ordered backstage depth",
         "visual_device": "half-packed props and diagonal stand lines create a found-moment composition around the character",
         "body_silhouette": "walking between props, sitting on a prop box, or turning while holding only a simple cloth edge; hands stay readable",
-        "outfit_direction": "young casual tops: short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit",
+        "outfit_direction": "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
         "material_language": "fabric roll, metal light stand, prop flower, cardboard box, soft casual fabric, matte floor dust",
         "color_strategy": "props may add small color accents, but character palette and outfit silhouette remain dominant",
         "lighting_behavior": "late studio spill light from one side, soft shadows from stands, readable face and hair outline",
@@ -748,8 +748,8 @@ ACTION_STYLES = [
 ACTION_STYLES.append(
     {
         "name": "post_workout_stretch",
-        "body_silhouette": "clean athletic cool-down stretch, seated or one-knee pose, modest body angle, shoulders relaxed, hands naturally near knee, shoe, or floor; avoid suggestive framing",
-        "tags": ["stretch", "sporty", "stable_hands"],
+        "body_silhouette": "gentle body stretch, seated or one-knee pose, modest body angle, shoulders relaxed, hands naturally near knee, shoe, or floor; avoid athletic-room assumptions and suggestive framing",
+        "tags": ["stretch", "stable_hands"],
     }
 )
 
@@ -1441,17 +1441,22 @@ def choose_compatible_action_style(character_name=None, recent_tags=None, plan=N
         if action["name"] not in excluded
     ]
     plan_name = (plan or {}).get("name", "")
-    stretch_allowed_plans = {
-        "trend_mirror_studio",
-        "white_room_floor_window",
-        "pure_white_character_focus",
-        "monochrome_color_block_studio",
-        "low_angle_foreground_depth",
-    }
+    stretch_allowed_plans = set()
     if plan_name not in stretch_allowed_plans:
         action_pool = [
             action for action in action_pool
             if action["name"] != "post_workout_stretch"
+        ]
+    close_character_plans = {
+        "trend_mirror_studio",
+        "capsule_toy_corner",
+        "graphic_poster_studio",
+        "pure_white_character_focus",
+    }
+    if plan_name in close_character_plans:
+        action_pool = [
+            action for action in action_pool
+            if action["name"] not in {"readable_figure_in_depth", "three_quarter_observed_from_distance"}
         ]
     return dict(_weighted_choice(action_pool, recent_tags=recent_tags, weights=weights))
 
@@ -1541,7 +1546,7 @@ COMPOSITION_BASE_WEIGHTS = {
     "clean_full_body_silhouette_frame": 0.85,
     "slight_side_medium_close_frame": 0.8,
     "layered_scene_corner_frame": 0.8,
-    "vertical_poster_readable_pose": 0.75,
+    "vertical_poster_readable_pose": 0.6,
     "calm_motion_midground_frame": 0.8,
     "quiet_close_upper_body_frame": 0.75,
     "wide_readable_scene_balance": 0.75,
@@ -1608,6 +1613,22 @@ COMPOSITION_FORBIDDEN_ACTIONS = {
     "low_angle_under_flower_canopy": {
         "camera_looking_down",
     },
+    "high_angle_bed_or_floor_frame": {
+        "camera_from_low_foreground",
+    },
+    "clean_full_body_silhouette_frame": {
+        "half_hidden_by_foreground",
+    },
+    "quiet_close_upper_body_frame": {
+        "clean_crouching_pose",
+        "readable_figure_in_depth",
+        "three_quarter_observed_from_distance",
+    },
+    "slight_side_medium_close_frame": {
+        "clean_crouching_pose",
+        "readable_figure_in_depth",
+        "three_quarter_observed_from_distance",
+    },
 }
 
 COMPOSITION_REQUIRED_PLAN_NAMES = {
@@ -1625,15 +1646,13 @@ COMPOSITION_REQUIRED_PLAN_NAMES = {
 
 COMPOSITION_ALLOWED_OUTFIT_KEYWORDS = {
     "gray_studio_large_dress_shape": [
-        "dress",
         "gown",
         "bridal",
-        "skirt",
+        "princess skirt",
+        "voluminous",
         "ruffle",
         "chiffon",
-        "lace",
-        "slip dress",
-        "halter dress",
+        "layered skirt",
     ],
     "hat_brim_shadow_closeup": [
         "hat",
@@ -1662,6 +1681,7 @@ COMPOSITION_FORBIDDEN_PLAN_TAGS = {
     "lace_curtain_backlight_occlusion": {"outdoor", "rooftop", "beach", "aquarium", "pure_white", "mirror", "acrylic", "glass", "ribbon"},
     "diagonal_window_light_haze": {"aquarium", "beach", "mirror", "acrylic", "glass", "ribbon", "product"},
     "soft_hand_on_cheek_close_face": {"far_shot", "deep_perspective", "large_space"},
+    "high_angle_bed_or_floor_frame": {"low_camera"},
 }
 
 FAR_SPACE_COMPOSITION_FORBIDDEN_NAMES = {
@@ -1698,7 +1718,6 @@ SCENE_COMPOSITION_ALLOWLIST = {
     },
     "gallery_white_wall_exhibit": {
         *GENERIC_COMPOSITION_NAMES,
-        "gray_studio_large_dress_shape",
         "hat_brim_shadow_closeup",
         "soft_hand_on_cheek_close_face",
     },
@@ -1736,6 +1755,10 @@ def _composition_plan_compatible(composition_plan, plan, action=None, outfit_dir
     allowed_actions = COMPOSITION_ALLOWED_ACTIONS.get(composition_name)
     if allowed_actions and action_name and action_name not in allowed_actions:
         return False
+
+    if composition_name == "gray_studio_large_dress_shape":
+        if "studio" not in plan_tags:
+            return False
 
     if plan_tags & {"far_shot", "deep_perspective", "large_space"}:
         if composition_name in FAR_SPACE_COMPOSITION_FORBIDDEN_NAMES:
