@@ -1477,10 +1477,6 @@ FLOWER_COMPOSITION_TAGS = {
     "bridal",
     "fairy_tale",
     "zero_gravity",
-    "white_room",
-    "pure_white",
-    "ribbon",
-    "installation",
 }
 
 FLOWER_COMPOSITION_PLANS = {
@@ -1489,9 +1485,6 @@ FLOWER_COMPOSITION_PLANS = {
     "greenhouse_terrace_reflection",
     "zero_gravity_fairy_room",
     "zero_gravity_fairy_garden",
-    "ribbon_installation_space",
-    "white_room_floor_window",
-    "pure_white_character_focus",
 }
 
 INTERIOR_COMPOSITION_NAMES = {
@@ -1543,7 +1536,7 @@ INTERIOR_COMPOSITION_PLANS = {
 
 COMPOSITION_BASE_WEIGHTS = {
     "clean_three_quarter_character_frame": 0.85,
-    "readable_environment_medium_shot": 0.85,
+    "readable_environment_medium_shot": 0.45,
     "foreground_edge_depth_frame": 0.8,
     "clean_full_body_silhouette_frame": 0.85,
     "slight_side_medium_close_frame": 0.8,
@@ -1598,7 +1591,6 @@ COMPOSITION_ALLOWED_ACTIONS = {
     "soft_hand_on_cheek_close_face": {
         "steady_eye_contact",
         "gentle_side_glance",
-        "seated_quiet_pose",
     },
     "hat_brim_shadow_closeup": {
         "steady_eye_contact",
@@ -1609,6 +1601,25 @@ COMPOSITION_ALLOWED_ACTIONS = {
         "steady_eye_contact",
         "adjusting_hair",
         "clean_crouching_pose",
+    },
+}
+
+COMPOSITION_FORBIDDEN_ACTIONS = {
+    "low_angle_under_flower_canopy": {
+        "camera_looking_down",
+    },
+}
+
+COMPOSITION_REQUIRED_PLAN_NAMES = {
+    "diagonal_window_light_haze": {
+        "white_room_floor_window",
+        "balcony_breeze_half_out_frame",
+        "telephoto_layered_interior",
+        "far_shot_readable_room",
+    },
+    "lace_curtain_backlight_occlusion": {
+        "white_room_floor_window",
+        "hanging_fabric_light_tunnel",
     },
 }
 
@@ -1644,11 +1655,21 @@ COMPOSITION_ALLOWED_OUTFIT_KEYWORDS = {
 }
 
 COMPOSITION_FORBIDDEN_PLAN_TAGS = {
-    "foreground_flower_occlusion_closeup": {"pure_white", "poster", "industrial", "aquarium", "beach"},
-    "low_angle_under_flower_canopy": {"pure_white", "poster", "industrial", "aquarium", "beach"},
-    "flower_frame_clear_face": {"pure_white", "poster", "industrial", "aquarium", "beach"},
-    "cinematic_wide_flower_side_view": {"pure_white", "poster", "industrial", "aquarium", "beach"},
-    "lace_curtain_backlight_occlusion": {"outdoor", "rooftop", "beach", "aquarium", "pure_white"},
+    "foreground_flower_occlusion_closeup": {"pure_white", "poster", "industrial", "aquarium", "beach", "product", "ribbon"},
+    "low_angle_under_flower_canopy": {"pure_white", "poster", "industrial", "aquarium", "beach", "product", "ribbon"},
+    "flower_frame_clear_face": {"pure_white", "poster", "industrial", "aquarium", "beach", "product", "ribbon"},
+    "cinematic_wide_flower_side_view": {"pure_white", "poster", "industrial", "aquarium", "beach", "product", "ribbon"},
+    "lace_curtain_backlight_occlusion": {"outdoor", "rooftop", "beach", "aquarium", "pure_white", "mirror", "acrylic", "glass", "ribbon"},
+    "diagonal_window_light_haze": {"aquarium", "beach", "mirror", "acrylic", "glass", "ribbon", "product"},
+    "soft_hand_on_cheek_close_face": {"far_shot", "deep_perspective", "large_space"},
+}
+
+FAR_SPACE_COMPOSITION_FORBIDDEN_NAMES = {
+    "clean_three_quarter_character_frame",
+    "slight_side_medium_close_frame",
+    "quiet_close_upper_body_frame",
+    "soft_hand_on_cheek_close_face",
+    "hat_brim_shadow_closeup",
 }
 
 SCENE_COMPOSITION_ALLOWLIST = {
@@ -1681,6 +1702,15 @@ SCENE_COMPOSITION_ALLOWLIST = {
         "hat_brim_shadow_closeup",
         "soft_hand_on_cheek_close_face",
     },
+    "pure_white_character_focus": {
+        "clean_three_quarter_character_frame",
+        "clean_full_body_silhouette_frame",
+        "slight_side_medium_close_frame",
+        "vertical_poster_readable_pose",
+        "quiet_close_upper_body_frame",
+        "floor_diagonal_negative_space",
+        "high_angle_bed_or_floor_frame",
+    },
 }
 
 
@@ -1695,9 +1725,21 @@ def _composition_plan_compatible(composition_plan, plan, action=None, outfit_dir
     if plan_tags & COMPOSITION_FORBIDDEN_PLAN_TAGS.get(composition_name, set()):
         return False
 
+    if composition_name in COMPOSITION_REQUIRED_PLAN_NAMES:
+        if plan_name not in COMPOSITION_REQUIRED_PLAN_NAMES[composition_name]:
+            return False
+
+    forbidden_actions = COMPOSITION_FORBIDDEN_ACTIONS.get(composition_name, set())
+    if action_name and action_name in forbidden_actions:
+        return False
+
     allowed_actions = COMPOSITION_ALLOWED_ACTIONS.get(composition_name)
     if allowed_actions and action_name and action_name not in allowed_actions:
         return False
+
+    if plan_tags & {"far_shot", "deep_perspective", "large_space"}:
+        if composition_name in FAR_SPACE_COMPOSITION_FORBIDDEN_NAMES:
+            return False
 
     allowed_outfit_keywords = COMPOSITION_ALLOWED_OUTFIT_KEYWORDS.get(composition_name)
     if allowed_outfit_keywords and outfit_text:
@@ -1738,7 +1780,8 @@ def choose_composition_plan(recent_tags=None, plan=None, action=None, outfit_dir
     for composition_plan in composition_pool:
         tags = _tags_of(composition_plan)
         score = COMPOSITION_BASE_WEIGHTS.get(composition_plan.get("name", ""), 0.4)
-        score += len(tags & plan_tags) * 0.25
+        tag_bonus = 0.08 if composition_plan.get("name") in GENERIC_COMPOSITION_NAMES else 0.25
+        score += len(tags & plan_tags) * tag_bonus
         score -= len(tags & recent) * 0.35
         scored.append((max(score, 0.15), composition_plan))
     total = sum(score for score, _ in scored)

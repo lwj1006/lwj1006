@@ -140,4 +140,7 @@ def prompt_for_art_direction(
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",
         NEGATIVE_GUARDRAILS,
     ]
-    return _compact_lines(lines)
+    prompt = _compact_lines(lines)
+    if prompt.count("Outfit:") != 1:
+        raise ValueError("final prompt must contain exactly one outfit block")
+    return prompt
