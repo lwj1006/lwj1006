@@ -17,6 +17,7 @@ PROJECT_DIR = Path(__file__).resolve().parent
 import pyautogui
 import pyperclip
 
+import art_direction_options as art_options
 from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
@@ -165,6 +166,35 @@ WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
 LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
+RUNTIME_CONFIG_PATH = PROJECT_DIR / "config" / "runtime_art_direction.json"
+RUNTIME_GIT_PULL_INTERVAL_SECONDS = 300
+RUNTIME_GIT_PULL_TIMEOUT_SECONDS = 60
+DEFAULT_BLACK_HOSIERY_CHANCE = 0.20
+CHARACTER_BLACK_HOSIERY_CHANCES = {
+    "艾莲": 0.40,
+}
+BLACK_HOSIERY_ACCENT = (
+    "paired with refined black sheer tights or stockings as a subtle styling accent, "
+    "balanced with the selected outfit, restrained and non-fetishized"
+)
+BLACK_HOSIERY_INCOMPATIBLE_KEYWORDS = (
+    "swim",
+    "beach",
+    "resort",
+    "bridal",
+    "wedding",
+    "activewear",
+    "athletic",
+    "running",
+    "sport",
+    "yoga",
+    "pilates",
+    "barefoot",
+)
+BLACK_HOSIERY_INCOMPATIBLE_PLAN_NAMES = {
+    "beach_wind_open_sand",
+    "flower_bridal_garden",
+}
 
 SCREENSHOT_DIR = PROJECT_DIR / "screenshots"
 SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
@@ -182,7 +212,7 @@ LOW_PROBABILITY_BRAND_THEMES = [
 STRONG_SCENE_ONLY_CLOTHING_THEMES = [
     theme for theme in CLOTHING_THEMES
     if theme in LOW_PROBABILITY_BRAND_THEMES
-    or "dark-hosiery" in theme
+    or "black hosiery" in theme
     or "maid remix" in theme
     or "bridal dress" in theme
 ]
@@ -192,26 +222,84 @@ REGULAR_CLOTHING_THEMES = [
 ]
 REFERENCE_OUTFIT = "reference-faithful outfit with small fashionable variation"
 LIGHT_NOVEL_OUTFIT = "clean light-novel casual outfit, character palette stays recognizable"
-YOUNG_CASUAL_OUTFIT = "young casual tops: white short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit"
-SOFT_DATE_OUTFIT = "soft date outfit: fitted cardigan, simple camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
+YOUNG_CASUAL_OUTFIT = "young casual tops: short T-shirt, cropped hoodie, sleeveless tank, or off-shoulder knit"
+SOFT_DATE_OUTFIT = "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
 CAFE_MAID_OUTFIT = "cafe maid remix outfit, neat apron, ribbons, cute and clean"
 BRIDAL_OUTFIT = "romantic flower bridal dress, elegant veil or bouquet, clean and elegant"
 FLOWER_FANTASY_OUTFIT = "elegant flower-field fantasy outfit, simplified layers, no weapon requirement"
-DARK_HOSIERY_OUTFIT = "rare refined dark-hosiery fashion outfit, restrained and non-fetishized"
+DARK_HOSIERY_OUTFIT = "rare refined black hosiery fashion outfit, restrained and non-fetishized"
 YOUTHFUL_CASUAL_OUTFIT = "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis"
-PICNIC_OUTFIT = "fresh picnic outfit, short jacket or light cardigan, clear color blocks"
+PICNIC_OUTFIT = "fresh picnic outfit, short jacket or light cardigan, clear layered pieces"
 BAKERY_CAFE_OUTFIT = "soft bakery or cafe casual outfit, warm and simple"
 SUNNY_STUDIO_OUTFIT = "minimal sunny studio outfit, face and hair identity as the main focus"
-PURE_WHITE_OUTFIT = "clean pure-white studio outfit, simple silhouette, character colors as the only accent"
+PURE_WHITE_OUTFIT = "clean minimal studio outfit, simple silhouette, palette selected to support character identity"
 FAIRY_FLOATING_OUTFIT = "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling"
-WHITE_SUNDRESS_STRAW_HAT_OUTFIT = "pure white sundress with a straw hat, fresh summer date mood"
-BLUE_GINGHAM_DENIM_OUTFIT = "medium-short blue-and-white gingham shirt over a white tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned"
-LIGHT_BLUE_WINDBREAKER_OUTFIT = "soft light-blue windbreaker jacket, white low-neck tank top, athletic shorts, round-frame glasses"
-ASYMMETRIC_WHITE_T_OUTFIT = "thin white off-shoulder long T-shirt, green camisole inner layer visible at neckline, shorts"
+WHITE_SUNDRESS_STRAW_HAT_OUTFIT = "fresh sundress with a straw hat, summer date mood"
+BLUE_GINGHAM_DENIM_OUTFIT = "medium-short gingham shirt over a tank top, denim shorts; shirt worn either tied into a small front-bottom bow or open and unbuttoned"
+LIGHT_BLUE_WINDBREAKER_OUTFIT = "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses"
+ASYMMETRIC_WHITE_T_OUTFIT = "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts"
 LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, clean romantic styling"
-BRIGHT_RED_SHORT_DRESS_OUTFIT = "bright red short one-piece dress, youthful clean date styling"
-FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve white light-sport T-shirt with gray shorts or denim shorts"
-WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "white lace long dress as the main element, freely designed elegant silhouette, paired with white high heels"
+BRIGHT_RED_SHORT_DRESS_OUTFIT = "short one-piece dress, youthful clean date styling"
+FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "five-sleeve light-sport T-shirt with shorts or denim shorts"
+WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+CLOTHING_DISPLAY_LABELS = {
+    REFERENCE_OUTFIT: "参考图服装微调",
+    LIGHT_NOVEL_OUTFIT: "轻小说日常",
+    YOUNG_CASUAL_OUTFIT: "年轻休闲上衣",
+    SOFT_DATE_OUTFIT: "柔和约会装",
+    CAFE_MAID_OUTFIT: "咖啡女仆改良",
+    BRIDAL_OUTFIT: "花园婚纱",
+    FLOWER_FANTASY_OUTFIT: "花田幻想礼服",
+    DARK_HOSIERY_OUTFIT: "黑丝茶室时装",
+    YOUTHFUL_CASUAL_OUTFIT: "清爽少女日常",
+    PICNIC_OUTFIT: "野餐层次穿搭",
+    BAKERY_CAFE_OUTFIT: "烘焙咖啡日常",
+    "soft casual outfit with warm simple styling": "温柔简洁日常",
+    SUNNY_STUDIO_OUTFIT: "晴光棚拍简装",
+    PURE_WHITE_OUTFIT: "极简棚拍造型",
+    FAIRY_FLOATING_OUTFIT: "漂浮童话纱裙",
+    WHITE_SUNDRESS_STRAW_HAT_OUTFIT: "夏日草帽连衣裙",
+    BLUE_GINGHAM_DENIM_OUTFIT: "格纹衬衫牛仔短裤",
+    LIGHT_BLUE_WINDBREAKER_OUTFIT: "运动风防晒外套",
+    ASYMMETRIC_WHITE_T_OUTFIT: "露肩长T叠穿",
+    LACE_OFF_SHOULDER_DRESS_OUTFIT: "蕾丝露肩裙",
+    BRIGHT_RED_SHORT_DRESS_OUTFIT: "短款连衣裙",
+    FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT: "轻运动T恤短裤",
+    WHITE_LACE_LONG_DRESS_HEELS_OUTFIT: "蕾丝长裙高跟",
+    "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style": "水手学院连衣裙",
+    "fitted camisole, sheer off-shoulder sleeves, high-waisted denim shorts, clean summer date style": "吊带透袖牛仔短裤",
+    "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style": "吊带长裙",
+    "tank top, oversized cropped hoodie, loose jeans, relaxed casual style": "背心短款帽衫牛仔裤",
+    "sleeveless top, denim overalls, youthful clean casual style": "无袖上衣牛仔背带裤",
+    "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style": "高领蕾丝婚纱",
+    "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit": "短卫衣舞台短裙",
+    "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style": "学院背心裙",
+    "oversized sweater, loose sleeves, cozy homewear, soft casual style": "宽松毛衣居家风",
+    "corset mini dress, lace panels, bell sleeves, boots, idol stagewear": "束腰蕾丝舞台裙",
+    "off-shoulder fitted knit sweater, soft Korean casual style": "韩系露肩针织",
+    "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style": "雪纺仙女礼服",
+    "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style": "束腰田园连衣裙",
+    "lace dress, ribbon waist, airy garden fairy style": "蕾丝花园裙",
+    "striped swim top under loose cover shirt, clean beach resort style": "沙滩罩衫度假装",
+    "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood": "缎面蕾丝家居裙",
+    "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood": "运动防晒套装",
+    "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion": "条纹针织学院风",
+    "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style": "宽松条纹衬衫通勤",
+    "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style": "千金风针织短裤",
+    "layered striped knit top, wrap skirt, preppy luxury styling": "层叠针织半裙",
+    "striped tank top, pleated mini skirt, tennis-girl summer casual style": "美式网球学院风",
+    "ribbed tank top, satin shorts, minimal summer lounge style": "罗纹背心缎面短裤",
+    "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit": "瑜伽训练套装",
+    "fitted camisole, high-waist flare pants, balletcore pilates fashion": "芭蕾普拉提风",
+    "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant": "洛丽塔女仆风",
+    "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette": "抹胸度假长裙",
+    "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style": "抹胸开衫居家风",
+    "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear": "印花短T运动长裤",
+    "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt": "幻想风礼服",
+    "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear": "吊带包臀小礼裙",
+    "cropped athletic top, fitted short sleeves, underbust band, clean activewear style": "短款运动上衣",
+    "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette": "针织挂脖连衣裙",
+}
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
     YOUNG_CASUAL_OUTFIT,
@@ -255,37 +343,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
     ],
-    "afternoon_cafe_negative_space": [
-        BAKERY_CAFE_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "small_bakery_morning": [
-        BAKERY_CAFE_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-    ],
-    "bookstore_cafe_corner": [
-        LIGHT_NOVEL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        BAKERY_CAFE_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "library_corner_sunset_silence": [
-        LIGHT_NOVEL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
-    ],
     "balcony_breeze_half_out_frame": [
         LIGHT_NOVEL_OUTFIT,
         YOUNG_CASUAL_OUTFIT,
@@ -295,24 +352,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
-    ],
-    "summer_courtyard_soft_shadow": [
-        PICNIC_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-    ],
-    "open_grassland_breeze": [
-        PICNIC_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
     ],
     "greenhouse_terrace_reflection": [
         FLOWER_FANTASY_OUTFIT,
@@ -332,80 +371,12 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
     ],
-    "garden_tea_table": [
-        FLOWER_FANTASY_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        BAKERY_CAFE_OUTFIT,
-        FAIRY_FLOATING_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
     "flower_bridal_garden": [
         BRIDAL_OUTFIT,
         FLOWER_FANTASY_OUTFIT,
         FAIRY_FLOATING_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "dessert_shop_mirror_glance": [
-        BAKERY_CAFE_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "city_date_window_stroll": [
-        SOFT_DATE_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        LIGHT_BLUE_WINDBREAKER_OUTFIT,
-        ASYMMETRIC_WHITE_T_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
-        *LOW_PROBABILITY_BRAND_THEMES,
-    ],
-    "park_date_riverside_breeze": [
-        SOFT_DATE_OUTFIT,
-        PICNIC_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        LIGHT_BLUE_WINDBREAKER_OUTFIT,
-        ASYMMETRIC_WHITE_T_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-        *LOW_PROBABILITY_BRAND_THEMES,
-    ],
-    "pastel_room_sweets": [
-        SUNNY_STUDIO_OUTFIT,
-        BAKERY_CAFE_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "cafe_maid_afternoon": [
-        CAFE_MAID_OUTFIT,
-        BAKERY_CAFE_OUTFIT,
-    ],
-    "sunny_seaside_train": [
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        PICNIC_OUTFIT,
-        LIGHT_NOVEL_OUTFIT,
-        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        LIGHT_BLUE_WINDBREAKER_OUTFIT,
-        ASYMMETRIC_WHITE_T_OUTFIT,
-        FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
-        *LOW_PROBABILITY_BRAND_THEMES,
     ],
     "white_room_floor_window": [
         *CLOTHING_THEMES,
@@ -424,13 +395,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         FAIRY_FLOATING_OUTFIT,
         FLOWER_FANTASY_OUTFIT,
         BRIDAL_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        BRIGHT_RED_SHORT_DRESS_OUTFIT,
-    ],
-    "guofeng_decorative_kv": [
-        REFERENCE_OUTFIT,
-        FLOWER_FANTASY_OUTFIT,
-        SOFT_DATE_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
     ],
@@ -473,16 +437,104 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
-    "black_stockings_tea_room": [
+    "transparent_acrylic_display_wall": [
+        PURE_WHITE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
+    ],
+    "frosted_glass_partition_scene": [
+        SOFT_DATE_OUTFIT,
+        PURE_WHITE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
+    ],
+    "mirror_fragment_corner": [
+        SUNNY_STUDIO_OUTFIT,
+        PURE_WHITE_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
+    ],
+    "oversized_product_display_set": [
+        SUNNY_STUDIO_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        PURE_WHITE_OUTFIT,
+        "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
+        "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
+        "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
+    ],
+    "monochrome_color_block_studio": [
+        PURE_WHITE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
+        "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+    ],
+    "fashion_catalog_fitting_room": [
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
+        "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+        "layered striped knit top, wrap skirt, preppy luxury styling",
+    ],
+    "photo_shoot_prop_room_after_wrap": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        PICNIC_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear",
+    ],
+    "ribbon_installation_space": [
+        FLOWER_FANTASY_OUTFIT,
+        FAIRY_FLOATING_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
+        "lace dress, ribbon waist, airy garden fairy style",
+        "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+    ],
+    "hanging_fabric_light_tunnel": [
+        SOFT_DATE_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        ASYMMETRIC_WHITE_T_OUTFIT,
+        LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
+        "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+        "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+    ],
+    "open_suitcase_outfit_scene": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        YOUNG_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        "ribbed tank top, satin shorts, minimal summer lounge style",
+        "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+        "cropped graphic T-shirt, portrait chest print, high-waisted jogger pants, casual streetwear",
+    ],
+    "hosiery_tea_room": [
         DARK_HOSIERY_OUTFIT,
     ],
 }
 LOW_PROBABILITY_SCENE_ONLY_CLOTHING_BY_PLAN = {
     "trend_mirror_studio": LOW_PROBABILITY_BRAND_THEMES,
-    "city_date_window_stroll": LOW_PROBABILITY_BRAND_THEMES,
-    "park_date_riverside_breeze": LOW_PROBABILITY_BRAND_THEMES,
-    "sunny_seaside_train": LOW_PROBABILITY_BRAND_THEMES,
 }
+REGULAR_CLOTHING_THEMES = [
+    theme for theme in CLOTHING_THEMES
+    if theme not in STRONG_SCENE_ONLY_CLOTHING_THEMES
+]
+SAFE_DAILY_CLOTHING_POOL = REGULAR_CLOTHING_THEMES[:]
 SCENE_CATEGORY_OPTIONS = [
     {
         "key": "studio_closeup",
@@ -495,26 +547,32 @@ SCENE_CATEGORY_OPTIONS = [
         ],
     },
     {
-        "key": "cafe_bakery_sweets",
-        "label": "咖啡 / 烘焙 / 甜品",
-        "plan_names": [
-            "afternoon_cafe_negative_space",
-            "small_bakery_morning",
-            "bookstore_cafe_corner",
-            "dessert_shop_mirror_glance",
-            "pastel_room_sweets",
-        ],
-    },
-    {
         "key": "daily_outdoor_date",
         "label": "日常 / 户外 / 约会",
         "plan_names": [
             "balcony_breeze_half_out_frame",
-            "summer_courtyard_soft_shadow",
-            "open_grassland_breeze",
-            "city_date_window_stroll",
-            "park_date_riverside_breeze",
-            "sunny_seaside_train",
+            "rooftop_laundry_sunset",
+            "aquarium_glass_tunnel",
+            "gallery_white_wall_exhibit",
+            "beach_wind_open_sand",
+            "record_shop_listening_corner",
+            "planetarium_star_dome",
+        ],
+    },
+    {
+        "key": "mechanism_installation",
+        "label": "机制型场景 / 装置构图",
+        "plan_names": [
+            "transparent_acrylic_display_wall",
+            "frosted_glass_partition_scene",
+            "mirror_fragment_corner",
+            "oversized_product_display_set",
+            "monochrome_color_block_studio",
+            "fashion_catalog_fitting_room",
+            "photo_shoot_prop_room_after_wrap",
+            "ribbon_installation_space",
+            "hanging_fabric_light_tunnel",
+            "open_suitcase_outfit_scene",
         ],
     },
     {
@@ -523,7 +581,6 @@ SCENE_CATEGORY_OPTIONS = [
         "plan_names": [
             "greenhouse_terrace_reflection",
             "flower_sea_afternoon",
-            "garden_tea_table",
             "flower_bridal_garden",
             "zero_gravity_fairy_room",
             "zero_gravity_fairy_garden",
@@ -538,7 +595,6 @@ SCENE_CATEGORY_OPTIONS = [
         "key": "perspective_camera_composition",
         "label": "透视 / 镜头构图 / 室内空间",
         "plan_names": [
-            "library_corner_sunset_silence",
             "overhead_deep_perspective_space",
             "low_angle_foreground_depth",
             "far_shot_readable_room",
@@ -548,9 +604,11 @@ SCENE_CATEGORY_OPTIONS = [
     {
         "key": "special_limited",
         "label": "特殊限定",
-        "plan_names": ["cafe_maid_afternoon", "black_stockings_tea_room", "guofeng_decorative_kv"],
+        "plan_names": ["hosiery_tea_room"],
     },
 ]
+LAST_RUNTIME_GIT_PULL_AT = 0.0
+LAST_RUNTIME_CONFIG_REVISION = art_options.RUNTIME_CONFIG_REVISION
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
 SHARED_FEEDBACK_DIR = Path(r"\\vmware-host\Shared Folders\develop\feedback")
@@ -596,6 +654,166 @@ def prepare_upload_files(reference_files: list[str] | None = None) -> list[str]:
         shutil.copy2(source_path, target)
         upload_files.append(str(target))
     return upload_files
+
+
+def recompute_clothing_theme_pools() -> None:
+    LOW_PROBABILITY_BRAND_THEMES[:] = [
+        theme for theme in CLOTHING_THEMES
+        if "Adidas-inspired" in theme or "Yonex-inspired" in theme
+    ]
+    STRONG_SCENE_ONLY_CLOTHING_THEMES[:] = [
+        theme for theme in CLOTHING_THEMES
+        if theme in LOW_PROBABILITY_BRAND_THEMES
+        or "black hosiery" in theme
+        or "maid remix" in theme
+        or "bridal dress" in theme
+    ]
+    REGULAR_CLOTHING_THEMES[:] = [
+        theme for theme in CLOTHING_THEMES
+        if theme not in STRONG_SCENE_ONLY_CLOTHING_THEMES
+    ]
+    SAFE_DAILY_CLOTHING_POOL[:] = REGULAR_CLOTHING_THEMES[:]
+
+
+def validate_runtime_batch_config(config_data: dict) -> None:
+    plan_names = {plan["name"] for plan in ART_DIRECTION_PLANS}
+    clothing_themes = set(CLOTHING_THEMES)
+    compatibility = config_data.get("plan_compatible_clothing_themes", PLAN_COMPATIBLE_CLOTHING_THEMES)
+    categories = config_data.get("scene_category_options", SCENE_CATEGORY_OPTIONS)
+    if not isinstance(compatibility, dict):
+        raise ValueError("plan_compatible_clothing_themes must be an object")
+    unknown_plans = sorted(set(compatibility) - plan_names)
+    if unknown_plans:
+        raise ValueError(f"plan_compatible_clothing_themes references unknown plans: {unknown_plans}")
+    for plan_name, themes in compatibility.items():
+        if not isinstance(themes, list):
+            raise ValueError(f"compatible clothing for {plan_name} must be a list")
+        unknown_themes = sorted(theme for theme in themes if theme not in clothing_themes)
+        if unknown_themes:
+            raise ValueError(f"compatible clothing for {plan_name} references unknown themes: {unknown_themes}")
+    if not isinstance(categories, list):
+        raise ValueError("scene_category_options must be a list")
+    seen_keys: set[str] = set()
+    for option in categories:
+        if not isinstance(option, dict):
+            raise ValueError("scene_category_options contains a non-object item")
+        key = option.get("key")
+        label = option.get("label")
+        plan_list = option.get("plan_names")
+        if not isinstance(key, str) or not key.strip():
+            raise ValueError("scene category missing key")
+        if key in seen_keys:
+            raise ValueError(f"duplicate scene category key: {key}")
+        seen_keys.add(key)
+        if not isinstance(label, str) or not label.strip():
+            raise ValueError(f"scene category {key} missing label")
+        if not isinstance(plan_list, list) or not plan_list:
+            raise ValueError(f"scene category {key} must contain plan_names")
+        unknown_category_plans = sorted(name for name in plan_list if name not in plan_names)
+        if unknown_category_plans:
+            raise ValueError(f"scene category {key} references unknown plans: {unknown_category_plans}")
+
+
+def apply_runtime_batch_config(config_data: dict) -> str:
+    previous_config = {
+        "revision": art_options.RUNTIME_CONFIG_REVISION,
+        "outfit_directions": list(CLOTHING_THEMES),
+        "art_direction_plans": [dict(plan) for plan in ART_DIRECTION_PLANS],
+        "plan_weight_overrides": dict(art_options.NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES),
+    }
+    previous_compatibility = {
+        plan_name: list(themes)
+        for plan_name, themes in PLAN_COMPATIBLE_CLOTHING_THEMES.items()
+    }
+    previous_categories = [dict(option) for option in SCENE_CATEGORY_OPTIONS]
+    try:
+        revision = art_options.apply_runtime_art_direction_config(config_data)
+        validate_runtime_batch_config(config_data)
+        compatibility = config_data.get("plan_compatible_clothing_themes", PLAN_COMPATIBLE_CLOTHING_THEMES)
+        categories = config_data.get("scene_category_options", SCENE_CATEGORY_OPTIONS)
+        PLAN_COMPATIBLE_CLOTHING_THEMES.clear()
+        PLAN_COMPATIBLE_CLOTHING_THEMES.update({
+            str(plan_name): list(themes)
+            for plan_name, themes in compatibility.items()
+        })
+        SCENE_CATEGORY_OPTIONS[:] = [dict(option) for option in categories]
+        recompute_clothing_theme_pools()
+        return revision
+    except Exception:
+        art_options.apply_runtime_art_direction_config(previous_config)
+        PLAN_COMPATIBLE_CLOTHING_THEMES.clear()
+        PLAN_COMPATIBLE_CLOTHING_THEMES.update(previous_compatibility)
+        SCENE_CATEGORY_OPTIONS[:] = previous_categories
+        recompute_clothing_theme_pools()
+        raise
+
+
+def load_runtime_batch_config(path: Path = RUNTIME_CONFIG_PATH) -> str:
+    data = json.loads(path.read_text(encoding="utf-8-sig"))
+    return apply_runtime_batch_config(data)
+
+
+def git_current_revision() -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", "--short", "HEAD"],
+        cwd=PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        check=False,
+        timeout=10,
+    )
+    if result.returncode != 0:
+        return "unknown"
+    return result.stdout.strip() or "unknown"
+
+
+def git_pull_runtime_config() -> bool:
+    result = subprocess.run(
+        ["git", "pull", "--ff-only"],
+        cwd=PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        check=False,
+        timeout=RUNTIME_GIT_PULL_TIMEOUT_SECONDS,
+    )
+    if result.returncode == 0:
+        detail = (result.stdout or "").strip().splitlines()
+        print(f"Runtime git pull ok: {detail[-1] if detail else 'up to date'}", flush=True)
+        return True
+    stderr = (result.stderr or result.stdout or "").strip()
+    print(f"Runtime git pull skipped/failed; keeping current config: {stderr}", flush=True)
+    return False
+
+
+def maybe_refresh_runtime_config(
+    *,
+    force: bool = False,
+    enable_git_pull: bool = True,
+) -> str:
+    global LAST_RUNTIME_GIT_PULL_AT, LAST_RUNTIME_CONFIG_REVISION
+    now = time.monotonic()
+    due = force or (now - LAST_RUNTIME_GIT_PULL_AT >= RUNTIME_GIT_PULL_INTERVAL_SECONDS)
+    if not due:
+        return LAST_RUNTIME_CONFIG_REVISION
+    LAST_RUNTIME_GIT_PULL_AT = now
+    if enable_git_pull:
+        git_pull_runtime_config()
+    if not RUNTIME_CONFIG_PATH.exists():
+        print(f"Runtime config not found; using Python defaults: {RUNTIME_CONFIG_PATH}", flush=True)
+        LAST_RUNTIME_CONFIG_REVISION = art_options.RUNTIME_CONFIG_REVISION
+        return LAST_RUNTIME_CONFIG_REVISION
+    try:
+        revision = load_runtime_batch_config(RUNTIME_CONFIG_PATH)
+    except Exception as exc:
+        print(f"Runtime config reload failed; keeping previous valid config: {exc}", flush=True)
+        return LAST_RUNTIME_CONFIG_REVISION
+    LAST_RUNTIME_CONFIG_REVISION = revision
+    print(
+        f"Runtime config active: revision={revision}, git={git_current_revision()}, "
+        f"plans={len(ART_DIRECTION_PLANS)}, clothing={len(CLOTHING_THEMES)}",
+        flush=True,
+    )
+    return LAST_RUNTIME_CONFIG_REVISION
 
 
 def choose_character_group() -> tuple[str, list[str]]:
@@ -871,6 +1089,8 @@ def upload_reference_images(reference_files: list[str]) -> list[str]:
 
     print("Upload: focusing file-name input", flush=True)
     click_slow(*COORDS["file_name_input"], after=0.3)
+    pyautogui.hotkey("ctrl", "a")
+    time.sleep(0.15)
     print(f"Upload: selecting reference files: {file_list}", flush=True)
     paste_text(file_list)
     pyautogui.press("enter")
@@ -972,6 +1192,9 @@ def log_prompt(
     required_identity_tokens: list[str] | None = None,
     viewer_distance: str = "",
     shot_scale: dict | None = None,
+    outfit_prompt: str | None = None,
+    black_hosiery_applied: bool = False,
+    config_revision: str = "",
 ) -> str:
     run_id = dt.datetime.now().strftime(f"%Y%m%d_%H%M%S_run_{run_number:03d}")
     append_jsonl(
@@ -984,11 +1207,14 @@ def log_prompt(
             "reference_files": reference_files,
             "uploaded_files": uploaded_files,
             "theme": theme,
+            "outfit_prompt": outfit_prompt or theme,
+            "black_hosiery_applied": black_hosiery_applied,
             "scene": scene,
             "pose": pose,
             "lighting": lighting,
             "mood": mood,
             "prompt_template": prompt_name,
+            "config_revision": config_revision,
             "propagation_profile": propagation_profile,
             "required_identity_tokens": required_identity_tokens or [],
             "viewer_distance": viewer_distance,
@@ -1434,6 +1660,115 @@ def prompt_scene_category_selection() -> list[str] | None:
         return selected_plan_names
 
 
+def _parse_clothing_selection(raw_choice: str) -> list[str] | None:
+    choice = raw_choice.strip()
+    if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
+        return None
+
+    normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
+    tokens = [token.strip() for token in normalized.split(",") if token.strip()]
+
+    selected: list[str] = []
+    theme_lookup = {theme.lower(): theme for theme in CLOTHING_THEMES}
+    for token in tokens:
+        themes: list[str] = []
+        if "-" in token:
+            start_text, end_text = token.split("-", 1)
+            if not start_text.isdigit() or not end_text.isdigit():
+                raise ValueError(f"Unknown clothing selection: {token!r}")
+            start_index = int(start_text)
+            end_index = int(end_text)
+            if start_index > end_index:
+                raise ValueError(f"Clothing range must be ascending: {token!r}")
+            if start_index < 1 or end_index > len(CLOTHING_THEMES):
+                raise ValueError(f"Clothing range out of bounds: {token!r}")
+            themes = CLOTHING_THEMES[start_index - 1:end_index]
+        elif token.isdigit():
+            index = int(token)
+            if 1 <= index <= len(CLOTHING_THEMES):
+                themes = [CLOTHING_THEMES[index - 1]]
+        else:
+            theme = theme_lookup.get(token.lower())
+            if theme:
+                themes = [theme]
+
+        if not themes:
+            raise ValueError(f"Unknown clothing selection: {token!r}")
+        for theme in themes:
+            if theme not in selected:
+                selected.append(theme)
+
+    if not selected:
+        raise ValueError("No valid clothing themes selected")
+    return selected
+
+
+def prompt_clothing_selection() -> list[str] | None:
+    print("=" * 72, flush=True)
+    print("选择本次服装主题:", flush=True)
+    for index, theme in enumerate(CLOTHING_THEMES, start=1):
+        label = CLOTHING_DISPLAY_LABELS.get(theme, theme)
+        print(f"  {index}. {label} - {theme}", flush=True)
+    print("输入示例: 回车/r/random = 按场景自动随机; 1 = 第1套; 10-15 = 第10到15套; 3,8,12 = 只在这些服装里随机。", flush=True)
+
+    while True:
+        raw_choice = input("服装选择: ")
+        try:
+            selected_themes = _parse_clothing_selection(raw_choice)
+        except ValueError as exc:
+            print(f"{exc}. 请重新输入。", flush=True)
+            continue
+
+        if selected_themes is None:
+            print("服装模式: 按场景自动兼容随机。", flush=True)
+        else:
+            selected_labels = [
+                CLOTHING_DISPLAY_LABELS.get(theme, theme)
+                for theme in selected_themes
+            ]
+            print(f"服装模式: 固定选择池 -> {'、'.join(selected_labels)}", flush=True)
+        return selected_themes
+
+
+def choose_fixed_clothing_theme(
+    fixed_clothing_themes: list[str],
+    batch_used_themes: set[str] | None = None,
+) -> str:
+    batch_used_themes = batch_used_themes or set()
+    available = [
+        theme for theme in fixed_clothing_themes
+        if theme not in batch_used_themes
+    ]
+    return random.choice(available or fixed_clothing_themes)
+
+
+def black_hosiery_chance_for_character(character_name: str) -> float:
+    return CHARACTER_BLACK_HOSIERY_CHANCES.get(character_name, DEFAULT_BLACK_HOSIERY_CHANCE)
+
+
+def can_add_black_hosiery(theme: str, art_plan: dict) -> bool:
+    if theme == DARK_HOSIERY_OUTFIT:
+        return True
+    if art_plan.get("name") in BLACK_HOSIERY_INCOMPATIBLE_PLAN_NAMES:
+        return False
+    text = f"{theme} {' '.join(art_plan.get('tags', []))}".lower()
+    return not any(keyword in text for keyword in BLACK_HOSIERY_INCOMPATIBLE_KEYWORDS)
+
+
+def outfit_with_optional_black_hosiery(
+    character_name: str,
+    theme: str,
+    art_plan: dict,
+) -> tuple[str, bool]:
+    if theme == DARK_HOSIERY_OUTFIT:
+        return theme, True
+    if not can_add_black_hosiery(theme, art_plan):
+        return theme, False
+    if random.random() >= black_hosiery_chance_for_character(character_name):
+        return theme, False
+    return f"{theme}; {BLACK_HOSIERY_ACCENT}", True
+
+
 def mark_character_batch_used(selected_characters: list[str], used_characters: list[str]) -> None:
     for character_name in selected_characters:
         if character_name in CHARACTER_SEQUENCE and character_name not in used_characters:
@@ -1598,11 +1933,16 @@ def shutdown_now() -> None:
 
 
 def main() -> None:
+    global RUNTIME_GIT_PULL_INTERVAL_SECONDS
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE = 0.15
 
-    if "--calibrate" in sys.argv or not CALIBRATION_FILE.exists():
+    calibration_only = "--calibrate" in sys.argv
+    if calibration_only or not CALIBRATION_FILE.exists():
         calibrate_coords()
+        if calibration_only:
+            print("Calibration completed. Exiting without starting character or scene selection.")
+            return
     else:
         load_calibrated_coords()
 
@@ -1612,6 +1952,13 @@ def main() -> None:
         schedule_safety_shutdown()
     else:
         print("Safety shutdown is disabled for this feedback run. Use --shutdown to enable it.")
+    enable_runtime_git_pull = "--no-runtime-git-pull" not in sys.argv
+    if "--runtime-pull-interval" in sys.argv:
+        interval_index = sys.argv.index("--runtime-pull-interval")
+        if interval_index + 1 >= len(sys.argv):
+            raise ValueError("--runtime-pull-interval requires seconds")
+        RUNTIME_GIT_PULL_INTERVAL_SECONDS = max(30, int(sys.argv[interval_index + 1]))
+    maybe_refresh_runtime_config(force=True, enable_git_pull=enable_runtime_git_pull)
     time.sleep(3)
 
     print(
@@ -1633,6 +1980,7 @@ def main() -> None:
     used_character_batch = load_used_character_batch()
     fixed_character_selection = prompt_character_selection()
     fixed_scene_plan_names = prompt_scene_category_selection()
+    fixed_clothing_themes = prompt_clothing_selection()
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
         flush=True,
@@ -1664,11 +2012,17 @@ def main() -> None:
             + ("full random" if fixed_scene_plan_names is None else f"{len(fixed_scene_plan_names)} allowed art plans"),
             flush=True,
         )
+        print(
+            "Clothing mode: "
+            + ("automatic compatible random" if fixed_clothing_themes is None else f"{len(fixed_clothing_themes)} fixed clothing themes"),
+            flush=True,
+        )
 
         for character_name in selected_characters:
             if run_number > total_runs:
                 break
 
+            config_revision = maybe_refresh_runtime_config(enable_git_pull=enable_runtime_git_pull)
             reference_files = reference_files_for_character(character_name)
             art_plan, action_style = choose_character_plan_and_action(
                 character_name,
@@ -1683,15 +2037,26 @@ def main() -> None:
             required_identity_tokens = required_identity_tokens_for(character_name)
             viewer_distance = viewer_distance_for(character_name)
             shot_scale = choose_shot_scale(recent_visual_tags, art_plan)
-            theme = choose_compatible_clothing_theme(
-                character_name,
-                art_plan,
-                used_by_character,
-                batch_used_themes,
-            )
+            if fixed_clothing_themes is None:
+                theme = choose_compatible_clothing_theme(
+                    character_name,
+                    art_plan,
+                    used_by_character,
+                    batch_used_themes,
+                )
+            else:
+                theme = choose_fixed_clothing_theme(
+                    fixed_clothing_themes,
+                    batch_used_themes,
+                )
             plan_name = art_plan["name"]
             batch_used_themes.add(theme)
             batch_used_plans.add(plan_name)
+            outfit_prompt, black_hosiery_applied = outfit_with_optional_black_hosiery(
+                character_name,
+                theme,
+                art_plan,
+            )
             scene = art_plan["spatial_structure"]
             pose = action_style["body_silhouette"]
             lighting = art_plan["lighting_behavior"]
@@ -1703,7 +2068,7 @@ def main() -> None:
                 character_name,
                 art_plan,
                 action_style,
-                outfit_direction=theme,
+                outfit_direction=outfit_prompt,
                 shot_scale=shot_scale,
             )
 
@@ -1713,11 +2078,13 @@ def main() -> None:
             print(f"[{run_number:02d}] character: {character_name}", flush=True)
             print(f"[{run_number:02d}] references: {reference_files}", flush=True)
             print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
+            print(f"[{run_number:02d}] black hosiery accent: {'yes' if black_hosiery_applied else 'no'}", flush=True)
             print(f"[{run_number:02d}] scene: {scene}", flush=True)
             print(f"[{run_number:02d}] pose: {pose}", flush=True)
             print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
             print(f"[{run_number:02d}] mood: {mood}", flush=True)
             print(f"[{run_number:02d}] art plan: {plan_name}", flush=True)
+            print(f"[{run_number:02d}] config revision: {config_revision}", flush=True)
             print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
             print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
             print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
@@ -1747,6 +2114,9 @@ def main() -> None:
                 required_identity_tokens,
                 viewer_distance,
                 shot_scale,
+                outfit_prompt,
+                black_hosiery_applied,
+                config_revision,
             )
             send_prompt(prompt)
             take_screenshot(f"run_{run_number:02d}_sent")

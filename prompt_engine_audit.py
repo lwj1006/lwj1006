@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 import art_direction_options as options
+import chatgpt_batch_pyautogui as batch
 from art_direction_templates import prompt_for_art_direction
 
 
@@ -57,6 +58,10 @@ def main() -> int:
     options_path = Path(options.__file__).resolve()
     print(f"options file: {options_path}")
     print(f"project dir: {PROJECT_DIR}")
+    runtime_config_path = PROJECT_DIR / "config" / "runtime_art_direction.json"
+    if runtime_config_path.exists():
+        batch.load_runtime_batch_config(runtime_config_path)
+        print(f"runtime config: {runtime_config_path} revision={options.RUNTIME_CONFIG_REVISION}")
 
     if options_path.parent != PROJECT_DIR:
         fail("art_direction_options.py is imported from the wrong directory", failures)
