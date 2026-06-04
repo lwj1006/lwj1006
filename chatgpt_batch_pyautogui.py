@@ -22,6 +22,7 @@ from art_direction_options import (
     ART_DIRECTION_PLANS,
     OUTFIT_DIRECTIONS as CLOTHING_THEMES,
     choose_compatible_action_style,
+    choose_composition_plan,
     choose_shot_scale,
     choose_plan_and_action,
     collect_cooldown_tags,
@@ -187,8 +188,14 @@ BLACK_HOSIERY_INCOMPATIBLE_KEYWORDS = (
     "athletic",
     "running",
     "sport",
+    "sporty",
     "yoga",
     "pilates",
+    "shorts",
+    "denim shorts",
+    "jogger pants",
+    "no stocking emphasis",
+    "sailor",
     "barefoot",
 )
 BLACK_HOSIERY_INCOMPATIBLE_PLAN_NAMES = {
@@ -209,9 +216,17 @@ LOW_PROBABILITY_BRAND_THEMES = [
     theme for theme in CLOTHING_THEMES
     if "Adidas-inspired" in theme or "Yonex-inspired" in theme
 ]
+CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
+    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
+    "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights",
+}
+SCENE_ONLY_COMPATIBLE_OUTFIT_CHANCE = 0.18
 STRONG_SCENE_ONLY_CLOTHING_THEMES = [
     theme for theme in CLOTHING_THEMES
     if theme in LOW_PROBABILITY_BRAND_THEMES
+    or theme in CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES
     or "black hosiery" in theme
     or "maid remix" in theme
     or "bridal dress" in theme
@@ -299,6 +314,14 @@ CLOTHING_DISPLAY_LABELS = {
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear": "吊带包臀小礼裙",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style": "短款运动上衣",
     "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette": "针织挂脖连衣裙",
+    "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit": "露肩宽松针织上衣",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels": "不对称拖尾迷你礼服",
+    "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots": "挂脖荷叶边高低摆礼服",
+    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights": "复古运动啦啦队套装",
+    "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers": "挂脖飘带上衣长裤",
+    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
+    "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
 }
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
@@ -379,10 +402,10 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
     ],
     "white_room_floor_window": [
-        *CLOTHING_THEMES,
+        *REGULAR_CLOTHING_THEMES,
     ],
     "pure_white_character_focus": [
-        *CLOTHING_THEMES,
+        *REGULAR_CLOTHING_THEMES,
     ],
     "zero_gravity_fairy_room": [
         FAIRY_FLOATING_OUTFIT,
@@ -436,6 +459,13 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
+    ],
+    "beach_wind_open_sand": [
+        "striped swim top under loose cover shirt, clean beach resort style",
+        "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
+        "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+        WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
+        SOFT_DATE_OUTFIT,
     ],
     "transparent_acrylic_display_wall": [
         PURE_WHITE_OUTFIT,
@@ -664,6 +694,7 @@ def recompute_clothing_theme_pools() -> None:
     STRONG_SCENE_ONLY_CLOTHING_THEMES[:] = [
         theme for theme in CLOTHING_THEMES
         if theme in LOW_PROBABILITY_BRAND_THEMES
+        or theme in CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES
         or "black hosiery" in theme
         or "maid remix" in theme
         or "bridal dress" in theme
@@ -1195,6 +1226,7 @@ def log_prompt(
     outfit_prompt: str | None = None,
     black_hosiery_applied: bool = False,
     config_revision: str = "",
+    composition_plan: dict | None = None,
 ) -> str:
     run_id = dt.datetime.now().strftime(f"%Y%m%d_%H%M%S_run_{run_number:03d}")
     append_jsonl(
@@ -1219,6 +1251,7 @@ def log_prompt(
             "required_identity_tokens": required_identity_tokens or [],
             "viewer_distance": viewer_distance,
             "shot_scale": shot_scale,
+            "composition_plan": composition_plan or {},
             "prompt": prompt,
         },
     )
@@ -1356,6 +1389,12 @@ def choose_compatible_clothing_theme(
         and random.random() < LOW_PROBABILITY_SCENE_OUTFIT_CHANCE
     ):
         return random.choice(low_probability_scene_themes)
+
+    if (
+        scene_only_compatible
+        and random.random() < SCENE_ONLY_COMPATIBLE_OUTFIT_CHANCE
+    ):
+        return random.choice(scene_only_compatible)
 
     used_themes = used_by_character.setdefault(character_name, [])
     valid_used = [
@@ -2057,6 +2096,12 @@ def main() -> None:
                 theme,
                 art_plan,
             )
+            composition_plan = choose_composition_plan(
+                recent_visual_tags,
+                art_plan,
+                action_style,
+                outfit_prompt,
+            )
             scene = art_plan["spatial_structure"]
             pose = action_style["body_silhouette"]
             lighting = art_plan["lighting_behavior"]
@@ -2070,6 +2115,7 @@ def main() -> None:
                 action_style,
                 outfit_direction=outfit_prompt,
                 shot_scale=shot_scale,
+                composition_plan=composition_plan,
             )
 
             print("=" * 72, flush=True)
@@ -2089,6 +2135,7 @@ def main() -> None:
             print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
             print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
             print(f"[{run_number:02d}] shot scale: {shot_scale['name']} -> {shot_scale['description']}", flush=True)
+            print(f"[{run_number:02d}] composition plan: {composition_plan['name']}", flush=True)
             print(f"[{run_number:02d}] required identity tokens: {required_identity_tokens}", flush=True)
             print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
             print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
@@ -2117,6 +2164,7 @@ def main() -> None:
                 outfit_prompt,
                 black_hosiery_applied,
                 config_revision,
+                composition_plan,
             )
             send_prompt(prompt)
             take_screenshot(f"run_{run_number:02d}_sent")

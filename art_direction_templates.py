@@ -3,6 +3,7 @@ from art_direction_options import (
     choose_art_plan,
     choose_visual_design,
     choose_shot_scale,
+    choose_composition_plan,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -81,6 +82,7 @@ def prompt_for_art_direction(
     visual_design=None,
     outfit_direction=None,
     shot_scale=None,
+    composition_plan=None,
 ):
     if art_plan is None:
         art_plan = choose_art_plan(character_name, recent_tags)
@@ -90,6 +92,13 @@ def prompt_for_art_direction(
         visual_design = choose_visual_design(recent_tags, art_plan)
     if shot_scale is None:
         shot_scale = choose_shot_scale(recent_tags, art_plan)
+    if composition_plan is None:
+        composition_plan = choose_composition_plan(
+            recent_tags,
+            art_plan,
+            action_style,
+            outfit_direction or art_plan.get("outfit_direction"),
+        )
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
@@ -111,6 +120,10 @@ def prompt_for_art_direction(
         SCENE_FIRST_RULES,
         f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 90)} {_clip_text(art_plan.get('spatial_structure', ''), 95)}",
         f"Visual focus: {_clip_text(art_plan.get('visual_device', ''), 80)}",
+        f"Scene guardrail: {_clip_text(art_plan.get('extra_prompt_guardrail', ''), 120)}" if art_plan.get("extra_prompt_guardrail") else "",
+        f"Composition layer: {_clip_text(composition_plan.get('composition', ''), 90)} {_clip_text(composition_plan.get('camera', ''), 70)}",
+        f"Foreground/light: {_clip_text(composition_plan.get('foreground', ''), 70)} {_clip_text(composition_plan.get('lighting', ''), 65)}",
+        f"Composition guardrail: {_clip_text(composition_plan.get('guardrail', ''), 100)}",
         f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 65)} {_clip_text(visual_design.get('layering', ''), 75)}",
         f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 70)}",
         READING_ORDER_RULES,

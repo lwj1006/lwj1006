@@ -67,6 +67,14 @@ OUTFIT_DIRECTIONS = [
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
     "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+    "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
+    "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
+    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, optional sheer polka-dot tights",
+    "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
+    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim",
+    "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
 ]
 
 
@@ -746,6 +754,230 @@ ACTION_STYLES.append(
 )
 
 
+COMPOSITION_PLANS = [
+    {
+        "name": "clean_three_quarter_character_frame",
+        "composition": "clean three-quarter character framing with readable face, outfit silhouette, hands, and a simple scene rhythm",
+        "camera": "waist-up to knee-up, natural eye-level or slight side angle",
+        "pose": "use the selected action naturally without adding extra props or contradictory body direction",
+        "foreground": "minimal foreground depth only when the scene already provides it",
+        "lighting": "balanced soft light that supports the selected plan",
+        "guardrail": "do not add new scene objects, flowers, curtains, hats, bouquets, or bed/floor requirements",
+        "tags": ["generic_composition", "readable_subject", "medium_shot"],
+    },
+    {
+        "name": "readable_environment_medium_shot",
+        "composition": "medium shot where character remains the focus while the selected environment stays clearly readable",
+        "camera": "medium distance, straight or gentle three-quarter angle, no extreme lens effect",
+        "pose": "follow the selected action with relaxed hands and a stable body line",
+        "foreground": "scene edges may frame the image lightly without covering the face",
+        "lighting": "use the plan lighting as the main atmosphere",
+        "guardrail": "avoid forcing close-up, flower foreground, curtain fabric, bouquet, or large dress shape",
+        "tags": ["generic_composition", "environment_readable", "medium_shot"],
+    },
+    {
+        "name": "foreground_edge_depth_frame",
+        "composition": "simple foreground edge or object plane creates depth while keeping face and outfit fully visible",
+        "camera": "medium-close to medium-wide, foreground edge near camera, character in readable midground",
+        "pose": "selected action remains unchanged, body direction stays coherent with the plan",
+        "foreground": "use only objects already natural to the scene as a soft edge frame",
+        "lighting": "foreground is slightly softer than the character, no heavy obstruction",
+        "guardrail": "avoid adding flowers, curtains, bouquet, hat, bed, or unrelated props unless already specified by the plan",
+        "tags": ["generic_composition", "foreground_depth", "readable_subject"],
+    },
+    {
+        "name": "clean_full_body_silhouette_frame",
+        "composition": "readable full-body or near full-body framing with a clean outfit silhouette and stable negative space",
+        "camera": "medium-wide, natural perspective, character large enough for identity details",
+        "pose": "selected action remains clear from head to feet",
+        "foreground": "no required foreground object",
+        "lighting": "plan lighting stays primary and does not hide hands or face",
+        "guardrail": "avoid adding special props, flowers, curtains, hats, bouquet, or bed/floor requirements",
+        "tags": ["generic_composition", "full_body", "readable_subject"],
+    },
+    {
+        "name": "slight_side_medium_close_frame",
+        "composition": "medium-close three-quarter side framing with face, shoulders, hairstyle, and upper outfit readable",
+        "camera": "waist-up, slight side angle, natural portrait distance",
+        "pose": "selected action is simplified into a calm readable body line",
+        "foreground": "no forced foreground obstruction",
+        "lighting": "soft face light with clean eye highlights",
+        "guardrail": "avoid new props, extra hand gestures, or close-up cropping that contradicts the selected action",
+        "tags": ["generic_composition", "medium_shot", "side_glance"],
+    },
+    {
+        "name": "layered_scene_corner_frame",
+        "composition": "character placed near one side of the frame with existing scene architecture or furniture creating depth",
+        "camera": "medium shot, slight diagonal angle, background remains readable",
+        "pose": "selected action stays coherent with the scene direction",
+        "foreground": "only natural scene edges may appear as soft framing",
+        "lighting": "depth layers separated by the plan lighting",
+        "guardrail": "avoid adding unrelated flowers, curtains, bouquet, hat, or oversized dress volume",
+        "tags": ["generic_composition", "foreground_depth", "environment_readable"],
+    },
+    {
+        "name": "vertical_poster_readable_pose",
+        "composition": "vertical poster-like frame with character centered or slightly off-center, identity and outfit shape readable",
+        "camera": "knee-up to full-body, straight perspective",
+        "pose": "selected action is kept simple and balanced",
+        "foreground": "clean frame edges without heavy occlusion",
+        "lighting": "clear face light, controlled background contrast",
+        "guardrail": "avoid turning the scene into a graphic poster unless the plan already asks for it",
+        "tags": ["generic_composition", "readable_subject", "poster_balance"],
+    },
+    {
+        "name": "calm_motion_midground_frame",
+        "composition": "midground character caught in a quiet motion beat with the selected environment still visible",
+        "camera": "medium distance, natural lens, body direction follows the selected action",
+        "pose": "walking, turning, pausing, or adjusting motion stays modest and readable",
+        "foreground": "no mandatory foreground prop",
+        "lighting": "plan lighting supports motion without blur or anatomy confusion",
+        "guardrail": "avoid adding a second action, bouquet, curtain, hat, or floor pose requirement",
+        "tags": ["generic_composition", "story_pose", "environment_readable"],
+    },
+    {
+        "name": "quiet_close_upper_body_frame",
+        "composition": "clean upper-body portrait with enough outfit context and no extra required prop",
+        "camera": "bust-up to waist-up, eye-level, shallow but not extreme depth of field",
+        "pose": "selected action is reduced to a natural expression and relaxed hands if visible",
+        "foreground": "hair or scene edge may frame lightly without covering eyes",
+        "lighting": "soft readable face light",
+        "guardrail": "avoid hand-on-cheek, hat shadow, flowers, curtains, or lingerie-like cropping unless selected elsewhere",
+        "tags": ["generic_composition", "close_character", "eye_contact"],
+    },
+    {
+        "name": "wide_readable_scene_balance",
+        "composition": "wider scene-balanced frame where the character remains readable and the environment explains the plan",
+        "camera": "medium-wide, character not tiny, stable horizon or room geometry",
+        "pose": "selected action stays clear from silhouette alone",
+        "foreground": "optional natural scene edge only",
+        "lighting": "environment light frames the character without overexposure",
+        "guardrail": "avoid empty landscape, forced flower field, curtain, bouquet, hat, or bed/floor pose",
+        "tags": ["generic_composition", "wide_shot", "environment_readable"],
+    },
+    {
+        "name": "foreground_flower_occlusion_closeup",
+        "composition": "close-up or bust-up with large blurred flowers covering 20-50 percent of the foreground while eyes, face shape, and hair silhouette remain readable",
+        "camera": "close distance, shallow depth of field, eye-level or slight low angle",
+        "pose": "looking up at flowers, gentle side glance, or quiet direct gaze through gaps",
+        "foreground": "large soft flower branches create airy obstruction, never a dense flower wall",
+        "lighting": "soft sunlight, clear eye highlights, clean pastel air",
+        "guardrail": "flowers must not fully cover the face; avoid flat centered ID-photo composition",
+        "tags": ["foreground_occlusion", "flower", "close_character", "soft_light"],
+    },
+    {
+        "name": "low_angle_under_flower_canopy",
+        "composition": "low-angle portrait below flower branches, flower canopy above the head with bright open background behind",
+        "camera": "low foreground height, close-up to half-body, slight upward perspective without facial distortion",
+        "pose": "chin slightly raised, eyes looking upper-left or upper-right, hair lightly moved by wind",
+        "foreground": "flower canopy crosses the upper frame as a soft ceiling",
+        "lighting": "sunlight touches eyes and cheek, sky negative space stays clean",
+        "guardrail": "avoid extreme nostril angle, distorted face, tiny character, or stiff front pose",
+        "tags": ["low_camera", "flower", "breeze", "negative_space"],
+    },
+    {
+        "name": "flower_frame_clear_face",
+        "composition": "face framed by flowers or soft foreground objects around image edges, facial features remain the clean focal point",
+        "camera": "bust-up to waist-up, medium-close distance, shallow depth of field",
+        "pose": "soft direct gaze or slight smile, hands hidden or naturally near flowers",
+        "foreground": "petals cross edges but leave eyes and face open",
+        "lighting": "bright spring-like color and clean facial focus",
+        "guardrail": "avoid symmetrical wreath feeling, idol-poster overload, or petals blocking the face",
+        "tags": ["foreground_occlusion", "flower", "eye_contact", "close_character"],
+    },
+    {
+        "name": "cinematic_wide_flower_side_view",
+        "composition": "cinematic horizontal crop, character off-center, large flower foreground and sky negative space, side or three-quarter side body",
+        "camera": "medium to long landscape framing, character readable but not tiny",
+        "pose": "looking upward or sideways, hair flowing backward, calm spring moment",
+        "foreground": "wide soft flower blur crosses lower or side frame",
+        "lighting": "clean sky light and airy color separation",
+        "guardrail": "avoid empty landscape where the character becomes unreadable",
+        "tags": ["wide_shot", "flower", "negative_space", "side_glance"],
+    },
+    {
+        "name": "diagonal_window_light_haze",
+        "composition": "seated character near window, strong sunlight beam cuts diagonally through visible mist or dust",
+        "camera": "knee-up or three-quarter body, slight side angle beside the light beam",
+        "pose": "quiet seated pose, side glance, hands resting naturally",
+        "foreground": "haze and window-shadow shapes create layered depth",
+        "lighting": "diagonal beam, soft face highlight, carved window shadow",
+        "guardrail": "avoid horror smoke, dirty abandoned room, face lost in darkness, or fog covering body",
+        "tags": ["window_frame", "light_cut", "haze", "seated"],
+    },
+    {
+        "name": "over_shoulder_bouquet_turn",
+        "composition": "shoulder-away posture with head turned back in profile or three-quarter view, flowers crossing the back line",
+        "camera": "waist-up to thigh-up, close enough to read face and hair ornaments",
+        "pose": "gentle over-shoulder glance, arms naturally behind or holding a simple flower shape",
+        "foreground": "bouquet or floral edge stays behind the body line",
+        "lighting": "elegant shoulder line with clear face light",
+        "guardrail": "avoid full back with no face, forced seductive pose, broken arms, or bouquet blocking body shape",
+        "tags": ["back_view", "looking_back", "flower", "story_pose"],
+    },
+    {
+        "name": "floor_diagonal_negative_space",
+        "composition": "character seated diagonally on floor, body forms a long slanted line across lower frame with designed empty area around",
+        "camera": "medium-wide shot, slightly high or eye-level, full body or near full body",
+        "pose": "one hand supporting body on floor, legs extended or folded naturally, head turned toward light",
+        "foreground": "floor reflection or shadow becomes a graphic field",
+        "lighting": "strong light patch or shadow shape organizes empty space",
+        "guardrail": "avoid twisted torso, unclear floor hand, or random empty area without design",
+        "tags": ["negative_space", "floor", "seated", "full_body"],
+    },
+    {
+        "name": "gray_studio_large_dress_shape",
+        "composition": "minimal studio with large dress fabric spreading across lower frame as the main graphic mass",
+        "camera": "full-body or three-quarter body, clean fashion portrait with negative space",
+        "pose": "seated compact pose, clean crouch, or standing while lightly lifting skirt edge",
+        "foreground": "fabric volume forms a sculptural lower-frame shape",
+        "lighting": "clean studio light with crisp dress volume and soft face highlight",
+        "guardrail": "avoid wedding ceremony mood, bouquet overload, noisy background, or dress swallowing anatomy",
+        "tags": ["studio", "dress_volume", "negative_space", "fashion"],
+    },
+    {
+        "name": "hat_brim_shadow_closeup",
+        "composition": "tight close-up with wide hat brim or veil shadow crossing upper face while eyes remain visible",
+        "camera": "tight bust-up, frontal or slight side angle, shallow depth",
+        "pose": "quiet direct gaze, fingers near cheek or chin, shoulders relaxed",
+        "foreground": "hat brim shadow and hair strands create layered close framing",
+        "lighting": "soft skin light and darker eye shadow contrast without losing readability",
+        "guardrail": "avoid hand covering mouth, face too dark, or oversexual finger pose",
+        "tags": ["close_character", "shadow", "fashion", "eye_contact"],
+    },
+    {
+        "name": "high_angle_bed_or_floor_frame",
+        "composition": "camera looks down from above, character lying or leaning on bed or floor, surrounding objects form a soft frame",
+        "camera": "high angle, medium-wide shot, face looking up toward camera",
+        "pose": "lying on stomach, elbows on pillow, or leaning on bedding with relaxed hands",
+        "foreground": "bedding shapes, magazines, or small props frame without clutter",
+        "lighting": "cozy soft room light with clear face and eyes",
+        "guardrail": "avoid erotic bedroom framing, top-down map view, tiny character, or messy prop overload",
+        "tags": ["high_camera", "bed_floor", "soft_light", "story_props"],
+    },
+    {
+        "name": "lace_curtain_backlight_occlusion",
+        "composition": "character partly behind lace curtain or sheer fabric, translucent foreground over body while face remains readable",
+        "camera": "medium shot to close-up, side or three-quarter angle",
+        "pose": "standing beside curtain, holding fabric lightly, looking down or toward window",
+        "foreground": "glowing lace texture and sheer fabric create soft obstruction",
+        "lighting": "warm backlight through lace, soft silhouette, clear facial features",
+        "guardrail": "avoid blown-out face, explicit lingerie framing, excessive exposure, or unreadable features",
+        "tags": ["lace", "curtain", "backlight", "foreground_occlusion"],
+    },
+    {
+        "name": "soft_hand_on_cheek_close_face",
+        "composition": "intimate close-up where face fills most of frame and one hand supports cheek naturally",
+        "camera": "close-up, shallow depth of field, warm soft light",
+        "pose": "cheek resting on hand, direct quiet gaze or slightly lowered eyelids",
+        "foreground": "loose hair strands cross face lightly without hiding eyes",
+        "lighting": "warm soft light, glossy eyes, delicate skin texture",
+        "guardrail": "avoid plastic doll face, oversexual expression, wet-shirt look, or cleavage crop",
+        "tags": ["close_character", "hand_on_cheek", "soft_light", "eye_contact"],
+    },
+]
+
+
 VISUAL_MOTIF_SYSTEMS = [
     {
         "name": "moonlit_toy_window_kv",
@@ -1056,6 +1288,19 @@ def _validate_runtime_plans(plans, outfit_directions, plan_weight_overrides):
             raise ValueError(f"plan_weight_overrides[{name!r}] must be a positive number")
 
 
+def _validate_runtime_composition_plans(composition_plans):
+    if not isinstance(composition_plans, list) or not composition_plans:
+        raise ValueError("composition_plans must be a non-empty list")
+    required_fields = {"name", "composition", "camera", "pose", "foreground", "lighting", "guardrail", "tags"}
+    for plan in composition_plans:
+        missing = sorted(required_fields - set(plan))
+        if missing:
+            raise ValueError(f"composition plan {plan.get('name', '<unknown>')} missing fields: {missing}")
+        if not isinstance(plan.get("tags"), list):
+            raise ValueError(f"composition plan {plan['name']} tags must be a list")
+    _require_unique_names(composition_plans, "composition_plans")
+
+
 def _rebuild_art_direction_runtime_state(plan_weight_overrides=None):
     PLAN_TAGS.clear()
     PLAN_TAGS.update({
@@ -1086,6 +1331,7 @@ def apply_runtime_art_direction_config(config_data):
         raise ValueError("runtime config must be a JSON object")
     outfit_directions = config_data.get("outfit_directions", OUTFIT_DIRECTIONS)
     plans = config_data.get("art_direction_plans", ART_DIRECTION_PLANS)
+    composition_plans = config_data.get("composition_plans", COMPOSITION_PLANS)
     plan_weight_overrides = config_data.get("plan_weight_overrides", NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES)
     if not isinstance(plan_weight_overrides, dict):
         raise ValueError("plan_weight_overrides must be an object")
@@ -1094,8 +1340,10 @@ def apply_runtime_art_direction_config(config_data):
         for name, weight in plan_weight_overrides.items()
     }
     _validate_runtime_plans(plans, outfit_directions, plan_weight_overrides)
+    _validate_runtime_composition_plans(composition_plans)
     OUTFIT_DIRECTIONS[:] = list(outfit_directions)
     ART_DIRECTION_PLANS[:] = [dict(plan) for plan in plans]
+    COMPOSITION_PLANS[:] = [dict(plan) for plan in composition_plans]
     NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES.clear()
     NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES.update(plan_weight_overrides)
     _rebuild_art_direction_runtime_state(plan_weight_overrides)
@@ -1192,6 +1440,19 @@ def choose_compatible_action_style(character_name=None, recent_tags=None, plan=N
         action for action in action_pool
         if action["name"] not in excluded
     ]
+    plan_name = (plan or {}).get("name", "")
+    stretch_allowed_plans = {
+        "trend_mirror_studio",
+        "white_room_floor_window",
+        "pure_white_character_focus",
+        "monochrome_color_block_studio",
+        "low_angle_foreground_depth",
+    }
+    if plan_name not in stretch_allowed_plans:
+        action_pool = [
+            action for action in action_pool
+            if action["name"] != "post_workout_stretch"
+        ]
     return dict(_weighted_choice(action_pool, recent_tags=recent_tags, weights=weights))
 
 
@@ -1199,6 +1460,295 @@ def choose_plan_and_action(character_name, recent_tags=None):
     plan = choose_art_plan(character_name, recent_tags)
     action = choose_compatible_action_style(character_name, recent_tags, plan)
     return plan, action
+
+
+FLOWER_COMPOSITION_NAMES = {
+    "foreground_flower_occlusion_closeup",
+    "low_angle_under_flower_canopy",
+    "flower_frame_clear_face",
+    "cinematic_wide_flower_side_view",
+    "over_shoulder_bouquet_turn",
+}
+
+FLOWER_COMPOSITION_TAGS = {
+    "flower",
+    "garden",
+    "greenhouse",
+    "bridal",
+    "fairy_tale",
+    "zero_gravity",
+    "white_room",
+    "pure_white",
+    "ribbon",
+    "installation",
+}
+
+FLOWER_COMPOSITION_PLANS = {
+    "flower_sea_afternoon",
+    "flower_bridal_garden",
+    "greenhouse_terrace_reflection",
+    "zero_gravity_fairy_room",
+    "zero_gravity_fairy_garden",
+    "ribbon_installation_space",
+    "white_room_floor_window",
+    "pure_white_character_focus",
+}
+
+INTERIOR_COMPOSITION_NAMES = {
+    "diagonal_window_light_haze",
+    "floor_diagonal_negative_space",
+    "high_angle_bed_or_floor_frame",
+    "lace_curtain_backlight_occlusion",
+}
+
+INTERIOR_COMPOSITION_TAGS = {
+    "white_room",
+    "pure_white",
+    "window_frame",
+    "indoor",
+    "interior",
+    "room",
+    "studio",
+    "fashion",
+    "tea_room",
+    "foreground_occlusion",
+    "layered_space",
+    "deep_perspective",
+    "large_space",
+}
+
+INTERIOR_COMPOSITION_PLANS = {
+    "white_room_floor_window",
+    "pure_white_character_focus",
+    "transparent_acrylic_display_wall",
+    "frosted_glass_partition_scene",
+    "mirror_fragment_corner",
+    "monochrome_color_block_studio",
+    "fashion_catalog_fitting_room",
+    "clean_archive_storage_room",
+    "photo_shoot_prop_room_after_wrap",
+    "costume_preparation_room",
+    "giant_cushion_showroom",
+    "paper_sculpture_room",
+    "ribbon_installation_space",
+    "open_suitcase_outfit_scene",
+    "hanging_fabric_light_tunnel",
+    "table_edge_magazine_occlusion",
+    "hosiery_tea_room",
+    "telephoto_layered_interior",
+    "far_shot_readable_room",
+    "low_angle_foreground_depth",
+    "overhead_deep_perspective_space",
+}
+
+COMPOSITION_BASE_WEIGHTS = {
+    "clean_three_quarter_character_frame": 0.85,
+    "readable_environment_medium_shot": 0.85,
+    "foreground_edge_depth_frame": 0.8,
+    "clean_full_body_silhouette_frame": 0.85,
+    "slight_side_medium_close_frame": 0.8,
+    "layered_scene_corner_frame": 0.8,
+    "vertical_poster_readable_pose": 0.75,
+    "calm_motion_midground_frame": 0.8,
+    "quiet_close_upper_body_frame": 0.75,
+    "wide_readable_scene_balance": 0.75,
+    "floor_diagonal_negative_space": 0.8,
+    "high_angle_bed_or_floor_frame": 0.6,
+    "diagonal_window_light_haze": 0.25,
+    "foreground_flower_occlusion_closeup": 0.45,
+    "low_angle_under_flower_canopy": 0.4,
+    "flower_frame_clear_face": 0.45,
+    "cinematic_wide_flower_side_view": 0.35,
+    "over_shoulder_bouquet_turn": 0.35,
+    "lace_curtain_backlight_occlusion": 0.18,
+    "gray_studio_large_dress_shape": 0.25,
+    "hat_brim_shadow_closeup": 0.25,
+    "soft_hand_on_cheek_close_face": 0.35,
+}
+
+GENERIC_COMPOSITION_NAMES = {
+    "clean_three_quarter_character_frame",
+    "readable_environment_medium_shot",
+    "foreground_edge_depth_frame",
+    "clean_full_body_silhouette_frame",
+    "slight_side_medium_close_frame",
+    "layered_scene_corner_frame",
+    "vertical_poster_readable_pose",
+    "calm_motion_midground_frame",
+    "quiet_close_upper_body_frame",
+    "wide_readable_scene_balance",
+}
+
+COMPOSITION_ALLOWED_ACTIONS = {
+    "floor_diagonal_negative_space": {
+        "seated_quiet_pose",
+        "clean_crouching_pose",
+        "camera_looking_down",
+    },
+    "high_angle_bed_or_floor_frame": {
+        "seated_quiet_pose",
+        "unaware_candid_moment",
+        "camera_looking_down",
+    },
+    "over_shoulder_bouquet_turn": {
+        "looking_back_from_edge",
+        "gentle_side_glance",
+        "quiet_prop_after_moment",
+    },
+    "soft_hand_on_cheek_close_face": {
+        "steady_eye_contact",
+        "gentle_side_glance",
+        "seated_quiet_pose",
+    },
+    "hat_brim_shadow_closeup": {
+        "steady_eye_contact",
+        "gentle_side_glance",
+    },
+    "gray_studio_large_dress_shape": {
+        "seated_quiet_pose",
+        "steady_eye_contact",
+        "adjusting_hair",
+        "clean_crouching_pose",
+    },
+}
+
+COMPOSITION_ALLOWED_OUTFIT_KEYWORDS = {
+    "gray_studio_large_dress_shape": [
+        "dress",
+        "gown",
+        "bridal",
+        "skirt",
+        "ruffle",
+        "chiffon",
+        "lace",
+        "slip dress",
+        "halter dress",
+    ],
+    "hat_brim_shadow_closeup": [
+        "hat",
+        "veil",
+        "sundress",
+        "bridal",
+        "resort",
+        "beach",
+    ],
+    "over_shoulder_bouquet_turn": [
+        "bouquet",
+        "bridal",
+        "gown",
+        "dress",
+        "flower",
+        "lace",
+        "fairy",
+    ],
+}
+
+COMPOSITION_FORBIDDEN_PLAN_TAGS = {
+    "foreground_flower_occlusion_closeup": {"pure_white", "poster", "industrial", "aquarium", "beach"},
+    "low_angle_under_flower_canopy": {"pure_white", "poster", "industrial", "aquarium", "beach"},
+    "flower_frame_clear_face": {"pure_white", "poster", "industrial", "aquarium", "beach"},
+    "cinematic_wide_flower_side_view": {"pure_white", "poster", "industrial", "aquarium", "beach"},
+    "lace_curtain_backlight_occlusion": {"outdoor", "rooftop", "beach", "aquarium", "pure_white"},
+}
+
+SCENE_COMPOSITION_ALLOWLIST = {
+    "beach_wind_open_sand": {
+        *GENERIC_COMPOSITION_NAMES,
+        "floor_diagonal_negative_space",
+        "hat_brim_shadow_closeup",
+        "soft_hand_on_cheek_close_face",
+    },
+    "aquarium_glass_tunnel": {
+        *GENERIC_COMPOSITION_NAMES,
+        "floor_diagonal_negative_space",
+        "hat_brim_shadow_closeup",
+        "soft_hand_on_cheek_close_face",
+    },
+    "record_shop_listening_corner": {
+        *GENERIC_COMPOSITION_NAMES,
+        "hat_brim_shadow_closeup",
+        "soft_hand_on_cheek_close_face",
+    },
+    "planetarium_star_dome": {
+        *GENERIC_COMPOSITION_NAMES,
+        "hat_brim_shadow_closeup",
+        "soft_hand_on_cheek_close_face",
+        "floor_diagonal_negative_space",
+    },
+    "gallery_white_wall_exhibit": {
+        *GENERIC_COMPOSITION_NAMES,
+        "gray_studio_large_dress_shape",
+        "hat_brim_shadow_closeup",
+        "soft_hand_on_cheek_close_face",
+    },
+}
+
+
+def _composition_plan_compatible(composition_plan, plan, action=None, outfit_direction=None):
+    plan = plan or {}
+    plan_name = plan.get("name", "")
+    composition_name = composition_plan.get("name", "")
+    plan_tags = _tags_of(plan)
+    action_name = (action or {}).get("name", "")
+    outfit_text = (outfit_direction or plan.get("outfit_direction", "")).lower()
+
+    if plan_tags & COMPOSITION_FORBIDDEN_PLAN_TAGS.get(composition_name, set()):
+        return False
+
+    allowed_actions = COMPOSITION_ALLOWED_ACTIONS.get(composition_name)
+    if allowed_actions and action_name and action_name not in allowed_actions:
+        return False
+
+    allowed_outfit_keywords = COMPOSITION_ALLOWED_OUTFIT_KEYWORDS.get(composition_name)
+    if allowed_outfit_keywords and outfit_text:
+        if not any(keyword in outfit_text for keyword in allowed_outfit_keywords):
+            return False
+
+    if plan_name in SCENE_COMPOSITION_ALLOWLIST:
+        return composition_name in SCENE_COMPOSITION_ALLOWLIST[plan_name]
+
+    if composition_name in FLOWER_COMPOSITION_NAMES:
+        return (
+            plan_name in FLOWER_COMPOSITION_PLANS
+            or bool(plan_tags & FLOWER_COMPOSITION_TAGS)
+        )
+
+    if composition_name in INTERIOR_COMPOSITION_NAMES:
+        return (
+            plan_name in INTERIOR_COMPOSITION_PLANS
+            or bool(plan_tags & INTERIOR_COMPOSITION_TAGS)
+        )
+
+    return True
+
+
+def choose_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
+    recent = _recent_set(recent_tags)
+    plan_tags = _tags_of(plan or {})
+    composition_pool = [
+        composition_plan for composition_plan in COMPOSITION_PLANS
+        if _composition_plan_compatible(composition_plan, plan, action, outfit_direction)
+    ]
+    if not composition_pool:
+        composition_pool = [
+            composition_plan for composition_plan in COMPOSITION_PLANS
+            if composition_plan.get("name") in GENERIC_COMPOSITION_NAMES
+        ] or COMPOSITION_PLANS
+    scored = []
+    for composition_plan in composition_pool:
+        tags = _tags_of(composition_plan)
+        score = COMPOSITION_BASE_WEIGHTS.get(composition_plan.get("name", ""), 0.4)
+        score += len(tags & plan_tags) * 0.25
+        score -= len(tags & recent) * 0.35
+        scored.append((max(score, 0.15), composition_plan))
+    total = sum(score for score, _ in scored)
+    pick = random.random() * total
+    cursor = 0.0
+    for score, composition_plan in scored:
+        cursor += score
+        if pick <= cursor:
+            return dict(composition_plan)
+    return dict(scored[-1][1])
 
 
 def collect_cooldown_tags(plan, action):

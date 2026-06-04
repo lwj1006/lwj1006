@@ -70,6 +70,12 @@ def simulate_runtime_results(total_runs: int) -> list[dict]:
             theme,
             art_plan,
         )
+        composition_plan = options.choose_composition_plan(
+            recent_visual_tags,
+            art_plan,
+            action_style,
+            outfit_prompt,
+        )
         batch_used_themes.add(theme)
         batch_used_plans.add(art_plan["name"])
         recent_visual_tags.extend(options.collect_cooldown_tags(art_plan, action_style))
@@ -81,6 +87,7 @@ def simulate_runtime_results(total_runs: int) -> list[dict]:
                 "category": category_lookup.get(art_plan["name"], ""),
                 "plan": art_plan["name"],
                 "action": action_style["name"],
+                "composition": composition_plan["name"],
                 "clothing_label": label_for(theme),
                 "clothing_theme": theme,
                 "plan_default_outfit": art_plan["outfit_direction"],
@@ -107,17 +114,18 @@ def write_runtime_sample_reports(results: list[dict]) -> None:
         f"- Clothing themes: {len(batch.CLOTHING_THEMES)}",
         f"- Results: {len(results)}",
         "",
-        "| # | Character | Category | Plan | Action | Clothing | Black hosiery | Scene-only |",
-        "|---:|---|---|---|---|---|---|---|",
+        "| # | Character | Category | Plan | Action | Composition | Clothing | Black hosiery | Scene-only |",
+        "|---:|---|---|---|---|---|---|---|---|",
     ]
     for item in results:
         sample_lines.append(
-            "| {run} | {character} | {category} | `{plan}` | `{action}` | {clothing_label} | {hosiery} | {scene_only} |".format(
+            "| {run} | {character} | {category} | `{plan}` | `{action}` | `{composition}` | {clothing_label} | {hosiery} | {scene_only} |".format(
                 run=item["run"],
                 character=item["character"],
                 category=item["category"],
                 plan=item["plan"],
                 action=item["action"],
+                composition=item["composition"],
                 clothing_label=item["clothing_label"],
                 hosiery="yes" if item["black_hosiery_applied"] else "no",
                 scene_only="yes" if item["scene_only_clothing"] else "no",
@@ -132,6 +140,7 @@ def write_runtime_sample_reports(results: list[dict]) -> None:
         return lines
 
     plan_counts = Counter(item["plan"] for item in results)
+    composition_counts = Counter(item["composition"] for item in results)
     clothing_counts = Counter(item["clothing_label"] for item in results)
     character_counts = Counter(item["character"] for item in results)
     hosiery_counts = Counter()
@@ -158,6 +167,10 @@ def write_runtime_sample_reports(results: list[dict]) -> None:
         "## Clothing Distribution",
         "",
         *table(clothing_counts, len(results), 60),
+        "",
+        "## Composition Distribution",
+        "",
+        *table(composition_counts, len(results), 30),
         "",
         "## Character Distribution",
         "",
@@ -278,16 +291,17 @@ def main() -> None:
     sample_lines = [
         "# Random 100 Plan / Clothing Results",
         "",
-        "| # | Character | Plan | Action | Clothing | Scene-only |",
-        "|---:|---|---|---|---|---|",
+        "| # | Character | Plan | Action | Composition | Clothing | Scene-only |",
+        "|---:|---|---|---|---|---|---|",
     ]
     for item in results:
         sample_lines.append(
-            "| {run} | {character} | `{plan}` | `{action}` | {clothing_label} | {scene_only} |".format(
+            "| {run} | {character} | `{plan}` | `{action}` | `{composition}` | {clothing_label} | {scene_only} |".format(
                 run=item["run"],
                 character=item["character"],
                 plan=item["plan"],
                 action=item["action"],
+                composition=item["composition"],
                 clothing_label=item["clothing_label"],
                 scene_only="yes" if item["scene_only_clothing"] else "no",
             )
