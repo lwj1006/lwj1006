@@ -351,6 +351,76 @@ CLOTHING_DISPLAY_LABELS = {
     "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit": "荷叶边蛋糕裙",
     "oversized zip hoodie, casual rehearsal outerwear": "宽松拉链卫衣",
 }
+
+CLOTHING_CATEGORY_OPTIONS = [
+    {
+        "key": "daily_city",
+        "label": "日常 / 城市 / 休闲",
+        "keywords": [
+            "casual", "streetwear", "city", "light-novel", "youthful", "picnic",
+            "bakery", "cafe casual", "graphic T-shirt", "denim", "wide-leg pants",
+            "zip hoodie", "hoodie", "windbreaker",
+        ],
+    },
+    {
+        "key": "school_preppy_date",
+        "label": "学院 / 清爽约会",
+        "keywords": [
+            "academy", "sailor", "pinafore", "pleated", "preppy", "tennis",
+            "date outfit", "sundress", "A-line skirt", "loafers",
+        ],
+    },
+    {
+        "key": "sport_event",
+        "label": "运动 / 活动 / 赛车",
+        "keywords": [
+            "athletic", "sport", "fitness", "racing", "motorsport", "cheer",
+            "rehearsal", "performance event", "running shorts", "yoga", "pilates",
+        ],
+    },
+    {
+        "key": "knit_home_soft",
+        "label": "针织 / 居家 / 软外套",
+        "keywords": [
+            "knit", "ribbed", "cardigan", "sweater", "lounge", "homewear",
+            "outerwear", "pullover", "zip hoodie",
+        ],
+    },
+    {
+        "key": "sweet_skirt_dress",
+        "label": "短裙 / 甜美 / 碎花",
+        "keywords": [
+            "mini skirt", "mini dress", "floral", "ruffled", "chiffon", "fairy",
+            "lace dress", "lace mini", "lolita", "cottagecore", "romantic",
+            "tiered", "gingham",
+        ],
+    },
+    {
+        "key": "stage_formal_fantasy",
+        "label": "礼服 / 舞台 / 幻想",
+        "keywords": [
+            "gown", "bridal", "evening", "corset", "stage", "idol", "fantasy",
+            "asymmetric", "trailing", "princess", "performance", "structured bustier",
+        ],
+    },
+    {
+        "key": "resort_beach_vacation",
+        "label": "度假 / 沙滩 / 泳装",
+        "keywords": [
+            "beach", "resort", "vacation", "swim", "swimsuit", "cover shirt",
+            "satin lounge slip", "summer sport mood",
+        ],
+    },
+    {
+        "key": "special_low_frequency",
+        "label": "特殊 / 黑丝 / 品牌低概率",
+        "keywords": [
+            "black hosiery", "Adidas-inspired", "Yonex-inspired", "maid remix",
+            "bridal dress", "race queen", "motorsport sponsor",
+        ],
+    },
+]
+
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
     YOUNG_CASUAL_OUTFIT,
@@ -1681,7 +1751,7 @@ def prompt_scene_category_selection() -> list[str] | None:
 
 def _parse_clothing_selection(raw_choice: str) -> list[str] | None:
     choice = raw_choice.strip()
-    if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
+    if not choice or choice.lower() in {"r", "random", "all-random", "全随机", "随机"}:
         return None
 
     normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
@@ -1691,7 +1761,11 @@ def _parse_clothing_selection(raw_choice: str) -> list[str] | None:
     theme_lookup = {theme.lower(): theme for theme in CLOTHING_THEMES}
     for token in tokens:
         themes: list[str] = []
-        if "-" in token:
+        if token.startswith("#") and token[1:].isdigit():
+            index = int(token[1:])
+            if 1 <= index <= len(CLOTHING_THEMES):
+                themes = [CLOTHING_THEMES[index - 1]]
+        elif "-" in token:
             start_text, end_text = token.split("-", 1)
             if not start_text.isdigit() or not end_text.isdigit():
                 raise ValueError(f"Unknown clothing selection: {token!r}")
@@ -1699,16 +1773,20 @@ def _parse_clothing_selection(raw_choice: str) -> list[str] | None:
             end_index = int(end_text)
             if start_index > end_index:
                 raise ValueError(f"Clothing range must be ascending: {token!r}")
-            if start_index < 1 or end_index > len(CLOTHING_THEMES):
-                raise ValueError(f"Clothing range out of bounds: {token!r}")
-            themes = CLOTHING_THEMES[start_index - 1:end_index]
+            if start_index < 1 or end_index > len(CLOTHING_CATEGORY_OPTIONS):
+                raise ValueError(f"Clothing category range out of bounds: {token!r}")
+            for option in CLOTHING_CATEGORY_OPTIONS[start_index - 1:end_index]:
+                themes.extend(_themes_for_clothing_category(option))
         elif token.isdigit():
             index = int(token)
-            if 1 <= index <= len(CLOTHING_THEMES):
-                themes = [CLOTHING_THEMES[index - 1]]
+            if 1 <= index <= len(CLOTHING_CATEGORY_OPTIONS):
+                themes = _themes_for_clothing_category(CLOTHING_CATEGORY_OPTIONS[index - 1])
         else:
+            option = _clothing_category_by_key_or_label(token)
+            if option:
+                themes = _themes_for_clothing_category(option)
             theme = theme_lookup.get(token.lower())
-            if theme:
+            if theme and not themes:
                 themes = [theme]
 
         if not themes:
@@ -1722,16 +1800,44 @@ def _parse_clothing_selection(raw_choice: str) -> list[str] | None:
     return selected
 
 
-def prompt_clothing_selection() -> list[str] | None:
-    print("=" * 72, flush=True)
-    print("选择本次服装主题:", flush=True)
+def _themes_for_clothing_category(option: dict) -> list[str]:
+    keywords = [str(keyword).lower() for keyword in option.get("keywords", [])]
+    themes = [
+        theme for theme in CLOTHING_THEMES
+        if any(keyword in theme.lower() for keyword in keywords)
+    ]
+    return themes
+
+
+def _clothing_category_by_key_or_label(value: str) -> dict | None:
+    target = value.strip().lower()
+    for option in CLOTHING_CATEGORY_OPTIONS:
+        if target in {option["key"].lower(), option["label"].lower()}:
+            return option
+    return None
+
+
+def _print_full_clothing_list() -> None:
+    print("-" * 72, flush=True)
+    print("完整服装列表:", flush=True)
     for index, theme in enumerate(CLOTHING_THEMES, start=1):
         label = CLOTHING_DISPLAY_LABELS.get(theme, theme)
-        print(f"  {index}. {label} - {theme}", flush=True)
-    print("输入示例: 回车/r/random = 按场景自动随机; 1 = 第1套; 10-15 = 第10到15套; 3,8,12 = 只在这些服装里随机。", flush=True)
+        print(f"  #{index}. {label} - {theme}", flush=True)
+
+
+def prompt_clothing_selection() -> list[str] | None:
+    print("=" * 72, flush=True)
+    print("选择本次服装大类:", flush=True)
+    for index, option in enumerate(CLOTHING_CATEGORY_OPTIONS, start=1):
+        themes = _themes_for_clothing_category(option)
+        print(f"  {index}. {option['label']} ({len(themes)}套) - {option['key']}", flush=True)
+    print("输入示例: 回车/r/random = 按场景自动随机; 1 = 第1类随机; 1,3 = 多个大类随机; 2-4 = 第2到4类; list = 展开完整服装; #12 = 完整列表第12套。", flush=True)
 
     while True:
         raw_choice = input("服装选择: ")
+        if raw_choice.strip().lower() in {"list", "ls", "列表", "完整", "all", "全部"}:
+            _print_full_clothing_list()
+            continue
         try:
             selected_themes = _parse_clothing_selection(raw_choice)
         except ValueError as exc:
