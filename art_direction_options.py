@@ -487,15 +487,15 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "pure_white_character_focus",
-        "graphic_concept": "pure-white social portrait key visual; bright white negative space, close face readability, and clean mobile-photo freshness become the main design",
-        "spatial_structure": "mostly white or high-key background with a large blank margin; optional soft flower, hair, or shoulder foreground stays minimal and does not create a real location",
-        "visual_device": "face, eyes, hair silhouette, and simple hand shape are the first read; a small flower or hair strand can create soft foreground intimacy without clutter",
-        "body_silhouette": "close-up, bust-up, or half-body portrait; character fills the image vertically, hands simple near cheek, flower, hair, collar, or frame edge",
+        "graphic_concept": "pure-white photographer-led character key visual; bright white negative space, clean crop choice, and crisp identity readability become the main design",
+        "spatial_structure": "mostly white or high-key background with intentional blank margin; it may support close-up, half-body, knee-up, or full-body framing without turning into a real location",
+        "visual_device": "photographer composition decides the crop: face and eyes stay sharp, hair silhouette and outfit line remain readable, and any small flower, hair strand, or white edge stays minimal",
+        "body_silhouette": "close-up, bust-up, waist-up, knee-up, or full-body portrait; standing, light lean, or gentle walking balance is preferred, with clean hands and clean feet when visible",
         "outfit_direction": "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
         "material_language": "white negative space, soft skin-like light, clean flowing cloth, small flower or petal accent, soft hair, tiny accessories",
         "color_strategy": "white dominates the layout; outfit colorway is model-chosen and cohesive, while character hair and eyes remain the identity memory point",
         "lighting_behavior": "bright natural high-key daylight, clear catchlights, soft overexposed white margins, face and eyes stay crisp",
-        "tags": ["pure_white", "studio", "minimal", "close_character", "portrait", "white_negative_space"],
+        "tags": ["pure_white", "studio", "minimal", "portrait", "white_negative_space", "photographer_frame"],
     },
     {
         "name": "zero_gravity_fairy_room",
@@ -780,7 +780,7 @@ COMPOSITION_PLANS = [
         "pose": "quiet direct gaze, soft smile, side glance, or one hand near cheek, hair, collar, or a small flower; keep fingers simple",
         "foreground": "optional tiny flower, petal, hair strand, or soft white edge near camera, never covering both eyes",
         "lighting": "bright natural daylight, white overexposed margins, clean catchlights, soft facial shadow",
-        "guardrail": "avoid full-body framing, seated floor pose, big props, busy room, UI text, or cleavage crop",
+        "guardrail": "avoid busy room, distant figure, seated floor pose, big props, UI text, or cleavage crop",
         "tags": ["pure_white_special", "close_character", "white_negative_space", "portrait", "soft_light"],
     },
     {
@@ -792,6 +792,26 @@ COMPOSITION_PLANS = [
         "lighting": "sunny high-key fill, clean white background, gentle skin and hair highlights",
         "guardrail": "avoid full-length fashion pose, distant figure, cluttered background, bed/floor pose, or large handheld objects",
         "tags": ["pure_white_special", "close_character", "half_body", "white_negative_space", "soft_light"],
+    },
+    {
+        "name": "pure_white_three_quarter_editorial_frame",
+        "composition": "high-key white-space three-quarter portrait; character is cropped from head to thigh or knee with deliberate white margin, clean outfit silhouette, and no separate scene narrative",
+        "camera": "thigh-up or knee-up, eye-level or slightly high portrait angle, natural front three-quarter or gentle side angle, face remains crisp",
+        "pose": "standing, light lean, or slow walking balance; arms and hands stay simple and outside clothing, with no forced prop action",
+        "foreground": "optional white edge, hair strand, tiny flower, or soft shoulder-level blur may frame one side without hiding identity details",
+        "lighting": "bright high-key daylight with controlled overexposed white space, soft skin shadow, and clear hair-edge separation",
+        "guardrail": "avoid garden, flower field, product set, installation props, bed/floor pose, low-angle distortion, or distant full-scene framing",
+        "tags": ["pure_white_special", "three_quarter", "white_negative_space", "photographer_frame", "soft_light"],
+    },
+    {
+        "name": "pure_white_full_body_editorial_frame",
+        "composition": "full-body high-key fashion portrait on a clean white field; the whole silhouette is readable head-to-toe while generous white margin creates a photographer's negative-space layout",
+        "camera": "full-body to near full-body, stable eye-level or gentle high angle, character large enough that face, hair silhouette, outfit shape, hands, and visible feet stay readable",
+        "pose": "natural standing, small step, or relaxed weight shift; feet are clear when included and arms do not cross awkwardly into clothing",
+        "foreground": "none or a very soft white edge only; keep the body contour and outfit line unobstructed",
+        "lighting": "clean white studio daylight, subtle floor contact shadow if needed, bright but not washed out on face or clothes",
+        "guardrail": "avoid tiny subject, extreme wide shot, low-angle legs-first framing, floor sitting, bed pose, clutter, flowers as a location, or unrelated props",
+        "tags": ["pure_white_special", "full_body", "white_negative_space", "photographer_frame", "soft_light"],
     },
     {
         "name": "wide_readable_scene_balance",
@@ -1034,14 +1054,12 @@ def choose_shot_scale(recent_tags=None, plan=None):
     plan_tags = _tags_of(plan or {})
     options = [dict(option) for option in SHOT_SCALE_OPTIONS]
     if "pure_white" in plan_tags:
-        options = [
-            option for option in options
-            if option["name"] in {"waist_up_half_body", "bust_close", "close_upper_body"}
-        ]
         bonuses = {
-            "waist_up_half_body": 0.9,
-            "bust_close": 0.9,
-            "close_upper_body": 0.7,
+            "full_body_readable": 0.45,
+            "knee_up_medium": 0.85,
+            "waist_up_half_body": 0.95,
+            "bust_close": 0.65,
+            "close_upper_body": 0.45,
         }
     elif plan_tags & {"close_character", "studio", "white_room"}:
         bonuses = {
@@ -1497,6 +1515,8 @@ COMPOSITION_BASE_WEIGHTS = {
     "quiet_close_upper_body_frame": 1.15,
     "pure_white_social_close_portrait": 1.8,
     "pure_white_half_body_social_photo": 1.55,
+    "pure_white_three_quarter_editorial_frame": 1.3,
+    "pure_white_full_body_editorial_frame": 0.9,
     "wide_readable_scene_balance": 0.75,
     "floor_diagonal_negative_space": 0.12,
     "high_angle_bed_or_floor_frame": 0.08,
@@ -1661,10 +1681,8 @@ SCENE_COMPOSITION_ALLOWLIST = {
     "pure_white_character_focus": {
         "pure_white_social_close_portrait",
         "pure_white_half_body_social_photo",
-        "slight_side_medium_close_frame",
-        "quiet_close_upper_body_frame",
-        "soft_hand_on_cheek_close_face",
-        "hat_brim_shadow_closeup",
+        "pure_white_three_quarter_editorial_frame",
+        "pure_white_full_body_editorial_frame",
     },
 }
 
