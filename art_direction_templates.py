@@ -133,7 +133,7 @@ def prompt_for_art_direction(
         "",
         f"Outfit: {_clip_text(outfit, 105)}",
         "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight white, lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
-        f"Color/light: {_clip_text(profile['color_anchor'], 60)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 95)}",
+        f"Color/light: identity colors stay in hair, eyes, and small accents ({_clip_text(profile['color_anchor'], 60)}); outfit colorway is model-chosen, cohesive, wearable, and should not copy the main hair color; avoid random clashing colors, rainbow mixing, and harsh neon contrast. {_clip_text(art_plan.get('color_strategy', ''), 70)}",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",

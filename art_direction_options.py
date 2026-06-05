@@ -1824,9 +1824,24 @@ def viewer_distance_for(character_name):
     return "keep the character medium-readable; face, hair silhouette, eyes, outfit shape, and main accessories stay clear"
 
 
+OUTFIT_COLOR_RELATIONSHIPS = [
+    "choose a cohesive outfit colorway independent from the main hair color, using character colors only as tiny accessory accents",
+    "choose a soft neutral outfit colorway that contrasts gently with the hair and keeps identity colors readable",
+    "choose a warm or muted outfit colorway that complements the character without copying the hair color",
+    "choose a clean fashion colorway with one model-chosen dominant color, not the character's hair color",
+    "choose a balanced editorial colorway where hair and eyes remain the identity anchor while clothing has its own palette",
+]
+
+OUTFIT_COLOR_HARMONY_RULE = (
+    "keep the outfit palette cohesive and wearable; avoid random clashing colors, rainbow mixing, harsh neon contrast, "
+    "or too many unrelated accent colors"
+)
+
+
 def outfit_variation_for(character_name, outfit_direction=None):
     profile = _profile_for(character_name)
     base = outfit_direction if outfit_direction else random.choice(OUTFIT_DIRECTIONS)
+    color_relationship = random.choice(OUTFIT_COLOR_RELATIONSHIPS)
     sanrio_detail = ""
     if random.random() < 0.06:
         sanrio_detail = (
@@ -1841,7 +1856,7 @@ def outfit_variation_for(character_name, outfit_direction=None):
         )
     return (
         f"{base}{sanrio_detail}{eyewear_detail}; clothing must be opaque fabric, never clear plastic, vinyl, PVC, or see-through outerwear; outfit colors are not specified; "
-        f"choose a harmonizing colorway from the character palette: {profile['color_anchor']}; "
+        f"{color_relationship}; {OUTFIT_COLOR_HARMONY_RULE}; character palette is identity-only ({profile['color_anchor']}) and should not become a full outfit color lock; "
         "keep hairstyle, hair color, eye color, and core accessories"
     )
 
