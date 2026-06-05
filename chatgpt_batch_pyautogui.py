@@ -175,7 +175,7 @@ CHARACTER_BLACK_HOSIERY_CHANCES = {
     "艾莲": 0.47,
 }
 BLACK_HOSIERY_ACCENT = (
-    "paired with refined black sheer tights or stockings as a subtle styling accent, "
+    "paired with refined semi-opaque black tights or stockings as a subtle styling accent, "
     "balanced with the selected outfit, restrained and non-fetishized"
 )
 BLACK_HOSIERY_INCOMPATIBLE_KEYWORDS = (
@@ -227,17 +227,17 @@ LOW_PROBABILITY_BRAND_THEMES = [
     if "Adidas-inspired" in theme or "Yonex-inspired" in theme
 ]
 CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
-    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
-    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
+    "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
     "striped swim top under loose cover shirt, clean beach resort style",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
-    "fitted camisole, high-waist flare pants, balletcore pilates fashion",
+    "simple camisole, high-waist flare pants, balletcore pilates fashion",
 }
 SCENE_ONLY_COMPATIBLE_OUTFIT_CHANCE = 0.18
 STRONG_SCENE_ONLY_CLOTHING_THEMES = [
@@ -299,7 +299,7 @@ CLOTHING_DISPLAY_LABELS = {
     FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT: "轻运动T恤短裤",
     WHITE_LACE_LONG_DRESS_HEELS_OUTFIT: "蕾丝长裙高跟",
     "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style": "水手学院连衣裙",
-    "fitted camisole, sheer off-shoulder sleeves, high-waisted denim shorts, clean summer date style": "吊带透袖牛仔短裤",
+    "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style": "吊带透袖牛仔短裤",
     "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style": "吊带长裙",
     "tank top, oversized cropped hoodie, loose jeans, relaxed casual style": "背心短款帽衫牛仔裤",
     "sleeveless top, denim overalls, youthful clean casual style": "无袖上衣牛仔背带裤",
@@ -308,7 +308,7 @@ CLOTHING_DISPLAY_LABELS = {
     "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style": "学院背心裙",
     "oversized sweater, loose sleeves, cozy homewear, soft casual style": "宽松毛衣居家风",
     "corset mini dress, lace panels, bell sleeves, boots, idol stagewear": "束腰蕾丝舞台裙",
-    "off-shoulder fitted knit sweater, soft Korean casual style": "韩系露肩针织",
+    "soft off-shoulder knit sweater, soft Korean casual style": "韩系露肩针织",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style": "雪纺仙女礼服",
     "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style": "束腰田园连衣裙",
     "lace dress, ribbon waist, airy garden fairy style": "蕾丝花园裙",
@@ -322,23 +322,23 @@ CLOTHING_DISPLAY_LABELS = {
     "striped tank top, pleated mini skirt, tennis-girl summer casual style": "美式网球学院风",
     "ribbed tank top, satin shorts, minimal summer lounge style": "罗纹背心缎面短裤",
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit": "瑜伽训练套装",
-    "fitted camisole, high-waist flare pants, balletcore pilates fashion": "芭蕾普拉提风",
+    "simple camisole, high-waist flare pants, balletcore pilates fashion": "芭蕾普拉提风",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant": "洛丽塔女仆风",
     "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette": "抹胸度假长裙",
-    "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style": "抹胸开衫居家风",
+    "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style": "抹胸开衫居家风",
     "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear": "印花短T运动长裤",
     "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt": "幻想风礼服",
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear": "吊带包臀小礼裙",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style": "短款运动上衣",
-    "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette": "针织挂脖连衣裙",
+    "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette": "针织挂脖连衣裙",
     "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit": "露肩宽松针织上衣",
-    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels": "不对称拖尾迷你礼服",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels": "不对称拖尾迷你礼服",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots": "挂脖荷叶边高低摆礼服",
-    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights": "复古运动啦啦队套装",
+    "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights": "复古运动啦啦队套装",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers": "挂脖飘带上衣长裤",
-    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
-    "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
+    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
+    "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
 }
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
@@ -480,7 +480,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
     "beach_wind_open_sand": [
         "striped swim top under loose cover shirt, clean beach resort style",
         "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-        "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+        "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         SOFT_DATE_OUTFIT,
     ],
@@ -550,7 +550,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
         "lace dress, ribbon waist, airy garden fairy style",
-        "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+        "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
     ],
     "hanging_fabric_light_tunnel": [
         SOFT_DATE_OUTFIT,
@@ -558,8 +558,8 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         ASYMMETRIC_WHITE_T_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
-        "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-        "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+        "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+        "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
     ],
     "open_suitcase_outfit_scene": [
         LIGHT_NOVEL_OUTFIT,
@@ -567,7 +567,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUNG_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
         "ribbed tank top, satin shorts, minimal summer lounge style",
-        "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+        "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     ],
     "hosiery_tea_room": [
@@ -600,7 +600,6 @@ SCENE_CATEGORY_OPTIONS = [
             "balcony_breeze_half_out_frame",
             "rooftop_laundry_sunset",
             "aquarium_glass_tunnel",
-            "gallery_white_wall_exhibit",
             "beach_wind_open_sand",
             "record_shop_listening_corner",
             "planetarium_star_dome",
@@ -2215,6 +2214,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
 
 
 

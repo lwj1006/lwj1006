@@ -1,4 +1,4 @@
-import json
+﻿import json
 import random
 from pathlib import Path
 
@@ -35,7 +35,7 @@ OUTFIT_DIRECTIONS = [
     "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
     "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
     "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style",
-    "fitted camisole, sheer off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
+    "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
     "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
     "tank top, oversized cropped hoodie, loose jeans, relaxed casual style",
     "sleeveless top, denim overalls, youthful clean casual style",
@@ -44,7 +44,7 @@ OUTFIT_DIRECTIONS = [
     "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
     "oversized sweater, loose sleeves, cozy homewear, soft casual style",
     "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
-    "off-shoulder fitted knit sweater, soft Korean casual style",
+    "soft off-shoulder knit sweater, soft Korean casual style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
     "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
     "lace dress, ribbon waist, airy garden fairy style",
@@ -58,23 +58,23 @@ OUTFIT_DIRECTIONS = [
     "striped tank top, pleated mini skirt, tennis-girl summer casual style",
     "ribbed tank top, satin shorts, minimal summer lounge style",
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
-    "fitted camisole, high-waist flare pants, balletcore pilates fashion",
+    "simple camisole, high-waist flare pants, balletcore pilates fashion",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
     "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-    "tube top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+    "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
     "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
     "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
     "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
-    "knit halter dress, textured fabric, fitted upper body, soft draped summer silhouette",
+    "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
     "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
-    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, sheer opera gloves, pointed high heels",
+    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
-    "minimal one-piece swimsuit, deep scoop neckline, high-cut leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, subtle sheer polka-dot tights",
+    "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
-    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured semi-sheer fabric, softly gathered neckline, subtle ruffled shoulder trim",
-    "lace-trim camisole, fitted V-neck bodice, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+    "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
+    "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
 ]
 
 
@@ -247,7 +247,7 @@ SHOT_SCALE_OPTIONS = [
     },
     {
         "name": "knee_up_medium",
-        "description": "knee-up or thigh-up framing, character is clearly larger than a distant figure, face, hair, outfit silhouette, and hands are readable",
+        "description": "knee-up or thigh-up framing, character is the only person and remains clearly readable; face, hair, outfit silhouette, and hands are visible",
         "weight": 3.0,
     },
     {
@@ -257,7 +257,7 @@ SHOT_SCALE_OPTIONS = [
     },
     {
         "name": "bust_close",
-        "description": "bust shot, face, eyes, hair silhouette, shoulders, and main accessories are prominent; keep enough background to preserve the selected scene",
+        "description": "upper-torso portrait, face, eyes, hair silhouette, shoulders, and main accessories are prominent; keep enough background to preserve the selected scene",
         "weight": 1.2,
     },
     {
@@ -376,18 +376,6 @@ ART_DIRECTION_PLANS = [
         "color_strategy": "aquarium light and character palette balance each other; outfit colors are left to model taste",
         "lighting_behavior": "moving water light patterns across floor and background, with a clean soft highlight on face and hair",
         "tags": ["aquarium", "glass", "reflection", "water_light", "date", "deep_perspective", "novel_cg"],
-    },
-    {
-        "name": "gallery_white_wall_exhibit",
-        "graphic_concept": "clean art gallery exhibit scene; large framed artwork, wall planes, bench, and polished floor make a refined quiet key visual",
-        "spatial_structure": "wide gallery wall, framed art blocks without readable text, bench, floor reflection, and doorway depth; character offset inside the architecture",
-        "visual_device": "oversized frames, bench line, brochure card without text, and floor reflection create strong graphic order",
-        "body_silhouette": "standing near a frame, seated on a bench edge, or turning from an artwork; hands simple and natural",
-        "outfit_direction": "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-        "material_language": "matte wall, framed canvas, polished floor, bench surface, soft cloth, small brochure card",
-        "color_strategy": "gallery planes stay quiet while character palette and outfit colorway provide the focal accent",
-        "lighting_behavior": "soft museum track light with controlled shadow, clear face and crisp hair silhouette",
-        "tags": ["gallery", "exhibit", "minimal", "large_space", "reflection", "quiet", "novel_cg"],
     },
     {
         "name": "beach_wind_open_sand",
@@ -551,8 +539,8 @@ ART_DIRECTION_PLANS = [
         "spatial_structure": "very wide white space; character off-center but medium-large and clearly readable near a window, sofa edge, or low table; strong empty areas remain intentionally visible",
         "visual_device": "thin curtain, small jewelry tray, flower stem, glass cup, folded cloth, and soft floor reflection create minimal narrative detail",
         "body_silhouette": "sitting on floor or standing near window, front three-quarter or relaxed side angle, calm and cinematic",
-        "outfit_direction": "fitted camisole, sheer off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
-        "material_language": "camisole fabric, sheer off-shoulder sleeves, denim, glass, polished floor, thin curtain, small metal accessory",
+        "outfit_direction": "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
+        "material_language": "camisole fabric, lightweight opaque chiffon sleeves, denim, glass, polished floor, thin curtain, small metal accessory",
         "color_strategy": "dominant white and pale gray with character palette as the memory point; no busy background",
         "lighting_behavior": "large soft window light plus one hard curtain-shadow cut across the floor",
         "tags": ["white_room", "floor_window", "negative_space", "large_space", "soft_light", "minimal", "novel_cg"],
@@ -588,7 +576,7 @@ ART_DIRECTION_PLANS = [
         "visual_device": "petals and bubbles form an upward flow line that strengthens the floating feeling",
         "body_silhouette": "character floating near center or slightly above center, knee-up to full-body range, limbs relaxed",
         "outfit_direction": "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
-        "material_language": "light gauze, petals, transparent bubbles, ribbons, soft hair",
+        "material_language": "opaque airy gauze, petals, transparent bubbles, ribbons, soft hair",
         "color_strategy": "flower colors are accents only; character palette must remain the memory point",
         "lighting_behavior": "bright natural soft light with a slight glowing edge in the air",
         "tags": ["zero_gravity", "fairy_tale", "flower", "floating"],
@@ -684,7 +672,7 @@ ACTION_STYLES = [
     },
     {
         "name": "hands_near_chest",
-        "body_silhouette": "both hands near collarbone, neckline, or upper chest area in a modest relaxed way, fingers clear and not tangled",
+        "body_silhouette": "hands relaxed and visible near sides, sleeve cuff, bag strap, or lap; keep fingers clear and never frame the chest, neckline, waistband, or clothing openings",
         "tags": ["hands_visible", "simple_hand"],
     },
     {
@@ -957,10 +945,10 @@ COMPOSITION_PLANS = [
     },
     {
         "name": "lace_curtain_backlight_occlusion",
-        "composition": "character partly behind lace curtain or sheer fabric, translucent foreground over body while face remains readable",
+        "composition": "character partly behind lace curtain or lightweight foreground curtain fabric, translucent scene layer over body while face remains readable",
         "camera": "medium shot to close-up, side or three-quarter angle",
         "pose": "standing beside curtain, holding fabric lightly, looking down or toward window",
-        "foreground": "glowing lace texture and sheer fabric create soft obstruction",
+        "foreground": "glowing lace texture and lightweight curtain fabric create soft scene obstruction",
         "lighting": "warm backlight through lace, soft silhouette, clear facial features",
         "guardrail": "avoid blown-out face, explicit lingerie framing, excessive exposure, or unreadable features",
         "tags": ["lace", "curtain", "backlight", "foreground_occlusion"],
@@ -1192,7 +1180,6 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "white_room_floor_window": 2.8,
     "rooftop_laundry_sunset": 2.7,
     "aquarium_glass_tunnel": 2.6,
-    "gallery_white_wall_exhibit": 2.5,
     "beach_wind_open_sand": 2.4,
     "record_shop_listening_corner": 2.1,
     "planetarium_star_dome": 1.8,
@@ -1716,11 +1703,6 @@ SCENE_COMPOSITION_ALLOWLIST = {
         "soft_hand_on_cheek_close_face",
         "floor_diagonal_negative_space",
     },
-    "gallery_white_wall_exhibit": {
-        *GENERIC_COMPOSITION_NAMES,
-        "hat_brim_shadow_closeup",
-        "soft_hand_on_cheek_close_face",
-    },
     "pure_white_character_focus": {
         "clean_three_quarter_character_frame",
         "clean_full_body_silhouette_frame",
@@ -1858,7 +1840,10 @@ def outfit_variation_for(character_name, outfit_direction=None):
             "or lightweight rimless glasses; keep it low-key and do not hide the eyes"
         )
     return (
-        f"{base}{sanrio_detail}{eyewear_detail}; outfit colors are not specified; "
+        f"{base}{sanrio_detail}{eyewear_detail}; clothing must be opaque fabric, never clear plastic, vinyl, PVC, or see-through outerwear; outfit colors are not specified; "
         f"choose a harmonizing colorway from the character palette: {profile['color_anchor']}; "
         "keep hairstyle, hair color, eye color, and core accessories"
     )
+
+
+

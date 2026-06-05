@@ -17,22 +17,22 @@ STYLE_BASELINE = (
 
 
 NEGATIVE_GUARDRAILS = (
-    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, forced weapon, forced vehicle."
+    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, forced weapon, forced vehicle, transparent clothing, clear plastic/vinyl/PVC garments, see-through hoodies, see-through jackets, see-through coats."
 )
 
 
 SCENE_FIRST_RULES = (
-    "Identity first; then pose/composition, selected scene, and compatible decorative KV motifs."
+    "Identity first; then one selected scene, one compatible outfit, one action, and one camera composition."
 )
 
 
 READING_ORDER_RULES = (
-    "Read order: big shape, layered atmosphere, identity, small motifs."
+    "Read order: selected scene shape, character identity, outfit silhouette, then only small natural scene details."
 )
 
 
 COMPOSITION_RULES = (
-    "Composition: layered foreground/midground/background, occlusion, frames/reflection, clear light cuts."
+    "Composition: keep one coherent location; foreground and background must come from the selected scene only."
 )
 
 
@@ -115,7 +115,8 @@ def prompt_for_art_direction(
         "",
         f"Shot scale: {_clip_text(shot_scale.get('description', ''), 150)}.",
         f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 105).rstrip('.')}. {viewer_distance_for(character_name)}.",
-        "Hands simple and natural; feet clear only when visible.",
+        "Body silhouette: preserve natural original proportions; do not enlarge bust, hips, or thighs. Use a neutral slim anime build with modest bust, no cleavage emphasis, no chest-forward pose, and no exaggerated hourglass silhouette.",
+        "Hands simple and natural; hands stay outside clothing and away from waistband, pants opening, shorts opening, and inner thigh; feet clear only when visible.",
         "",
         SCENE_FIRST_RULES,
         f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 90)} {_clip_text(art_plan.get('spatial_structure', ''), 95)}",
@@ -124,8 +125,6 @@ def prompt_for_art_direction(
         f"Composition layer: {_clip_text(composition_plan.get('composition', ''), 90)} {_clip_text(composition_plan.get('camera', ''), 70)}",
         f"Foreground/light: {_clip_text(composition_plan.get('foreground', ''), 70)} {_clip_text(composition_plan.get('lighting', ''), 65)}",
         f"Composition guardrail: {_clip_text(composition_plan.get('guardrail', ''), 100)}",
-        f"Motif/layers: {_clip_text(visual_design.get('motifs', ''), 65)} {_clip_text(visual_design.get('layering', ''), 75)}",
-        f"Shape rhythm: {_clip_text(visual_design.get('shape_rhythm', ''), 70)}",
         READING_ORDER_RULES,
         COMPOSITION_RULES,
         CAMERA_PERSPECTIVE_RULES,
@@ -133,8 +132,8 @@ def prompt_for_art_direction(
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
         f"Outfit: {_clip_text(outfit, 105)}",
-        f"Color/light: {_clip_text(profile['color_anchor'], 60)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 65)} {_clip_text(visual_design.get('light_bloom', ''), 80)}",
-        f"Poetic direction: {_clip_text(visual_design.get('poetic_line', ''), 120)}",
+        "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight white, lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
+        f"Color/light: {_clip_text(profile['color_anchor'], 60)} anchor; {_clip_text(art_plan.get('color_strategy', ''), 95)}",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",
