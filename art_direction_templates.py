@@ -1,4 +1,4 @@
-from art_direction_options import (
+﻿from art_direction_options import (
     choose_compatible_action_style,
     choose_art_plan,
     choose_visual_design,
@@ -63,15 +63,15 @@ def _clip_text(value, limit):
     if len(text) <= limit:
         return text
     clipped = text[:limit].rstrip()
-    for marker in (". ", "。", "; ", "；"):
+    for marker in (". ", "; ", ": "):
         cut = clipped.rfind(marker)
         if cut >= int(limit * 0.45):
-            return clipped[: cut + len(marker)].strip().rstrip(";,，；。.") + "."
-    for marker in (", ", "，", " "):
+            return clipped[: cut + len(marker)].strip().rstrip(";,:.") + "."
+    for marker in (", ", " "):
         cut = clipped.rfind(marker)
         if cut >= int(limit * 0.72):
-            return clipped[:cut].strip().rstrip(";,，；。.") + "."
-    return clipped.strip().rstrip(";,，；。.") + "."
+            return clipped[:cut].strip().rstrip(";,:.") + "."
+    return clipped.strip().rstrip(";,:.") + "."
 
 
 def prompt_for_art_direction(

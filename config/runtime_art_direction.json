@@ -1,5 +1,5 @@
 {
-    "revision": "review-round9-composition-action-clothing-cleanup-20260606",
+    "revision": "review-round10-white-room-compatible-fixed-clothing-20260606",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -388,14 +388,15 @@
         },
         {
             "name": "white_room_floor_window",
-            "graphic_concept": "quiet white room with floor-to-ceiling window; white wall, pale floor reflection, curtain shadow, and one character-color accent build the composition",
-            "spatial_structure": "very wide white space; character off-center but medium-large and clearly readable near a window, sofa edge, or low table; strong empty areas remain intentionally visible",
-            "visual_device": "thin curtain, small jewelry tray, flower stem, glass cup, folded cloth, and soft floor reflection create minimal narrative detail",
-            "body_silhouette": "sitting on floor or standing near window, front three-quarter or relaxed side angle, calm and cinematic",
+            "graphic_concept": "quiet interior white room with floor-to-ceiling window; white wall, pale floor reflection, curtain shadow, and one character-color accent build the composition",
+            "spatial_structure": "strictly indoors: a white room, window glass, pale floor, curtain, sofa edge, or low table; character stays off-center but medium-large with intentional blank white space",
+            "visual_device": "thin curtain, small jewelry tray, flower stem in a vase, glass cup, folded cloth, and soft indoor floor reflection create minimal narrative detail",
+            "body_silhouette": "standing, leaning, or neatly seated beside the window or low table, front three-quarter or relaxed side angle, calm and cinematic",
             "outfit_direction": "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
             "material_language": "camisole fabric, lightweight opaque chiffon sleeves, denim, glass, polished floor, thin curtain, small metal accessory",
             "color_strategy": "dominant white and pale gray with character palette as the memory point; no busy background",
             "lighting_behavior": "large soft window light plus one hard curtain-shadow cut across the floor",
+            "extra_prompt_guardrail": "keep the location as an indoor white room only; avoid exterior walls, stone stairs, balcony courtyard, garden path, mansion facade, or outdoor street.",
             "tags": [
                 "white_room",
                 "floor_window",

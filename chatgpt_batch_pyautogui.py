@@ -1904,9 +1904,29 @@ def prompt_clothing_selection() -> list[str] | None:
 
 def choose_fixed_clothing_theme(
     fixed_clothing_themes: list[str],
+    art_plan: dict | None = None,
     batch_used_themes: set[str] | None = None,
 ) -> str:
     batch_used_themes = batch_used_themes or set()
+    if art_plan is not None:
+        compatible = [
+            theme for theme in fixed_clothing_themes
+            if theme in PLAN_COMPATIBLE_CLOTHING_THEMES.get(art_plan["name"], [])
+        ]
+        if compatible:
+            available_compatible = [
+                theme for theme in compatible
+                if theme not in batch_used_themes
+            ]
+            return random.choice(available_compatible or compatible)
+
+        fallback = [
+            theme for theme in PLAN_COMPATIBLE_CLOTHING_THEMES.get(art_plan["name"], [])
+            if theme in CLOTHING_THEMES and theme not in batch_used_themes
+        ]
+        if fallback:
+            return random.choice(fallback)
+
     available = [
         theme for theme in fixed_clothing_themes
         if theme not in batch_used_themes
@@ -2219,6 +2239,7 @@ def main() -> None:
             else:
                 theme = choose_fixed_clothing_theme(
                     fixed_clothing_themes,
+                    art_plan,
                     batch_used_themes,
                 )
             plan_name = art_plan["name"]
