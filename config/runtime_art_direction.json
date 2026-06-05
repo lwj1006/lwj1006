@@ -1,5 +1,5 @@
-﻿{
-    "revision": "review-round7-feedback-tighten-20260605",
+{
+    "revision": "review-round7-delete-display-fitting-reframe-20260605",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -25,7 +25,6 @@
         "lace off-shoulder dress with puff sleeves, clean romantic styling",
         "short one-piece dress, youthful clean date styling",
         "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-        "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
         "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style",
         "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
         "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
@@ -44,7 +43,6 @@
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
         "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-        "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
         "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
         "layered striped knit top, wrap skirt, preppy luxury styling",
         "striped tank top, pleated mini skirt, tennis-girl summer casual style",
@@ -360,26 +358,6 @@
             "extra_prompt_guardrail": "only one real character body; reflections are abstract fragments only, no duplicate face, no clone, no second person"
         },
         {
-            "name": "oversized_product_display_set",
-            "graphic_concept": "oversized product-display set; giant ribbon, acrylic blocks, folded fabric, and catalog-like spacing make a commercial anime KV",
-            "spatial_structure": "large display plinths, giant ribbon loops, folded fabric planes, and clean negative space frame the character like a premium product visual",
-            "visual_device": "oversized props create scale and curved leading lines that return attention to face and outfit silhouette",
-            "body_silhouette": "standing on or beside a low plinth, seated at the display edge, or walking through the set; posture natural and readable",
-            "outfit_direction": "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
-            "material_language": "acrylic block, satin ribbon, folded fabric, matte backdrop, polished shoe or accessory highlights",
-            "color_strategy": "display colors are model-chosen to support character identity; avoid turning the set into a single-color wash",
-            "lighting_behavior": "commercial softbox lighting with crisp shadow under plinths and clear face highlights",
-            "tags": [
-                "product_display",
-                "commercial_kv",
-                "acrylic",
-                "ribbon",
-                "negative_space",
-                "mechanism_scene",
-                "novel_cg"
-            ]
-        },
-        {
             "name": "monochrome_color_block_studio",
             "graphic_concept": "monochrome color-block studio; huge flat graphic shapes and clean poster spacing create a fashion editorial anime KV",
             "spatial_structure": "large panels, floor blocks, circular or rectangular cutouts, and negative space place the character inside a graphic layout",
@@ -395,47 +373,6 @@
                 "poster",
                 "graphic",
                 "negative_space",
-                "mechanism_scene",
-                "novel_cg"
-            ]
-        },
-        {
-            "name": "fashion_catalog_fitting_room",
-            "graphic_concept": "fashion catalog fitting-room set; garment racks, backdrop rolls, and editorial spacing create a clean behind-the-shoot clothing visual",
-            "spatial_structure": "clothes-rack silhouettes, paper backdrop rolls, simple stool, and mirror edge form layered verticals around the character",
-            "visual_device": "garment shapes and backdrop curves frame the outfit without becoming a cluttered closet scene",
-            "body_silhouette": "standing beside a rack, seated on a stool, or adjusting a sleeve; face and hair identity remain the strongest read",
-            "outfit_direction": "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "material_language": "hanging fabric, paper backdrop roll, metal rack, soft cotton, mirror edge, studio floor",
-            "color_strategy": "clothing and backdrop colors are freely selected to support character palette and avoid fixed color instruction",
-            "lighting_behavior": "soft editorial lighting with light falloff behind racks and clean eye highlights",
-            "tags": [
-                "fashion_catalog",
-                "fitting_room",
-                "garment_rack",
-                "editorial",
-                "layered_space",
-                "mechanism_scene",
-                "novel_cg"
-            ],
-            "extra_prompt_guardrail": "empty mannequin forms only, no mannequin faces, no extra model, no printed human poster, no second character"
-        },
-        {
-            "name": "photo_shoot_prop_room_after_wrap",
-            "graphic_concept": "photo-shoot prop room after wrap; fabric rolls, half-packed set pieces, light stands, and fake flowers create a quiet production-afterglow",
-            "spatial_structure": "rolled backdrops, folded stands, prop boxes, fabric bundles, and a clear walking path create ordered backstage depth",
-            "visual_device": "half-packed props and diagonal stand lines create a found-moment composition around the character",
-            "body_silhouette": "walking between props, sitting on a prop box, or turning while holding only a simple cloth edge; hands stay readable",
-            "outfit_direction": "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
-            "material_language": "fabric roll, metal light stand, prop flower, cardboard box, soft casual fabric, matte floor dust",
-            "color_strategy": "props may add small color accents, but character palette and outfit silhouette remain dominant",
-            "lighting_behavior": "late studio spill light from one side, soft shadows from stands, readable face and hair outline",
-            "tags": [
-                "prop_room",
-                "after_wrap",
-                "backstage",
-                "fabric_roll",
-                "story_props",
                 "mechanism_scene",
                 "novel_cg"
             ]
@@ -480,27 +417,6 @@
                 "novel_cg"
             ],
             "extra_prompt_guardrail": "fabric frames the character without covering the face; clear face, clear hair silhouette, clear hands"
-        },
-        {
-            "name": "open_suitcase_outfit_scene",
-            "graphic_concept": "open suitcase outfit-selection scene; clothing pieces spread softly around the character as a clean morning styling moment",
-            "spatial_structure": "open suitcase, folded garments, mirror edge, bed or floor plane, and window light form a low intimate composition",
-            "visual_device": "scattered fabric shapes and suitcase geometry guide attention to outfit choice and character expression",
-            "body_silhouette": "seated near the suitcase, kneeling at floor level, or standing while choosing an item; hands simple and not tangled in clothing",
-            "outfit_direction": "ribbed tank top, satin shorts, minimal summer lounge style",
-            "material_language": "soft folded clothes, suitcase shell, satin shorts, ribbed fabric, mirror edge, morning floor light",
-            "color_strategy": "garment colors are varied but controlled; character hair, eyes, and accessories remain the memory point",
-            "lighting_behavior": "clean morning side light with soft fabric shadows and clear identity details",
-            "tags": [
-                "open_suitcase",
-                "outfit_selection",
-                "fabric_layers",
-                "morning_light",
-                "story_props",
-                "mechanism_scene",
-                "novel_cg"
-            ],
-            "extra_prompt_guardrail": "clothes are flat fabric pieces only, no body-shaped clothing pile, no extra limbs, hands remain clear"
         },
         {
             "name": "white_room_floor_window",
@@ -677,16 +593,12 @@
         "beach_wind_open_sand": 2.4,
         "record_shop_listening_corner": 1.9,
         "planetarium_star_dome": 1.8,
-        "transparent_acrylic_display_wall": 2.45,
-        "frosted_glass_partition_scene": 2.3,
-        "mirror_fragment_corner": 2.35,
-        "oversized_product_display_set": 2.4,
+        "transparent_acrylic_display_wall": 0.9,
+        "frosted_glass_partition_scene": 0.55,
+        "mirror_fragment_corner": 1.0,
         "monochrome_color_block_studio": 2.25,
-        "fashion_catalog_fitting_room": 2.45,
-        "photo_shoot_prop_room_after_wrap": 2.3,
-        "ribbon_installation_space": 2.45,
+        "ribbon_installation_space": 0.7,
         "hanging_fabric_light_tunnel": 2.3,
-        "open_suitcase_outfit_scene": 2.35,
         "trend_mirror_studio": 0.7,
         "capsule_toy_corner": 0.8,
         "graphic_poster_studio": 0.55,
@@ -735,8 +647,7 @@
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "fresh sundress with a straw hat, summer date mood",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "short one-piece dress, youthful clean date styling",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "short one-piece dress, youthful clean date styling"
         ],
         "greenhouse_terrace_reflection": [
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
@@ -789,7 +700,6 @@
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
             "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style",
             "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
             "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
@@ -804,7 +714,6 @@
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
             "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
@@ -838,7 +747,6 @@
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
             "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style",
             "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
             "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
@@ -853,7 +761,6 @@
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
             "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
@@ -891,8 +798,7 @@
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
         ],
         "low_angle_foreground_depth": [
             "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
@@ -901,8 +807,7 @@
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
-            "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
         ],
         "far_shot_readable_room": [
             "clean light-novel casual outfit, character palette stays recognizable",
@@ -911,8 +816,7 @@
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
-            "short one-piece dress, youthful clean date styling",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "short one-piece dress, youthful clean date styling"
         ],
         "telephoto_layered_interior": [
             "soft bakery or cafe casual outfit, warm and simple",
@@ -920,16 +824,14 @@
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "short one-piece dress, youthful clean date styling",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "short one-piece dress, youthful clean date styling"
         ],
         "transparent_acrylic_display_wall": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "layered striped knit top, wrap skirt, preppy luxury styling",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
+            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style"
         ],
         "frosted_glass_partition_scene": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -944,17 +846,7 @@
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "short one-piece dress, youthful clean date styling",
             "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
-        ],
-        "oversized_product_display_set": [
-            "minimal sunny studio outfit, face and hair identity as the main focus",
-            "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
-            "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-            "layered striped knit top, wrap skirt, preppy luxury styling",
-            "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
-            "cafe maid remix outfit, neat apron, ribbons, cute and clean"
+            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style"
         ],
         "monochrome_color_block_studio": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -969,26 +861,7 @@
             "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
             "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent"
         ],
-        "fashion_catalog_fitting_room": [
-            "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
-            "layered striped knit top, wrap skirt, preppy luxury styling",
-            "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-            "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
-            "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim"
-        ],
-        "photo_shoot_prop_room_after_wrap": [
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
-            "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-            "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "clean minimal studio outfit, simple silhouette, palette selected to support character identity"
-        ],
         "ribbon_installation_space": [
-            "lace long dress as the main element, freely designed elegant silhouette, paired with heels",
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
             "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
@@ -1009,15 +882,6 @@
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
             "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-            "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood"
-        ],
-        "open_suitcase_outfit_scene": [
-            "ribbed tank top, satin shorts, minimal summer lounge style",
-            "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-            "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-            "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood"
         ],
         "hosiery_tea_room": [
@@ -1061,13 +925,9 @@
                 "transparent_acrylic_display_wall",
                 "frosted_glass_partition_scene",
                 "mirror_fragment_corner",
-                "oversized_product_display_set",
                 "monochrome_color_block_studio",
-                "fashion_catalog_fitting_room",
-                "photo_shoot_prop_room_after_wrap",
                 "ribbon_installation_space",
-                "hanging_fabric_light_tunnel",
-                "open_suitcase_outfit_scene"
+                "hanging_fabric_light_tunnel"
             ]
         },
         {
@@ -1429,4 +1289,3 @@
         }
     ]
 }
-

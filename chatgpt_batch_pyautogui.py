@@ -273,7 +273,6 @@ ASYMMETRIC_WHITE_T_OUTFIT = "thin off-shoulder long T-shirt, camisole inner laye
 LACE_OFF_SHOULDER_DRESS_OUTFIT = "lace off-shoulder dress with puff sleeves, clean romantic styling"
 BRIGHT_RED_SHORT_DRESS_OUTFIT = "short one-piece dress, youthful clean date styling"
 FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
-WHITE_LACE_LONG_DRESS_HEELS_OUTFIT = "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
 CLOTHING_DISPLAY_LABELS = {
     REFERENCE_OUTFIT: "参考图服装微调",
     LIGHT_NOVEL_OUTFIT: "轻小说日常",
@@ -297,7 +296,6 @@ CLOTHING_DISPLAY_LABELS = {
     LACE_OFF_SHOULDER_DRESS_OUTFIT: "蕾丝露肩裙",
     BRIGHT_RED_SHORT_DRESS_OUTFIT: "短款连衣裙",
     FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT: "轻运动T恤短裤",
-    WHITE_LACE_LONG_DRESS_HEELS_OUTFIT: "蕾丝长裙高跟",
     "sailor dress, short sleeves, bow and trim, fitted knee-length summer school-date style": "水手学院连衣裙",
     "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style": "吊带透袖牛仔短裤",
     "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style": "吊带长裙",
@@ -316,7 +314,6 @@ CLOTHING_DISPLAY_LABELS = {
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood": "缎面蕾丝家居裙",
     "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood": "运动防晒套装",
     "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion": "条纹针织学院风",
-    "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style": "宽松条纹衬衫通勤",
     "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style": "千金风针织短裤",
     "layered striped knit top, wrap skirt, preppy luxury styling": "层叠针织半裙",
     "striped tank top, pleated mini skirt, tennis-girl summer casual style": "美式网球学院风",
@@ -391,7 +388,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "greenhouse_terrace_reflection": [
         FLOWER_FANTASY_OUTFIT,
@@ -446,7 +442,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "low_angle_foreground_depth": [
         PICNIC_OUTFIT,
@@ -456,7 +451,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "far_shot_readable_room": [
         LIGHT_NOVEL_OUTFIT,
@@ -466,7 +460,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "telephoto_layered_interior": [
         BAKERY_CAFE_OUTFIT,
@@ -475,7 +468,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "beach_wind_open_sand": [
         "striped swim top under loose cover shirt, clean beach resort style",
@@ -491,7 +483,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "frosted_glass_partition_scene": [
         SOFT_DATE_OUTFIT,
@@ -499,7 +490,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
     ],
     "mirror_fragment_corner": [
         SUNNY_STUDIO_OUTFIT,
@@ -509,14 +499,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
     ],
-    "oversized_product_display_set": [
-        SUNNY_STUDIO_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        PURE_WHITE_OUTFIT,
-        "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
-        "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
-        "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-    ],
     "monochrome_color_block_studio": [
         PURE_WHITE_OUTFIT,
         SUNNY_STUDIO_OUTFIT,
@@ -525,30 +507,11 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
         "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
     ],
-    "fashion_catalog_fitting_room": [
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-        "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
-        "layered striped knit top, wrap skirt, preppy luxury styling",
-    ],
-    "photo_shoot_prop_room_after_wrap": [
-        LIGHT_NOVEL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        PICNIC_OUTFIT,
-        BLUE_GINGHAM_DENIM_OUTFIT,
-        ASYMMETRIC_WHITE_T_OUTFIT,
-        "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-    ],
     "ribbon_installation_space": [
         FLOWER_FANTASY_OUTFIT,
         FAIRY_FLOATING_OUTFIT,
         SOFT_DATE_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        WHITE_LACE_LONG_DRESS_HEELS_OUTFIT,
         "lace dress, ribbon waist, airy garden fairy style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
     ],
@@ -560,15 +523,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-    ],
-    "open_suitcase_outfit_scene": [
-        LIGHT_NOVEL_OUTFIT,
-        YOUTHFUL_CASUAL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        "ribbed tank top, satin shorts, minimal summer lounge style",
-        "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-        "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
     ],
     "hosiery_tea_room": [
         DARK_HOSIERY_OUTFIT,
@@ -612,13 +566,9 @@ SCENE_CATEGORY_OPTIONS = [
             "transparent_acrylic_display_wall",
             "frosted_glass_partition_scene",
             "mirror_fragment_corner",
-            "oversized_product_display_set",
             "monochrome_color_block_studio",
-            "fashion_catalog_fitting_room",
-            "photo_shoot_prop_room_after_wrap",
             "ribbon_installation_space",
             "hanging_fabric_light_tunnel",
-            "open_suitcase_outfit_scene",
         ],
     },
     {
