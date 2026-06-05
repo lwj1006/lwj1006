@@ -28,7 +28,7 @@ OUTFIT_DIRECTIONS = [
     "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
     "fresh sundress with a straw hat, summer date mood",
     "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-    "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+    "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
     "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
     "lace off-shoulder dress with puff sleeves, clean romantic styling",
     "short one-piece dress, youthful clean date styling",
@@ -42,10 +42,10 @@ OUTFIT_DIRECTIONS = [
     "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
     "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
     "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-    "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
+    "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
     "soft off-shoulder knit sweater, soft Korean casual style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
-    "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+    "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
     "lace dress, ribbon waist, airy garden fairy style",
     "striped swim top under loose cover shirt, clean beach resort style",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
@@ -58,26 +58,26 @@ OUTFIT_DIRECTIONS = [
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
     "simple camisole, high-waist flare pants, balletcore pilates fashion",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
-    "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-    "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+    "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette",
+    "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
     "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-    "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-    "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-    "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
+    "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+    "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
+    "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
     "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
     "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
-    "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
-    "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
+    "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+    "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
     "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
-    "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-    "ribbed cropped cardigan set, matching ribbed shorts, sports bralette, minimal Korean streetwear",
+    "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+    "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
     "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
     "high-waist pencil mini skirt, clean city date fashion",
     "racing crop jacket, motorsport sponsor top, performance event costume",
-    "vintage floral corset top, structured bustier top, garden portrait fashion",
+    "vintage floral tailored top, clean panel detail, garden portrait fashion",
     "lace mini dress, ribbon neck detail, romantic feminine style",
     "light knit cardigan, soft layered outerwear",
     "ribbed camisole top, neat knit tank top",
@@ -311,8 +311,8 @@ ART_DIRECTION_PLANS = [
         "spatial_structure": "light background, bold color blocks, simple geometry, and a few decorative non-readable letters",
         "visual_device": "large color fields turn the character palette into a clear visual logo",
         "body_silhouette": "seated or kneeling pose, knee-up to full-body range, face and main accessory remain the first read",
-        "outfit_direction": "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
-        "material_language": "corset structure, lace panels, bell sleeves, boots, small charms, matte graphic panels",
+        "outfit_direction": "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
+        "material_language": "clean waist seam, lace panels, bell sleeves, boots, small charms, matte graphic panels",
         "color_strategy": "white or pale base, character color dominant, black used only as controlled line weight",
         "lighting_behavior": "clean studio light with minimal shadow",
         "tags": ["trend_lifestyle", "poster", "graphic", "close_character"],
@@ -347,8 +347,8 @@ ART_DIRECTION_PLANS = [
         "spatial_structure": "broad flower field as soft color blocks; only a few blurred foreground flowers",
         "visual_device": "flower color fields frame the character hair color and eyes as the memory point",
         "body_silhouette": "standing, seated, or gentle side-angle facing the flower field; hand may lightly touch a flower branch without covering the face",
-        "outfit_direction": "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
-        "material_language": "petals, corset fabric, light gauze, uneven skirt hem, hair ornament, moderate detail density",
+        "outfit_direction": "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+        "material_language": "petals, softly structured fabric, light gauze, uneven skirt hem, hair ornament, moderate detail density",
         "color_strategy": "flower colors support the character palette; avoid filling the image with one high-saturation color",
         "lighting_behavior": "soft afternoon light, clear face, lightly blurred background",
         "tags": ["flower_field", "afternoon", "dream", "nature"],
@@ -680,6 +680,15 @@ ACTION_STYLES.append(
         "tags": ["stretch", "stable_hands"],
     }
 )
+
+
+CAMERA_COMPOSITION_ACTION_NAMES = {
+    "camera_from_low_foreground",
+    "camera_looking_down",
+    "half_hidden_by_foreground",
+    "readable_figure_in_depth",
+    "three_quarter_observed_from_distance",
+}
 
 
 COMPOSITION_PLANS = [
@@ -1382,6 +1391,7 @@ def choose_action_style(character_name=None, recent_tags=None):
     action_pool = [
         action for action in ACTION_STYLES
         if action["name"] not in excluded
+        and action["name"] not in CAMERA_COMPOSITION_ACTION_NAMES
     ]
     return dict(_weighted_choice(action_pool or ACTION_STYLES, recent_tags=recent_tags, weights=weights))
 
@@ -1408,6 +1418,7 @@ def choose_compatible_action_style(character_name=None, recent_tags=None, plan=N
     action_pool = [
         action for action in action_pool
         if action["name"] not in excluded
+        and action["name"] not in CAMERA_COMPOSITION_ACTION_NAMES
     ]
     plan_name = (plan or {}).get("name", "")
     stretch_allowed_plans = set()
@@ -1600,6 +1611,18 @@ COMPOSITION_FORBIDDEN_ACTIONS = {
 }
 
 COMPOSITION_REQUIRED_PLAN_NAMES = {
+    "pure_white_social_close_portrait": {
+        "pure_white_character_focus",
+    },
+    "pure_white_half_body_social_photo": {
+        "pure_white_character_focus",
+    },
+    "pure_white_three_quarter_editorial_frame": {
+        "pure_white_character_focus",
+    },
+    "pure_white_full_body_editorial_frame": {
+        "pure_white_character_focus",
+    },
     "diagonal_window_light_haze": {
         "white_room_floor_window",
         "balcony_breeze_half_out_frame",

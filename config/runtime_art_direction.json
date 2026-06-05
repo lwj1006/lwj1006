@@ -1,5 +1,5 @@
 {
-    "revision": "review-round8-pure-white-photographer-framing-20260606",
+    "revision": "review-round9-composition-action-clothing-cleanup-20260606",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -20,7 +20,7 @@
         "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
         "fresh sundress with a straw hat, summer date mood",
         "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-        "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+        "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
         "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
         "lace off-shoulder dress with puff sleeves, clean romantic styling",
         "short one-piece dress, youthful clean date styling",
@@ -34,10 +34,10 @@
         "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
         "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-        "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
+        "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
         "soft off-shoulder knit sweater, soft Korean casual style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
-        "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+        "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
         "lace dress, ribbon waist, airy garden fairy style",
         "striped swim top under loose cover shirt, clean beach resort style",
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
@@ -50,26 +50,26 @@
         "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
         "simple camisole, high-waist flare pants, balletcore pilates fashion",
         "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
-        "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-        "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+        "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette",
+        "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-        "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-        "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-        "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
+        "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+        "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
+        "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
         "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
-        "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
-        "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
+        "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+        "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
         "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
         "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
         "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
         "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
-        "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-        "ribbed cropped cardigan set, matching ribbed shorts, sports bralette, minimal Korean streetwear",
+        "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+        "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
         "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
         "high-waist pencil mini skirt, clean city date fashion",
         "racing crop jacket, motorsport sponsor top, performance event costume",
-        "vintage floral corset top, structured bustier top, garden portrait fashion",
+        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "lace mini dress, ribbon neck detail, romantic feminine style",
         "light knit cardigan, soft layered outerwear",
         "ribbed camisole top, neat knit tank top",
@@ -121,8 +121,8 @@
             "spatial_structure": "light background, bold color blocks, simple geometry, and a few decorative non-readable letters",
             "visual_device": "large color fields turn the character palette into a clear visual logo",
             "body_silhouette": "seated or kneeling pose, knee-up to full-body range, face and main accessory remain the first read",
-            "outfit_direction": "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
-            "material_language": "corset structure, lace panels, bell sleeves, boots, small charms, matte graphic panels",
+            "outfit_direction": "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
+            "material_language": "clean waist seam, lace panels, bell sleeves, boots, small charms, matte graphic panels",
             "color_strategy": "white or pale base, character color dominant, black used only as controlled line weight",
             "lighting_behavior": "clean studio light with minimal shadow",
             "tags": [
@@ -170,8 +170,7 @@
                 "flower",
                 "large_space",
                 "novel_cg"
-            ],
-            "extra_prompt_guardrail": "only one real character body; glass reflections are partial and abstract, no clone or second face"
+            ]
         },
         {
             "name": "flower_sea_afternoon",
@@ -179,8 +178,8 @@
             "spatial_structure": "broad flower field as soft color blocks; only a few blurred foreground flowers",
             "visual_device": "flower color fields frame the character hair color and eyes as the memory point",
             "body_silhouette": "standing, seated, or gentle side-angle facing the flower field; hand may lightly touch a flower branch without covering the face",
-            "outfit_direction": "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
-            "material_language": "petals, corset fabric, light gauze, uneven skirt hem, hair ornament, moderate detail density",
+            "outfit_direction": "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+            "material_language": "petals, softly structured fabric, light gauze, uneven skirt hem, hair ornament, moderate detail density",
             "color_strategy": "flower colors support the character palette; avoid filling the image with one high-saturation color",
             "lighting_behavior": "soft afternoon light, clear face, lightly blurred background",
             "tags": [
@@ -305,8 +304,7 @@
                 "foreground_occlusion",
                 "mechanism_scene",
                 "novel_cg"
-            ],
-            "extra_prompt_guardrail": "only one real character body; panel reflections are abstract highlights only, no duplicate face, no clone, no second person"
+            ]
         },
         {
             "name": "frosted_glass_partition_scene",
@@ -326,8 +324,7 @@
                 "reflection",
                 "mechanism_scene",
                 "novel_cg"
-            ],
-            "extra_prompt_guardrail": "only one real character body; blurred glass shapes must not become another face or person"
+            ]
         },
         {
             "name": "mirror_fragment_corner",
@@ -347,8 +344,7 @@
                 "graphic",
                 "mechanism_scene",
                 "novel_cg"
-            ],
-            "extra_prompt_guardrail": "only one real character body; reflections are abstract fragments only, no duplicate face, no clone, no second person"
+            ]
         },
         {
             "name": "monochrome_color_block_studio",
@@ -388,8 +384,7 @@
                 "soft_light",
                 "mechanism_scene",
                 "novel_cg"
-            ],
-            "extra_prompt_guardrail": "fabric frames the character without covering the face; clear face, clear hair silhouette, clear hands"
+            ]
         },
         {
             "name": "white_room_floor_window",
@@ -560,23 +555,23 @@
         "low_angle_foreground_depth": 3.4,
         "far_shot_readable_room": 2.2,
         "telephoto_layered_interior": 3.2,
-        "balcony_breeze_half_out_frame": 2.35,
-        "greenhouse_terrace_reflection": 1.65,
+        "balcony_breeze_half_out_frame": 3.0,
+        "greenhouse_terrace_reflection": 2.8,
         "white_room_floor_window": 2.8,
-        "rooftop_laundry_sunset": 1.65,
+        "rooftop_laundry_sunset": 2.7,
         "beach_wind_open_sand": 2.4,
-        "record_shop_listening_corner": 1.9,
+        "record_shop_listening_corner": 2.1,
         "planetarium_star_dome": 1.8,
         "transparent_acrylic_display_wall": 0.9,
         "frosted_glass_partition_scene": 0.55,
         "mirror_fragment_corner": 1.0,
-        "monochrome_color_block_studio": 2.25,
+        "monochrome_color_block_studio": 2.3,
         "hanging_fabric_light_tunnel": 2.3,
         "trend_mirror_studio": 0.7,
         "capsule_toy_corner": 0.8,
         "graphic_poster_studio": 0.55,
         "pure_white_character_focus": 0.75,
-        "hosiery_tea_room": 1.15
+        "hosiery_tea_room": 2.2
     },
     "plan_compatible_clothing_themes": {
         "trend_mirror_studio": [
@@ -585,16 +580,19 @@
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean light-novel casual outfit, character palette stays recognizable",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+            "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
+            "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
             "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
             "simple camisole, high-waist flare pants, balletcore pilates fashion",
+            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+            "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit",
+            "racing crop jacket, motorsport sponsor top, performance event costume",
+            "cafe maid remix outfit, neat apron, ribbons, cute and clean",
             "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
-            "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent",
-            "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
-            "cafe maid remix outfit, neat apron, ribbons, cute and clean"
+            "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent"
         ],
         "capsule_toy_corner": [
             "clean light-novel casual outfit, character palette stays recognizable",
@@ -611,7 +609,11 @@
             "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "short one-piece dress, youthful clean date styling"
+            "short one-piece dress, youthful clean date styling",
+            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
+            "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
+            "racing crop jacket, motorsport sponsor top, performance event costume",
+            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights"
         ],
         "balcony_breeze_half_out_frame": [
             "clean light-novel casual outfit, character palette stays recognizable",
@@ -625,40 +627,51 @@
         "greenhouse_terrace_reflection": [
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
+            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "fresh sundress with a straw hat, summer date mood",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
-            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
-            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style"
+            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
+            "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+            "vintage floral tailored top, clean panel detail, garden portrait fashion",
+            "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "flower_sea_afternoon": [
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
+            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "fresh sundress with a straw hat, summer date mood",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
-            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
-            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style"
+            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
+            "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+            "vintage floral tailored top, clean panel detail, garden portrait fashion",
+            "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "flower_bridal_garden": [
+            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
-            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
-            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style"
+            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
+            "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+            "vintage floral tailored top, clean panel detail, garden portrait fashion",
+            "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "white_room_floor_window": [
             "character-signature outfit with a small fashionable variation",
             "clean light-novel casual outfit, character palette stays recognizable",
             "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
-            "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
             "soft bakery or cafe casual outfit, warm and simple",
@@ -668,7 +681,7 @@
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "fresh sundress with a straw hat, summer date mood",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+            "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
@@ -678,12 +691,10 @@
             "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
             "tank top, oversized cropped hoodie, loose jeans, relaxed casual style",
             "sleeveless top, denim overalls, youthful clean casual style",
-            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
             "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-            "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
             "soft off-shoulder knit sweater, soft Korean casual style",
-            "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+            "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
@@ -691,21 +702,31 @@
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
-            "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-            "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+            "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
             "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-            "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-            "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
+            "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
             "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-            "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood"
+            "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
+            "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
+            "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
+            "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+            "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
+            "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
+            "high-waist pencil mini skirt, clean city date fashion",
+            "lace mini dress, ribbon neck detail, romantic feminine style",
+            "light knit cardigan, soft layered outerwear",
+            "ribbed camisole top, neat knit tank top",
+            "striped lounge pants, casual wide-leg pants",
+            "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
+            "athletic crop tank, fitness camisole",
+            "high-waist denim mini skirt, casual sporty skirt",
+            "oversized zip hoodie, casual rehearsal outerwear"
         ],
         "pure_white_character_focus": [
             "character-signature outfit with a small fashionable variation",
             "clean light-novel casual outfit, character palette stays recognizable",
             "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
-            "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
             "soft bakery or cafe casual outfit, warm and simple",
@@ -715,7 +736,7 @@
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "fresh sundress with a straw hat, summer date mood",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+            "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
@@ -725,12 +746,10 @@
             "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
             "tank top, oversized cropped hoodie, loose jeans, relaxed casual style",
             "sleeveless top, denim overalls, youthful clean casual style",
-            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
             "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-            "corset mini dress, lace panels, bell sleeves, boots, idol stagewear",
             "soft off-shoulder knit sweater, soft Korean casual style",
-            "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
+            "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
@@ -738,31 +757,49 @@
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
-            "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-            "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+            "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
             "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
-            "fantasy evening gown, sleeveless design, open neckline, fitted bodice, flowing layered skirt",
-            "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
-            "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette"
+            "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
+            "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
+            "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
+            "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
+            "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
+            "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+            "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
+            "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
+            "high-waist pencil mini skirt, clean city date fashion",
+            "lace mini dress, ribbon neck detail, romantic feminine style",
+            "light knit cardigan, soft layered outerwear",
+            "ribbed camisole top, neat knit tank top",
+            "striped lounge pants, casual wide-leg pants",
+            "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
+            "athletic crop tank, fitness camisole",
+            "high-waist denim mini skirt, casual sporty skirt",
+            "oversized zip hoodie, casual rehearsal outerwear"
         ],
         "zero_gravity_fairy_room": [
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
+            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
-            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
-            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style"
+            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
+            "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+            "vintage floral tailored top, clean panel detail, garden portrait fashion",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "zero_gravity_fairy_garden": [
             "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
             "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
+            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace off-shoulder dress with puff sleeves, clean romantic styling",
             "short one-piece dress, youthful clean date styling",
-            "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
-            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style"
+            "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
+            "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
+            "vintage floral tailored top, clean panel detail, garden portrait fashion",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "overhead_deep_perspective_space": [
             "clean light-novel casual outfit, character palette stays recognizable",
@@ -779,7 +816,7 @@
             "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
-            "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
+            "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
         ],
         "far_shot_readable_room": [
@@ -799,60 +836,61 @@
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "short one-piece dress, youthful clean date styling"
         ],
+        "beach_wind_open_sand": [
+            "striped swim top under loose cover shirt, clean beach resort style",
+            "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette",
+            "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
+            "fresh sundress with a straw hat, summer date mood",
+            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
+        ],
         "transparent_acrylic_display_wall": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "minimal sunny studio outfit, face and hair identity as the main focus",
-            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "layered striped knit top, wrap skirt, preppy luxury styling",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style"
+            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
+            "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
+            "lace off-shoulder dress with puff sleeves, clean romantic styling",
+            "short one-piece dress, youthful clean date styling"
         ],
         "frosted_glass_partition_scene": [
+            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-            "soft casual outfit with warm simple styling",
+            "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "layered striped knit top, wrap skirt, preppy luxury styling",
-            "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-            "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette"
+            "lace off-shoulder dress with puff sleeves, clean romantic styling"
         ],
         "mirror_fragment_corner": [
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
+            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
+            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "short one-piece dress, youthful clean date styling",
-            "spaghetti-strap bodycon mini dress, fitted silhouette, minimalist cocktail eveningwear",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style"
+            "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear"
         ],
         "monochrome_color_block_studio": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "minimal sunny studio outfit, face and hair identity as the main focus",
+            "clean light-novel casual outfit, character palette stays recognizable",
+            "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
             "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "layered striped knit top, wrap skirt, preppy luxury styling",
-            "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
+            "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
+            "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
+            "racing crop jacket, motorsport sponsor top, performance event costume",
             "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
-            "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
-            "simple camisole, high-waist flare pants, balletcore pilates fashion",
-            "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
-            "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent"
+            "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
+            "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "hanging_fabric_light_tunnel": [
-            "strapless opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
-            "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-            "lace off-shoulder dress with puff sleeves, clean romantic styling",
-            "soft casual outfit with warm simple styling",
+            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
+            "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
-            "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
-            "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-            "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood"
+            "lace off-shoulder dress with puff sleeves, clean romantic styling",
+            "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
+            "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
+            "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette"
         ],
         "hosiery_tea_room": [
             "rare refined black hosiery fashion outfit, restrained and non-fetishized"
-        ],
-        "beach_wind_open_sand": [
-            "strapless maxi dress, bandeau neckline, gathered bustline, loose flowing resort silhouette",
-            "fresh sundress with a straw hat, summer date mood",
-            "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
-            "striped swim top under loose cover shirt, clean beach resort style",
-            "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs"
         ]
     },
     "scene_category_options": [
@@ -925,6 +963,48 @@
         }
     ],
     "composition_plans": [
+        {
+            "name": "clean_three_quarter_character_frame",
+            "composition": "clean three-quarter character framing with readable face, outfit silhouette, hands, and a simple scene rhythm",
+            "camera": "waist-up to knee-up, natural eye-level or slight side angle",
+            "pose": "use the selected action naturally without adding extra props or contradictory body direction",
+            "foreground": "minimal foreground depth only when the scene already provides it",
+            "lighting": "balanced soft light that supports the selected plan",
+            "guardrail": "do not add new scene objects, flowers, curtains, hats, bouquets, or bed/floor requirements",
+            "tags": [
+                "generic_composition",
+                "readable_subject",
+                "medium_shot"
+            ]
+        },
+        {
+            "name": "readable_environment_medium_shot",
+            "composition": "medium shot where character remains the focus while the selected environment stays clearly readable",
+            "camera": "medium distance, straight or gentle three-quarter angle, no extreme lens effect",
+            "pose": "follow the selected action with relaxed hands and a stable body line",
+            "foreground": "scene edges may frame the image lightly without covering the face",
+            "lighting": "use the plan lighting as the main atmosphere",
+            "guardrail": "avoid forcing close-up, flower foreground, curtain fabric, bouquet, or large dress shape",
+            "tags": [
+                "generic_composition",
+                "environment_readable",
+                "medium_shot"
+            ]
+        },
+        {
+            "name": "foreground_edge_depth_frame",
+            "composition": "simple foreground edge or object plane creates depth while keeping face and outfit fully visible",
+            "camera": "medium-close to medium-wide, foreground edge near camera, character in readable midground",
+            "pose": "selected action remains unchanged, body direction stays coherent with the plan",
+            "foreground": "use only objects already natural to the scene as a soft edge frame",
+            "lighting": "foreground is slightly softer than the character, no heavy obstruction",
+            "guardrail": "avoid adding flowers, curtains, bouquet, hat, bed, or unrelated props unless already specified by the plan",
+            "tags": [
+                "generic_composition",
+                "foreground_depth",
+                "readable_subject"
+            ]
+        },
         {
             "name": "clean_full_body_silhouette_frame",
             "composition": "readable full-body or near full-body framing with a clean outfit silhouette and stable negative space",
@@ -1010,242 +1090,6 @@
             ]
         },
         {
-            "name": "wide_readable_scene_balance",
-            "composition": "wider scene-balanced frame where the character remains readable and the environment explains the plan",
-            "camera": "medium-wide, character not tiny, stable horizon or room geometry",
-            "pose": "selected action stays clear from silhouette alone",
-            "foreground": "optional natural scene edge only",
-            "lighting": "environment light frames the character without overexposure",
-            "guardrail": "avoid empty landscape, forced flower field, curtain, bouquet, hat, or bed/floor pose",
-            "tags": [
-                "generic_composition",
-                "wide_shot",
-                "environment_readable"
-            ]
-        },
-        {
-            "name": "clean_three_quarter_character_frame",
-            "composition": "clean three-quarter character framing with readable face, outfit silhouette, hands, and a simple scene rhythm",
-            "camera": "waist-up to knee-up, natural eye-level or slight side angle",
-            "pose": "use the selected action naturally without adding extra props or contradictory body direction",
-            "foreground": "minimal foreground depth only when the scene already provides it",
-            "lighting": "balanced soft light that supports the selected plan",
-            "guardrail": "do not add new scene objects, flowers, curtains, hats, bouquets, or bed/floor requirements",
-            "tags": [
-                "generic_composition",
-                "readable_subject",
-                "medium_shot"
-            ]
-        },
-        {
-            "name": "readable_environment_medium_shot",
-            "composition": "medium shot where character remains the focus while the selected environment stays clearly readable",
-            "camera": "medium distance, straight or gentle three-quarter angle, no extreme lens effect",
-            "pose": "follow the selected action with relaxed hands and a stable body line",
-            "foreground": "scene edges may frame the image lightly without covering the face",
-            "lighting": "use the plan lighting as the main atmosphere",
-            "guardrail": "avoid forcing close-up, flower foreground, curtain fabric, bouquet, or large dress shape",
-            "tags": [
-                "generic_composition",
-                "environment_readable",
-                "medium_shot"
-            ]
-        },
-        {
-            "name": "foreground_edge_depth_frame",
-            "composition": "simple foreground edge or object plane creates depth while keeping face and outfit fully visible",
-            "camera": "medium-close to medium-wide, foreground edge near camera, character in readable midground",
-            "pose": "selected action remains unchanged, body direction stays coherent with the plan",
-            "foreground": "use only objects already natural to the scene as a soft edge frame",
-            "lighting": "foreground is slightly softer than the character, no heavy obstruction",
-            "guardrail": "avoid adding flowers, curtains, bouquet, hat, bed, or unrelated props unless already specified by the plan",
-            "tags": [
-                "generic_composition",
-                "foreground_depth",
-                "readable_subject"
-            ]
-        },
-        {
-            "camera": "close distance, shallow depth of field, eye-level or gentle side angle",
-            "foreground": "large soft flower branches create airy obstruction, never a dense flower wall",
-            "lighting": "soft sunlight, clear eye highlights, clean pastel air",
-            "tags": [
-                "foreground_occlusion",
-                "flower",
-                "close_character",
-                "soft_light"
-            ],
-            "name": "foreground_flower_occlusion_closeup",
-            "guardrail": "flowers must not fully cover the face; avoid flat centered ID-photo composition",
-            "pose": "looking up at flowers, gentle side glance, or quiet direct gaze through gaps",
-            "composition": "close-up or bust-up with large blurred flowers covering 20-50 percent of the foreground while eyes, face shape, and hair silhouette remain readable"
-        },
-        {
-            "camera": "low foreground height, close-up to half-body, slight upward perspective without facial distortion",
-            "foreground": "flower canopy crosses the upper frame as a soft ceiling",
-            "lighting": "sunlight touches eyes and cheek, sky negative space stays clean",
-            "tags": [
-                "low_camera",
-                "flower",
-                "breeze",
-                "negative_space"
-            ],
-            "name": "low_angle_under_flower_canopy",
-            "guardrail": "avoid extreme nostril angle, distorted face, tiny character, or stiff front pose",
-            "pose": "chin slightly raised, eyes looking upper-left or upper-right, hair lightly moved by wind",
-            "composition": "low-angle portrait below flower branches, flower canopy above the head with bright open background behind"
-        },
-        {
-            "camera": "bust-up to waist-up, medium-close distance, shallow depth of field",
-            "foreground": "petals cross edges but leave eyes and face open",
-            "lighting": "bright spring-like color and clean facial focus",
-            "tags": [
-                "foreground_occlusion",
-                "flower",
-                "eye_contact",
-                "close_character"
-            ],
-            "name": "flower_frame_clear_face",
-            "guardrail": "avoid symmetrical wreath feeling, idol-poster overload, or petals blocking the face",
-            "pose": "soft direct gaze or slight smile, hands hidden or naturally near flowers",
-            "composition": "face framed by flowers or soft foreground objects around image edges, facial features remain the clean focal point"
-        },
-        {
-            "camera": "medium to long landscape framing, character readable but not tiny",
-            "foreground": "wide soft flower blur crosses lower or side frame",
-            "lighting": "clean sky light and airy color separation",
-            "tags": [
-                "wide_shot",
-                "flower",
-                "negative_space",
-                "side_glance"
-            ],
-            "name": "cinematic_wide_flower_side_view",
-            "guardrail": "avoid empty landscape where the character becomes unreadable",
-            "pose": "looking upward or sideways, hair flowing backward, calm spring moment",
-            "composition": "cinematic horizontal crop, character off-center, large flower foreground and sky negative space, side or three-quarter side body"
-        },
-        {
-            "camera": "knee-up or three-quarter body, slight side angle beside the light beam",
-            "foreground": "haze and window-shadow shapes create layered depth",
-            "lighting": "diagonal beam, soft face highlight, carved window shadow",
-            "tags": [
-                "window_frame",
-                "light_cut",
-                "haze",
-                "seated"
-            ],
-            "name": "diagonal_window_light_haze",
-            "guardrail": "avoid horror smoke, dirty abandoned room, face lost in darkness, or fog covering body",
-            "pose": "quiet seated pose, side glance, hands resting naturally",
-            "composition": "seated character near window, strong sunlight beam cuts diagonally through visible mist or dust"
-        },
-        {
-            "camera": "waist-up to thigh-up, close enough to read face and hair ornaments",
-            "foreground": "bouquet or floral edge stays behind the body line",
-            "lighting": "elegant shoulder line with clear face light",
-            "tags": [
-                "back_view",
-                "looking_back",
-                "flower",
-                "story_pose"
-            ],
-            "name": "over_shoulder_bouquet_turn",
-            "guardrail": "avoid full back with no face, forced seductive pose, broken arms, or bouquet blocking body shape",
-            "pose": "gentle over-shoulder glance, arms naturally behind or holding a simple flower shape",
-            "composition": "shoulder-away posture with head turned back in profile or three-quarter view, flowers crossing the back line"
-        },
-        {
-            "camera": "medium-wide shot, slightly high or eye-level, full body or near full body",
-            "foreground": "floor reflection or shadow becomes a graphic field",
-            "lighting": "strong light patch or shadow shape organizes empty space",
-            "tags": [
-                "negative_space",
-                "floor",
-                "seated",
-                "full_body"
-            ],
-            "name": "floor_diagonal_negative_space",
-            "guardrail": "avoid twisted torso, unclear floor hand, or random empty area without design",
-            "pose": "one hand supporting body on floor, legs extended or folded naturally, head turned toward light",
-            "composition": "character seated diagonally on floor, body forms a long slanted line across lower frame with designed empty area around"
-        },
-        {
-            "camera": "full-body or three-quarter body, clean fashion portrait with negative space",
-            "foreground": "fabric volume forms a sculptural lower-frame shape",
-            "lighting": "clean studio light with crisp dress volume and soft face highlight",
-            "tags": [
-                "studio",
-                "dress_volume",
-                "negative_space",
-                "fashion"
-            ],
-            "name": "gray_studio_large_dress_shape",
-            "guardrail": "avoid wedding ceremony mood, bouquet overload, noisy background, or dress swallowing anatomy",
-            "pose": "standing, sitting on a low block, or gently holding the outer skirt fabric so the dress shape stays readable",
-            "composition": "minimal studio with large dress fabric spreading across lower frame as the main graphic mass"
-        },
-        {
-            "camera": "tight bust-up, frontal or slight side angle, shallow depth",
-            "foreground": "hat brim shadow and hair strands create layered close framing",
-            "lighting": "soft skin light and darker eye shadow contrast without losing readability",
-            "tags": [
-                "close_character",
-                "shadow",
-                "fashion",
-                "eye_contact"
-            ],
-            "name": "hat_brim_shadow_closeup",
-            "guardrail": "avoid hand covering mouth, face too dark, or oversexual finger pose",
-            "pose": "quiet direct gaze, fingers near cheek or chin, shoulders relaxed",
-            "composition": "tight close-up with wide hat brim or veil shadow crossing upper face while eyes remain visible"
-        },
-        {
-            "camera": "high angle, medium-wide shot, face looking up toward camera",
-            "foreground": "bedding shapes, magazines, or small props frame without clutter",
-            "lighting": "cozy soft room light with clear face and eyes",
-            "tags": [
-                "high_camera",
-                "bed_floor",
-                "soft_light",
-                "story_props"
-            ],
-            "name": "high_angle_bed_or_floor_frame",
-            "guardrail": "avoid erotic bedroom framing, top-down map view, tiny character, or messy prop overload",
-            "pose": "lying on stomach, elbows on pillow, or leaning on bedding with relaxed hands",
-            "composition": "camera looks down from above, character lying or leaning on bed or floor, surrounding objects form a soft frame"
-        },
-        {
-            "camera": "medium shot to close-up, side or three-quarter angle",
-            "foreground": "glowing lace texture and lightweight curtain fabric create soft scene obstruction",
-            "lighting": "warm backlight through lace, soft silhouette, clear facial features",
-            "tags": [
-                "lace",
-                "curtain",
-                "backlight",
-                "foreground_occlusion"
-            ],
-            "name": "lace_curtain_backlight_occlusion",
-            "guardrail": "avoid blown-out face, explicit lingerie framing, excessive exposure, or unreadable features",
-            "pose": "standing beside curtain, holding fabric lightly, looking down or toward window",
-            "composition": "character partly behind lace curtain or lightweight foreground curtain fabric, translucent scene layer over body while face remains readable"
-        },
-        {
-            "camera": "close-up, shallow depth of field, warm soft light",
-            "foreground": "loose hair strands cross face lightly without hiding eyes",
-            "lighting": "warm soft light, glossy eyes, delicate skin texture",
-            "tags": [
-                "close_character",
-                "hand_on_cheek",
-                "soft_light",
-                "eye_contact"
-            ],
-            "name": "soft_hand_on_cheek_close_face",
-            "guardrail": "avoid plastic doll face, oversexual expression, wet-shirt look, or cleavage crop",
-            "pose": "cheek resting on hand, direct quiet gaze or slightly lowered eyelids",
-            "composition": "intimate close-up where face fills most of frame and one hand supports cheek naturally"
-        },
-        {
             "name": "pure_white_social_close_portrait",
             "composition": "high-key close portrait with large clean white margin around the image; face, eyes, hairstyle, and one simple hand shape dominate the read",
             "camera": "close-up to bust-up, natural eye-level or slight high angle, shallow depth of field but crisp eyes",
@@ -1278,6 +1122,22 @@
             ]
         },
         {
+            "name": "pure_white_three_quarter_editorial_frame",
+            "composition": "high-key white-space three-quarter portrait; character is cropped from head to thigh or knee with deliberate white margin, clean outfit silhouette, and no separate scene narrative",
+            "camera": "thigh-up or knee-up, eye-level or slightly high portrait angle, natural front three-quarter or gentle side angle, face remains crisp",
+            "pose": "standing, light lean, or slow walking balance; arms and hands stay simple and outside clothing, with no forced prop action",
+            "foreground": "optional white edge, hair strand, tiny flower, or soft shoulder-level blur may frame one side without hiding identity details",
+            "lighting": "bright high-key daylight with controlled overexposed white space, soft skin shadow, and clear hair-edge separation",
+            "guardrail": "avoid garden, flower field, product set, installation props, bed/floor pose, low-angle distortion, or distant full-scene framing",
+            "tags": [
+                "pure_white_special",
+                "three_quarter",
+                "white_negative_space",
+                "photographer_frame",
+                "soft_light"
+            ]
+        },
+        {
             "name": "pure_white_full_body_editorial_frame",
             "composition": "full-body high-key fashion portrait on a clean white field; the whole silhouette is readable head-to-toe while generous white margin creates a photographer's negative-space layout",
             "camera": "full-body to near full-body, stable eye-level or gentle high angle, character large enough that face, hair silhouette, outfit shape, hands, and visible feet stay readable",
@@ -1294,19 +1154,197 @@
             ]
         },
         {
-            "name": "pure_white_three_quarter_editorial_frame",
-            "composition": "high-key white-space three-quarter portrait; character is cropped from head to thigh or knee with deliberate white margin, clean outfit silhouette, and no separate scene narrative",
-            "camera": "thigh-up or knee-up, eye-level or slightly high portrait angle, natural front three-quarter or gentle side angle, face remains crisp",
-            "pose": "standing, light lean, or slow walking balance; arms and hands stay simple and outside clothing, with no forced prop action",
-            "foreground": "optional white edge, hair strand, tiny flower, or soft shoulder-level blur may frame one side without hiding identity details",
-            "lighting": "bright high-key daylight with controlled overexposed white space, soft skin shadow, and clear hair-edge separation",
-            "guardrail": "avoid garden, flower field, product set, installation props, bed/floor pose, low-angle distortion, or distant full-scene framing",
+            "name": "wide_readable_scene_balance",
+            "composition": "wider scene-balanced frame where the character remains readable and the environment explains the plan",
+            "camera": "medium-wide, character not tiny, stable horizon or room geometry",
+            "pose": "selected action stays clear from silhouette alone",
+            "foreground": "optional natural scene edge only",
+            "lighting": "environment light frames the character without overexposure",
+            "guardrail": "avoid empty landscape, forced flower field, curtain, bouquet, hat, or bed/floor pose",
             "tags": [
-                "pure_white_special",
-                "three_quarter",
-                "white_negative_space",
-                "photographer_frame",
+                "generic_composition",
+                "wide_shot",
+                "environment_readable"
+            ]
+        },
+        {
+            "name": "foreground_flower_occlusion_closeup",
+            "composition": "close-up or bust-up with large blurred flowers covering 20-50 percent of the foreground while eyes, face shape, and hair silhouette remain readable",
+            "camera": "close distance, shallow depth of field, eye-level or gentle side angle",
+            "pose": "looking up at flowers, gentle side glance, or quiet direct gaze through gaps",
+            "foreground": "large soft flower branches create airy obstruction, never a dense flower wall",
+            "lighting": "soft sunlight, clear eye highlights, clean pastel air",
+            "guardrail": "flowers must not fully cover the face; avoid flat centered ID-photo composition",
+            "tags": [
+                "foreground_occlusion",
+                "flower",
+                "close_character",
                 "soft_light"
+            ]
+        },
+        {
+            "name": "low_angle_under_flower_canopy",
+            "composition": "low-angle portrait below flower branches, flower canopy above the head with bright open background behind",
+            "camera": "low foreground height, close-up to half-body, slight upward perspective without facial distortion",
+            "pose": "chin slightly raised, eyes looking upper-left or upper-right, hair lightly moved by wind",
+            "foreground": "flower canopy crosses the upper frame as a soft ceiling",
+            "lighting": "sunlight touches eyes and cheek, sky negative space stays clean",
+            "guardrail": "avoid extreme nostril angle, distorted face, tiny character, or stiff front pose",
+            "tags": [
+                "low_camera",
+                "flower",
+                "breeze",
+                "negative_space"
+            ]
+        },
+        {
+            "name": "flower_frame_clear_face",
+            "composition": "face framed by flowers or soft foreground objects around image edges, facial features remain the clean focal point",
+            "camera": "bust-up to waist-up, medium-close distance, shallow depth of field",
+            "pose": "soft direct gaze or slight smile, hands hidden or naturally near flowers",
+            "foreground": "petals cross edges but leave eyes and face open",
+            "lighting": "bright spring-like color and clean facial focus",
+            "guardrail": "avoid symmetrical wreath feeling, idol-poster overload, or petals blocking the face",
+            "tags": [
+                "foreground_occlusion",
+                "flower",
+                "eye_contact",
+                "close_character"
+            ]
+        },
+        {
+            "name": "cinematic_wide_flower_side_view",
+            "composition": "cinematic horizontal crop, character off-center, large flower foreground and sky negative space, side or three-quarter side body",
+            "camera": "medium to long landscape framing, character readable but not tiny",
+            "pose": "looking upward or sideways, hair flowing backward, calm spring moment",
+            "foreground": "wide soft flower blur crosses lower or side frame",
+            "lighting": "clean sky light and airy color separation",
+            "guardrail": "avoid empty landscape where the character becomes unreadable",
+            "tags": [
+                "wide_shot",
+                "flower",
+                "negative_space",
+                "side_glance"
+            ]
+        },
+        {
+            "name": "diagonal_window_light_haze",
+            "composition": "seated character near window, strong sunlight beam cuts diagonally through visible mist or dust",
+            "camera": "knee-up or three-quarter body, slight side angle beside the light beam",
+            "pose": "quiet seated pose, side glance, hands resting naturally",
+            "foreground": "haze and window-shadow shapes create layered depth",
+            "lighting": "diagonal beam, soft face highlight, carved window shadow",
+            "guardrail": "avoid horror smoke, dirty abandoned room, face lost in darkness, or fog covering body",
+            "tags": [
+                "window_frame",
+                "light_cut",
+                "haze",
+                "seated"
+            ]
+        },
+        {
+            "name": "over_shoulder_bouquet_turn",
+            "composition": "shoulder-away posture with head turned back in profile or three-quarter view, flowers crossing the back line",
+            "camera": "waist-up to thigh-up, close enough to read face and hair ornaments",
+            "pose": "gentle over-shoulder glance, arms naturally behind or holding a simple flower shape",
+            "foreground": "bouquet or floral edge stays behind the body line",
+            "lighting": "elegant shoulder line with clear face light",
+            "guardrail": "avoid full back with no face, forced seductive pose, broken arms, or bouquet blocking body shape",
+            "tags": [
+                "back_view",
+                "looking_back",
+                "flower",
+                "story_pose"
+            ]
+        },
+        {
+            "name": "floor_diagonal_negative_space",
+            "composition": "character seated diagonally on floor, body forms a long slanted line across lower frame with designed empty area around",
+            "camera": "medium-wide shot, slightly high or eye-level, full body or near full body",
+            "pose": "one hand supporting body on floor, legs extended or folded naturally, head turned toward light",
+            "foreground": "floor reflection or shadow becomes a graphic field",
+            "lighting": "strong light patch or shadow shape organizes empty space",
+            "guardrail": "avoid twisted torso, unclear floor hand, or random empty area without design",
+            "tags": [
+                "negative_space",
+                "floor",
+                "seated",
+                "full_body"
+            ]
+        },
+        {
+            "name": "gray_studio_large_dress_shape",
+            "composition": "minimal studio with large dress fabric spreading across lower frame as the main graphic mass",
+            "camera": "full-body or three-quarter body, clean fashion portrait with negative space",
+            "pose": "standing, sitting on a low block, or gently holding the outer skirt fabric so the dress shape stays readable",
+            "foreground": "fabric volume forms a sculptural lower-frame shape",
+            "lighting": "clean studio light with crisp dress volume and soft face highlight",
+            "guardrail": "avoid wedding ceremony mood, bouquet overload, noisy background, or dress swallowing anatomy",
+            "tags": [
+                "studio",
+                "dress_volume",
+                "negative_space",
+                "fashion"
+            ]
+        },
+        {
+            "name": "hat_brim_shadow_closeup",
+            "composition": "tight close-up with wide hat brim or veil shadow crossing upper face while eyes remain visible",
+            "camera": "tight bust-up, frontal or slight side angle, shallow depth",
+            "pose": "quiet direct gaze, fingers near cheek or chin, shoulders relaxed",
+            "foreground": "hat brim shadow and hair strands create layered close framing",
+            "lighting": "soft skin light and darker eye shadow contrast without losing readability",
+            "guardrail": "avoid hand covering mouth, face too dark, or oversexual finger pose",
+            "tags": [
+                "close_character",
+                "shadow",
+                "fashion",
+                "eye_contact"
+            ]
+        },
+        {
+            "name": "high_angle_bed_or_floor_frame",
+            "composition": "camera looks down from above, character lying or leaning on bed or floor, surrounding objects form a soft frame",
+            "camera": "high angle, medium-wide shot, face looking up toward camera",
+            "pose": "lying on stomach, elbows on pillow, or leaning on bedding with relaxed hands",
+            "foreground": "bedding shapes, magazines, or small props frame without clutter",
+            "lighting": "cozy soft room light with clear face and eyes",
+            "guardrail": "avoid erotic bedroom framing, top-down map view, tiny character, or messy prop overload",
+            "tags": [
+                "high_camera",
+                "bed_floor",
+                "soft_light",
+                "story_props"
+            ]
+        },
+        {
+            "name": "lace_curtain_backlight_occlusion",
+            "composition": "character partly behind lace curtain or lightweight foreground curtain fabric, translucent scene layer over body while face remains readable",
+            "camera": "medium shot to close-up, side or three-quarter angle",
+            "pose": "standing beside curtain, holding fabric lightly, looking down or toward window",
+            "foreground": "glowing lace texture and lightweight curtain fabric create soft scene obstruction",
+            "lighting": "warm backlight through lace, soft silhouette, clear facial features",
+            "guardrail": "avoid blown-out face, explicit lingerie framing, excessive exposure, or unreadable features",
+            "tags": [
+                "lace",
+                "curtain",
+                "backlight",
+                "foreground_occlusion"
+            ]
+        },
+        {
+            "name": "soft_hand_on_cheek_close_face",
+            "composition": "intimate close-up where face fills most of frame and one hand supports cheek naturally",
+            "camera": "close-up, shallow depth of field, warm soft light",
+            "pose": "cheek resting on hand, direct quiet gaze or slightly lowered eyelids",
+            "foreground": "loose hair strands cross face lightly without hiding eyes",
+            "lighting": "warm soft light, glossy eyes, delicate skin texture",
+            "guardrail": "avoid plastic doll face, oversexual expression, wet-shirt look, or cleavage crop",
+            "tags": [
+                "close_character",
+                "hand_on_cheek",
+                "soft_light",
+                "eye_contact"
             ]
         }
     ]
