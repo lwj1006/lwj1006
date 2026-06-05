@@ -378,18 +378,6 @@ ART_DIRECTION_PLANS = [
         "tags": ["rooftop", "laundry", "sunset", "breeze", "daily", "large_space", "novel_cg"],
     },
     {
-        "name": "aquarium_glass_tunnel",
-        "graphic_concept": "aquarium glass tunnel scene; curved glass, water caustics, and drifting fish shadows create a quiet immersive atmosphere around one character",
-        "spatial_structure": "arched glass tunnel, floor reflection, tank depth, and distant walkway create a clear foreground-midground-background stack",
-        "visual_device": "fish silhouettes, water ripples, glass reflection, ticket stub, and small bag charm create readable story detail without adding another person",
-        "body_silhouette": "slow walking pause or side glance under the glass arc; face, eyes, and hair silhouette remain readable despite the atmospheric light",
-        "outfit_direction": "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
-        "material_language": "glass, water reflection, soft datewear fabric, small shoulder bag, polished floor, tiny ticket detail",
-        "color_strategy": "aquarium light and character palette balance each other; outfit colors are left to model taste",
-        "lighting_behavior": "moving water light patterns across floor and background, with a clean soft highlight on face and hair",
-        "tags": ["aquarium", "glass", "reflection", "water_light", "date", "deep_perspective", "novel_cg"],
-    },
-    {
         "name": "beach_wind_open_sand",
         "graphic_concept": "open beach wind scene; shoreline, parasol edge, wave line, and small beach items create a clean summer image without swimsuit focus",
         "spatial_structure": "wide sand plane, wave edge, parasol or towel in foreground, and open horizon; character readable at medium distance with plenty of air",
@@ -474,18 +462,6 @@ ART_DIRECTION_PLANS = [
         "tags": ["color_block", "studio", "poster", "graphic", "negative_space", "mechanism_scene", "novel_cg"],
     },
     {
-        "name": "ribbon_installation_space",
-        "graphic_concept": "ribbon installation space; hanging ribbons create depth layers and a flowing frame around one character",
-        "spatial_structure": "many vertical and diagonal ribbon strips hang through the space, leaving clear gaps for face and body readability",
-        "visual_device": "ribbons become foreground occlusion, leading lines, and soft motion without covering identity essentials",
-        "body_silhouette": "standing, walking slowly between ribbons, or lightly turning as ribbons frame the body; hands simple near a ribbon edge",
-        "outfit_direction": "lace dress, ribbon waist, airy garden fairy style",
-        "material_language": "satin ribbon, translucent fabric, soft dress texture, polished floor, delicate highlights",
-        "color_strategy": "ribbon colors are chosen by the model to harmonize with the character, avoiding a one-color overload",
-        "lighting_behavior": "soft directional light catches ribbon edges and keeps the face clear through the gaps",
-        "tags": ["ribbon", "installation", "foreground_occlusion", "flowing_lines", "soft_light", "mechanism_scene", "novel_cg"],
-    },
-    {
         "name": "hanging_fabric_light_tunnel",
         "graphic_concept": "hanging fabric light tunnel; sheets of fabric form a soft corridor of light with a slight domestic-surreal feeling",
         "spatial_structure": "layered hanging cloth panels create a tunnel from foreground to background; character appears between fabric openings",
@@ -511,15 +487,15 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "pure_white_character_focus",
-        "graphic_concept": "pure white character key visual; remove complex scenery so identity, hairstyle, eyes, and outfit silhouette become the entire focus",
-        "spatial_structure": "seamless pure white background with only soft shadow and tiny character-color graphic accents; no real location",
-        "visual_device": "large white field, character color, and a few black line accents create a clear thumbnail",
-        "body_silhouette": "close knee-up or three-quarter pose, character large in frame, natural stable posture",
+        "graphic_concept": "pure-white social portrait key visual; bright white negative space, close face readability, and clean mobile-photo freshness become the main design",
+        "spatial_structure": "mostly white or high-key background with a large blank margin; optional soft flower, hair, or shoulder foreground stays minimal and does not create a real location",
+        "visual_device": "face, eyes, hair silhouette, and simple hand shape are the first read; a small flower or hair strand can create soft foreground intimacy without clutter",
+        "body_silhouette": "close-up, bust-up, or half-body portrait; character fills the image vertically, hands simple near cheek, flower, hair, collar, or frame edge",
         "outfit_direction": "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
-        "material_language": "clean flowing cloth, a few ribbons, tiny accessories, soft hair",
-        "color_strategy": "white dominates; character colors are the only strong memory point",
-        "lighting_behavior": "high-key soft light, face and eyes very clear, no gray or dirty whites",
-        "tags": ["pure_white", "studio", "minimal", "close_character"],
+        "material_language": "white negative space, soft skin-like light, clean flowing cloth, small flower or petal accent, soft hair, tiny accessories",
+        "color_strategy": "white dominates the layout; outfit colorway is model-chosen and cohesive, while character hair and eyes remain the identity memory point",
+        "lighting_behavior": "bright natural high-key daylight, clear catchlights, soft overexposed white margins, face and eyes stay crisp",
+        "tags": ["pure_white", "studio", "minimal", "close_character", "portrait", "white_negative_space"],
     },
     {
         "name": "zero_gravity_fairy_room",
@@ -798,6 +774,26 @@ COMPOSITION_PLANS = [
         "tags": ["generic_composition", "close_character", "eye_contact"],
     },
     {
+        "name": "pure_white_social_close_portrait",
+        "composition": "high-key close portrait with large clean white margin around the image; face, eyes, hairstyle, and one simple hand shape dominate the read",
+        "camera": "close-up to bust-up, natural eye-level or slight high angle, shallow depth of field but crisp eyes",
+        "pose": "quiet direct gaze, soft smile, side glance, or one hand near cheek, hair, collar, or a small flower; keep fingers simple",
+        "foreground": "optional tiny flower, petal, hair strand, or soft white edge near camera, never covering both eyes",
+        "lighting": "bright natural daylight, white overexposed margins, clean catchlights, soft facial shadow",
+        "guardrail": "avoid full-body framing, seated floor pose, big props, busy room, UI text, or cleavage crop",
+        "tags": ["pure_white_special", "close_character", "white_negative_space", "portrait", "soft_light"],
+    },
+    {
+        "name": "pure_white_half_body_social_photo",
+        "composition": "vertical social-photo half-body portrait with clean white space above or below, character cropped from head to waist or upper torso",
+        "camera": "half-body to upper-torso, slight high angle or front three-quarter, face remains the sharpest detail",
+        "pose": "natural standing or light lean; hands may touch hair, collar, frame edge, or a small flower while staying outside clothing",
+        "foreground": "white margin, soft flower edge, or hair crossing one side can add depth without becoming a separate scene",
+        "lighting": "sunny high-key fill, clean white background, gentle skin and hair highlights",
+        "guardrail": "avoid full-length fashion pose, distant figure, cluttered background, bed/floor pose, or large handheld objects",
+        "tags": ["pure_white_special", "close_character", "half_body", "white_negative_space", "soft_light"],
+    },
+    {
         "name": "wide_readable_scene_balance",
         "composition": "wider scene-balanced frame where the character remains readable and the environment explains the plan",
         "camera": "medium-wide, character not tiny, stable horizon or room geometry",
@@ -1037,7 +1033,17 @@ def choose_visual_design(recent_tags=None, plan=None):
 def choose_shot_scale(recent_tags=None, plan=None):
     plan_tags = _tags_of(plan or {})
     options = [dict(option) for option in SHOT_SCALE_OPTIONS]
-    if plan_tags & {"close_character", "studio", "pure_white", "white_room"}:
+    if "pure_white" in plan_tags:
+        options = [
+            option for option in options
+            if option["name"] in {"waist_up_half_body", "bust_close", "close_upper_body"}
+        ]
+        bonuses = {
+            "waist_up_half_body": 0.9,
+            "bust_close": 0.9,
+            "close_upper_body": 0.7,
+        }
+    elif plan_tags & {"close_character", "studio", "white_room"}:
         bonuses = {
             "knee_up_medium": 0.7,
             "waist_up_half_body": 0.9,
@@ -1143,7 +1149,6 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "greenhouse_terrace_reflection": 2.8,
     "white_room_floor_window": 2.8,
     "rooftop_laundry_sunset": 2.7,
-    "aquarium_glass_tunnel": 2.6,
     "beach_wind_open_sand": 2.4,
     "record_shop_listening_corner": 2.1,
     "planetarium_star_dome": 1.8,
@@ -1151,7 +1156,6 @@ NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES = {
     "frosted_glass_partition_scene": 0.55,
     "mirror_fragment_corner": 1.0,
     "monochrome_color_block_studio": 2.3,
-    "ribbon_installation_space": 0.7,
     "hanging_fabric_light_tunnel": 2.3,
     "trend_mirror_studio": 0.7,
     "capsule_toy_corner": 0.8,
@@ -1472,7 +1476,6 @@ INTERIOR_COMPOSITION_PLANS = {
     "clean_archive_storage_room",
     "giant_cushion_showroom",
     "paper_sculpture_room",
-    "ribbon_installation_space",
     "hanging_fabric_light_tunnel",
     "table_edge_magazine_occlusion",
     "hosiery_tea_room",
@@ -1492,6 +1495,8 @@ COMPOSITION_BASE_WEIGHTS = {
     "vertical_poster_readable_pose": 0.6,
     "calm_motion_midground_frame": 0.8,
     "quiet_close_upper_body_frame": 1.15,
+    "pure_white_social_close_portrait": 1.8,
+    "pure_white_half_body_social_photo": 1.55,
     "wide_readable_scene_balance": 0.75,
     "floor_diagonal_negative_space": 0.12,
     "high_angle_bed_or_floor_frame": 0.08,
@@ -1642,12 +1647,6 @@ SCENE_COMPOSITION_ALLOWLIST = {
         "hat_brim_shadow_closeup",
         "soft_hand_on_cheek_close_face",
     },
-    "aquarium_glass_tunnel": {
-        *GENERIC_COMPOSITION_NAMES,
-        "floor_diagonal_negative_space",
-        "hat_brim_shadow_closeup",
-        "soft_hand_on_cheek_close_face",
-    },
     "record_shop_listening_corner": {
         *GENERIC_COMPOSITION_NAMES,
         "hat_brim_shadow_closeup",
@@ -1660,13 +1659,12 @@ SCENE_COMPOSITION_ALLOWLIST = {
         "floor_diagonal_negative_space",
     },
     "pure_white_character_focus": {
-        "clean_three_quarter_character_frame",
-        "clean_full_body_silhouette_frame",
+        "pure_white_social_close_portrait",
+        "pure_white_half_body_social_photo",
         "slight_side_medium_close_frame",
-        "vertical_poster_readable_pose",
         "quiet_close_upper_body_frame",
-        "floor_diagonal_negative_space",
-        "high_angle_bed_or_floor_frame",
+        "soft_hand_on_cheek_close_face",
+        "hat_brim_shadow_closeup",
     },
 }
 

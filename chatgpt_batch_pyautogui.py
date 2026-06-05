@@ -591,14 +591,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
         "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
     ],
-    "ribbon_installation_space": [
-        FLOWER_FANTASY_OUTFIT,
-        FAIRY_FLOATING_OUTFIT,
-        SOFT_DATE_OUTFIT,
-        LACE_OFF_SHOULDER_DRESS_OUTFIT,
-        "lace dress, ribbon waist, airy garden fairy style",
-        "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-    ],
     "hanging_fabric_light_tunnel": [
         SOFT_DATE_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
@@ -637,7 +629,6 @@ SCENE_CATEGORY_OPTIONS = [
         "plan_names": [
             "balcony_breeze_half_out_frame",
             "rooftop_laundry_sunset",
-            "aquarium_glass_tunnel",
             "beach_wind_open_sand",
             "record_shop_listening_corner",
             "planetarium_star_dome",
@@ -651,7 +642,6 @@ SCENE_CATEGORY_OPTIONS = [
             "frosted_glass_partition_scene",
             "mirror_fragment_corner",
             "monochrome_color_block_studio",
-            "ribbon_installation_space",
             "hanging_fabric_light_tunnel",
         ],
     },
