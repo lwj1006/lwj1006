@@ -1,5 +1,5 @@
-{
-    "revision": "review-round7-stabilize-20260605",
+﻿{
+    "revision": "review-round7-feedback-tighten-20260605",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -43,9 +43,9 @@
         "striped swim top under loose cover shirt, clean beach resort style",
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-        "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+        "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
         "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-        "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+        "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
         "layered striped knit top, wrap skirt, preppy luxury styling",
         "striped tank top, pleated mini skirt, tennis-girl summer casual style",
         "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -63,7 +63,7 @@
         "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
         "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
         "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
-        "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+        "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
         "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
         "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
         "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves"
@@ -93,7 +93,7 @@
             "visual_device": "repeating circles echo the eyes and create a strong thumbnail memory point",
             "body_silhouette": "half-body to knee-up framing; a small toy may sit nearby, but hands should not dominate the camera",
             "outfit_direction": "sleeveless top, denim overalls, youthful clean casual style",
-            "material_language": "clear plastic, denim overall texture, cotton sleeveless top, tiny charms, candy accents, glossy reflections",
+            "material_language": "glossy capsule shells, denim overall texture, cotton sleeveless top, tiny charms, candy accents, controlled reflections",
             "color_strategy": "pale background plus character colors; toy colors remain small supporting accents",
             "lighting_behavior": "soft high-key light; eyes and hair edges stay sharp",
             "tags": [
@@ -260,7 +260,7 @@
             "name": "record_shop_listening_corner",
             "graphic_concept": "record shop listening corner; shelves, headphones, poster color blocks without readable text, and a small listening booth create a stylish music mood",
             "spatial_structure": "record shelves, listening booth counter, headphone hook, and poster wall create dense but ordered vertical layers",
-            "visual_device": "vinyl circles, headphone cable curve, shelf rows, and sticker-like shapes create strong rhythm around the character",
+            "visual_device": "record circles, headphone cable curve, shelf rows, and sticker-like shapes create strong rhythm around the character",
             "body_silhouette": "standing beside record shelves, lightly holding headphones, or listening with relaxed posture; avoid complex hand poses",
             "outfit_direction": "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
             "material_language": "record sleeves, headphone plastic, shelf wood, soft sweatshirt fabric, skirt embellishments, small sticker details",
@@ -592,7 +592,7 @@
         },
         {
             "name": "low_angle_foreground_depth",
-            "graphic_concept": "low-angle upward anime screenshot composition; camera looks slightly up from floor, table, stairs, or garden-path height while the character stays readable",
+            "graphic_concept": "low foreground-edge anime screenshot composition; table, stair, chair, or garden-path height creates depth while the character stays readable without upward body distortion",
             "spatial_structure": "camera near floor, tabletop, stair, chair, or garden path level, looking upward through a foreground edge; midground character remains medium-readable and off-center; background rises behind the character",
             "visual_device": "low foreground object, middle character, and rising window, door, wall, tree, or ceiling line form a readable upward three-depth stack",
             "body_silhouette": "medium readable figure seen from a low upward perspective, front three-quarter or clean side angle preferred, simple hands",
@@ -703,7 +703,7 @@
             "soft windbreaker jacket, low-neck tank top, athletic shorts, round-frame glasses",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts",
-            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
             "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
             "simple camisole, high-waist flare pants, balletcore pilates fashion",
             "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
@@ -803,9 +803,9 @@
             "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-            "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -852,9 +852,9 @@
             "corset dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-            "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -926,7 +926,7 @@
         "transparent_acrylic_display_wall": [
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "minimal sunny studio outfit, face and hair identity as the main focus",
-            "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
             "lace long dress as the main element, freely designed elegant silhouette, paired with heels"
@@ -960,10 +960,10 @@
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
-            "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "cropped athletic top, fitted short sleeves, underbust band, clean activewear style",
-            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+            "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
             "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
             "simple camisole, high-waist flare pants, balletcore pilates fashion",
             "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
@@ -971,10 +971,10 @@
         ],
         "fashion_catalog_fitting_room": [
             "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-            "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-            "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
             "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
             "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim"
@@ -1248,7 +1248,7 @@
             ]
         },
         {
-            "camera": "close distance, shallow depth of field, eye-level or slight low angle",
+            "camera": "close distance, shallow depth of field, eye-level or gentle side angle",
             "foreground": "large soft flower branches create airy obstruction, never a dense flower wall",
             "lighting": "soft sunlight, clear eye highlights, clean pastel air",
             "tags": [
@@ -1364,7 +1364,7 @@
             ],
             "name": "gray_studio_large_dress_shape",
             "guardrail": "avoid wedding ceremony mood, bouquet overload, noisy background, or dress swallowing anatomy",
-            "pose": "seated compact pose, clean crouch, or standing while lightly lifting skirt edge",
+            "pose": "standing, sitting on a low block, or gently holding the outer skirt fabric so the dress shape stays readable",
             "composition": "minimal studio with large dress fabric spreading across lower frame as the main graphic mass"
         },
         {
@@ -1429,3 +1429,4 @@
         }
     ]
 }
+

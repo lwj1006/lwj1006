@@ -230,7 +230,7 @@ CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
     "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
     "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
@@ -315,9 +315,9 @@ CLOTHING_DISPLAY_LABELS = {
     "striped swim top under loose cover shirt, clean beach resort style": "沙滩罩衫度假装",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood": "缎面蕾丝家居裙",
     "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood": "运动防晒套装",
-    "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion": "条纹针织学院风",
+    "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion": "条纹针织学院风",
     "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style": "宽松条纹衬衫通勤",
-    "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style": "千金风针织短裤",
+    "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style": "千金风针织短裤",
     "layered striped knit top, wrap skirt, preppy luxury styling": "层叠针织半裙",
     "striped tank top, pleated mini skirt, tennis-girl summer casual style": "美式网球学院风",
     "ribbed tank top, satin shorts, minimal summer lounge style": "罗纹背心缎面短裤",
@@ -335,7 +335,7 @@ CLOTHING_DISPLAY_LABELS = {
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels": "不对称拖尾迷你礼服",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots": "挂脖荷叶边高低摆礼服",
     "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights": "复古运动啦啦队套装",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights": "复古运动啦啦队套装",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers": "挂脖飘带上衣长裤",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
     "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
@@ -523,7 +523,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LIGHT_NOVEL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
-        "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+        "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
     ],
     "fashion_catalog_fitting_room": [
         YOUNG_CASUAL_OUTFIT,
@@ -531,7 +531,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-        "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+        "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
         "layered striped knit top, wrap skirt, preppy luxury styling",
     ],
     "photo_shoot_prop_room_after_wrap": [
@@ -2214,6 +2214,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 

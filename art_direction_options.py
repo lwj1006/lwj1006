@@ -51,9 +51,9 @@ OUTFIT_DIRECTIONS = [
     "striped swim top under loose cover shirt, clean beach resort style",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
     "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-    "striped fitted knit tee, pleated skirt, loafers, preppy chic street fashion",
+    "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
     "oversized striped shirt, striped tank top, bermuda shorts, clean minimal casual style",
-    "old-money fitted knit top, high-waist balloon shorts, belt detail, luxury casual style",
+    "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
     "layered striped knit top, wrap skirt, preppy luxury styling",
     "striped tank top, pleated mini skirt, tennis-girl summer casual style",
     "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -71,7 +71,7 @@ OUTFIT_DIRECTIONS = [
     "strapless fitted mini dress, clean straight neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
     "halter-neck ruffled mini dress, fitted bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
-    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching low-rise athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
+    "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
     "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
@@ -288,7 +288,7 @@ ART_DIRECTION_PLANS = [
         "visual_device": "repeating circles echo the eyes and create a strong thumbnail memory point",
         "body_silhouette": "half-body to knee-up framing; a small toy may sit nearby, but hands should not dominate the camera",
         "outfit_direction": "sleeveless top, denim overalls, youthful clean casual style",
-        "material_language": "clear plastic, denim overall texture, cotton sleeveless top, tiny charms, candy accents, glossy reflections",
+        "material_language": "glossy capsule shells, denim overall texture, cotton sleeveless top, tiny charms, candy accents, controlled reflections",
         "color_strategy": "pale background plus character colors; toy colors remain small supporting accents",
         "lighting_behavior": "soft high-key light; eyes and hair edges stay sharp",
         "tags": ["trend_lifestyle", "toy", "pastel", "close_character"],
@@ -393,7 +393,7 @@ ART_DIRECTION_PLANS = [
         "name": "record_shop_listening_corner",
         "graphic_concept": "record shop listening corner; shelves, headphones, poster color blocks without readable text, and a small listening booth create a stylish music mood",
         "spatial_structure": "record shelves, listening booth counter, headphone hook, and poster wall create dense but ordered vertical layers",
-        "visual_device": "vinyl circles, headphone cable curve, shelf rows, and sticker-like shapes create strong rhythm around the character",
+        "visual_device": "record circles, headphone cable curve, shelf rows, and sticker-like shapes create strong rhythm around the character",
         "body_silhouette": "standing beside record shelves, lightly holding headphones, or listening with relaxed posture; avoid complex hand poses",
         "outfit_direction": "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "material_language": "record sleeves, headphone plastic, shelf wood, soft sweatshirt fabric, skirt embellishments, small sticker details",
@@ -595,7 +595,7 @@ ART_DIRECTION_PLANS = [
     },
     {
         "name": "low_angle_foreground_depth",
-        "graphic_concept": "low-angle upward anime screenshot composition; camera looks slightly up from floor, table, stairs, or garden-path height while the character stays readable",
+        "graphic_concept": "low foreground-edge anime screenshot composition; table, stair, chair, or garden-path height creates depth while the character stays readable without upward body distortion",
         "spatial_structure": "camera near floor, tabletop, stair, chair, or garden path level, looking upward through a foreground edge; midground character remains medium-readable and off-center; background rises behind the character",
         "visual_device": "low foreground object, middle character, and rising window, door, wall, tree, or ceiling line form a readable upward three-depth stack",
         "body_silhouette": "medium readable figure seen from a low upward perspective, front three-quarter or clean side angle preferred, simple hands",
@@ -671,7 +671,7 @@ ACTION_STYLES = [
         "tags": ["hair_touch", "simple_hand"],
     },
     {
-        "name": "hands_near_chest",
+        "name": "relaxed_visible_hands",
         "body_silhouette": "hands relaxed and visible near sides, sleeve cuff, bag strap, or lap; keep fingers clear and never frame the chest, neckline, waistband, or clothing openings",
         "tags": ["hands_visible", "simple_hand"],
     },
@@ -722,13 +722,13 @@ ACTION_STYLES = [
     },
     {
         "name": "camera_from_low_foreground",
-        "body_silhouette": "low-angle upward shot from floor, table, stair, chair, or garden-path height; foreground edge is near camera while the character remains medium-readable in the midground",
+        "body_silhouette": "low foreground-edge framing from table, stair, chair, or garden-path height; camera stays near eye-level enough to avoid body distortion while the character remains medium-readable",
         "tags": ["low_camera", "foreground_depth", "story_pose"],
     },
     {
-        "name": "clean_crouching_pose",
-        "body_silhouette": "clean crouching pose with knees bent and body weight low, hands naturally near knee, skirt edge, floor, or shoe; keep the angle modest and composition-led",
-        "tags": ["crouching", "low_pose", "stable_hands", "story_pose"],
+        "name": "clean_lowered_pose",
+        "body_silhouette": "stable lowered pose such as sitting on a step, leaning near a low shelf, or pausing beside floor-level props; hands stay visible and outside clothing",
+        "tags": ["seated", "stable_hands", "story_pose"],
     },
 ]
 
@@ -846,7 +846,7 @@ COMPOSITION_PLANS = [
     {
         "name": "foreground_flower_occlusion_closeup",
         "composition": "close-up or bust-up with large blurred flowers covering 20-50 percent of the foreground while eyes, face shape, and hair silhouette remain readable",
-        "camera": "close distance, shallow depth of field, eye-level or slight low angle",
+        "camera": "close distance, shallow depth of field, eye-level or gentle side angle",
         "pose": "looking up at flowers, gentle side glance, or quiet direct gaze through gaps",
         "foreground": "large soft flower branches create airy obstruction, never a dense flower wall",
         "lighting": "soft sunlight, clear eye highlights, clean pastel air",
@@ -917,7 +917,7 @@ COMPOSITION_PLANS = [
         "name": "gray_studio_large_dress_shape",
         "composition": "minimal studio with large dress fabric spreading across lower frame as the main graphic mass",
         "camera": "full-body or three-quarter body, clean fashion portrait with negative space",
-        "pose": "seated compact pose, clean crouch, or standing while lightly lifting skirt edge",
+        "pose": "standing, sitting on a low block, or gently holding the outer skirt fabric so the dress shape stays readable",
         "foreground": "fabric volume forms a sculptural lower-frame shape",
         "lighting": "clean studio light with crisp dress volume and soft face highlight",
         "guardrail": "avoid wedding ceremony mood, bouquet overload, noisy background, or dress swallowing anatomy",
@@ -969,35 +969,35 @@ COMPOSITION_PLANS = [
 VISUAL_MOTIF_SYSTEMS = [
     {
         "name": "moonlit_toy_window_kv",
-        "motifs": "plush toys, tiny rabbits, floating petals, ribbons, candles, crystal charms, translucent glass beads",
-        "layering": "foreground candles and ribbons; midground character woven into hair and fabric flow; background cathedral-like moonlit window and soft toys",
-        "shape_rhythm": "large window arc, S-shaped hair flow, ribbon curves, circular candle lights, repeated petal dots",
-        "light_bloom": "cool blue moonlight cut by warm candle bloom, candy reflections on hair edges, soft overexposed rim highlights",
-        "poetic_line": "a cathedral-like moonlit window filled with floating petals and soft glowing toys, ribbons and tiny ornaments drifting through the air like fragments of a dream",
+        "motifs": "quiet moonlit shapes selected only when already natural to the scene",
+        "layering": "foreground and background remain scene-native; midground character stays the only subject",
+        "shape_rhythm": "large calm arcs, clean hair flow, soft repeated light dots",
+        "light_bloom": "cool moonlight cut by restrained warm highlights, soft rim light on hair edges",
+        "poetic_line": "quiet moonlit atmosphere with no extra objects beyond the selected scene",
     },
     {
         "name": "pastel_lace_decorative_kv",
-        "motifs": "lace, bows, flower trays, glass dessert cups, pearl chains, butterflies, small ribbon cards without text",
-        "layering": "foreground lace ribbon and dessert glass; midground character and outfit details; background soft color panels and ornamental frames",
-        "shape_rhythm": "rounded boxes, bow loops, skirt waves, pearl chains, flower circles, logo-like silhouette",
-        "light_bloom": "milky pastel bloom, warm cream highlights crossing cool mint or lavender shadows, glossy candy reflections",
-        "poetic_line": "a sweet decorative anime KV with lace ribbons, pearl chains, butterflies, and glass desserts arranged around the character",
+        "motifs": "soft graphic accents selected only from the active scene",
+        "layering": "simple foreground, readable character, and clean background spacing without unrelated props",
+        "shape_rhythm": "rounded graphic blocks, outfit silhouette curves, and clear negative space",
+        "light_bloom": "milky pastel bloom with restrained warm highlights and clean color separation",
+        "poetic_line": "soft commercial anime atmosphere without adding a second scene",
     },
     {
         "name": "fairy_tale_anniversary_kv",
-        "motifs": "glowing butterflies, flower petals, ribbons, tiny crowns, paper stars, crystal drops, soft plush ornaments, decorative window cards",
-        "layering": "foreground petals and ribbon cards; midground character floating through decorative rhythm; background giant arched window or flower arch",
-        "shape_rhythm": "arched window curve, flower arch curve, S-shaped hair, drifting ribbon spiral, repeated star and butterfly marks",
-        "light_bloom": "golden fairy light against cool blue or pale green air, edge glow, translucent bloom, small sparkling overexposure",
-        "poetic_line": "a fairy-tale anniversary key visual where glowing butterflies, ribbons, flower petals, and tiny ornaments orbit the character in a soft circular stage",
+        "motifs": "fairy-tale light accents selected only when the plan already includes them",
+        "layering": "scene-native foreground and background support the character without a new stage",
+        "shape_rhythm": "arched composition lines, hair flow, and small repeated light marks",
+        "light_bloom": "golden fairy light against cool blue or pale green air with controlled edge glow",
+        "poetic_line": "fairy-tale atmosphere tied to the selected location only",
     },
     {
         "name": "candy_air_parlor_kv",
-        "motifs": "small glass dessert accents, cream flowers, curled ribbons, glass marbles, paper confetti, tiny plush accents, floating bubbles",
-        "layering": "foreground tiny glass dessert detail and confetti; midground character framed by ribbons; background soft parlor shelves, window light, and blurred ornaments",
-        "shape_rhythm": "small glass circles, bubble dots, ribbon curls, hair S-curve, repeated tiny plush silhouettes",
-        "light_bloom": "cold cyan shadows crossed with peach-pink candy highlights, glass bloom, bright rim cuts, airy haze",
-        "poetic_line": "a soft candy-colored parlor accent where tiny glass dessert details, ribbons, and floating bubbles stay secondary to the character",
+        "motifs": "small scene-native accents with no unrelated dessert or toy layer",
+        "layering": "foreground detail, character, and background all belong to the selected location",
+        "shape_rhythm": "small circular highlights, clean curves, and readable hair silhouette",
+        "light_bloom": "cold cyan shadows crossed with peach-pink highlights and airy haze",
+        "poetic_line": "soft color atmosphere that stays secondary to identity and the selected scene",
     },
 ]
 
@@ -1215,10 +1215,10 @@ NARRATIVE_SPACE_ACTION_WEIGHT_OVERRIDES = {
     "nearby_small_scene_prop": 0.9,
     "walking_forward": 2.0,
     "steady_eye_contact": 2.2,
-    "hands_near_chest": 1.45,
+    "relaxed_visible_hands": 1.25,
     "adjusting_hair": 1.6,
     "post_workout_stretch": 0.2,
-    "clean_crouching_pose": 1.35,
+    "clean_lowered_pose": 1.0,
 }
 
 
@@ -1348,11 +1348,11 @@ _rebuild_art_direction_runtime_state(NARRATIVE_SPACE_PLAN_WEIGHT_OVERRIDES)
 
 
 PLAN_ACTION_COMPATIBILITY = [
-    ({"white_room", "pure_white", "minimal"}, {"crouching", "low_pose", "stable_hands", "simple_hand", "eye_contact", "stable_pose", "hair_touch", "hands_visible", "seated", "walking"}),
-    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "readable_subject", "eye_contact", "stable_pose", "crouching", "low_pose", "seated"}),
-    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "eye_contact", "stable_pose", "crouching", "low_pose", "seated", "walking"}),
-    ({"far_shot", "readable_subject"}, {"far_shot", "readable_subject", "deep_perspective", "eye_contact", "stable_pose", "crouching", "low_pose", "walking", "seated"}),
-    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "simple_hand", "eye_contact", "stable_pose", "crouching", "low_pose", "hair_touch", "hands_visible", "seated"}),
+    ({"white_room", "pure_white", "minimal"}, {"stable_hands", "simple_hand", "eye_contact", "stable_pose", "hair_touch", "hands_visible", "seated", "walking"}),
+    ({"high_camera"}, {"high_camera", "deep_perspective", "far_shot", "readable_subject", "eye_contact", "stable_pose", "seated"}),
+    ({"low_camera", "foreground_depth"}, {"low_camera", "foreground_depth", "eye_contact", "stable_pose", "seated", "walking"}),
+    ({"far_shot", "readable_subject"}, {"far_shot", "readable_subject", "deep_perspective", "eye_contact", "stable_pose", "walking", "seated"}),
+    ({"telephoto", "layered_space"}, {"foreground_occlusion", "edge_framing", "simple_hand", "eye_contact", "stable_pose", "hair_touch", "hands_visible", "seated"}),
 ]
 
 
@@ -1567,7 +1567,7 @@ GENERIC_COMPOSITION_NAMES = {
 COMPOSITION_ALLOWED_ACTIONS = {
     "floor_diagonal_negative_space": {
         "seated_quiet_pose",
-        "clean_crouching_pose",
+        "clean_lowered_pose",
         "camera_looking_down",
     },
     "high_angle_bed_or_floor_frame": {
@@ -1592,7 +1592,7 @@ COMPOSITION_ALLOWED_ACTIONS = {
         "seated_quiet_pose",
         "steady_eye_contact",
         "adjusting_hair",
-        "clean_crouching_pose",
+        "clean_lowered_pose",
     },
 }
 
@@ -1607,12 +1607,12 @@ COMPOSITION_FORBIDDEN_ACTIONS = {
         "half_hidden_by_foreground",
     },
     "quiet_close_upper_body_frame": {
-        "clean_crouching_pose",
+        "clean_lowered_pose",
         "readable_figure_in_depth",
         "three_quarter_observed_from_distance",
     },
     "slight_side_medium_close_frame": {
-        "clean_crouching_pose",
+        "clean_lowered_pose",
         "readable_figure_in_depth",
         "three_quarter_observed_from_distance",
     },
