@@ -73,6 +73,20 @@ OUTFIT_DIRECTIONS = [
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
     "lace-trim camisole, structured bodice with modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
+    "ribbed cropped cardigan set, matching ribbed shorts, sports bralette, minimal Korean streetwear",
+    "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
+    "high-waist pencil mini skirt, clean city date fashion",
+    "racing crop jacket, motorsport sponsor top, performance event costume",
+    "vintage floral corset top, structured bustier top, garden portrait fashion",
+    "lace mini dress, ribbon neck detail, romantic feminine style",
+    "light knit cardigan, soft layered outerwear",
+    "ribbed camisole top, neat knit tank top",
+    "striped lounge pants, casual wide-leg pants",
+    "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
+    "athletic crop tank, fitness camisole",
+    "high-waist denim mini skirt, casual sporty skirt",
+    "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit",
+    "oversized zip hoodie, casual rehearsal outerwear",
 ]
 
 
