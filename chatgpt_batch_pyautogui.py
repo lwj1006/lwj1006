@@ -65,11 +65,9 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "爱芮.png"),
         str(PROJECT_DIR / "assets" / "爱芮2.png"),
         str(PROJECT_DIR / "assets" / "爱芮3.png"),
-        str(PROJECT_DIR / "assets" / "爱芮4.jpeg"),
-        str(PROJECT_DIR / "assets" / "爱芮5.png"),
     ],
     "千夏": [
-        str(PROJECT_DIR / "assets" / "千夏1.jpg"),
+        str(PROJECT_DIR / "assets" / "千夏1.png"),
         str(PROJECT_DIR / "assets" / "千夏2.png"),
         str(PROJECT_DIR / "assets" / "千夏3.png"),
         str(PROJECT_DIR / "assets" / "千夏4.jpg"),
@@ -98,6 +96,7 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "席德2.png"),
     ],
     "橘福福": [
+        str(PROJECT_DIR / "assets" / "橘福福1.png"),
         str(PROJECT_DIR / "assets" / "橘福福2.jpeg"),
         str(PROJECT_DIR / "assets" / "橘福福3.png"),
     ],
@@ -164,7 +163,7 @@ SEND_RELEASE_SETTLE_SECONDS = 0.35
 POST_CHARACTER_SELECTION_DELAY_SECONDS = 3
 SEND_MOUSE_AWAY_OFFSET = (-220, -90)
 WORK_REMINDER_INTERVAL = 14
-WORK_REMINDER_TEXT = "不要做任何点评 生成图片就可以"
+WORK_REMINDER_TEXT = "REMINDER: This is still an image-generation-only batch. Do not explain or comment. Generate the image directly."
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
 LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
