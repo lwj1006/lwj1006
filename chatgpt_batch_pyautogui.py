@@ -1,6 +1,7 @@
 ﻿import ctypes
 import datetime as dt
 import json
+import os
 import random
 import shutil
 import subprocess
@@ -1902,6 +1903,85 @@ def prompt_clothing_selection() -> list[str] | None:
         return selected_themes
 
 
+def _cli_option_value(option_name: str) -> str | None:
+    if option_name not in sys.argv:
+        return None
+    option_index = sys.argv.index(option_name)
+    if option_index + 1 >= len(sys.argv):
+        raise ValueError(f"{option_name} requires a value")
+    return sys.argv[option_index + 1]
+
+
+def _env_option_value(name: str) -> str | None:
+    value = os.environ.get(name)
+    if value is None or not value.strip():
+        return None
+    return value
+
+
+def noninteractive_selection_enabled() -> bool:
+    return (
+        "--auto-start" in sys.argv
+        or "--skip-selection" in sys.argv
+        or _env_option_value("AUTO_CREATE_AUTO_START") is not None
+        or _env_option_value("AUTO_CREATE_SKIP_SELECTION") is not None
+    )
+
+
+def startup_character_selection() -> list[str] | None:
+    raw_choice = _cli_option_value("--characters") or _env_option_value("AUTO_CREATE_CHARACTERS")
+    if raw_choice is None:
+        if noninteractive_selection_enabled():
+            print("Character mode: full random cycle (--auto-start).", flush=True)
+            return None
+        return prompt_character_selection()
+    selected = _parse_character_selection(raw_choice)
+    if selected is None:
+        print("Character mode: full random cycle (startup option).", flush=True)
+    else:
+        print(f"Character mode: fixed selection from startup option -> {'、'.join(selected)}", flush=True)
+    return selected
+
+
+def startup_scene_selection() -> list[str] | None:
+    raw_choice = _cli_option_value("--scenes") or _env_option_value("AUTO_CREATE_SCENES")
+    if raw_choice is None:
+        if noninteractive_selection_enabled():
+            print("Scene mode: full random art-plan cycle (--auto-start).", flush=True)
+            return None
+        return prompt_scene_category_selection()
+    selected_plan_names = _parse_scene_category_selection(raw_choice)
+    if selected_plan_names is None:
+        print("Scene mode: full random art-plan cycle (startup option).", flush=True)
+    else:
+        selected_labels = [
+            option["label"]
+            for option in SCENE_CATEGORY_OPTIONS
+            if any(plan_name in selected_plan_names for plan_name in option["plan_names"])
+        ]
+        print(f"Scene mode: fixed category from startup option -> {'、'.join(selected_labels)}", flush=True)
+    return selected_plan_names
+
+
+def startup_clothing_selection() -> list[str] | None:
+    raw_choice = _cli_option_value("--clothing") or _env_option_value("AUTO_CREATE_CLOTHING")
+    if raw_choice is None:
+        if noninteractive_selection_enabled():
+            print("服装模式: 按场景自动兼容随机 (--auto-start).", flush=True)
+            return None
+        return prompt_clothing_selection()
+    selected_themes = _parse_clothing_selection(raw_choice)
+    if selected_themes is None:
+        print("服装模式: 按场景自动兼容随机 (startup option).", flush=True)
+    else:
+        selected_labels = [
+            CLOTHING_DISPLAY_LABELS.get(theme, theme)
+            for theme in selected_themes
+        ]
+        print(f"服装模式: 启动参数固定选择池 -> {'、'.join(selected_labels)}", flush=True)
+    return selected_themes
+
+
 def choose_fixed_clothing_theme(
     fixed_clothing_themes: list[str],
     art_plan: dict | None = None,
@@ -2170,9 +2250,9 @@ def main() -> None:
     used_by_character = load_used_character_clothing_themes()
     used_plans_by_character = load_used_character_art_plans()
     used_character_batch = load_used_character_batch()
-    fixed_character_selection = prompt_character_selection()
-    fixed_scene_plan_names = prompt_scene_category_selection()
-    fixed_clothing_themes = prompt_clothing_selection()
+    fixed_character_selection = startup_character_selection()
+    fixed_scene_plan_names = startup_scene_selection()
+    fixed_clothing_themes = startup_clothing_selection()
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
         flush=True,
