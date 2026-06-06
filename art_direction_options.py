@@ -87,6 +87,21 @@ OUTFIT_DIRECTIONS = [
     "high-waist denim mini skirt, casual sporty skirt",
     "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit",
     "oversized zip hoodie, casual rehearsal outerwear",
+    "chiffon spaghetti-strap maxi dress, flowing skirt, light luxury feminine dating fashion",
+    "layered chiffon dress, soft draped layers, gentle girlfriend city-date fashion",
+    "satin wrap dress, gentle waist definition, quiet luxury weekend date styling",
+    "clean fitted shirt dress, minimal luxury urban lifestyle fashion",
+    "short-sleeve blouse dress, soft mature dating fashion, natural social-media outfit",
+    "floral tailored top with high-waist skirt, soft romantic rich-girl styling",
+    "lace tailored blouse with delicate panel detail, clean refined feminine fashion",
+    "off-shoulder floral tailored top with elegant shoulder line, light luxury dating style",
+    "off-shoulder cable-knit sweater, soft knit, gentle girlfriend styling",
+    "ribbed off-shoulder knit sweater, clean rich-girl casual fashion",
+    "off-shoulder mini dress, refined slim silhouette, weekend city date fashion",
+    "pleated mini skirt with fitted blouse, soft intellectual date styling",
+    "layered tulle skirt with lightweight blouse, romantic urban lifestyle outfit",
+    "high-waist straight-leg jeans with fitted blouse, elegant city walk styling",
+    "shoulder-draped striped sweater over fitted blouse, clean rich-girl lifestyle fashion",
 ]
 
 

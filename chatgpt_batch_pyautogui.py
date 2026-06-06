@@ -360,12 +360,45 @@ CLOTHING_DISPLAY_LABELS = {
     "high-waist denim mini skirt, casual sporty skirt": "牛仔短裙",
     "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit": "荷叶边蛋糕裙",
     "oversized zip hoodie, casual rehearsal outerwear": "宽松拉链卫衣",
+    "chiffon spaghetti-strap maxi dress, flowing skirt, light luxury feminine dating fashion": "青稞雪纺吊带长裙",
+    "layered chiffon dress, soft draped layers, gentle girlfriend city-date fashion": "青稞层叠雪纺裙",
+    "satin wrap dress, gentle waist definition, quiet luxury weekend date styling": "青稞缎面裹身裙",
+    "clean fitted shirt dress, minimal luxury urban lifestyle fashion": "青稞修身衬衫裙",
+    "short-sleeve blouse dress, soft mature dating fashion, natural social-media outfit": "青稞短袖衬衫裙",
+    "floral tailored top with high-waist skirt, soft romantic rich-girl styling": "青稞碎花上衣半裙",
+    "lace tailored blouse with delicate panel detail, clean refined feminine fashion": "青稞蕾丝精致上衣",
+    "off-shoulder floral tailored top with elegant shoulder line, light luxury dating style": "青稞露肩碎花上衣",
+    "off-shoulder cable-knit sweater, soft knit, gentle girlfriend styling": "青稞露肩绞花针织",
+    "ribbed off-shoulder knit sweater, clean rich-girl casual fashion": "青稞罗纹露肩针织",
+    "off-shoulder mini dress, refined slim silhouette, weekend city date fashion": "青稞露肩短裙",
+    "pleated mini skirt with fitted blouse, soft intellectual date styling": "青稞衬衫百褶短裙",
+    "layered tulle skirt with lightweight blouse, romantic urban lifestyle outfit": "青稞薄纱半裙",
+    "high-waist straight-leg jeans with fitted blouse, elegant city walk styling": "青稞衬衫直筒牛仔裤",
+    "shoulder-draped striped sweater over fitted blouse, clean rich-girl lifestyle fashion": "青稞披肩针织衬衫",
 }
+
+QINGKE_LIGHT_LUXURY_THEMES = [
+    "chiffon spaghetti-strap maxi dress, flowing skirt, light luxury feminine dating fashion",
+    "layered chiffon dress, soft draped layers, gentle girlfriend city-date fashion",
+    "satin wrap dress, gentle waist definition, quiet luxury weekend date styling",
+    "clean fitted shirt dress, minimal luxury urban lifestyle fashion",
+    "short-sleeve blouse dress, soft mature dating fashion, natural social-media outfit",
+    "floral tailored top with high-waist skirt, soft romantic rich-girl styling",
+    "lace tailored blouse with delicate panel detail, clean refined feminine fashion",
+    "off-shoulder floral tailored top with elegant shoulder line, light luxury dating style",
+    "off-shoulder cable-knit sweater, soft knit, gentle girlfriend styling",
+    "ribbed off-shoulder knit sweater, clean rich-girl casual fashion",
+    "off-shoulder mini dress, refined slim silhouette, weekend city date fashion",
+    "pleated mini skirt with fitted blouse, soft intellectual date styling",
+    "layered tulle skirt with lightweight blouse, romantic urban lifestyle outfit",
+    "high-waist straight-leg jeans with fitted blouse, elegant city walk styling",
+    "shoulder-draped striped sweater over fitted blouse, clean rich-girl lifestyle fashion",
+]
 
 CLOTHING_CATEGORY_OPTIONS = [
     {
         "key": "daily_city",
-        "label": "日常 / 城市 / 休闲",
+        "label": "风格: 日常 / 城市 / 休闲",
         "keywords": [
             "casual", "streetwear", "city", "light-novel", "youthful", "picnic",
             "bakery", "cafe casual", "graphic T-shirt", "denim", "wide-leg pants",
@@ -374,7 +407,7 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "school_preppy_date",
-        "label": "学院 / 清爽约会",
+        "label": "风格: 学院 / 清爽约会",
         "keywords": [
             "academy", "sailor", "pinafore", "pleated", "preppy", "tennis",
             "date outfit", "sundress", "A-line skirt", "loafers",
@@ -382,7 +415,7 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "sport_event",
-        "label": "运动 / 活动 / 赛车",
+        "label": "风格: 运动 / 活动 / 赛车",
         "keywords": [
             "athletic", "sport", "fitness", "racing", "motorsport", "cheer",
             "rehearsal", "performance event", "running shorts", "yoga", "pilates",
@@ -390,7 +423,7 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "knit_home_soft",
-        "label": "针织 / 居家 / 软外套",
+        "label": "风格: 针织 / 居家 / 软外套",
         "keywords": [
             "knit", "ribbed", "cardigan", "sweater", "lounge", "homewear",
             "outerwear", "pullover", "zip hoodie",
@@ -398,16 +431,35 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "sweet_skirt_dress",
-        "label": "短裙 / 甜美 / 碎花",
+        "label": "风格: 甜美 / 碎花 / 轻裙装",
         "keywords": [
-            "mini skirt", "mini dress", "floral", "ruffled", "chiffon", "fairy",
-            "lace dress", "lace mini", "lolita", "cottagecore", "romantic",
-            "tiered", "gingham",
+            "floral", "ruffled", "chiffon", "fairy", "lace dress",
+            "lolita", "cottagecore", "romantic", "gingham",
+        ],
+    },
+    {
+        "key": "qingke_light_luxury",
+        "label": "风格: 青稞全麦 / 轻奢约会",
+        "keywords": [
+            "light luxury", "rich-girl", "quiet luxury", "weekend date",
+            "city-date", "urban lifestyle", "soft mature", "gentle girlfriend",
+            "social-media outfit", "intellectual date", "city walk",
+            "refined feminine", "weekend city date",
+        ],
+    },
+    {
+        "key": "short_skirt_focus",
+        "label": "单品: 短裙 / 短裙摆",
+        "keywords": [
+            "mini skirt", "mini dress", "short pleated sport skirt",
+            "pleated mini skirt", "pencil mini skirt", "denim mini skirt",
+            "sport skirt", "tiered fairy dress", "short skirt",
+            "short one-piece dress", "pleated skirt",
         ],
     },
     {
         "key": "stage_formal_fantasy",
-        "label": "礼服 / 舞台 / 幻想",
+        "label": "风格: 礼服 / 舞台 / 幻想",
         "keywords": [
             "gown", "bridal", "evening", "stage", "idol", "fantasy",
             "asymmetric", "trailing", "princess", "performance", "tailored top",
@@ -415,7 +467,7 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "resort_beach_vacation",
-        "label": "度假 / 沙滩 / 泳装",
+        "label": "风格: 度假 / 沙滩 / 泳装",
         "keywords": [
             "beach", "resort", "vacation", "swim", "swimsuit", "cover shirt",
             "satin lounge slip", "summer sport mood",
@@ -423,7 +475,7 @@ CLOTHING_CATEGORY_OPTIONS = [
     },
     {
         "key": "special_low_frequency",
-        "label": "特殊 / 黑丝 / 品牌低概率",
+        "label": "风格: 特殊 / 黑丝 / 品牌低概率",
         "keywords": [
             "black hosiery", "Adidas-inspired", "Yonex-inspired", "maid remix",
             "bridal dress", "race queen", "motorsport sponsor",
@@ -496,6 +548,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "greenhouse_terrace_reflection": [
         FLOWER_FANTASY_OUTFIT,
@@ -596,6 +649,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         BLUE_GINGHAM_DENIM_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "telephoto_layered_interior": [
         BAKERY_CAFE_OUTFIT,
@@ -604,6 +658,22 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
+    ],
+    "record_shop_listening_corner": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        BAKERY_CAFE_OUTFIT,
+        BLUE_GINGHAM_DENIM_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
+    ],
+    "planetarium_star_dome": [
+        LIGHT_NOVEL_OUTFIT,
+        YOUTHFUL_CASUAL_OUTFIT,
+        SOFT_DATE_OUTFIT,
+        SUNNY_STUDIO_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "beach_wind_open_sand": [
         "striped swim top under loose cover shirt, clean beach resort style",
@@ -619,6 +689,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "frosted_glass_partition_scene": [
         SOFT_DATE_OUTFIT,
@@ -626,6 +697,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         LACE_OFF_SHOULDER_DRESS_OUTFIT,
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "mirror_fragment_corner": [
         SUNNY_STUDIO_OUTFIT,
@@ -634,6 +706,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "monochrome_color_block_studio": [
         PURE_WHITE_OUTFIT,
@@ -642,6 +715,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         YOUTHFUL_CASUAL_OUTFIT,
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
         "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
+        *QINGKE_LIGHT_LUXURY_THEMES,
         "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
         "racing crop jacket, motorsport sponsor top, performance event costume",
@@ -657,6 +731,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
+        *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "hosiery_tea_room": [
         DARK_HOSIERY_OUTFIT,
