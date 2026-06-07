@@ -321,7 +321,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "close knee-up or seated pose, character relatively large in frame, hands relaxed near the face, jacket, or lap",
         "outfit_direction": "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "material_language": "soft sweatshirt fabric, small skirt embellishments, polished floor reflection, mirror glass, soft hair shine",
-        "color_strategy": "character palette controls the image; milky white and small black accents keep the composition clean",
+        "color_strategy": "the scene may stay bright and clean, but the outfit should usually carry a distinct non-white mid-tone, dark, earthy, or muted-chromatic main value",
         "lighting_behavior": "bright window light with crisp but soft highlights on skin and hair; no oily or harsh rendering",
         "tags": ["trend_lifestyle", "mirror", "studio", "close_character"],
     },
@@ -333,7 +333,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "half-body to knee-up framing; a small toy may sit nearby, but hands should not dominate the camera",
         "outfit_direction": "sleeveless top, denim overalls, youthful clean casual style",
         "material_language": "glossy capsule shells, denim overall texture, cotton sleeveless top, tiny charms, candy accents, controlled reflections",
-        "color_strategy": "pale background plus character colors; toy colors remain small supporting accents",
+        "color_strategy": "pale background plus small toy accents; keep the outfit visibly separated from the pale setting with a non-white main value",
         "lighting_behavior": "soft high-key light; eyes and hair edges stay sharp",
         "tags": ["trend_lifestyle", "toy", "pastel", "close_character"],
     },
@@ -345,7 +345,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "seated or kneeling pose, knee-up to full-body range, face and main accessory remain the first read",
         "outfit_direction": "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
         "material_language": "clean waist seam, lace panels, bell sleeves, boots, small charms, matte graphic panels",
-        "color_strategy": "white or pale base, character color dominant, black used only as controlled line weight",
+        "color_strategy": "white or pale graphic base; use a clearly colored or deeper-value outfit so the clothing does not merge into the poster background",
         "lighting_behavior": "clean studio light with minimal shadow",
         "tags": ["trend_lifestyle", "poster", "graphic", "close_character"],
     },
@@ -357,7 +357,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "front three-quarter or relaxed side angle near the balcony breeze; hair and accessories move lightly in wind while face stays readable",
         "outfit_direction": "tank top, oversized cropped hoodie, loose jeans, relaxed casual style",
         "material_language": "thin curtain, glass door, metal railing, ceramic pot, polished floor reflection, hoodie cotton and denim",
-        "color_strategy": "large white and sky-blue color fields with one warm accent from the character or nearby object",
+        "color_strategy": "large bright sky and interior fields; the outfit should usually use a distinct non-white main value for separation",
         "lighting_behavior": "bright exterior light, interior in pale shade, thin rim light on hair and shoulder",
         "tags": ["balcony", "large_space", "half_out_frame", "foreground_occlusion", "breeze", "daily", "novel_cg"],
     },
@@ -369,7 +369,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "three-quarter front or quiet side glance, medium readable figure inside deep space, not centered",
         "outfit_direction": "lace dress, ribbon waist, airy garden fairy style",
         "material_language": "glass, leaf translucency, ceramic tile, lace, ribbon waist, soft moisture shine",
-        "color_strategy": "large pale green and white blocks, flower colors as controlled accents, character palette preserved",
+        "color_strategy": "large pale greenhouse blocks with controlled flower accents; the outfit should retain a visible non-white color presence",
         "lighting_behavior": "diffused greenhouse light with clear window-grid shadows and soft reflective highlights",
         "tags": ["greenhouse", "terrace", "reflection", "foreground_occlusion", "flower", "large_space", "novel_cg"],
     },
@@ -393,7 +393,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "standing or seated three-quarter pose, hands naturally near bouquet or skirt",
         "outfit_direction": "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "material_language": "thin veil, flower bouquet, high-neck lace bodice, layered ruffle sleeves, voluminous skirt",
-        "color_strategy": "white and pale flower colors support character colors without washing out hair or eyes",
+        "color_strategy": "light bridal-garden colors support the character; non-bridal outfits should not default to white or pale neutrals",
         "lighting_behavior": "soft garden daylight, clear face, clean high-key atmosphere",
         "tags": ["bridal", "garden", "flower", "soft_light"],
     },
@@ -453,7 +453,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "standing, seated on a low display block, or pausing behind a panel; hands simple near panel edge, sleeve, or lap",
         "outfit_direction": "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
         "material_language": "clear acrylic, polished floor, soft cloth, transparent plinths, crisp reflected highlights",
-        "color_strategy": "clear materials and pale display planes stay secondary; outfit colors are selected to harmonize with character identity",
+        "color_strategy": "clear materials and pale display planes stay secondary; the outfit should usually use a distinct non-white main value",
         "lighting_behavior": "large soft studio light creates thin bright edges on acrylic and a clean readable face",
         "tags": ["acrylic", "transparent", "display", "reflection", "foreground_occlusion", "mechanism_scene", "novel_cg"],
     },
@@ -501,7 +501,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "walking through fabric, pausing between panels, or gently turning as cloth frames the face and shoulders",
         "outfit_direction": "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "material_language": "thin cloth, soft satin, lace edge, diffused window light, floor shadow bands",
-        "color_strategy": "fabric and outfit palettes are model-chosen to support character identity and keep the image airy",
+        "color_strategy": "fabric stays airy, while the outfit keeps a distinct non-white or deeper-value color presence",
         "lighting_behavior": "backlit translucent fabric with soft glow, clear face fill, and gentle rim light on hair",
         "tags": ["hanging_fabric", "light_tunnel", "translucent", "foreground_occlusion", "soft_light", "mechanism_scene", "novel_cg"],
     },
@@ -513,7 +513,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "standing, leaning, or neatly seated beside the window or low table, front three-quarter or relaxed side angle, calm and cinematic",
         "outfit_direction": "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
         "material_language": "camisole fabric, lightweight opaque chiffon sleeves, denim, glass, polished floor, thin curtain, small metal accessory",
-        "color_strategy": "dominant white and pale gray with character palette as the memory point; no busy background",
+        "color_strategy": "the room remains white and pale gray, but the outfit should usually be distinctly non-white and clearly separated from the background",
         "lighting_behavior": "large soft window light plus one hard curtain-shadow cut across the floor",
         "extra_prompt_guardrail": "keep the location as an indoor white room only; avoid exterior walls, stone stairs, balcony courtyard, garden path, mansion facade, or outdoor street.",
         "tags": ["white_room", "floor_window", "negative_space", "large_space", "soft_light", "minimal", "novel_cg"],
@@ -526,7 +526,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "close-up, bust-up, waist-up, knee-up, or full-body portrait; standing, light lean, or gentle walking balance is preferred, with clean hands and clean feet when visible",
         "outfit_direction": "strap maxi dress, fitted waist, flowing full skirt, elegant lightweight summer style",
         "material_language": "white negative space, soft skin-like light, clean flowing cloth, small flower or petal accent, soft hair, tiny accessories",
-        "color_strategy": "white dominates the layout; outfit colorway is model-chosen and cohesive, while character hair and eyes remain the identity memory point",
+        "color_strategy": "white dominates the background layout only; the outfit should usually be distinctly non-white, cohesive, and clearly separated from the white field",
         "lighting_behavior": "bright natural high-key daylight, clear catchlights, soft overexposed white margins, face and eyes stay crisp",
         "tags": ["pure_white", "studio", "minimal", "portrait", "white_negative_space", "photographer_frame"],
     },
@@ -538,7 +538,7 @@ ART_DIRECTION_PLANS = [
         "body_silhouette": "character lightly floating, body naturally curled or side-lying in the air, hands simple",
         "outfit_direction": "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling",
         "material_language": "light gauze, ribbon, cloud shapes, petals, soft toys, tiny glow particles",
-        "color_strategy": "pale dream background plus character palette; clear and airy, not cluttered or oversaturated",
+        "color_strategy": "pale dream background stays airy; the outfit should retain a distinct non-white color presence without becoming oversaturated",
         "lighting_behavior": "soft dream light, light silhouette, face remains clear",
         "tags": ["zero_gravity", "fairy_tale", "floating"],
     },
@@ -1841,15 +1841,16 @@ def viewer_distance_for(character_name):
 
 
 OUTFIT_COLOR_RELATIONSHIPS = [
-    "choose a cohesive outfit colorway independent from the main hair color, using character colors only as tiny accessory accents",
-    "choose a soft neutral outfit colorway that contrasts gently with the hair and keeps identity colors readable",
-    "choose a warm or muted outfit colorway that complements the character without copying the hair color",
-    "choose a clean fashion colorway with one model-chosen dominant color, not the character's hair color",
-    "choose a balanced editorial colorway where hair and eyes remain the identity anchor while clothing has its own palette",
+    "choose a cohesive chromatic outfit colorway independent from the main hair color, using identity colors only as tiny accessory accents",
+    "choose a medium-value fashion colorway with clear separation from both the hair and the background",
+    "choose a dark or deep muted outfit colorway that complements the character without copying the hair color",
+    "choose an earthy or softly saturated outfit colorway with one model-chosen dominant family",
+    "choose a balanced editorial colorway where clothing has its own visible color presence instead of defaulting to white",
 ]
 
 OUTFIT_COLOR_HARMONY_RULE = (
-    "keep the outfit palette cohesive and wearable; avoid random clashing colors, rainbow mixing, harsh neon contrast, "
+    "keep the outfit palette cohesive and wearable; white, ivory, cream, and pale gray are occasional supporting values, "
+    "not the default main outfit color; avoid random clashing colors, rainbow mixing, harsh neon contrast, "
     "or too many unrelated accent colors"
 )
 

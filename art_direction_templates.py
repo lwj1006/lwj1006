@@ -1,4 +1,4 @@
-﻿from art_direction_options import (
+from art_direction_options import (
     choose_compatible_action_style,
     choose_art_plan,
     choose_visual_design,
@@ -132,8 +132,8 @@ def prompt_for_art_direction(
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
         f"Outfit: {_clip_text(outfit, 105)}",
-        "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight white, lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
-        f"Color/light: identity colors stay in hair, eyes, and small accents ({_clip_text(profile['color_anchor'], 60)}); outfit colorway is model-chosen, cohesive, wearable, and should not copy the main hair color; avoid random clashing colors, rainbow mixing, and harsh neon contrast. {_clip_text(art_plan.get('color_strategy', ''), 70)}",
+        "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
+        f"Color/light: identity colors stay in hair, eyes, and small accents ({_clip_text(profile['color_anchor'], 60)}); outfit colorway is model-chosen, cohesive, and wearable. Do not default to white, ivory, cream, pale gray, or an all-pale outfit; most outfits should have a clearly colored, mid-tone, dark, earthy, or muted-chromatic main value, while mostly white/light-neutral outfits appear only occasionally or when the garment concept explicitly requires them. A white or pale background must not make the clothing white. Avoid random clashing colors, rainbow mixing, and harsh neon contrast. {_clip_text(art_plan.get('color_strategy', ''), 70)}",
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",
