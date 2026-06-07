@@ -1,5 +1,5 @@
 {
-    "revision": "local-qingke-light-luxury-outfits-20260606",
+    "revision": "local-remove-low-priority-outfits-20260607",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -10,10 +10,8 @@
         "cafe maid remix outfit, neat apron, ribbons, cute and clean",
         "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
         "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
-        "rare refined black hosiery fashion outfit, restrained and non-fetishized",
         "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
         "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
-        "soft bakery or cafe casual outfit, warm and simple",
         "soft casual outfit with warm simple styling",
         "minimal sunny studio outfit, face and hair identity as the main focus",
         "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -35,21 +33,17 @@
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
         "oversized sweater, loose sleeves, cozy homewear, soft casual style",
         "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
-        "soft off-shoulder knit sweater, soft Korean casual style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
         "lace dress, ribbon waist, airy garden fairy style",
         "striped swim top under loose cover shirt, clean beach resort style",
         "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
         "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-        "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-        "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
         "layered striped knit top, wrap skirt, preppy luxury styling",
         "striped tank top, pleated mini skirt, tennis-girl summer casual style",
         "ribbed tank top, satin shorts, minimal summer lounge style",
         "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
         "simple camisole, high-waist flare pants, balletcore pilates fashion",
-        "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
         "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette",
         "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
@@ -57,24 +51,16 @@
         "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
         "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-        "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
         "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
         "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs",
         "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
         "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
         "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
-        "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-        "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
-        "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
-        "high-waist pencil mini skirt, clean city date fashion",
         "racing crop jacket, motorsport sponsor top, performance event costume",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "lace mini dress, ribbon neck detail, romantic feminine style",
         "light knit cardigan, soft layered outerwear",
-        "ribbed camisole top, neat knit tank top",
         "striped lounge pants, casual wide-leg pants",
-        "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
         "athletic crop tank, fitness camisole",
         "high-waist denim mini skirt, casual sporty skirt",
         "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit",
@@ -547,23 +533,6 @@
                 "deep_perspective",
                 "novel_cg"
             ]
-        },
-        {
-            "name": "hosiery_tea_room",
-            "graphic_concept": "rare refined tea-room fashion illustration; black hosiery appears only as a restrained styling element, not the main theme",
-            "spatial_structure": "small tea table, chair, pale curtain, and flower vase; simple soft room with no leg-focused framing",
-            "visual_device": "controlled clothing contrast supports character colors without dominating the thumbnail",
-            "body_silhouette": "seated or side-standing pose, natural leg posture, hands simple and clear; no fetish framing",
-            "outfit_direction": "rare refined black hosiery fashion outfit, restrained and non-fetishized",
-            "material_language": "thin black stockings, skirt hem, blouse, ribbon, soft cloth",
-            "color_strategy": "outfit contrast stays secondary; background uses soft interior tones, character colors remain primary",
-            "lighting_behavior": "soft indoor natural light, no harsh shadow or dramatic leg emphasis",
-            "tags": [
-                "hosiery",
-                "tea_room",
-                "fashion",
-                "soft_light"
-            ]
         }
     ],
     "plan_weight_overrides": {
@@ -586,8 +555,7 @@
         "trend_mirror_studio": 0.7,
         "capsule_toy_corner": 0.8,
         "graphic_poster_studio": 0.55,
-        "pure_white_character_focus": 0.75,
-        "hosiery_tea_room": 2.2
+        "pure_white_character_focus": 0.75
     },
     "plan_compatible_clothing_themes": {
         "trend_mirror_studio": [
@@ -617,7 +585,6 @@
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "short one-piece dress, youthful clean date styling",
-            "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
             "cafe maid remix outfit, neat apron, ribbons, cute and clean"
         ],
         "graphic_poster_studio": [
@@ -666,7 +633,6 @@
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
             "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
             "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-            "vintage floral tailored top, clean panel detail, garden portrait fashion",
             "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
             "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
@@ -681,7 +647,6 @@
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
             "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
             "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-            "vintage floral tailored top, clean panel detail, garden portrait fashion",
             "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
             "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
@@ -694,7 +659,6 @@
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
             "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
             "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-            "vintage floral tailored top, clean panel detail, garden portrait fashion",
             "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
             "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
@@ -705,7 +669,6 @@
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
-            "soft bakery or cafe casual outfit, warm and simple",
             "soft casual outfit with warm simple styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -724,12 +687,9 @@
             "sleeveless top, denim overalls, youthful clean casual style",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
             "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-            "soft off-shoulder knit sweater, soft Korean casual style",
             "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -737,18 +697,11 @@
             "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
             "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
             "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-            "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
             "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
             "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
-            "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-            "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
-            "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
-            "high-waist pencil mini skirt, clean city date fashion",
             "lace mini dress, ribbon neck detail, romantic feminine style",
             "light knit cardigan, soft layered outerwear",
-            "ribbed camisole top, neat knit tank top",
             "striped lounge pants, casual wide-leg pants",
-            "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
             "athletic crop tank, fitness camisole",
             "high-waist denim mini skirt, casual sporty skirt",
             "oversized zip hoodie, casual rehearsal outerwear",
@@ -775,7 +728,6 @@
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
-            "soft bakery or cafe casual outfit, warm and simple",
             "soft casual outfit with warm simple styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -794,12 +746,9 @@
             "sleeveless top, denim overalls, youthful clean casual style",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
             "oversized sweater, loose sleeves, cozy homewear, soft casual style",
-            "soft off-shoulder knit sweater, soft Korean casual style",
             "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style",
             "lace dress, ribbon waist, airy garden fairy style",
             "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood",
-            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
-            "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style",
             "layered striped knit top, wrap skirt, preppy luxury styling",
             "striped tank top, pleated mini skirt, tennis-girl summer casual style",
             "ribbed tank top, satin shorts, minimal summer lounge style",
@@ -807,18 +756,11 @@
             "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear",
             "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style",
             "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
-            "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit",
             "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers",
             "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim",
-            "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves",
-            "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear",
-            "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit",
-            "high-waist pencil mini skirt, clean city date fashion",
             "lace mini dress, ribbon neck detail, romantic feminine style",
             "light knit cardigan, soft layered outerwear",
-            "ribbed camisole top, neat knit tank top",
             "striped lounge pants, casual wide-leg pants",
-            "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt",
             "athletic crop tank, fitness camisole",
             "high-waist denim mini skirt, casual sporty skirt",
             "oversized zip hoodie, casual rehearsal outerwear",
@@ -847,7 +789,6 @@
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
             "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
             "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-            "vintage floral tailored top, clean panel detail, garden portrait fashion",
             "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "zero_gravity_fairy_garden": [
@@ -859,7 +800,6 @@
             "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
             "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
             "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-            "vintage floral tailored top, clean panel detail, garden portrait fashion",
             "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots"
         ],
         "overhead_deep_perspective_space": [
@@ -905,7 +845,6 @@
             "shoulder-draped striped sweater over fitted blouse, clean rich-girl lifestyle fashion"
         ],
         "telephoto_layered_interior": [
-            "soft bakery or cafe casual outfit, warm and simple",
             "clean light-novel casual outfit, character palette stays recognizable",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
@@ -931,7 +870,6 @@
             "clean light-novel casual outfit, character palette stays recognizable",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
-            "soft bakery or cafe casual outfit, warm and simple",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "chiffon spaghetti-strap maxi dress, flowing skirt, light luxury feminine dating fashion",
             "layered chiffon dress, soft draped layers, gentle girlfriend city-date fashion",
@@ -1051,7 +989,6 @@
             "clean light-novel casual outfit, character palette stays recognizable",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
-            "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
             "chiffon spaghetti-strap maxi dress, flowing skirt, light luxury feminine dating fashion",
             "layered chiffon dress, soft draped layers, gentle girlfriend city-date fashion",
             "satin wrap dress, gentle waist definition, quiet luxury weekend date styling",
@@ -1097,9 +1034,6 @@
             "layered tulle skirt with lightweight blouse, romantic urban lifestyle outfit",
             "high-waist straight-leg jeans with fitted blouse, elegant city walk styling",
             "shoulder-draped striped sweater over fitted blouse, clean rich-girl lifestyle fashion"
-        ],
-        "hosiery_tea_room": [
-            "rare refined black hosiery fashion outfit, restrained and non-fetishized"
         ]
     },
     "scene_category_options": [
@@ -1161,13 +1095,6 @@
                 "low_angle_foreground_depth",
                 "far_shot_readable_room",
                 "telephoto_layered_interior"
-            ]
-        },
-        {
-            "key": "special_limited",
-            "label": "特殊限定",
-            "plan_names": [
-                "hosiery_tea_room"
             ]
         }
     ],

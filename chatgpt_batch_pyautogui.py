@@ -1,4 +1,4 @@
-﻿import ctypes
+import ctypes
 import datetime as dt
 import json
 import os
@@ -242,7 +242,6 @@ CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
     "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights",
     "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
-    "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
     "striped swim top under loose cover shirt, clean beach resort style",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood",
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit",
@@ -255,7 +254,6 @@ CONDITIONAL_SCENE_ONLY_CLOTHING_THEMES = {
     "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit",
     "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette",
     "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
-    "vintage floral tailored top, clean panel detail, garden portrait fashion",
 }
 SCENE_ONLY_COMPATIBLE_OUTFIT_CHANCE = 0.18
 STRONG_SCENE_ONLY_CLOTHING_THEMES = [
@@ -277,10 +275,8 @@ SOFT_DATE_OUTFIT = "soft date outfit: cardigan, camisole or blouse, A-line skirt
 CAFE_MAID_OUTFIT = "cafe maid remix outfit, neat apron, ribbons, cute and clean"
 BRIDAL_OUTFIT = "romantic flower bridal dress, elegant veil or bouquet, clean and elegant"
 FLOWER_FANTASY_OUTFIT = "elegant flower-field fantasy outfit, simplified layers, no weapon requirement"
-DARK_HOSIERY_OUTFIT = "rare refined black hosiery fashion outfit, restrained and non-fetishized"
 YOUTHFUL_CASUAL_OUTFIT = "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis"
 PICNIC_OUTFIT = "fresh picnic outfit, short jacket or light cardigan, clear layered pieces"
-BAKERY_CAFE_OUTFIT = "soft bakery or cafe casual outfit, warm and simple"
 SUNNY_STUDIO_OUTFIT = "minimal sunny studio outfit, face and hair identity as the main focus"
 PURE_WHITE_OUTFIT = "clean minimal studio outfit, simple silhouette, palette selected to support character identity"
 FAIRY_FLOATING_OUTFIT = "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling"
@@ -299,10 +295,8 @@ CLOTHING_DISPLAY_LABELS = {
     CAFE_MAID_OUTFIT: "咖啡女仆改良",
     BRIDAL_OUTFIT: "花园婚纱",
     FLOWER_FANTASY_OUTFIT: "花田幻想礼服",
-    DARK_HOSIERY_OUTFIT: "黑丝茶室时装",
     YOUTHFUL_CASUAL_OUTFIT: "清爽少女日常",
     PICNIC_OUTFIT: "野餐层次穿搭",
-    BAKERY_CAFE_OUTFIT: "烘焙咖啡日常",
     "soft casual outfit with warm simple styling": "温柔简洁日常",
     SUNNY_STUDIO_OUTFIT: "晴光棚拍简装",
     PURE_WHITE_OUTFIT: "极简棚拍造型",
@@ -324,21 +318,17 @@ CLOTHING_DISPLAY_LABELS = {
     "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style": "学院背心裙",
     "oversized sweater, loose sleeves, cozy homewear, soft casual style": "宽松毛衣居家风",
     "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear": "蕾丝舞台裙",
-    "soft off-shoulder knit sweater, soft Korean casual style": "韩系露肩针织",
     "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style": "雪纺仙女礼服",
     "waist-shaped dress, off-shoulder cut, uneven skirt, romantic cottagecore style": "田园连衣裙",
     "lace dress, ribbon waist, airy garden fairy style": "蕾丝花园裙",
     "striped swim top under loose cover shirt, clean beach resort style": "沙滩罩衫度假装",
     "satin lounge slip dress, lace panel, halter neck, side tie ribbon, relaxed resort-home mood": "缎面蕾丝家居裙",
     "athleisure activewear set, athletic tank, lightweight sun jacket, running shorts, summer sport mood": "运动防晒套装",
-    "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion": "条纹针织学院风",
-    "old-money neat knit top, high-waist balloon shorts, belt detail, luxury casual style": "千金风针织短裤",
     "layered striped knit top, wrap skirt, preppy luxury styling": "层叠针织半裙",
     "striped tank top, pleated mini skirt, tennis-girl summer casual style": "美式网球学院风",
     "ribbed tank top, satin shorts, minimal summer lounge style": "罗纹背心缎面短裤",
     "long-sleeve cropped active top, high-waist flare yoga pants, soft pilates outfit": "瑜伽训练套装",
     "simple camisole, high-waist flare pants, balletcore pilates fashion": "芭蕾普拉提风",
-    "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant": "洛丽塔女仆风",
     "straight-neck maxi dress, simple straight bodice, loose flowing resort silhouette": "直领度假长裙",
     "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style": "直领开衫居家风",
     "cropped graphic T-shirt, abstract graphic chest print, high-waisted jogger pants, casual streetwear": "印花短T运动长裤",
@@ -346,24 +336,16 @@ CLOTHING_DISPLAY_LABELS = {
     "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear": "吊带小礼裙",
     "cropped athletic top, fitted short sleeves, plain hem band, clean activewear style": "短款运动上衣",
     "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette": "针织挂脖连衣裙",
-    "mélange off-shoulder knit top, loose draped neckline exposing one shoulder, oversized fit, long sleeves with extended cuffs, soft textured knit": "露肩宽松针织上衣",
     "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels": "不对称拖尾迷你礼服",
     "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots": "挂脖荷叶边高低摆礼服",
     "minimal one-piece swimsuit, modest scoop neckline, standard leg openings, clean fitted silhouette, thin straps wrapping around the upper thighs": "连体泳装腿部绑带",
     "retro athletic cheer set, sleeveless high-neck cropped athletic top with large number graphic, matching standard-waist athletic shorts, side stripes, piping and drawstring, semi-opaque polka-dot tights": "复古运动啦啦队套装",
     "sleeveless halter-neck blouse, soft draped fabric, scarf-like neck tie detail, loose flowing silhouette, high-waisted wide-leg trousers": "挂脖飘带上衣长裤",
     "sleeveless high-neck blouse, delicate floral embroidery, lightly textured opaque fabric, softly gathered neckline, subtle ruffled shoulder trim": "刺绣无袖高领上衣",
-    "lace-trim camisole, clean modest V neckline, delicate lace edging, layered under loose open-front draped cardigan with long sleeves": "蕾丝吊带垂坠开衫",
-    "ribbed cropped cardigan set, matching ribbed shorts, opaque athletic inner top, minimal Korean streetwear": "针织开衫两件套",
-    "ruffled floral camisole, front tie crop top, contrast trim bustier, Korean summer date outfit": "碎花荷叶边吊带",
-    "high-waist pencil mini skirt, clean city date fashion": "包臀半裙",
     "racing crop jacket, motorsport sponsor top, performance event costume": "赛车活动服",
-    "vintage floral tailored top, clean panel detail, garden portrait fashion": "复古碎花上衣",
     "lace mini dress, ribbon neck detail, romantic feminine style": "蕾丝短裙",
     "light knit cardigan, soft layered outerwear": "针织开衫",
-    "ribbed camisole top, neat knit tank top": "针织吊带",
     "striped lounge pants, casual wide-leg pants": "条纹阔腿裤",
-    "floral chiffon blouse, opaque puff sleeves, front tie crop blouse, flowy vacation skirt": "碎花雪纺两件套",
     "athletic crop tank, fitness camisole": "运动背心",
     "high-waist denim mini skirt, casual sporty skirt": "牛仔短裙",
     "ruffled chiffon mini dress, tiered fairy dress, idol rehearsal outfit": "荷叶边蛋糕裙",
@@ -497,7 +479,6 @@ SAFE_DAILY_CLOTHING_POOL = [
     SOFT_DATE_OUTFIT,
     YOUTHFUL_CASUAL_OUTFIT,
     PICNIC_OUTFIT,
-    BAKERY_CAFE_OUTFIT,
     SUNNY_STUDIO_OUTFIT,
     PURE_WHITE_OUTFIT,
     WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
@@ -534,7 +515,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
-        "gingham lolita maid dress, lace trim, apron skirt, ruffle neckline, ribbon bows, bell pendant",
         CAFE_MAID_OUTFIT,
     ],
     "graphic_poster_studio": [
@@ -569,7 +549,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     ],
@@ -584,7 +563,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     ],
@@ -597,7 +575,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "straight-neck tailored mini dress, clean neckline, asymmetric hem, long flowing side panels forming a dramatic trailing train, opaque satin opera gloves, pointed high heels",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     ],
@@ -616,7 +593,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     ],
     "zero_gravity_fairy_garden": [
@@ -628,7 +604,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "lace bridal gown, high-neck bodice, ruffle sleeves, princess skirt, clean wedding style",
         "chiffon fairy gown, off-shoulder ruffles, bouquet, elegant evening style",
         "fantasy evening gown, sleeveless design, modest neckline, clean bodice, flowing layered skirt",
-        "vintage floral tailored top, clean panel detail, garden portrait fashion",
         "halter-neck ruffled mini dress, clean bodice, layered cascading ruffles, asymmetric high-low hem, long trailing ruffled panels and ribbon-like tails, mid-calf boots",
     ],
     "overhead_deep_perspective_space": [
@@ -660,7 +635,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         *QINGKE_LIGHT_LUXURY_THEMES,
     ],
     "telephoto_layered_interior": [
-        BAKERY_CAFE_OUTFIT,
         LIGHT_NOVEL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
@@ -672,7 +646,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LIGHT_NOVEL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
-        BAKERY_CAFE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         *QINGKE_LIGHT_LUXURY_THEMES,
     ],
@@ -722,7 +695,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         LIGHT_NOVEL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         "academy pinafore dress, shirt, ribbon tie, round glasses, preppy school style",
-        "striped neat knit tee, pleated skirt, loafers, preppy chic street fashion",
         *QINGKE_LIGHT_LUXURY_THEMES,
         "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "waist-shaped mini dress, lace panels, bell sleeves, boots, idol stagewear",
@@ -740,9 +712,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         "straight-neck opaque top with oversized cardigan worn off shoulders, relaxed knit loungewear style",
         "knit halter dress, textured fabric, clean upper-body fit, soft draped summer silhouette",
         *QINGKE_LIGHT_LUXURY_THEMES,
-    ],
-    "hosiery_tea_room": [
-        DARK_HOSIERY_OUTFIT,
     ],
 }
 LOW_PROBABILITY_SCENE_ONLY_CLOTHING_BY_PLAN = {
@@ -811,11 +780,6 @@ SCENE_CATEGORY_OPTIONS = [
             "far_shot_readable_room",
             "telephoto_layered_interior",
         ],
-    },
-    {
-        "key": "special_limited",
-        "label": "特殊限定",
-        "plan_names": ["hosiery_tea_room"],
     },
 ]
 LAST_RUNTIME_GIT_PULL_AT = 0.0
@@ -2102,8 +2066,6 @@ def black_hosiery_chance_for_character(character_name: str) -> float:
 
 
 def can_add_black_hosiery(theme: str, art_plan: dict) -> bool:
-    if theme == DARK_HOSIERY_OUTFIT:
-        return True
     if art_plan.get("name") in BLACK_HOSIERY_INCOMPATIBLE_PLAN_NAMES:
         return False
     text = f"{theme} {' '.join(art_plan.get('tags', []))}".lower()
@@ -2115,8 +2077,6 @@ def outfit_with_optional_black_hosiery(
     theme: str,
     art_plan: dict,
 ) -> tuple[str, bool]:
-    if theme == DARK_HOSIERY_OUTFIT:
-        return theme, True
     if not can_add_black_hosiery(theme, art_plan):
         return theme, False
     if random.random() >= black_hosiery_chance_for_character(character_name):
