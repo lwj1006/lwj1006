@@ -143,12 +143,21 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "耀嘉音2.png"),
         str(PROJECT_DIR / "assets" / "耀嘉音3.png"),
     ],
+    "柏妮思": [
+        str(PROJECT_DIR / "assets" / "柏妮思1.png"),
+        str(PROJECT_DIR / "assets" / "柏妮思2.png"),
+    ],
+    "妮可": [
+        str(PROJECT_DIR / "assets" / "妮可1.png"),
+        str(PROJECT_DIR / "assets" / "妮可2.png"),
+        str(PROJECT_DIR / "assets" / "妮可3.png"),
+    ],
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
-CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音"]
+CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可"]
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999

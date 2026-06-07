@@ -126,11 +126,11 @@ CHARACTER_PROFILES = {
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
-        "official_core": "mint gray-green short layered hair, large mint bow, soft asymmetrical bangs, small side hair bundle, pink-gold eyes, light clean gaze.",
+        "official_core": "mint gray-green short layered hair, large mint bow, soft asymmetrical bangs, pink-gold eyes, cute youthful facial features, bright approachable atmosphere.",
         "identity_tokens": ["mint gray-green short layered hair", "large mint bow", "soft asymmetrical bangs", "pink-gold eyes"],
-        "viewer_relationship": "gentle gaze, very small smile, relaxed neck and shoulders.",
+        "viewer_relationship": "warm friendly eye contact, soft cheerful smile, approachable and slightly playful expression.",
         "thumbnail_strategy": "mint hair, large bow, and clear eyes must stay stable; do not turn her into a generic long-haired character.",
-        "interaction_rule": "seated pose, window-side glance, or naturally adjusting hair are fine; avoid paper, pen, creator-desk, or illustrator setup motifs.",
+        "interaction_rule": "small daily gestures, lightly fixing hair, holding sleeves, subtle cute reactions, relaxed seated poses.",
         "color_anchor": "mint, pale gold, soft white",
     },
     "丹": {
@@ -253,6 +253,37 @@ CHARACTER_PROFILES = {
         "interaction_rule": "graceful hand pose or side gaze are fine; avoid forcing long hand-held props, heavy accessory styling, fixed formal styling, or fixed expression.",
         "color_anchor": "dark teal, pale pink, pearl white, gold",
     },
+    "柏妮思": {
+        "official_core": "light blonde short hair, high side twin tails attached with golden twin-tail holders, fluffy outward-curving twin tails, thick fluffy bangs, voluminous front hair, partially eye-covering bangs, red-orange eyes, energetic smile, lively and carefree atmosphere, sporty youthful appearance.",
+        "identity_tokens": [
+            "light blonde short hair",
+            "high side twin tails",
+            "golden twin-tail holders",
+            "fluffy outward-curving twin tails",
+            "thick fluffy bangs",
+            "red-orange eyes"
+        ],
+        "viewer_relationship": "bright direct eye contact, cheerful grin, energetic and welcoming expression, playful and approachable personality, as if inviting the viewer into the fun.",
+        "thumbnail_strategy": "high side twin tails, golden twin-tail holders, fluffy bangs, and red-orange eyes must stay stable; do not turn her into a generic blonde girl, long-haired character, mature cool beauty, or horned character.",
+        "interaction_rule": "playful gestures, casual movement, excited reactions, leaning forward, waving, laughing, energetic body language, spontaneous cute antics, naturally interacting with people, animals, or the environment.",
+        "personality_anchor": "big friendly puppy energy, accident-prone but lucky, chaotic good personality, warm-hearted troublemaker, naturally lovable and optimistic.",
+        "color_anchor": "gold, black, red-orange, warm cream"
+    },
+    "妮可": {
+        "official_core": "long fluffy pink twin tails, black ribbon twin-tail bows, bright green eyes, layered pink bangs, confident smile, street-smart and charismatic atmosphere, fashionable urban girl appearance.",
+        "identity_tokens": [
+            "long fluffy pink twin tails",
+            "black ribbon twin-tail bows",
+            "bright green eyes",
+            "layered pink bangs",
+            "pink hair"
+        ],
+        "viewer_relationship": "confident eye contact, playful grin, clever and persuasive expression, as if she is already negotiating a deal with the viewer.",
+        "thumbnail_strategy": "long pink twin tails, black ribbon bows, layered pink bangs, and bright green eyes must stay stable; do not turn her into a generic pink-haired girl, idol character, or elegant princess.",
+        "interaction_rule": "confident poses, playful gestures, finger-pointing, peace signs, counting money, negotiating, showing off, teasing expressions, relaxed leader-like body language, naturally taking charge of the situation.",
+        "personality_anchor": "street-smart entrepreneur, money-loving but soft-hearted, debt-ridden genius, resourceful survivor, charming trickster, reliable leader beneath a greedy exterior.",
+        "color_anchor": "pink, black, white, neon yellow-green"
+    }
 }
 
 
@@ -1139,6 +1170,8 @@ KNOWN_CHARACTER_NAMES = [
     "艾莲",
     "琉音",
     "耀嘉音",
+    "柏妮思",
+    "妮可",
 ]
 
 
