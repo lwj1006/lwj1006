@@ -1,6 +1,37 @@
 import random
 
 
+PHOTOGRAPHER_SCENE_CATEGORY_LABELS = {
+    "studio_editorial": "棚拍 / 杂志 / 摄影棚",
+    "indoor_novel_cg": "室内 / 小说CG / 空间感",
+    "bright_daily_scene": "明亮日常 / 店铺 / 街区",
+}
+
+PHOTOGRAPHER_SCENE_CATEGORY_PLAN_NAMES = {
+    "studio_editorial": {
+        "studio_negative_space_crop",
+        "mirror_fragment_single_subject_photo",
+        "low_table_foreground_depth",
+    },
+    "indoor_novel_cg": {
+        "doorframe_observer_room",
+        "overhead_room_geometry",
+        "telephoto_through_shelves",
+        "window_backlight_half_screen",
+        "corridor_vanishing_point",
+        "mirror_fragment_single_subject_photo",
+    },
+    "bright_daily_scene": {
+        "street_corner_motion_frame",
+        "rooftop_wide_environment_cut",
+        "low_table_foreground_depth",
+        "window_backlight_half_screen",
+    },
+}
+
+_ACTIVE_SCENE_CATEGORY = None
+
+
 PHOTOGRAPHER_SCENE_PLANS = [
     {
         "name": "doorframe_observer_room",
@@ -262,8 +293,39 @@ def _weighted_choice(items):
     return dict(items[-1])
 
 
+def set_active_photographer_scene_category(category_key=None):
+    global _ACTIVE_SCENE_CATEGORY
+    if category_key in {"", "all", "random", "full_random"}:
+        category_key = None
+    if category_key is not None and category_key not in PHOTOGRAPHER_SCENE_CATEGORY_LABELS:
+        raise ValueError(f"unknown photographer scene category: {category_key}")
+    _ACTIVE_SCENE_CATEGORY = category_key
+
+
+def active_photographer_scene_category():
+    return _ACTIVE_SCENE_CATEGORY
+
+
+def photographer_scene_category_label(category_key=None):
+    category_key = _ACTIVE_SCENE_CATEGORY if category_key is None else category_key
+    return PHOTOGRAPHER_SCENE_CATEGORY_LABELS.get(category_key, "全随机摄影师场景")
+
+
+def photographer_scene_plans_for_category(category_key=None):
+    category_key = _ACTIVE_SCENE_CATEGORY if category_key is None else category_key
+    if category_key is None:
+        return [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
+    allowed_names = PHOTOGRAPHER_SCENE_CATEGORY_PLAN_NAMES.get(category_key, set())
+    plans = [
+        dict(plan)
+        for plan in PHOTOGRAPHER_SCENE_PLANS
+        if plan["name"] in allowed_names
+    ]
+    return plans or [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
+
+
 def choose_photographer_scene_plan(character_name=None, recent_tags=None):
-    return _weighted_choice(PHOTOGRAPHER_SCENE_PLANS)
+    return _weighted_choice(photographer_scene_plans_for_category())
 
 
 def choose_photographer_action_style(character_name=None, recent_tags=None, plan=None):
@@ -282,4 +344,3 @@ def choose_photographer_composition_plan(recent_tags=None, plan=None, action=Non
 
 def choose_photographer_shot_scale(recent_tags=None, plan=None):
     return _weighted_choice(PHOTOGRAPHER_SHOT_SCALES)
-
