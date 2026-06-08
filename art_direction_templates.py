@@ -17,7 +17,7 @@ STYLE_BASELINE = (
 
 
 NEGATIVE_GUARDRAILS = (
-    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, forced weapon, forced vehicle, transparent clothing, clear plastic/vinyl/PVC garments, see-through hoodies, see-through jackets, see-through coats."
+    "Avoid: extra people, identity drift, broken hands/fingers, missing arms, hand-held cup, hand-held mug, hand-held drinking glass, hand-held bottle, phone, centered portrait, generic AI portrait, text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, forced weapon, forced vehicle, transparent clothing, clear plastic/vinyl/PVC garments, see-through hoodies, see-through jackets, see-through coats."
 )
 
 
@@ -116,7 +116,7 @@ def prompt_for_art_direction(
         f"Shot scale: {_clip_text(shot_scale.get('description', ''), 150)}.",
         f"Pose/framing: {_clip_text(action_style.get('body_silhouette', ''), 105).rstrip('.')}. {viewer_distance_for(character_name)}.",
         "Body silhouette: preserve natural original proportions; do not enlarge bust, hips, or thighs. Use a neutral slim anime build with modest bust, no cleavage emphasis, no chest-forward pose, and no exaggerated hourglass silhouette.",
-        "Hands simple and natural; hands stay outside clothing and away from waistband, pants opening, shorts opening, and inner thigh; feet clear only when visible.",
+        "Hands simple and natural; hands stay empty and must not hold, lift, set down, or touch cups, mugs, drinking glasses, bottles, or beverage containers; any rare beverage prop stays on a distant surface away from the hands. Hands stay outside clothing and away from waistband, pants opening, shorts opening, and inner thigh; feet clear only when visible.",
         "",
         SCENE_FIRST_RULES,
         f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 90)} {_clip_text(art_plan.get('spatial_structure', ''), 95)}",

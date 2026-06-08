@@ -1,5 +1,5 @@
 {
-    "revision": "local-diverse-outfit-color-values-20260607",
+    "revision": "local-reduce-cup-hand-interactions-20260607",
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
@@ -137,7 +137,7 @@
             "name": "balcony_breeze_half_out_frame",
             "graphic_concept": "home balcony breeze scene; curtain, sky, railing, and white interior wall carry the first read, with the character as an emotional note near the edge",
             "spatial_structure": "interior looking toward balcony or balcony looking inward; character half out of frame or placed low to one side; doorframe and curtain create foreground layers",
-            "visual_device": "wind-blown curtain, small plant pot, sandals, glass with condensation, and reflected floor light create domestic narrative",
+            "visual_device": "wind-blown curtain, small plant pot, sandals, folded cloth, and reflected floor light create domestic narrative",
             "body_silhouette": "front three-quarter or relaxed side angle near the balcony breeze; hair and accessories move lightly in wind while face stays readable",
             "outfit_direction": "tank top, oversized cropped hoodie, loose jeans, relaxed casual style",
             "material_language": "thin curtain, glass door, metal railing, ceramic pot, polished floor reflection, hoodie cotton and denim",
@@ -231,7 +231,7 @@
             "name": "beach_wind_open_sand",
             "graphic_concept": "open beach wind scene; shoreline, parasol edge, wave line, and small beach items create a clean summer image without swimsuit focus",
             "spatial_structure": "wide sand plane, wave edge, parasol or towel in foreground, and open horizon; character readable at medium distance with plenty of air",
-            "visual_device": "wave foam, sandal marks, small bag, drink bottle, and wind on hair form a light summer rhythm",
+            "visual_device": "wave foam, sandal marks, small bag, towel edge, and wind on hair form a light summer rhythm",
             "body_silhouette": "walking along wet sand, pausing near a parasol, or turning in sea breeze; hands simple, posture natural",
             "outfit_direction": "striped swim top under loose cover shirt, clean beach resort style",
             "material_language": "loose cover shirt, subtle striped swim top, sand, wave foam, parasol fabric, small beach bag",
@@ -391,7 +391,7 @@
             "name": "white_room_floor_window",
             "graphic_concept": "quiet interior white room with floor-to-ceiling window; white wall, pale floor reflection, curtain shadow, and one character-color accent build the composition",
             "spatial_structure": "strictly indoors: a white room, window glass, pale floor, curtain, sofa edge, or low table; character stays off-center but medium-large with intentional blank white space",
-            "visual_device": "thin curtain, small jewelry tray, flower stem in a vase, glass cup, folded cloth, and soft indoor floor reflection create minimal narrative detail",
+            "visual_device": "thin curtain, small jewelry tray, flower stem in a vase, folded cloth, and soft indoor floor reflection create minimal narrative detail",
             "body_silhouette": "standing, leaning, or neatly seated beside the window or low table, front three-quarter or relaxed side angle, calm and cinematic",
             "outfit_direction": "simple camisole, lightweight opaque chiffon off-shoulder sleeves, high-waisted denim shorts, clean summer date style",
             "material_language": "camisole fabric, lightweight opaque chiffon sleeves, denim, glass, polished floor, thin curtain, small metal accessory",
