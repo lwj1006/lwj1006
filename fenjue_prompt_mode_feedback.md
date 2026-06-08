@@ -128,6 +128,7 @@ B 模式修正后平均约 4579 字符，最长接近 4941 字符。结构清楚
 
 新增文件：
 
+ - `photographer_prompt_plans.py`
  - `photographer_prompt_templates.py`
  - `fenjue_prompt_mode_launcher.py`
  - `start_fenjue_prompt_mode.bat`
@@ -144,6 +145,26 @@ B 模式修正后平均约 4579 字符，最长接近 4941 字符。结构清楚
  - 降低白色 / 奶油色 / 象牙白服装默认倾向
  - 降低人物手拿杯子、玻璃杯、瓶子的概率
  - 新增 B 模式摄影师结构，但通过新启动入口进入
+ - B 模式已改为使用独立摄影师专用 plan 池，不再复用原本的场景 / 动作 / 构图抽样池
+
+## B 模式专用 Plan 更新
+
+新增 `photographer_prompt_plans.py`，只给 B 模式调用。A 模式和原 `art_direction_options.py` 的抽样逻辑不变。
+
+B 模式现在分成三层：
+
+ - 摄影师场景 plan：门框观察、低机位前景、高机位空间、长焦隔物、窗边半遮挡、街角动线、棚拍负空间、走廊透视、反射碎片、天台宽景
+ - 摄影师动作 plan：转身前一瞬、横穿画面、半遮挡观察、边缘回头、光束中停顿、坐姿斜线重心、整理头发或袖口、注意力留在环境里
+ - 摄影师构图 plan：门框切割、低前景压迫、高角度地面图形、长焦层叠观察、负空间边缘主体、反射碎片裁切、消失点行走
+
+修正后抽样 300 条：
+
+ - A 模式仍保持原模板
+ - B 模式模板名：`fenjue_v6_photographer_dedicated_plans`
+ - B 模式每条都有 `[SCENE]` / `[PHOTOGRAPHER]` / `[CHARACTER]` / `[OUTFIT]`
+ - B 模式误导项检查：0 项
+ - 抽样长度范围：4388 到 4942 字符
+ - 平均长度：4601 字符
 
 ## 建议下一步
 

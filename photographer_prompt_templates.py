@@ -1,13 +1,15 @@
 from art_direction_options import (
-    choose_art_plan,
-    choose_compatible_action_style,
-    choose_composition_plan,
-    choose_shot_scale,
     choose_visual_design,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
     viewer_distance_for,
+)
+from photographer_prompt_plans import (
+    choose_photographer_action_style,
+    choose_photographer_composition_plan,
+    choose_photographer_scene_plan,
+    choose_photographer_shot_scale,
 )
 
 
@@ -23,7 +25,7 @@ NEGATIVE_GUARDRAILS = (
 
 
 def prompt_template_name(template_index=0):
-    return "fenjue_v5_four_block_photographer"
+    return "fenjue_v6_photographer_dedicated_plans"
 
 
 def _join_list(values):
@@ -142,15 +144,15 @@ def prompt_for_art_direction(
     composition_plan=None,
 ):
     if art_plan is None:
-        art_plan = choose_art_plan(character_name, recent_tags)
+        art_plan = choose_photographer_scene_plan(character_name, recent_tags)
     if action_style is None:
-        action_style = choose_compatible_action_style(character_name, recent_tags, art_plan)
+        action_style = choose_photographer_action_style(character_name, recent_tags, art_plan)
     if visual_design is None:
         visual_design = choose_visual_design(recent_tags, art_plan)
     if shot_scale is None:
-        shot_scale = choose_shot_scale(recent_tags, art_plan)
+        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan)
     if composition_plan is None:
-        composition_plan = choose_composition_plan(
+        composition_plan = choose_photographer_composition_plan(
             recent_tags,
             art_plan,
             action_style,
