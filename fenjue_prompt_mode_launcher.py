@@ -75,6 +75,13 @@ def choose_photographer_category():
 
 
 def _activate_photographer_runtime_hooks(photographer, photographer_plans):
+    def skip_original_scene_selection():
+        print(
+            "Original scene category menu skipped: photographer mode uses its own scene category.",
+            flush=True,
+        )
+        return None
+
     def choose_photographer_plan_and_action(
         character_name,
         recent_visual_tags,
@@ -111,6 +118,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
     batch.choose_character_plan_and_action = choose_photographer_plan_and_action
     batch.choose_shot_scale = photographer_plans.choose_photographer_shot_scale
     batch.choose_composition_plan = photographer_plans.choose_photographer_composition_plan
+    batch.startup_scene_selection = skip_original_scene_selection
     batch.prompt_for_art_direction = photographer.prompt_for_art_direction
     batch.prompt_template_name = photographer.prompt_template_name
 
