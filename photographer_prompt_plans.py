@@ -1,7 +1,7 @@
 import random
 
 
-_ACTIVE_SCENE_PLAN_NAME = None
+_ACTIVE_SCENE_PLAN_NAMES = None
 
 
 PHOTOGRAPHER_SCENE_PLANS = [
@@ -503,36 +503,49 @@ def _weighted_choice(items):
     return dict(items[-1])
 
 
-def set_active_photographer_scene_plan(plan_name=None):
-    global _ACTIVE_SCENE_PLAN_NAME
-    if plan_name in {"", "all", "random", "full_random"}:
-        plan_name = None
+def set_active_photographer_scene_plans(plan_names=None):
+    global _ACTIVE_SCENE_PLAN_NAMES
+    if isinstance(plan_names, str):
+        plan_names = [plan_names]
+    if plan_names and any(name in {"", "all", "random", "full_random"} for name in plan_names):
+        plan_names = None
     valid_names = {plan["name"] for plan in PHOTOGRAPHER_SCENE_PLANS}
-    if plan_name is not None and plan_name not in valid_names:
-        raise ValueError(f"unknown photographer scene plan: {plan_name}")
-    _ACTIVE_SCENE_PLAN_NAME = plan_name
+    if plan_names is not None:
+        unknown = [name for name in plan_names if name not in valid_names]
+        if unknown:
+            raise ValueError(f"unknown photographer scene plans: {unknown}")
+        plan_names = list(dict.fromkeys(plan_names))
+    _ACTIVE_SCENE_PLAN_NAMES = plan_names
 
 
-def active_photographer_scene_plan():
-    return _ACTIVE_SCENE_PLAN_NAME
+def active_photographer_scene_plans():
+    return None if _ACTIVE_SCENE_PLAN_NAMES is None else list(_ACTIVE_SCENE_PLAN_NAMES)
 
 
-def photographer_scene_plan_label(plan_name=None):
-    plan_name = _ACTIVE_SCENE_PLAN_NAME if plan_name is None else plan_name
+def photographer_scene_plan_label(plan_names=None):
+    plan_names = _ACTIVE_SCENE_PLAN_NAMES if plan_names is None else plan_names
+    if isinstance(plan_names, str):
+        plan_names = [plan_names]
+    if not plan_names:
+        return "全随机摄影师背景"
+    labels = []
     for plan in PHOTOGRAPHER_SCENE_PLANS:
-        if plan["name"] == plan_name:
-            return plan.get("label", plan_name)
-    return "全随机摄影师背景"
+        if plan["name"] in plan_names:
+            labels.append(plan.get("label", plan["name"]))
+    return "、".join(labels)
 
 
-def photographer_scene_plans_for_selection(plan_name=None):
-    plan_name = _ACTIVE_SCENE_PLAN_NAME if plan_name is None else plan_name
-    if plan_name is None:
+def photographer_scene_plans_for_selection(plan_names=None):
+    plan_names = _ACTIVE_SCENE_PLAN_NAMES if plan_names is None else plan_names
+    if isinstance(plan_names, str):
+        plan_names = [plan_names]
+    if not plan_names:
         return [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
+    selected_names = set(plan_names)
     plans = [
         dict(plan)
         for plan in PHOTOGRAPHER_SCENE_PLANS
-        if plan["name"] == plan_name
+        if plan["name"] in selected_names
     ]
     return plans or [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
 

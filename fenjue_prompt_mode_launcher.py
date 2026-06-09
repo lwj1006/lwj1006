@@ -1,4 +1,5 @@
 import sys
+import re
 
 import chatgpt_batch_pyautogui as batch
 
@@ -22,30 +23,52 @@ def choose_prompt_mode() -> str:
         print("Please enter A or B.")
 
 
-def choose_photographer_scene_plan():
+def _parse_photographer_scene_selection(raw_choice, plan_count):
+    normalized = raw_choice.strip().upper()
+    if normalized in {"", "0", "ALL", "RANDOM"}:
+        return None
+
+    indexes = []
+    for token in re.split(r"[\s,，]+", normalized):
+        if not token:
+            continue
+        if "-" in token:
+            parts = token.split("-", 1)
+            if len(parts) != 2 or not all(part.isdigit() for part in parts):
+                raise ValueError(f"Invalid range: {token}")
+            start, end = (int(part) for part in parts)
+            if start > end:
+                start, end = end, start
+            indexes.extend(range(start, end + 1))
+        elif token.isdigit():
+            indexes.append(int(token))
+        else:
+            raise ValueError(f"Invalid selection token: {token}")
+
+    invalid = [index for index in indexes if index < 1 or index > plan_count]
+    if invalid:
+        raise ValueError(f"Scene indexes out of range: {invalid}")
+    return list(dict.fromkeys(indexes))
+
+
+def choose_photographer_scene_plans():
     import photographer_prompt_plans as photographer_plans
 
     plans = photographer_plans.PHOTOGRAPHER_SCENE_PLANS
-    number_to_name = {
-        str(index): plan["name"]
-        for index, plan in enumerate(plans, start=1)
-    }
     for argument in sys.argv[1:]:
         normalized = argument.strip().upper()
         if normalized.startswith("--PHOTOGRAPHER-SCENE="):
             normalized = normalized.split("=", 1)[1].strip().upper()
         elif normalized.startswith("--SCENE-PLAN="):
             normalized = normalized.split("=", 1)[1].strip().upper()
-        elif normalized not in number_to_name and normalized not in {"0", "ALL", "RANDOM"}:
+        elif normalized in {"A", "B", "--MODE=A", "--MODE=B", "--PROMPT-MODE=A", "--PROMPT-MODE=B"}:
             continue
-        if normalized in {"0", "ALL", "RANDOM"}:
-            return None
-        if normalized in number_to_name:
-            return number_to_name[normalized]
-        for plan in plans:
-            if normalized == plan["name"].upper():
-                return plan["name"]
-        raise ValueError(f"Unknown photographer scene plan: {argument}")
+        elif re.fullmatch(r"[\d\s,，-]+|ALL|RANDOM", normalized):
+            pass
+        else:
+            continue
+        selected_indexes = _parse_photographer_scene_selection(normalized, len(plans))
+        return None if selected_indexes is None else [plans[index - 1]["name"] for index in selected_indexes]
 
     while True:
         print("")
@@ -53,20 +76,19 @@ def choose_photographer_scene_plan():
         for index, plan in enumerate(plans, start=1):
             print(f"  {index} = {plan.get('label', plan['name'])}")
         print("  0 = 全随机摄影师背景")
-        choice = input(f"Photographer background [0-{len(plans)}, default 0]: ").strip().upper() or "0"
-        if choice in {"0", "ALL", "RANDOM"}:
-            selected_plan = None
-        elif choice in number_to_name:
-            selected_plan = number_to_name[choice]
-        else:
-            print(f"Please enter 0-{len(plans)}.")
+        print("  支持多选和区间，例如: 1 2 3 / 1-3 / 1-3 7 10-12")
+        choice = input(f"Photographer backgrounds [0-{len(plans)}, default 0]: ").strip().upper() or "0"
+        try:
+            selected_indexes = _parse_photographer_scene_selection(choice, len(plans))
+        except ValueError as exc:
+            print(f"{exc}. Please enter valid indexes from 1-{len(plans)}, or 0.")
             continue
-        if choice in {"0", "ALL", "RANDOM"} or choice in number_to_name:
-            print(
-                f"Photographer background: {photographer_plans.photographer_scene_plan_label(selected_plan)}",
-                flush=True,
-            )
-            return selected_plan
+        selected_plans = None if selected_indexes is None else [plans[index - 1]["name"] for index in selected_indexes]
+        print(
+            f"Photographer backgrounds: {photographer_plans.photographer_scene_plan_label(selected_plans)}",
+            flush=True,
+        )
+        return selected_plans
 
 
 def _activate_photographer_runtime_hooks(photographer, photographer_plans):
@@ -126,12 +148,12 @@ def activate_prompt_mode(mode: str) -> None:
     import photographer_prompt_templates as photographer
     import photographer_prompt_plans as photographer_plans
 
-    selected_plan = choose_photographer_scene_plan()
-    photographer_plans.set_active_photographer_scene_plan(selected_plan)
+    selected_plans = choose_photographer_scene_plans()
+    photographer_plans.set_active_photographer_scene_plans(selected_plans)
     _activate_photographer_runtime_hooks(photographer, photographer_plans)
     print(
         "Prompt mode B active: photographer dedicated-plan style. "
-        f"Background: {photographer_plans.photographer_scene_plan_label(selected_plan)}.",
+        f"Backgrounds: {photographer_plans.photographer_scene_plan_label(selected_plans)}.",
         flush=True,
     )
 
