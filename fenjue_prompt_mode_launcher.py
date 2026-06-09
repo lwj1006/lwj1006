@@ -4,6 +4,9 @@ import re
 import chatgpt_batch_pyautogui as batch
 
 
+LAUNCHER_VERSION = "B-multiselect-20260609"
+
+
 def choose_prompt_mode() -> str:
     for argument in sys.argv[1:]:
         normalized = argument.strip().upper()
@@ -141,6 +144,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
 
 
 def activate_prompt_mode(mode: str) -> None:
+    print(f"Fenjue prompt launcher version: {LAUNCHER_VERSION}", flush=True)
     if mode == "A":
         print("Prompt mode A active: original stable compact style.", flush=True)
         return
