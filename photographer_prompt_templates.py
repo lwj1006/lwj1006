@@ -26,7 +26,7 @@ NEGATIVE_GUARDRAILS = (
 
 
 def prompt_template_name(template_index=0):
-    return "fenjue_v7_stable_character_photographer"
+    return "fenjue_v8_balanced_camera_photographer"
 
 
 def _join_list(values):
@@ -84,9 +84,9 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         f"Framing guardrail: {_clip_text(composition_plan.get('guardrail', ''), 130)}",
         (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
-            "and perspective must describe the same captured instant. Prefer front or front three-quarter "
-            "views, normal eye-level perspective, minimal foreground, and a character occupying about "
-            "45-65 percent of the image. Keep torso and face oriented clearly toward the viewer."
+            "and perspective must describe the same captured instant. Follow the selected camera angle, "
+            "shot scale, and body direction exactly; do not silently replace them with a default eye-level "
+            "medium front portrait. Keep the character readable and the background subordinate."
         ),
     ]
 

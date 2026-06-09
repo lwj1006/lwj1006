@@ -304,88 +304,156 @@ PHOTOGRAPHER_SCENE_PLANS = [
 
 PHOTOGRAPHER_ACTION_STYLES = [
     {
-        "name": "front_three_quarter_natural_pause",
-        "body_silhouette": "front three-quarter natural pause, torso and face generally toward the camera, relaxed shoulders, balanced posture, simple readable hands",
-        "tags": ["front_three_quarter", "stable_pose", "character_focus"],
-        "weight": 3.6,
+        "name": "natural_standing_pause",
+        "body_silhouette": "natural standing pause with relaxed shoulders, balanced posture, and simple readable hands; body direction follows the selected camera",
+        "tags": ["standing", "stable_pose", "camera_adaptive"],
+        "weight": 1.0,
     },
     {
-        "name": "simple_front_standing",
-        "body_silhouette": "simple upright standing posture viewed from the front or a slight three-quarter angle, with a small natural weight shift",
-        "tags": ["front_view", "stable_pose", "character_focus"],
-        "weight": 2.8,
+        "name": "small_weight_shift",
+        "body_silhouette": "upright posture with a small natural weight shift, relaxed arms, and clear outfit silhouette; orientation follows the selected camera",
+        "tags": ["standing", "weight_shift", "camera_adaptive"],
+        "weight": 1.0,
     },
     {
-        "name": "gentle_diagonal_walk",
-        "body_silhouette": "gentle walking step across a shallow diagonal while torso stays mostly front three-quarter; face and outfit remain clearly readable",
-        "tags": ["walking", "front_three_quarter", "character_focus"],
-        "weight": 2.0,
+        "name": "gentle_walking_step",
+        "body_silhouette": "gentle walking step with natural balance and simple arm movement; face and outfit remain readable from the selected camera",
+        "tags": ["walking", "camera_adaptive", "character_focus"],
+        "weight": 1.0,
     },
     {
-        "name": "soft_side_angle_pause",
-        "body_silhouette": "clean side or three-quarter side pause with both shoulders and facial profile readable; body does not face away from the camera",
-        "tags": ["side_angle", "stable_pose", "character_focus"],
-        "weight": 1.2,
+        "name": "quiet_gaze_shift",
+        "body_silhouette": "quiet gaze shift toward or slightly away from the selected camera while posture remains relaxed and readable",
+        "tags": ["gaze_shift", "camera_adaptive", "character_focus"],
+        "weight": 1.0,
     },
     {
         "name": "hair_or_sleeve_micro_action",
-        "body_silhouette": "small natural action such as adjusting hair, sleeve, collar edge, bag strap, or outer layer; fingers stay simple and away from clothing openings",
-        "tags": ["micro_action", "simple_hand", "front_three_quarter"],
-        "weight": 1.1,
+        "body_silhouette": "small natural action such as adjusting hair, sleeve, collar edge, bag strap, or outer layer; fingers stay simple and body direction follows the selected camera",
+        "tags": ["micro_action", "simple_hand", "camera_adaptive"],
+        "weight": 1.0,
     },
     {
         "name": "upright_seated_pause",
-        "body_silhouette": "upright seated posture with torso facing front three-quarter, shoulders relaxed, hands resting simply near lap or seat",
-        "tags": ["seated", "stable_hands", "character_focus"],
-        "weight": 0.7,
+        "body_silhouette": "upright seated posture with relaxed shoulders and hands resting simply near lap or seat; body orientation follows the selected camera",
+        "tags": ["seated", "stable_hands", "camera_adaptive"],
+        "weight": 1.0,
+    },
+    {
+        "name": "gentle_lean",
+        "body_silhouette": "gentle lean against a wall, set block, seat, or railing with balanced posture and clear face; direction follows the selected camera",
+        "tags": ["lean", "stable_pose", "camera_adaptive"],
+        "weight": 1.0,
+    },
+    {
+        "name": "light_upward_gaze",
+        "body_silhouette": "light upward gaze with relaxed neck and shoulders, suitable for eye-level, low, high, or overhead camera placement",
+        "tags": ["upward_gaze", "camera_adaptive", "character_focus"],
+        "weight": 1.0,
+    },
+    {
+        "name": "simple_lowered_pose",
+        "body_silhouette": "simple seated, kneeling, or lowered pose with modest readable limb arrangement and clear face; adapt naturally to the selected camera",
+        "tags": ["lowered_pose", "camera_adaptive", "character_focus"],
+        "weight": 1.0,
+    },
+    {
+        "name": "small_turn_in_place",
+        "body_silhouette": "small in-place turn with torso, face, and feet remaining coherent and readable for the selected camera",
+        "tags": ["turning", "camera_adaptive", "character_focus"],
+        "weight": 1.0,
     },
 ]
 
 
 PHOTOGRAPHER_COMPOSITION_PLANS = [
     {
-        "name": "stable_medium_character_focus",
-        "composition": "stable medium character-focused frame; face and outfit are the first visual focus and the character occupies about 45-65 percent of the image",
-        "camera": "natural eye-level, medium shot to knee-up, front or front three-quarter viewpoint, normal perspective",
-        "pose": "selected action stays simple, balanced, and readable without turning the body away",
+        "name": "eye_level_front_camera",
+        "composition": "clean front-facing camera direction with balanced character placement and restrained background",
+        "camera": "natural eye-level frontal viewpoint with normal perspective; distance follows the selected shot scale",
+        "pose": "selected action remains natural and readable from the front",
         "foreground": "minimal foreground; keep all scene elements behind or beside the character",
         "lighting": "clean side-front or soft frontal light keeps face and clothing readable",
-        "guardrail": "background remains subordinate; use comfortable eye-level distance, balanced body orientation, and controlled empty space",
-        "tags": ["photographer_composition", "medium_shot", "character_focus"],
-        "weight": 3.8,
+        "guardrail": "background remains subordinate; selected shot scale controls framing distance",
+        "tags": ["photographer_composition", "eye_level", "front_view"],
+        "weight": 1.0,
     },
     {
-        "name": "clean_knee_up_editorial",
-        "composition": "clean knee-up editorial frame with a front three-quarter character and enough simple environment to establish place",
-        "camera": "eye-level knee-up framing with normal lens feeling and no body-part exaggeration",
-        "pose": "selected action remains calm and naturally balanced",
-        "foreground": "none or one very small soft edge that never overlaps the body",
+        "name": "eye_level_three_quarter_camera",
+        "composition": "clean three-quarter camera direction showing facial depth, hairstyle, and outfit silhouette",
+        "camera": "natural eye-level three-quarter viewpoint with normal perspective; distance follows the selected shot scale",
+        "pose": "selected action remains calm and coherent from the three-quarter direction",
+        "foreground": "none; scene lines stay behind or beside the character",
         "lighting": "soft directional light separates character from a restrained background",
-        "guardrail": "character and outfit must dominate; avoid mirror, glass fragments, doorway cuts, or large props",
-        "tags": ["photographer_composition", "knee_up", "editorial", "character_focus"],
-        "weight": 2.8,
+        "guardrail": "selected shot scale controls framing distance; preserve natural proportions",
+        "tags": ["photographer_composition", "eye_level", "three_quarter"],
+        "weight": 1.0,
     },
     {
-        "name": "balanced_environment_medium",
-        "composition": "balanced medium-wide frame where the environment explains the location but the character remains the first read",
-        "camera": "eye-level or gentle slight-high viewpoint, medium to medium-wide, normal perspective",
-        "pose": "front three-quarter standing or walking action remains clearly readable",
-        "foreground": "minimal and unobtrusive; no object should cover the face, torso, or outfit silhouette",
+        "name": "gentle_diagonal_camera",
+        "composition": "gentle diagonal camera direction adds energy while keeping the character and background geometry stable",
+        "camera": "eye-level camera shifted slightly to one side, normal perspective, no dramatic roll; distance follows the selected shot scale",
+        "pose": "selected action aligns naturally with the shallow diagonal direction",
+        "foreground": "none; simple background lines provide the diagonal rhythm",
         "lighting": "environment light leads gently toward the face and outfit",
-        "guardrail": "character occupies at least 45 percent of image height; avoid tiny subject, clutter, or scenery dominance",
-        "tags": ["photographer_composition", "medium_wide", "balanced_environment", "character_focus"],
-        "weight": 1.7,
+        "guardrail": "keep horizon and body proportions stable; selected shot scale controls distance",
+        "tags": ["photographer_composition", "eye_level", "diagonal_camera"],
+        "weight": 1.0,
     },
     {
-        "name": "clean_full_body_walk",
-        "composition": "clean full-body or near full-body fashion frame with a simple walking or standing silhouette",
-        "camera": "natural eye-level full-body framing with normal perspective and stable horizon",
-        "pose": "selected action keeps feet, hands, face, and outfit silhouette readable",
-        "foreground": "none; use simple background lines only",
+        "name": "side_three_quarter_camera",
+        "composition": "side three-quarter camera direction balancing facial profile, hairstyle, and outfit depth",
+        "camera": "eye-level viewpoint between three-quarter and profile, normal perspective; distance follows the selected shot scale",
+        "pose": "selected action remains coherent with the side three-quarter direction",
+        "foreground": "none; keep the character silhouette clean",
         "lighting": "even readable light with clear separation from the ground and background",
-        "guardrail": "use eye-level fashion framing with balanced proportions, readable feet, and a restrained background",
-        "tags": ["photographer_composition", "full_body", "character_focus"],
-        "weight": 0.8,
+        "guardrail": "keep face readable and proportions natural; selected shot scale controls distance",
+        "tags": ["photographer_composition", "eye_level", "side_three_quarter"],
+        "weight": 1.0,
+    },
+    {
+        "name": "clean_profile_editorial",
+        "composition": "clean side-profile editorial frame emphasizing face outline, hair silhouette, and outfit line",
+        "camera": "eye-level side view with normal perspective; distance follows the selected shot scale",
+        "pose": "body and face share the same clear side direction without twisting backward",
+        "foreground": "none or one tiny scene-native edge that does not overlap the character",
+        "lighting": "soft side-front or rim-balanced light separates profile from background",
+        "guardrail": "keep both profile and outfit readable; avoid silhouette-only darkness",
+        "tags": ["photographer_composition", "profile", "side_view"],
+        "weight": 1.0,
+    },
+    {
+        "name": "restrained_low_angle_editorial",
+        "composition": "restrained low-angle editorial frame adding presence while keeping face and outfit naturally proportioned",
+        "camera": "camera slightly below waist or seat height, gentle upward view with normal lens feeling",
+        "pose": "standing, seated, or small step remains balanced and readable",
+        "foreground": "none; floor line or low step may remain behind the character",
+        "lighting": "clean face light and subtle rim preserve readable facial planes",
+        "guardrail": "keep face prominent and proportions natural; do not emphasize legs, chest, or underside anatomy",
+        "tags": ["photographer_composition", "low_camera", "editorial"],
+        "weight": 1.0,
+    },
+    {
+        "name": "controlled_high_angle_portrait",
+        "composition": "controlled high-angle portrait using floor or set geometry while keeping character large and immediately readable",
+        "camera": "camera moderately above eye level, looking downward at a clear face and outfit silhouette",
+        "pose": "standing, seated, or gentle upward gaze stays simple and anatomically clear",
+        "foreground": "none; floor or set shapes remain behind the character",
+        "lighting": "soft top-side light with clean eyes and readable clothing detail",
+        "guardrail": "character remains large; avoid tiny subject or excessive floor area",
+        "tags": ["photographer_composition", "high_camera", "character_focus"],
+        "weight": 1.0,
+    },
+    {
+        "name": "vertical_overhead_90_degree",
+        "composition": "true 90-degree overhead composition using simple floor shapes around a clearly readable character",
+        "camera": "camera directly above the character, optical axis vertical to the floor, normal perspective without fisheye distortion",
+        "pose": "simple seated, kneeling, or modest lying pose arranged clearly from above; face remains visible",
+        "foreground": "none; only restrained floor or set shapes surround the character",
+        "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
+        "guardrail": "keep the character large and central enough to remain the first read; avoid clutter and anatomy overlap",
+        "tags": ["photographer_composition", "overhead", "vertical_camera"],
+        "weight": 1.0,
     },
 ]
 
@@ -410,6 +478,16 @@ PHOTOGRAPHER_SHOT_SCALES = [
         "name": "full_body_clean_context",
         "description": "full-body or near full-body framing with simple context; character remains large enough to be the first visual focus",
         "weight": 0.7,
+    },
+    {
+        "name": "face_closeup",
+        "description": "intentional face close-up with eyes, expression, hairstyle, and a small shoulder-level outfit detail clearly readable",
+        "weight": 1.0,
+    },
+    {
+        "name": "bust_closeup",
+        "description": "bust-up portrait centered on face, hairstyle, shoulders, and upper outfit construction with comfortable framing",
+        "weight": 1.0,
     },
 ]
 
@@ -460,16 +538,16 @@ def photographer_scene_plans_for_selection(plan_name=None):
 
 
 def choose_photographer_scene_plan(character_name=None, recent_tags=None):
-    return _weighted_choice(photographer_scene_plans_for_selection())
+    return dict(random.choice(photographer_scene_plans_for_selection()))
 
 
 def choose_photographer_action_style(character_name=None, recent_tags=None, plan=None):
-    return _weighted_choice(PHOTOGRAPHER_ACTION_STYLES)
+    return dict(random.choice(PHOTOGRAPHER_ACTION_STYLES))
 
 
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
-    return _weighted_choice(PHOTOGRAPHER_COMPOSITION_PLANS)
+    return dict(random.choice(PHOTOGRAPHER_COMPOSITION_PLANS))
 
 
 def choose_photographer_shot_scale(recent_tags=None, plan=None):
-    return _weighted_choice(PHOTOGRAPHER_SHOT_SCALES)
+    return dict(random.choice(PHOTOGRAPHER_SHOT_SCALES))
