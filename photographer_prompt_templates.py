@@ -78,6 +78,7 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
         f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
         f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 175)}",
+        f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
         f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
         f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
         f"Subject scale: {_clip_text(shot_scale.get('description', ''), 145)}",
@@ -85,8 +86,8 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
             "and perspective must describe the same captured instant. Follow the selected camera angle, "
-            "shot scale, and body direction exactly; do not silently replace them with a default eye-level "
-            "medium front portrait. Keep the character readable and the background subordinate."
+            "shot scale, and body direction exactly rather than replacing them with a generic default portrait. "
+            "Keep the character readable and the background subordinate."
         ),
     ]
 
