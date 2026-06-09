@@ -1,284 +1,234 @@
 import random
 
 
-PHOTOGRAPHER_SCENE_CATEGORY_LABELS = {
-    "studio_editorial": "棚拍 / 杂志 / 摄影棚",
-    "indoor_novel_cg": "室内 / 小说CG / 空间感",
-    "bright_daily_scene": "明亮日常 / 店铺 / 街区",
-}
-
-PHOTOGRAPHER_SCENE_CATEGORY_PLAN_NAMES = {
-    "studio_editorial": {
-        "studio_negative_space_crop",
-        "mirror_fragment_single_subject_photo",
-        "low_table_foreground_depth",
-    },
-    "indoor_novel_cg": {
-        "doorframe_observer_room",
-        "overhead_room_geometry",
-        "telephoto_through_shelves",
-        "window_backlight_half_screen",
-        "corridor_vanishing_point",
-        "mirror_fragment_single_subject_photo",
-    },
-    "bright_daily_scene": {
-        "street_corner_motion_frame",
-        "rooftop_wide_environment_cut",
-        "low_table_foreground_depth",
-        "window_backlight_half_screen",
-    },
-}
-
-_ACTIVE_SCENE_CATEGORY = None
+_ACTIVE_SCENE_PLAN_NAME = None
 
 
 PHOTOGRAPHER_SCENE_PLANS = [
     {
-        "name": "doorframe_observer_room",
-        "graphic_concept": "private interior seen from a half-open doorway; the room geometry and doorframe decide the image before the character pose",
-        "spatial_structure": "camera stays outside or just inside the doorway, with wall edge, doorframe, floor line, and window light forming deep layered space",
-        "visual_device": "door edge cuts one side of the frame, a strip of foreground shadow, scattered room details, and a bright window plane guide the eye inward",
-        "body_silhouette": "character is caught turning, pausing, or looking back from inside the room; not centered, body partly screened by the doorframe when useful",
-        "outfit_direction": "soft daily outfit with cardigan, blouse or knit top, skirt or relaxed trousers, wearable indoor styling",
-        "material_language": "painted doorframe, matte wall, soft fabric, floor reflection, window curtain, small domestic details",
-        "color_strategy": "room can be pale or warm, but clothing should use a clear non-white main value with calm tonal separation",
-        "lighting_behavior": "window side light creates a readable face plane, rim on hair, and softer foreground shadow",
-        "tags": ["photographer_scene", "interior", "doorframe", "foreground_occlusion", "deep_space"],
+        "name": "pure_white_studio",
+        "label": "纯白背景 / 人物服装优先",
+        "graphic_concept": "pure white studio background with the character and outfit as the complete visual focus",
+        "spatial_structure": "clean white seamless wall and floor with only a subtle contact shadow; no furniture, props, panels, or decorative scenery",
+        "visual_device": "white negative space supports a clear face and outfit silhouette without pushing the character to the edge",
+        "body_silhouette": "front or front three-quarter standing, gentle walking, or upright seated pose; simple readable hands and balanced posture",
+        "outfit_direction": "wearable fashion with a strong clear silhouette, such as knitwear, blouse, jacket, dress, skirt, or trousers",
+        "material_language": "opaque clothing fabric, clean white seamless backdrop, subtle floor contact shadow",
+        "color_strategy": "background is pure white, but outfit must use a clearly non-white colored, mid-tone, dark, earthy, or muted-chromatic main value",
+        "lighting_behavior": "soft high-key studio light with clear facial planes and controlled clothing detail, never washing out the outfit",
+        "tags": ["photographer_scene", "studio", "pure_white", "simple_background", "character_focus"],
+        "weight": 1.0,
     },
     {
-        "name": "low_table_foreground_depth",
-        "graphic_concept": "low table-height slice of a room, cafe corner, studio floor, or shop counter; foreground mass makes the image feel photographed from a real position",
-        "spatial_structure": "camera is close to table, counter, stair, chair, or floor edge, looking past a blurred foreground plane toward a midground character",
-        "visual_device": "large soft foreground edge, diagonal table or floor line, midground figure, and bright background plane form a strong depth stack",
-        "body_silhouette": "character pauses, leans lightly, walks through the midground, or turns across the light; hands stay simple and object-empty",
-        "outfit_direction": "clean casual fashion with textured top, skirt or pants, small accessory detail, everyday editorial styling",
-        "material_language": "wood, metal, tile, cloth texture, blurred foreground edge, window highlight, clean fabric grain",
-        "color_strategy": "foreground may be dark or warm; outfit should sit clearly between foreground shadow and background light",
-        "lighting_behavior": "directional side or back light separates foreground, subject, and background without hiding eyes",
-        "tags": ["photographer_scene", "low_camera", "foreground_depth", "daily", "interior"],
+        "name": "clean_studio_character_focus",
+        "label": "干净棚拍 / 人物优先",
+        "graphic_concept": "clean studio editorial portrait where the character, face, and outfit are the first visual focus",
+        "spatial_structure": "simple studio wall and floor with one restrained panel or shadow shape; character occupies a clear central or near-third position",
+        "visual_device": "one calm background color field and a soft floor contact shadow support the silhouette without competing for attention",
+        "body_silhouette": "front or front three-quarter standing pose, relaxed weight shift, or one small step; face and outfit remain fully readable",
+        "outfit_direction": "fashion-editorial daily outfit with a strong wearable silhouette, such as knitwear, blouse, short jacket, skirt, or trousers",
+        "material_language": "matte backdrop, opaque fabric texture, subtle floor shadow, clean hair shine",
+        "color_strategy": "background stays restrained; outfit uses a cohesive colored, mid-tone, dark, earthy, or muted-chromatic main value",
+        "lighting_behavior": "large soft studio light with clean facial planes, gentle shadow, and no chest-emphasizing highlight",
+        "tags": ["photographer_scene", "studio", "editorial", "character_focus"],
+        "weight": 1.4,
     },
     {
-        "name": "overhead_room_geometry",
-        "graphic_concept": "high-angle anime CG where floor plan, furniture edges, window shadows, and body placement make the composition",
-        "spatial_structure": "camera looks down from stair height, balcony height, mezzanine, or upper corner; floor geometry and object spacing create a readable map",
-        "visual_device": "diagonal shadows, furniture rectangles, rug or tile rhythm, and one offset character create a designed overhead frame",
-        "body_silhouette": "character looks up, pauses mid-step, sits near a light patch, or turns within the floor pattern; face and hair identity remain readable",
-        "outfit_direction": "wearable fashion with a clear silhouette from above, such as knit top with skirt, shirt dress, or layered casual outfit",
-        "material_language": "floor tiles, rug edge, tabletop, fabric folds, window shadow, soft hair highlights",
-        "color_strategy": "large floor shapes can be neutral; outfit needs a distinct mid-tone, dark, earthy, or muted-chromatic main value",
-        "lighting_behavior": "top-side window light casts clean geometric shadows while keeping face and hair readable",
-        "tags": ["photographer_scene", "high_camera", "deep_perspective", "interior", "negative_space"],
+        "name": "soft_editorial_wall",
+        "label": "杂志墙面 / 柔和棚拍",
+        "graphic_concept": "simple magazine-style wall portrait with controlled color, clean lines, and a clear fashion read",
+        "spatial_structure": "plain wall, shallow floor area, and one subtle architectural line create a calm frame around the character",
+        "visual_device": "soft wall shadow or a single muted color block adds structure while leaving face and outfit dominant",
+        "body_silhouette": "front three-quarter pose, gentle side angle, upright seated pose, or a natural standing pause",
+        "outfit_direction": "polished wearable fashion with knit, blouse, jacket, dress, skirt, or trousers",
+        "material_language": "matte wall, soft woven or knit fabric, restrained accessory shine",
+        "color_strategy": "use calm tonal contrast; avoid all-white clothing and avoid loud background colors",
+        "lighting_behavior": "soft side-front light keeps eyes, face, shoulders, and outfit silhouette clear without dramatic distortion",
+        "tags": ["photographer_scene", "studio", "editorial", "simple_background", "character_focus"],
+        "weight": 1.2,
     },
     {
-        "name": "telephoto_through_shelves",
-        "graphic_concept": "telephoto view through shelves, plants, curtains, display panels, or corridor edges; the character feels found inside a layered space",
-        "spatial_structure": "compressed foreground, midground character, and background rows overlap tightly, like a long-lens shot through the environment",
-        "visual_device": "soft vertical foreground strips, repeated shelf or window lines, small reflected highlights, and an offset readable face",
-        "body_silhouette": "character browses, pauses, turns slightly, or looks past the camera; body may be partially cut by foreground layers",
-        "outfit_direction": "stylish indoor daily outfit, blouse or light jacket with skirt or trousers, bookstore or gallery compatible",
-        "material_language": "shelf rows, glass glints, paper, plants, fabric texture, compressed background lights",
-        "color_strategy": "background can be busy; outfit should have a cohesive main value that separates from shelf and wall tones",
-        "lighting_behavior": "soft compressed light bands and eye catchlights separate the face from layered foreground",
-        "tags": ["photographer_scene", "telephoto", "layered_space", "foreground_occlusion", "indoor"],
+        "name": "bright_room_character_focus",
+        "label": "明亮房间 / 小说CG",
+        "graphic_concept": "bright lived-in room or novel-CG interior where the character remains the unmistakable first read",
+        "spatial_structure": "window, wall, floor, and one or two simple furniture shapes establish the room without surrounding or hiding the character",
+        "visual_device": "window light and a few orderly room lines guide attention toward the face and outfit",
+        "body_silhouette": "front or front three-quarter standing, walking, or upright seated posture; no back-facing head-turn",
+        "outfit_direction": "soft daily outfit with cardigan, blouse, knit top, skirt, dress, or relaxed trousers",
+        "material_language": "wood floor, matte wall, opaque fabric, soft curtain kept in the background, restrained domestic detail",
+        "color_strategy": "room may be bright, but clothing should retain a distinct non-white main value",
+        "lighting_behavior": "soft window side-front light keeps face and upper body evenly readable",
+        "tags": ["photographer_scene", "interior", "bright_room", "character_focus"],
+        "weight": 1.5,
     },
     {
-        "name": "window_backlight_half_screen",
-        "graphic_concept": "window-backlit half-screen composition; curtain, window frame, and light sheet act as the primary graphic structure",
-        "spatial_structure": "character stands, sits, or turns near a window, with curtain or frame slicing one third of the image and the room falling into soft shade",
-        "visual_device": "bright window rectangle, translucent curtain edge, hair rim light, floor reflection, and quiet negative space",
-        "body_silhouette": "character is partly hidden by curtain or window edge, caught before or after moving through the light; face remains readable",
-        "outfit_direction": "soft knit, blouse, or relaxed dress with opaque fabric and clean daily silhouette",
-        "material_language": "curtain fabric, glass, wood floor, soft knit or woven clothing, rim-lit hair",
-        "color_strategy": "bright window may be white, but outfit must not become white by default; use a colored or grounded main value",
-        "lighting_behavior": "backlight creates hair rim and atmosphere while a gentle fill keeps eyes and facial planes visible",
-        "tags": ["photographer_scene", "window_frame", "backlight", "foreground_occlusion", "interior"],
+        "name": "balanced_gallery_lobby",
+        "label": "展馆大厅 / 室内空间",
+        "graphic_concept": "museum, gallery, library lobby, or quiet public interior photographed as a clean character-focused scene",
+        "spatial_structure": "simple wall panels, floor lines, and distant room depth create context while the character remains large and clear",
+        "visual_device": "one or two architectural lines lead gently toward the character; no foreground obstruction or reflective fragments",
+        "body_silhouette": "front three-quarter standing or walking pause, shoulders relaxed, gaze toward camera or slightly aside",
+        "outfit_direction": "polished indoor outfit with blouse, jacket, knit, dress, skirt, or trousers",
+        "material_language": "stone or wood floor, matte wall panel, opaque fabric, soft overhead light",
+        "color_strategy": "neutral architecture supports a clearly separated outfit main value",
+        "lighting_behavior": "balanced room light with clean eye highlights and mild depth separation",
+        "tags": ["photographer_scene", "indoor", "gallery", "lobby", "character_focus"],
+        "weight": 1.1,
     },
     {
-        "name": "street_corner_motion_frame",
-        "graphic_concept": "bright daily street or shop-corner frame; architecture, signs without readable text, awning edge, and pedestrian-space perspective carry the shot",
-        "spatial_structure": "camera is across a street corner, shop entrance, mall walkway, or riverside path, using diagonal pavement or storefront lines to place the character off-center",
-        "visual_device": "awning shadow, window reflection, pavement line, soft passerby-like abstract shapes without extra people, and a clear character silhouette",
-        "body_silhouette": "character walks, turns, adjusts hair, or pauses mid-step as if photographed between actions; avoid posed front-facing stillness",
-        "outfit_direction": "modern daily outfit with jacket, knit, blouse, skirt, shorts, or trousers, suited for a shop or street walk",
-        "material_language": "glass window, pavement, cloth awning, bag strap, soft outdoor fabric, clean daylight reflections",
-        "color_strategy": "street colors can vary; outfit should be cohesive and visible against shop glass and pavement",
-        "lighting_behavior": "bright outdoor fill with side shadow from awning or building edge, crisp but not harsh",
-        "tags": ["photographer_scene", "bright_daily", "street", "shop", "walking", "diagonal_space"],
+        "name": "clean_corridor_medium_depth",
+        "label": "干净走廊 / 中等景深",
+        "graphic_concept": "clean corridor or aisle scene with moderate perspective and a clearly readable character",
+        "spatial_structure": "floor and wall lines create gentle depth, but the character occupies the foreground-midground and never becomes tiny",
+        "visual_device": "repeating lights or wall lines quietly support the pose without dominating the image",
+        "body_silhouette": "front three-quarter walk, natural pause, or slight side angle with torso and face remaining clearly readable",
+        "outfit_direction": "wearable indoor fashion with blouse, jacket, knit, dress, skirt, or trousers",
+        "material_language": "matte wall, floor line, soft overhead light, opaque clothing fabric",
+        "color_strategy": "architecture stays controlled; outfit remains the strongest color and value cue",
+        "lighting_behavior": "soft repeated room light keeps face and outfit brighter than the distant background",
+        "tags": ["photographer_scene", "corridor", "indoor", "moderate_depth", "character_focus"],
+        "weight": 0.9,
     },
     {
-        "name": "studio_negative_space_crop",
-        "graphic_concept": "studio editorial frame where negative space, crop, and body placement do more work than props",
-        "spatial_structure": "minimal studio wall, floor contact shadow, one panel or paper sweep, and generous empty area around an off-center character",
-        "visual_device": "deliberate crop, large quiet margin, one strong color or shadow block, and a readable outfit silhouette",
-        "body_silhouette": "character stands, leans, takes a small step, sits on a low block, or turns through the frame; never a flat ID-photo pose",
-        "outfit_direction": "fashion-editorial daily outfit with strong silhouette, such as knitwear, structured blouse, short jacket, skirt, or trousers",
-        "material_language": "matte backdrop, paper sweep, fabric texture, subtle floor shadow, clean hair shine",
-        "color_strategy": "background can be high-key or graphic, but outfit should use a distinct main color or value separation",
-        "lighting_behavior": "large softbox feel with controlled shadow edge and clean face readability",
-        "tags": ["photographer_scene", "studio", "editorial", "negative_space", "fashion"],
+        "name": "bright_shopfront_daily",
+        "label": "明亮店铺 / 街区日常",
+        "graphic_concept": "bright cafe, bookstore, bakery, mall, or shopfront daily scene with the character as the clear subject",
+        "spatial_structure": "shop entrance, window, awning, or pavement line creates simple context around a medium-size character",
+        "visual_device": "one storefront line and soft daylight establish place; signs remain abstract and background detail stays restrained",
+        "body_silhouette": "front three-quarter standing, walking, or small daily pause; face and outfit are the first visual focus",
+        "outfit_direction": "modern daily outfit with jacket, knit, blouse, skirt, shorts, dress, or trousers",
+        "material_language": "shop window kept behind the character, pavement, cloth awning, opaque fabric, clean daylight",
+        "color_strategy": "shop colors stay secondary; outfit remains cohesive and clearly separated",
+        "lighting_behavior": "bright outdoor side-front light with gentle shadow and readable eyes",
+        "tags": ["photographer_scene", "bright_daily", "shop", "street", "character_focus"],
+        "weight": 1.4,
     },
     {
-        "name": "corridor_vanishing_point",
-        "graphic_concept": "corridor, museum, library aisle, hotel lobby, or mall passage with strong vanishing-point perspective",
-        "spatial_structure": "long floor lines, ceiling lights, wall panels, shelves, or railing guide the eye toward an off-center character",
-        "visual_device": "repeating architectural lines, light pools, distant depth, and one foreground edge create a composed perspective shot",
-        "body_silhouette": "character walks across the perspective, pauses near a wall, turns at an aisle end, or looks back briefly",
-        "outfit_direction": "polished indoor outfit with blouse, jacket, knit, dress, skirt, or trousers, suitable for gallery or lobby space",
-        "material_language": "stone floor, wood shelf, wall panel, glass reflection, soft fabric, overhead light rhythm",
-        "color_strategy": "architecture may be neutral; outfit needs a readable colored, dark, earthy, or muted-chromatic main value",
-        "lighting_behavior": "overhead or window light repeats into depth while face remains readable near the camera side",
-        "tags": ["photographer_scene", "corridor", "vanishing_point", "indoor", "deep_space"],
-    },
-    {
-        "name": "mirror_fragment_single_subject_photo",
-        "graphic_concept": "mirror or glass-fragment editorial shot; reflections are graphic fragments around one real character, never a second subject",
-        "spatial_structure": "angled mirror, shop glass, acrylic panel, or glossy wall creates partial reflections and cropped shapes across foreground and background",
-        "visual_device": "fragmented hair color echoes, eye glints, panel edges, and one real readable face create the design",
-        "body_silhouette": "character turns near the reflective surface, seated or standing; real body remains the only complete body",
-        "outfit_direction": "clean modern outfit with crisp silhouette, blouse or knit plus skirt or trousers, editorial but wearable",
-        "material_language": "mirror glass, acrylic edge, polished floor, crisp cloth, reflected highlights",
-        "color_strategy": "reflections may echo identity accents; outfit main value remains model-chosen and not locked to white",
-        "lighting_behavior": "controlled side light creates thin glass highlights without overexposed face or duplicate silhouettes",
-        "tags": ["photographer_scene", "mirror", "reflection", "glass", "editorial", "single_character_only"],
-    },
-    {
-        "name": "rooftop_wide_environment_cut",
-        "graphic_concept": "wide rooftop, balcony, riverside, or open terrace shot where environment lines and sky space frame a readable character",
-        "spatial_structure": "railing, roof floor, laundry line, river edge, distant buildings, or terrace wall place the character near a third with a lot of air",
-        "visual_device": "large sky or wall negative space, diagonal railing, wind-blown fabric or hair, and one foreground edge",
-        "body_silhouette": "character walks, leans on railing, turns into wind, or pauses at the edge; body remains readable but not centered",
-        "outfit_direction": "outdoor daily outfit with knit, hoodie, blouse, light jacket, skirt, shorts, or trousers, wind-compatible silhouette",
-        "material_language": "concrete, railing metal, cloth, wind-touched hair, distant building shapes, sky gradient",
-        "color_strategy": "sky and architecture can be bright; clothing should carry a distinct non-white main value for separation",
-        "lighting_behavior": "late afternoon or bright overcast side light with rim on hair and enough fill for face",
-        "tags": ["photographer_scene", "wide_shot", "outdoor", "large_space", "wind"],
+        "name": "riverside_rooftop_daily",
+        "label": "河畔天台 / 明亮户外",
+        "graphic_concept": "bright riverside, rooftop, balcony, park, or open terrace daily scene with balanced environment and character focus",
+        "spatial_structure": "railing, path, terrace wall, or distant buildings provide simple depth while the character stays medium-large",
+        "visual_device": "sky, path, or railing line supports a clear front three-quarter silhouette without excessive empty space",
+        "body_silhouette": "front three-quarter standing, gentle walking, or relaxed side angle into the breeze; no body-facing-away turn-back pose",
+        "outfit_direction": "outdoor daily outfit with knit, hoodie, blouse, light jacket, skirt, shorts, dress, or trousers",
+        "material_language": "railing, path, sky, opaque fabric, lightly wind-touched hair",
+        "color_strategy": "sky and architecture remain secondary; clothing carries a distinct non-white main value",
+        "lighting_behavior": "bright overcast or late-afternoon side-front light with clean face readability",
+        "tags": ["photographer_scene", "bright_daily", "outdoor", "balanced_environment", "character_focus"],
+        "weight": 1.0,
     },
 ]
 
 
 PHOTOGRAPHER_ACTION_STYLES = [
     {
-        "name": "caught_turning_before_pose",
-        "body_silhouette": "caught just before a pose forms: torso turning, weight shifting, one shoulder leading, gaze halfway toward or away from the camera",
-        "tags": ["candid", "turning", "story_pose"],
+        "name": "front_three_quarter_natural_pause",
+        "body_silhouette": "front three-quarter natural pause, torso and face generally toward the camera, relaxed shoulders, balanced posture, simple readable hands",
+        "tags": ["front_three_quarter", "stable_pose", "character_focus"],
+        "weight": 3.6,
     },
     {
-        "name": "walking_across_frame",
-        "body_silhouette": "walking across the frame rather than toward the viewer; one foot or knee leads naturally, arms swing simply, face remains readable",
-        "tags": ["walking", "side_motion", "candid"],
+        "name": "simple_front_standing",
+        "body_silhouette": "simple upright standing posture viewed from the front or a slight three-quarter angle, with a small natural weight shift",
+        "tags": ["front_view", "stable_pose", "character_focus"],
+        "weight": 2.8,
     },
     {
-        "name": "half_screened_observation",
-        "body_silhouette": "partly screened by doorframe, curtain, plant, shelf, glass edge, or foreground shadow, with face and identity tokens still visible",
-        "tags": ["foreground_occlusion", "observed", "story_pose"],
+        "name": "gentle_diagonal_walk",
+        "body_silhouette": "gentle walking step across a shallow diagonal while torso stays mostly front three-quarter; face and outfit remain clearly readable",
+        "tags": ["walking", "front_three_quarter", "character_focus"],
+        "weight": 2.0,
     },
     {
-        "name": "looking_back_at_edge",
-        "body_silhouette": "near one edge of the image, body angled away while head turns back enough to keep the face readable; use as a rare cinematic beat",
-        "tags": ["edge_framing", "looking_back", "candid"],
-    },
-    {
-        "name": "paused_inside_light",
-        "body_silhouette": "paused inside a window beam, doorway light, shop light, or corridor light pool; posture relaxed, hands object-empty and readable",
-        "tags": ["light_cut", "stable_hands", "story_pose"],
-    },
-    {
-        "name": "seated_diagonal_weight",
-        "body_silhouette": "seated or leaning with diagonal body line, one hand supporting on seat, floor, railing, or table edge; avoid chest-forward posing",
-        "tags": ["seated", "diagonal_body", "stable_hands"],
+        "name": "soft_side_angle_pause",
+        "body_silhouette": "clean side or three-quarter side pause with both shoulders and facial profile readable; body does not face away from the camera",
+        "tags": ["side_angle", "stable_pose", "character_focus"],
+        "weight": 1.2,
     },
     {
         "name": "hair_or_sleeve_micro_action",
         "body_silhouette": "small natural action such as adjusting hair, sleeve, collar edge, bag strap, or outer layer; fingers stay simple and away from clothing openings",
-        "tags": ["micro_action", "hair_touch", "simple_hand"],
+        "tags": ["micro_action", "simple_hand", "front_three_quarter"],
+        "weight": 1.1,
     },
     {
-        "name": "environment_attention",
-        "body_silhouette": "attention belongs to the scene: looking at window light, shelf, corridor depth, floor pattern, or sky rather than posing directly",
-        "tags": ["eyes_away", "observed", "story_pose"],
+        "name": "upright_seated_pause",
+        "body_silhouette": "upright seated posture with torso facing front three-quarter, shoulders relaxed, hands resting simply near lap or seat",
+        "tags": ["seated", "stable_hands", "character_focus"],
+        "weight": 0.7,
     },
 ]
 
 
 PHOTOGRAPHER_COMPOSITION_PLANS = [
     {
-        "name": "doorframe_cut_observer",
-        "composition": "camera frames through a doorway or wall edge; character is offset and partly cut by architecture, creating a found-moment image",
-        "camera": "medium to medium-wide, photographer stands outside the main space, slight diagonal angle into the room",
-        "pose": "selected action must feel interrupted by the camera, not arranged for a portrait",
-        "foreground": "doorframe, wall edge, curtain, shelf, or shadow occupies 15-35 percent of one side without hiding the face",
-        "lighting": "foreground is darker or softer, face receives clean side light",
-        "guardrail": "do not center the character or remove the foreground cut; keep only one character",
-        "tags": ["photographer_composition", "doorframe", "foreground_occlusion"],
+        "name": "stable_medium_character_focus",
+        "composition": "stable medium character-focused frame; face and outfit are the first visual focus and the character occupies about 45-65 percent of the image",
+        "camera": "natural eye-level, medium shot to knee-up, front or front three-quarter viewpoint, normal perspective",
+        "pose": "selected action stays simple, balanced, and readable without turning the body away",
+        "foreground": "minimal foreground; keep all scene elements behind or beside the character",
+        "lighting": "clean side-front or soft frontal light keeps face and clothing readable",
+        "guardrail": "background remains subordinate; use comfortable eye-level distance, balanced body orientation, and controlled empty space",
+        "tags": ["photographer_composition", "medium_shot", "character_focus"],
+        "weight": 3.8,
     },
     {
-        "name": "low_foreground_pressure",
-        "composition": "low camera with a large foreground plane creates depth pressure; the character sits or moves in the readable midground",
-        "camera": "table-height, counter-height, stair-height, or floor-edge height; slight upward or level view without body distortion",
-        "pose": "selected action remains natural and readable from the low viewpoint",
-        "foreground": "large blurred table, railing, floor, plant, chair, or counter edge anchors the bottom or side of the image",
-        "lighting": "rim or side light separates foreground, character, and background",
-        "guardrail": "avoid legs-first distortion, extreme nostril angle, or hands becoming the main subject",
-        "tags": ["photographer_composition", "low_camera", "foreground_depth"],
+        "name": "clean_knee_up_editorial",
+        "composition": "clean knee-up editorial frame with a front three-quarter character and enough simple environment to establish place",
+        "camera": "eye-level knee-up framing with normal lens feeling and no body-part exaggeration",
+        "pose": "selected action remains calm and naturally balanced",
+        "foreground": "none or one very small soft edge that never overlaps the body",
+        "lighting": "soft directional light separates character from a restrained background",
+        "guardrail": "character and outfit must dominate; avoid mirror, glass fragments, doorway cuts, or large props",
+        "tags": ["photographer_composition", "knee_up", "editorial", "character_focus"],
+        "weight": 2.8,
     },
     {
-        "name": "high_angle_floor_map",
-        "composition": "high camera uses floor shapes and object spacing as the graphic design; character is one readable point inside the layout",
-        "camera": "moderate overhead from stairs, balcony, mezzanine, or upper corner, not a flat top-down diagram",
-        "pose": "selected action should align with floor lines, light patches, or furniture edges",
-        "foreground": "upper railing, shelf edge, bed edge, curtain edge, or ceiling shadow may frame the top or side",
-        "lighting": "window or ceiling light draws geometric paths to the face",
-        "guardrail": "identity tokens must remain readable; avoid making character tiny or faceless",
-        "tags": ["photographer_composition", "high_camera", "deep_perspective"],
+        "name": "balanced_environment_medium",
+        "composition": "balanced medium-wide frame where the environment explains the location but the character remains the first read",
+        "camera": "eye-level or gentle slight-high viewpoint, medium to medium-wide, normal perspective",
+        "pose": "front three-quarter standing or walking action remains clearly readable",
+        "foreground": "minimal and unobtrusive; no object should cover the face, torso, or outfit silhouette",
+        "lighting": "environment light leads gently toward the face and outfit",
+        "guardrail": "character occupies at least 45 percent of image height; avoid tiny subject, clutter, or scenery dominance",
+        "tags": ["photographer_composition", "medium_wide", "balanced_environment", "character_focus"],
+        "weight": 1.7,
     },
     {
-        "name": "telephoto_layered_observation",
-        "composition": "long-lens compressed layers place foreground strips, character, and background rows close together",
-        "camera": "medium-long to long lens feeling, shot through shelves, plants, glass, doorway, or corridor edges",
-        "pose": "selected action feels observed from across the space; gaze may stay away from the camera",
-        "foreground": "soft vertical or diagonal strips cross the image edges without covering both eyes",
-        "lighting": "small highlights and compressed light bands separate the layers",
-        "guardrail": "do not add extra people or readable text; keep foreground scene-native",
-        "tags": ["photographer_composition", "telephoto", "layered_space"],
-    },
-    {
-        "name": "negative_space_edge_subject",
-        "composition": "large negative space dominates one half or two thirds of the image while the character holds an edge or lower-third position",
-        "camera": "medium-wide to wide editorial framing, stable horizon or wall/floor geometry",
-        "pose": "selected action remains readable as a silhouette inside the open space",
-        "foreground": "minimal foreground, one quiet edge or shadow shape if needed",
-        "lighting": "clean tonal separation prevents the subject from dissolving into the empty area",
-        "guardrail": "avoid centered ID-photo composition and avoid making the character too small",
-        "tags": ["photographer_composition", "negative_space", "editorial"],
-    },
-    {
-        "name": "reflection_fragment_crop",
-        "composition": "mirror, glass, or acrylic fragments crop the character into graphic pieces while one real face remains the anchor",
-        "camera": "medium-close to medium shot angled across reflective panels or shop glass",
-        "pose": "selected action must belong to the real body; reflections only echo fragments",
-        "foreground": "glass edge, acrylic panel, mirror slice, or glossy reflection crosses one side of the image",
-        "lighting": "thin highlights on reflective edges, face not overexposed",
-        "guardrail": "reflections must never become a second character or duplicate full body",
-        "tags": ["photographer_composition", "reflection", "foreground_occlusion"],
-    },
-    {
-        "name": "vanishing_point_walkthrough",
-        "composition": "strong corridor or street perspective leads the eye through the image before reaching the character",
-        "camera": "medium-wide, slightly off-axis to the vanishing lines, character placed near a third rather than center",
-        "pose": "walking, turning, pausing, or looking back must align with the perspective direction",
-        "foreground": "floor line, railing, shelf edge, window frame, or awning cuts into the nearest edge",
-        "lighting": "repeating light pools or side light create readable depth",
-        "guardrail": "avoid flat front-facing pose and avoid empty corridor with tiny subject",
-        "tags": ["photographer_composition", "vanishing_point", "deep_space"],
+        "name": "clean_full_body_walk",
+        "composition": "clean full-body or near full-body fashion frame with a simple walking or standing silhouette",
+        "camera": "natural eye-level full-body framing with normal perspective and stable horizon",
+        "pose": "selected action keeps feet, hands, face, and outfit silhouette readable",
+        "foreground": "none; use simple background lines only",
+        "lighting": "even readable light with clear separation from the ground and background",
+        "guardrail": "use eye-level fashion framing with balanced proportions, readable feet, and a restrained background",
+        "tags": ["photographer_composition", "full_body", "character_focus"],
+        "weight": 0.8,
     },
 ]
 
 
 PHOTOGRAPHER_SHOT_SCALES = [
-    {"name": "environment_first_medium_wide", "description": "medium-wide frame where environment lines read first, character remains clearly identifiable", "weight": 2.1},
-    {"name": "edge_cropped_knee_up", "description": "knee-up or thigh-up frame with deliberate edge crop, face, hair, hands, and outfit silhouette readable", "weight": 1.9},
-    {"name": "layered_half_body", "description": "half-body or waist-up frame seen through foreground layers, identity readable through the composition", "weight": 1.5},
-    {"name": "full_body_in_space", "description": "full-body or near full-body figure placed inside strong room, corridor, street, or rooftop geometry", "weight": 1.1},
+    {
+        "name": "knee_up_character_focus",
+        "description": "knee-up or thigh-up framing; character occupies about 50-65 percent of the image and face plus outfit are the first read",
+        "weight": 3.4,
+    },
+    {
+        "name": "medium_character_focus",
+        "description": "medium shot with character occupying about 45-60 percent of the image; face, hands, and outfit silhouette remain clear",
+        "weight": 2.8,
+    },
+    {
+        "name": "waist_up_clear_portrait",
+        "description": "waist-up framing with comfortable headroom and clear outfit context; avoid chest-dominant crop or close pressure",
+        "weight": 0.9,
+    },
+    {
+        "name": "full_body_clean_context",
+        "description": "full-body or near full-body framing with simple context; character remains large enough to be the first visual focus",
+        "weight": 0.7,
+    },
 ]
 
 
@@ -293,39 +243,42 @@ def _weighted_choice(items):
     return dict(items[-1])
 
 
-def set_active_photographer_scene_category(category_key=None):
-    global _ACTIVE_SCENE_CATEGORY
-    if category_key in {"", "all", "random", "full_random"}:
-        category_key = None
-    if category_key is not None and category_key not in PHOTOGRAPHER_SCENE_CATEGORY_LABELS:
-        raise ValueError(f"unknown photographer scene category: {category_key}")
-    _ACTIVE_SCENE_CATEGORY = category_key
+def set_active_photographer_scene_plan(plan_name=None):
+    global _ACTIVE_SCENE_PLAN_NAME
+    if plan_name in {"", "all", "random", "full_random"}:
+        plan_name = None
+    valid_names = {plan["name"] for plan in PHOTOGRAPHER_SCENE_PLANS}
+    if plan_name is not None and plan_name not in valid_names:
+        raise ValueError(f"unknown photographer scene plan: {plan_name}")
+    _ACTIVE_SCENE_PLAN_NAME = plan_name
 
 
-def active_photographer_scene_category():
-    return _ACTIVE_SCENE_CATEGORY
+def active_photographer_scene_plan():
+    return _ACTIVE_SCENE_PLAN_NAME
 
 
-def photographer_scene_category_label(category_key=None):
-    category_key = _ACTIVE_SCENE_CATEGORY if category_key is None else category_key
-    return PHOTOGRAPHER_SCENE_CATEGORY_LABELS.get(category_key, "全随机摄影师场景")
+def photographer_scene_plan_label(plan_name=None):
+    plan_name = _ACTIVE_SCENE_PLAN_NAME if plan_name is None else plan_name
+    for plan in PHOTOGRAPHER_SCENE_PLANS:
+        if plan["name"] == plan_name:
+            return plan.get("label", plan_name)
+    return "全随机摄影师背景"
 
 
-def photographer_scene_plans_for_category(category_key=None):
-    category_key = _ACTIVE_SCENE_CATEGORY if category_key is None else category_key
-    if category_key is None:
+def photographer_scene_plans_for_selection(plan_name=None):
+    plan_name = _ACTIVE_SCENE_PLAN_NAME if plan_name is None else plan_name
+    if plan_name is None:
         return [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
-    allowed_names = PHOTOGRAPHER_SCENE_CATEGORY_PLAN_NAMES.get(category_key, set())
     plans = [
         dict(plan)
         for plan in PHOTOGRAPHER_SCENE_PLANS
-        if plan["name"] in allowed_names
+        if plan["name"] == plan_name
     ]
     return plans or [dict(plan) for plan in PHOTOGRAPHER_SCENE_PLANS]
 
 
 def choose_photographer_scene_plan(character_name=None, recent_tags=None):
-    return _weighted_choice(photographer_scene_plans_for_category())
+    return _weighted_choice(photographer_scene_plans_for_selection())
 
 
 def choose_photographer_action_style(character_name=None, recent_tags=None, plan=None):
@@ -333,13 +286,7 @@ def choose_photographer_action_style(character_name=None, recent_tags=None, plan
 
 
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
-    plan_tags = set((plan or {}).get("tags", []))
-    compatible = []
-    for composition in PHOTOGRAPHER_COMPOSITION_PLANS:
-        tags = set(composition.get("tags", []))
-        if plan_tags & tags or not (plan_tags & {"doorframe", "low_camera", "high_camera", "telephoto", "reflection", "vanishing_point"}):
-            compatible.append(composition)
-    return _weighted_choice(compatible or PHOTOGRAPHER_COMPOSITION_PLANS)
+    return _weighted_choice(PHOTOGRAPHER_COMPOSITION_PLANS)
 
 
 def choose_photographer_shot_scale(recent_tags=None, plan=None):

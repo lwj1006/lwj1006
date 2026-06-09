@@ -17,15 +17,16 @@ STYLE_BASELINE = "high-quality Japanese commercial anime KV, crisp lineart, clea
 
 NEGATIVE_GUARDRAILS = (
     "Avoid: extra people, identity drift, broken hands/fingers, missing arms, hand-held cup, "
-    "hand-held mug, hand-held drinking glass, hand-held bottle, phone, centered portrait, generic AI portrait, "
+    "hand-held mug, hand-held drinking glass, hand-held bottle, phone, generic AI portrait, "
     "text, watermark, 3D render, empty plain background, sexualized pose, fetish framing, "
+    "large foreground obstruction, scenery-dominant composition, tiny unclear subject, "
     "forced weapon, forced vehicle, transparent clothing, clear plastic/vinyl/PVC garments, "
     "see-through hoodies, see-through jackets, see-through coats."
 )
 
 
 def prompt_template_name(template_index=0):
-    return "fenjue_v6_photographer_dedicated_plans"
+    return "fenjue_v7_stable_character_photographer"
 
 
 def _join_list(values):
@@ -61,7 +62,7 @@ def _scene_block(art_plan):
         f"Scene guardrail: {_clip_text(art_plan.get('extra_prompt_guardrail', ''), 135)}"
         if art_plan.get("extra_prompt_guardrail")
         else "",
-        "Keep one coherent location. Foreground and background elements must belong naturally to this scene.",
+        "Keep one coherent, restrained location. Background supports the character and must never compete with face or outfit.",
     ]
     scene_text = " ".join(str(art_plan.get(key, "")) for key in ("name", "graphic_concept", "spatial_structure", "visual_device", "tags")).lower()
     if any(word in scene_text for word in ("poster", "letter", "typography", "graphic")):
@@ -73,7 +74,7 @@ def _scene_block(art_plan):
 
 def _photographer_block(action_style, shot_scale, composition_plan):
     return [
-        "Photographic intent: capture one believable unposed instant instead of arranging a centered character display.",
+        "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
         f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
         f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 175)}",
@@ -83,8 +84,9 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         f"Framing guardrail: {_clip_text(composition_plan.get('guardrail', ''), 130)}",
         (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
-            "and perspective must describe the same captured instant. Let the scene crop or partially "
-            "screen the body naturally when useful, while identity remains readable."
+            "and perspective must describe the same captured instant. Prefer front or front three-quarter "
+            "views, normal eye-level perspective, minimal foreground, and a character occupying about "
+            "45-65 percent of the image. Keep torso and face oriented clearly toward the viewer."
         ),
     ]
 

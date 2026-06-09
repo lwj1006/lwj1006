@@ -3,25 +3,6 @@ import sys
 import chatgpt_batch_pyautogui as batch
 
 
-PHOTOGRAPHER_CATEGORY_ARGUMENTS = {
-    "1": "studio_editorial",
-    "A": "studio_editorial",
-    "STUDIO": "studio_editorial",
-    "STUDIO_EDITORIAL": "studio_editorial",
-    "2": "indoor_novel_cg",
-    "I": "indoor_novel_cg",
-    "INDOOR": "indoor_novel_cg",
-    "INDOOR_NOVEL_CG": "indoor_novel_cg",
-    "3": "bright_daily_scene",
-    "D": "bright_daily_scene",
-    "DAILY": "bright_daily_scene",
-    "BRIGHT_DAILY_SCENE": "bright_daily_scene",
-    "0": None,
-    "ALL": None,
-    "RANDOM": None,
-}
-
-
 def choose_prompt_mode() -> str:
     for argument in sys.argv[1:]:
         normalized = argument.strip().upper()
@@ -41,37 +22,51 @@ def choose_prompt_mode() -> str:
         print("Please enter A or B.")
 
 
-def choose_photographer_category():
+def choose_photographer_scene_plan():
     import photographer_prompt_plans as photographer_plans
 
+    plans = photographer_plans.PHOTOGRAPHER_SCENE_PLANS
+    number_to_name = {
+        str(index): plan["name"]
+        for index, plan in enumerate(plans, start=1)
+    }
     for argument in sys.argv[1:]:
         normalized = argument.strip().upper()
-        if normalized.startswith("--PHOTOGRAPHER-CATEGORY="):
+        if normalized.startswith("--PHOTOGRAPHER-SCENE="):
             normalized = normalized.split("=", 1)[1].strip().upper()
-        elif normalized.startswith("--SCENE-CATEGORY="):
+        elif normalized.startswith("--SCENE-PLAN="):
             normalized = normalized.split("=", 1)[1].strip().upper()
-        elif normalized not in PHOTOGRAPHER_CATEGORY_ARGUMENTS:
+        elif normalized not in number_to_name and normalized not in {"0", "ALL", "RANDOM"}:
             continue
-        if normalized in PHOTOGRAPHER_CATEGORY_ARGUMENTS:
-            return PHOTOGRAPHER_CATEGORY_ARGUMENTS[normalized]
-        raise ValueError(f"Unknown photographer scene category: {argument}")
+        if normalized in {"0", "ALL", "RANDOM"}:
+            return None
+        if normalized in number_to_name:
+            return number_to_name[normalized]
+        for plan in plans:
+            if normalized == plan["name"].upper():
+                return plan["name"]
+        raise ValueError(f"Unknown photographer scene plan: {argument}")
 
     while True:
         print("")
-        print("Choose photographer scene category:")
-        print("  1 = 棚拍 / 杂志 / 摄影棚")
-        print("  2 = 室内 / 小说CG / 空间感")
-        print("  3 = 明亮日常 / 店铺 / 街区")
-        print("  0 = 全随机摄影师场景")
-        choice = input("Photographer scene [1/2/3/0, default 0]: ").strip().upper() or "0"
-        if choice in PHOTOGRAPHER_CATEGORY_ARGUMENTS:
-            category = PHOTOGRAPHER_CATEGORY_ARGUMENTS[choice]
+        print("Choose photographer background:")
+        for index, plan in enumerate(plans, start=1):
+            print(f"  {index} = {plan.get('label', plan['name'])}")
+        print("  0 = 全随机摄影师背景")
+        choice = input(f"Photographer background [0-{len(plans)}, default 0]: ").strip().upper() or "0"
+        if choice in {"0", "ALL", "RANDOM"}:
+            selected_plan = None
+        elif choice in number_to_name:
+            selected_plan = number_to_name[choice]
+        else:
+            print(f"Please enter 0-{len(plans)}.")
+            continue
+        if choice in {"0", "ALL", "RANDOM"} or choice in number_to_name:
             print(
-                f"Photographer scene category: {photographer_plans.photographer_scene_category_label(category)}",
+                f"Photographer background: {photographer_plans.photographer_scene_plan_label(selected_plan)}",
                 flush=True,
             )
-            return category
-        print("Please enter 1, 2, 3, or 0.")
+            return selected_plan
 
 
 def _activate_photographer_runtime_hooks(photographer, photographer_plans):
@@ -92,7 +87,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
         allowed_plan_names=None,
     ):
         batch_used_plans = batch_used_plans or set()
-        available_plans = photographer_plans.photographer_scene_plans_for_category()
+        available_plans = photographer_plans.photographer_scene_plans_for_selection()
         if allowed_plan_names:
             allowed = set(allowed_plan_names)
             filtered = [plan for plan in available_plans if plan["name"] in allowed]
@@ -131,12 +126,12 @@ def activate_prompt_mode(mode: str) -> None:
     import photographer_prompt_templates as photographer
     import photographer_prompt_plans as photographer_plans
 
-    category = choose_photographer_category()
-    photographer_plans.set_active_photographer_scene_category(category)
+    selected_plan = choose_photographer_scene_plan()
+    photographer_plans.set_active_photographer_scene_plan(selected_plan)
     _activate_photographer_runtime_hooks(photographer, photographer_plans)
     print(
         "Prompt mode B active: photographer dedicated-plan style. "
-        f"Scene category: {photographer_plans.photographer_scene_category_label(category)}.",
+        f"Background: {photographer_plans.photographer_scene_plan_label(selected_plan)}.",
         flush=True,
     )
 
