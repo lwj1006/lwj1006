@@ -1,5 +1,6 @@
 from art_direction_options import (
     choose_visual_design,
+    outfit_has_fixed_colorway,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -116,18 +117,25 @@ def _character_block(character_name, profile, identity_tokens):
 
 
 def _outfit_block(outfit, profile):
+    if outfit_has_fixed_colorway(outfit):
+        color_direction = (
+            "Color direction: preserve the garment colors explicitly stated in the outfit. Keep character "
+            f"identity colors stable ({_clip_text(profile['color_anchor'], 70)}) and do not add unrelated accent colors."
+        )
+    else:
+        color_direction = (
+            "Color direction: identity colors remain mainly in hair, eyes, and small accents "
+            f"({_clip_text(profile['color_anchor'], 70)}). Do not default to white, ivory, cream, pale gray, "
+            "or an all-pale outfit. Most outfits need a clearly colored, mid-tone, dark, earthy, or "
+            "muted-chromatic main value. A white or pale background must not make the clothing white."
+        )
     return [
         f"Garment design: {_clip_text(outfit, 190)}",
         (
             "Use opaque woven or knit fabric. Lightweight lace, chiffon, or gauze may feel airy but must "
             "never look like clear plastic or reveal the body underneath."
         ),
-        (
-            "Color direction: identity colors remain mainly in hair, eyes, and small accents "
-            f"({_clip_text(profile['color_anchor'], 70)}). Do not default to white, ivory, cream, pale gray, "
-            "or an all-pale outfit. Most outfits need a clearly colored, mid-tone, dark, earthy, or "
-            "muted-chromatic main value. A white or pale background must not make the clothing white."
-        ),
+        color_direction,
         (
             f"Finish: {STYLE_BASELINE}. Keep clothing cohesive and wearable; avoid random clashing colors, "
             "rainbow mixing, and harsh neon contrast."

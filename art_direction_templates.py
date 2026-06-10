@@ -4,6 +4,7 @@ from art_direction_options import (
     choose_visual_design,
     choose_shot_scale,
     choose_composition_plan,
+    outfit_has_fixed_colorway,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -103,6 +104,19 @@ def prompt_for_art_direction(
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
     outfit = outfit_variation_for(character_name, outfit_direction or art_plan.get("outfit_direction"))
+    if outfit_has_fixed_colorway(outfit):
+        color_light_rule = (
+            f"Color/light: preserve the garment colors explicitly stated in the outfit while keeping character identity colors stable "
+            f"({profile['color_anchor']}); do not recolor the outfit from the character palette or add unrelated accent colors. "
+            f"{_clip_text(art_plan.get('color_strategy', ''), 70)}"
+        )
+    else:
+        color_light_rule = (
+            f"Color/light: identity colors stay in hair, eyes, and small accents ({_clip_text(profile['color_anchor'], 60)}); outfit colorway is model-chosen, cohesive, and wearable. "
+            "Do not default to white, ivory, cream, pale gray, or an all-pale outfit; most outfits should have a clearly colored, mid-tone, dark, earthy, or muted-chromatic main value, "
+            "while mostly white/light-neutral outfits appear only occasionally or when the garment concept explicitly requires them. A white or pale background must not make the clothing white. "
+            f"Avoid random clashing colors, rainbow mixing, and harsh neon contrast. {_clip_text(art_plan.get('color_strategy', ''), 70)}"
+        )
 
     lines = [
         "Independent image task. References are identity only. One single character.",
@@ -133,7 +147,7 @@ def prompt_for_art_direction(
         "",
         f"Outfit: {_clip_text(outfit, 105)}",
         "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
-        f"Color/light: identity colors stay in hair, eyes, and small accents ({_clip_text(profile['color_anchor'], 60)}); outfit colorway is model-chosen, cohesive, and wearable. Do not default to white, ivory, cream, pale gray, or an all-pale outfit; most outfits should have a clearly colored, mid-tone, dark, earthy, or muted-chromatic main value, while mostly white/light-neutral outfits appear only occasionally or when the garment concept explicitly requires them. A white or pale background must not make the clothing white. Avoid random clashing colors, rainbow mixing, and harsh neon contrast. {_clip_text(art_plan.get('color_strategy', ''), 70)}",
+        color_light_rule,
         "",
         f"Style: {STYLE_BASELINE}.",
         "Keep hair silhouette, eyes, and core accessories recognizable; make it feel like a decorative anime key visual, not a normal portrait.",
