@@ -269,6 +269,54 @@ CHARACTER_PROFILES = {
         "interaction_rule": "confident poses, playful gestures, finger-pointing, peace signs, counting money, negotiating, showing off, teasing expressions, relaxed leader-like body language, naturally taking charge of the situation.",
         "personality_anchor": "street-smart entrepreneur, money-loving but soft-hearted, debt-ridden genius, resourceful survivor, charming trickster, reliable leader beneath a greedy exterior.",
         "color_anchor": "pink, black, white, neon yellow-green"
+    },
+    "简": {
+        "official_core": "short layered black bob with gray highlights, pointed elf ears with multiple silver piercings, turquoise-green eyes, long dark-crimson rear hair extension, segmented gray rat tail with a metallic arrow-shaped tip.",
+        "identity_tokens": ["short layered black bob with gray highlights", "pointed elf ears with multiple silver piercings", "turquoise-green eyes", "long dark-crimson rear hair extension", "segmented gray rat tail with metallic arrow-shaped tip"],
+        "viewer_relationship": "playful confident presence with a natural front, three-quarter, or side gaze; keep the eyes, ears, hair silhouette, and tail readable.",
+        "thumbnail_strategy": "black-gray bob, turquoise-green eyes, pierced elf ears, crimson rear hair extension, and segmented rat tail must stay clear; outfit and undercover gear may vary.",
+        "interaction_rule": "small teasing expression, relaxed stance, or one simple hand near the hair is fine; keep hands object-free and avoid complex undercover or tactical props.",
+        "color_anchor": "black, dark crimson, gray, silver, turquoise green",
+    },
+    "月城柳": {
+        "official_core": "soft pink shoulder-length to medium-long hair with side-swept bangs, violet-pink eyes, thin dark rectangular glasses, black mechanical side hair ornament with a circular cable, and a small teal ribbon accent.",
+        "identity_tokens": ["soft pink shoulder-length to medium-long hair with side-swept bangs", "violet-pink eyes", "thin dark rectangular glasses", "black mechanical side hair ornament with circular cable", "small teal ribbon accent"],
+        "viewer_relationship": "calm composed presence with a natural front, three-quarter, or side gaze; keep the eyes behind the glasses, pink hair silhouette, and mechanical side ornament readable.",
+        "thumbnail_strategy": "soft pink hair, violet-pink eyes, thin dark glasses, black mechanical side ornament, circular cable, and a restrained teal accent must stay clear; uniform and weapon are not fixed identity.",
+        "interaction_rule": "composed standing, walking, seated posture, or lightly folded arms are fine; keep hands simple, and treat any slim blade-shaped silhouette as an optional distant accent rather than a held prop.",
+        "color_anchor": "soft pink, black, teal, violet",
+    },
+    "青衣": {
+        "official_core": "long dark-green twin tails, blunt bangs with two short front braids, turquoise-green eyes, jade leaf-shaped hair ornaments, small white ribbon accents, and a restrained ancient-inspired android quality.",
+        "identity_tokens": ["long dark-green twin tails", "blunt bangs with two short front braids", "turquoise-green eyes", "jade leaf-shaped hair ornaments", "small white ribbon accents"],
+        "viewer_relationship": "calm leisurely presence with a natural front, three-quarter, or side gaze; keep the eyes, twin-tail silhouette, front braids, and jade ornaments readable.",
+        "thumbnail_strategy": "dark-green twin tails, turquoise-green eyes, blunt bangs, two front braids, and jade leaf ornaments must stay clear; mechanical details are optional supporting accents.",
+        "interaction_rule": "relaxed listening, a small hair-adjusting gesture, or hands resting naturally are fine; keep hands object-free and let any android or staff-like detail remain subtle in the background.",
+        "color_anchor": "dark green, teal, jade, black, muted gold",
+    },
+    "伊芙琳": {
+        "official_core": "shoulder-length blonde hair gathered into a braided low bun, long side bangs, lavender-purple eyes, and geometric gold earrings.",
+        "identity_tokens": ["shoulder-length blonde hair with braided low bun", "long side bangs", "lavender-purple eyes", "geometric gold earrings"],
+        "viewer_relationship": "calm professional presence with a natural front, three-quarter, or side gaze; keep the eyes, blonde silhouette, braided bun, and earrings readable.",
+        "thumbnail_strategy": "blonde hair, lavender-purple eyes, braided low bun, and geometric gold earrings must stay clear; coat, necktie, and tactical styling may vary with the selected outfit.",
+        "interaction_rule": "adjusting a collar, holding a coat edge with one simple hand, walking, or standing with composed body language are fine; concealed equipment must remain subtle and optional.",
+        "color_anchor": "blonde, black, crimson, gold, lavender",
+    },
+    "朱鸢": {
+        "official_core": "high black ponytail with vivid red streaks, short layered bangs, amber-orange eyes, and a silver mechanical headband.",
+        "identity_tokens": ["high black ponytail with vivid red streaks", "short layered bangs", "amber-orange eyes", "silver mechanical headband"],
+        "viewer_relationship": "serious composed presence with a natural front, three-quarter, or side gaze; keep the eyes, ponytail silhouette, red streaks, and headband readable.",
+        "thumbnail_strategy": "black high ponytail, vivid red streaks, amber-orange eyes, and silver mechanical headband must stay clear; police uniform and tactical equipment are not fixed identity.",
+        "interaction_rule": "disciplined standing, walking, or a simple hand near the earpiece is fine; keep hands simple and avoid forcing police equipment, firearms, or tactical action.",
+        "color_anchor": "black, vivid red, blue, silver, amber",
+    },
+    "卢西娅": {
+        "official_core": "short light-blue hair with a braided ponytail, small black horns, long pointed elf ears, golden-green eyes, and a dark-blue tassel braid tip with small gold ornaments.",
+        "identity_tokens": ["short light-blue hair with braided ponytail", "small black horns", "long pointed elf ears", "golden-green eyes", "dark-blue tassel braid tip with small gold ornaments"],
+        "viewer_relationship": "gentle mysterious presence with a natural front, three-quarter, or side gaze; keep the eyes, blue hair silhouette, horns, elf ears, and braided tassel readable.",
+        "thumbnail_strategy": "light-blue hair, small black horns, golden-green eyes, pointed elf ears, and dark-blue tassel braid tip must stay clear; cape panels and magical tools are optional.",
+        "interaction_rule": "a quiet contemplative pose, relaxed standing, or one simple hand near the hair is fine; staff-like forms and magical accessories may appear only as unobtrusive background elements.",
+        "color_anchor": "light blue, teal, dark blue, black, muted gold",
     }
 }
 
@@ -1146,6 +1194,12 @@ KNOWN_CHARACTER_NAMES = [
     "耀嘉音",
     "柏妮思",
     "妮可",
+    "简",
+    "月城柳",
+    "青衣",
+    "伊芙琳",
+    "朱鸢",
+    "卢西娅",
 ]
 
 
