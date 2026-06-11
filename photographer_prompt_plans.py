@@ -430,7 +430,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "name": "vertical_overhead_90_degree",
         "composition": "unmistakable true 90-degree ceiling-overhead composition with the floor parallel to the image plane and a clearly readable character",
         "camera": "camera fixed directly on the ceiling above the character, optical axis exactly vertical to the floor at 90 degrees, no diagonal high-angle substitution and no fisheye distortion",
-        "pose": "simple upright seated pose viewed directly from above, legs placed neatly to one side or gently crossed, torso stable, hands resting separately, and face looking upward",
+        "pose": "preserve the randomly selected character pose exactly; standing, walking, seated, or fashion poses are all valid when viewed directly from above",
         "foreground": "none; only restrained floor or set shapes surround the character",
         "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
         "guardrail": "must read immediately as a ceiling-mounted 90-degree top-down shot; do not convert it into a mild high angle, eye-level portrait, or tiny subject",
@@ -578,11 +578,6 @@ ACTION_SHOT_SCALES = {
 }
 
 SPECIAL_COMPOSITION_ACTION_STYLES = {
-    "vertical_overhead_90_degree": {
-        "name": "overhead_readable_floor_pose",
-        "body_silhouette": "simple upright seated pose designed for a true ceiling-overhead view, legs placed neatly to one side or gently crossed, torso stable, hands resting separately, and face looking upward",
-        "tags": ["overhead", "stable_pose", "camera_specific"],
-    },
     "floor_level_leg_length_low_angle": {
         "name": "stable_floor_level_step",
         "body_silhouette": "three-quarter standing pause or one controlled forward step designed for a floor-level upward camera; feet stay at a natural narrow distance, torso balanced, hands simple, and face visible",
