@@ -307,7 +307,7 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "name": "square_front_power_stance",
         "body_silhouette": "decisive squared stance facing the selected camera, shoulders and hips nearly frontal, feet clearly separated, weight evenly planted, arms relaxed away from the torso",
         "tags": ["standing", "pose_front_square", "strong_silhouette"],
-        "weight": 1.0,
+        "weight": 0.35,
     },
     {
         "name": "contrapposto_hip_shift",
@@ -325,7 +325,7 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "name": "cross_step_fashion_pose",
         "body_silhouette": "fashion cross-step pose with one foot crossing clearly in front of the other, hips offset, upper body tall, one arm lowered and the other bent loosely away from the face",
         "tags": ["standing", "pose_cross_step", "fashion_pose"],
-        "weight": 1.0,
+        "weight": 0.55,
     },
     {
         "name": "asymmetric_seated_pose",
@@ -337,6 +337,30 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "name": "full_body_side_stretch",
         "body_silhouette": "standing side stretch forming a clear curved silhouette, one arm raised overhead, the opposite arm lowered, hips and ribcage shifting in opposite directions while balance stays natural",
         "tags": ["standing", "stretch", "pose_side_stretch"],
+        "weight": 0.45,
+    },
+    {
+        "name": "relaxed_wall_lean",
+        "body_silhouette": "relaxed static lean with one shoulder or upper back lightly near a wall, torso angled naturally, head free to face the lens or turn slightly aside, hands simple and separated",
+        "tags": ["standing", "pose_wall_lean", "static_pose"],
+        "weight": 1.0,
+    },
+    {
+        "name": "side_angle_still_pause",
+        "body_silhouette": "quiet side-angle standing pause with shoulders turned away from a frontal square stance, face visible in profile or three-quarter view, arms resting naturally without stepping",
+        "tags": ["standing", "pose_side_pause", "static_pose"],
+        "weight": 1.0,
+    },
+    {
+        "name": "upright_seated_turn",
+        "body_silhouette": "upright seated pose turned slightly across the seat, shoulders relaxed, face visible from a side or three-quarter direction, hands resting separately near the seat or lap",
+        "tags": ["seated", "pose_seated_turn", "static_pose"],
+        "weight": 1.0,
+    },
+    {
+        "name": "upper_body_editorial_pause",
+        "body_silhouette": "still editorial upper-body moment with one shoulder subtly higher, head direction independent from the torso, and one simple hand optionally near the collar or hair",
+        "tags": ["standing", "pose_upper_body", "static_pose"],
         "weight": 1.0,
     },
 ]
@@ -452,6 +476,7 @@ ACTION_COMPOSITION_COMPATIBILITY = {
         "eye_level_three_quarter_camera",
         "gentle_diagonal_camera",
         "restrained_low_angle_editorial",
+        "floor_level_leg_length_low_angle",
         "controlled_high_angle_portrait",
     },
     "contrapposto_hip_shift": {
@@ -460,6 +485,7 @@ ACTION_COMPOSITION_COMPATIBILITY = {
         "gentle_diagonal_camera",
         "side_three_quarter_camera",
         "restrained_low_angle_editorial",
+        "floor_level_leg_length_low_angle",
         "controlled_high_angle_portrait",
     },
     "true_profile_walk": {
@@ -472,6 +498,45 @@ ACTION_COMPOSITION_COMPATIBILITY = {
         "gentle_diagonal_camera",
         "side_three_quarter_camera",
         "restrained_low_angle_editorial",
+        "floor_level_leg_length_low_angle",
+    },
+    "relaxed_wall_lean": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "clean_profile_editorial",
+        "controlled_high_angle_portrait",
+    },
+    "side_angle_still_pause": {
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "clean_profile_editorial",
+        "controlled_high_angle_portrait",
+    },
+    "upright_seated_turn": {
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "clean_profile_editorial",
+        "controlled_high_angle_portrait",
+    },
+    "asymmetric_seated_pose": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "controlled_high_angle_portrait",
+    },
+    "upper_body_editorial_pause": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "clean_profile_editorial",
+        "restrained_low_angle_editorial",
+        "controlled_high_angle_portrait",
     },
 }
 
@@ -526,29 +591,9 @@ SPECIAL_COMPOSITION_SHOT_SCALES = {
 }
 
 ACTION_SHOT_SCALES = {
-    "square_front_power_stance": {
-        "name": "pose_visible_near_full_body",
-        "description": "near full-body framing that clearly shows the squared shoulders, planted feet, separated arms, and complete body silhouette",
-    },
-    "contrapposto_hip_shift": {
-        "name": "pose_visible_near_full_body",
-        "description": "near full-body framing that clearly shows the supporting leg, bent free knee, hip shift, and counterbalanced shoulders",
-    },
     "true_profile_walk": {
         "name": "pose_visible_full_body",
         "description": "full-body side-profile framing with both separated legs visible and enough horizontal room for the walking direction",
-    },
-    "cross_step_fashion_pose": {
-        "name": "pose_visible_near_full_body",
-        "description": "near full-body fashion framing with crossed feet, shifted hips, arms, and complete silhouette clearly visible",
-    },
-    "asymmetric_seated_pose": {
-        "name": "pose_visible_seated",
-        "description": "knee-up to near full-body framing that clearly shows the asymmetric seated leg levels, forward lean, arms, and seat edge",
-    },
-    "full_body_side_stretch": {
-        "name": "pose_visible_full_body",
-        "description": "full-body framing with raised hand, lowered hand, feet, and the complete curved side-stretch silhouette visible",
     },
 }
 
@@ -653,10 +698,10 @@ def choose_photographer_composition_plan(recent_tags=None, plan=None, action=Non
     if not compatible_names:
         compatible = list(PHOTOGRAPHER_COMPOSITION_PLANS)
     else:
-        special_names = set(SPECIAL_COMPOSITION_SHOT_SCALES)
+        universal_special_names = {"extreme_chest_up_close_portrait"}
         compatible = [
             composition for composition in PHOTOGRAPHER_COMPOSITION_PLANS
-            if composition["name"] in compatible_names or composition["name"] in special_names
+            if composition["name"] in compatible_names or composition["name"] in universal_special_names
         ]
     if (action or {}).get("name") == "true_profile_walk":
         compatible = [

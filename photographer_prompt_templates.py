@@ -77,23 +77,23 @@ def _scene_block(art_plan):
 
 
 def _photographer_block(action_style, shot_scale, composition_plan):
-    static_motion_guardrail = (
-        ""
-        if action_style.get("name") == "true_profile_walk"
-        else (
-            "Motion guardrail: treat the character as a static portrait subject. No long forward stride, "
-            "large stepping motion, running, or exaggerated arm swing."
-        )
-    )
     return [
         "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
         f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
         f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 230)}",
-        static_motion_guardrail,
+        (
+            "Motion guardrail: no long forward stride, large forward stepping motion, running, or exaggerated "
+            "arm swing. A selected side-profile walk may remain small and restrained."
+        ),
         (
             "Pose commitment: execute this one selected body pose clearly. Do not replace it with a generic "
             "slightly side-turned standing portrait, a neutral relaxed pause, or an unspecified three-quarter pose."
+        ),
+        (
+            "Crop discipline: the selected shot scale has priority over showing the complete pose. In close-up, "
+            "bust-up, waist-up, or knee-up framing, show only the naturally visible portion of the pose and never "
+            "widen to a full-body view merely to display feet or the entire silhouette."
         ),
         f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
         f"Mandatory subject orientation: {_clip_text(composition_plan.get('subject_orientation', ''), 220)}"
