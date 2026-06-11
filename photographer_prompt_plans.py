@@ -428,17 +428,6 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "weight": 1.0,
     },
     {
-        "name": "vertical_overhead_90_degree",
-        "composition": "unmistakable true 90-degree ceiling-overhead composition with the floor parallel to the image plane and a clearly readable character",
-        "camera": "camera fixed directly on the ceiling above the character, optical axis exactly vertical to the floor at 90 degrees, no diagonal high-angle substitution and no fisheye distortion",
-        "pose": "preserve the randomly selected character pose exactly; standing, walking, seated, or fashion poses are all valid when viewed directly from above",
-        "foreground": "none; only restrained floor or set shapes surround the character",
-        "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
-        "guardrail": "must read immediately as a ceiling-mounted 90-degree top-down shot; do not convert it into a mild high angle, eye-level portrait, or tiny subject",
-        "tags": ["photographer_composition", "overhead", "vertical_camera"],
-        "weight": 1.0,
-    },
-    {
         "name": "floor_level_leg_length_low_angle",
         "composition": "dramatic floor-level upward fashion frame with the character presented large and directly front-facing",
         "camera": "camera centered directly in front of the character, close to floor level and below knee height, looking upward with a moderate wide-angle fashion lens",
@@ -539,10 +528,6 @@ PHOTOGRAPHER_SHOT_SCALES = [
 ]
 
 SPECIAL_COMPOSITION_SHOT_SCALES = {
-    "vertical_overhead_90_degree": {
-        "name": "overhead_character_dominant",
-        "description": "true 90-degree top-down framing with the character occupying about 60-75 percent of the image; enough body and floor geometry remain visible to prove the vertical ceiling viewpoint",
-    },
     "floor_level_leg_length_low_angle": {
         "name": "floor_level_full_figure",
         "description": "complete character framing that preserves the selected standing, moving, stretching, or seated pose; the upward perspective stays clear while face and full pose remain readable",
