@@ -334,45 +334,15 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "weight": 1.0,
     },
     {
-        "name": "wide_planted_stance",
-        "body_silhouette": "wide planted stance with feet beyond shoulder width, knees softly unlocked, torso upright, and arms forming clean open negative spaces instead of resting against the body",
-        "tags": ["standing", "pose_wide_stance", "strong_silhouette"],
-        "weight": 1.0,
-    },
-    {
         "name": "asymmetric_seated_pose",
         "body_silhouette": "clearly seated asymmetric pose on the available seat or low set edge, one knee raised slightly above the other, torso leaning forward a little, forearms separated and hands relaxed",
         "tags": ["seated", "pose_asymmetric_seated", "strong_silhouette"],
         "weight": 1.0,
     },
     {
-        "name": "floor_seated_diagonal",
-        "body_silhouette": "floor-seated diagonal pose with both legs arranged clearly to one side, torso supported upright without twisting, one hand resting on the floor beside the hip and the other relaxed on the knee",
-        "tags": ["seated", "floor_pose", "pose_floor_diagonal"],
-        "weight": 1.0,
-    },
-    {
-        "name": "one_knee_lowered_pose",
-        "body_silhouette": "stable one-knee lowered pose with one foot planted and the opposite knee near the floor, torso upright, arms relaxed and clearly separated, creating a strong triangular silhouette",
-        "tags": ["lowered_pose", "kneeling", "pose_one_knee"],
-        "weight": 1.0,
-    },
-    {
-        "name": "upright_kneeling_pose",
-        "body_silhouette": "upright kneeling pose with both knees grounded, hips above heels, spine tall, shoulders open, and hands resting separately near the thighs without covering the outfit",
-        "tags": ["lowered_pose", "kneeling", "pose_upright_kneeling"],
-        "weight": 1.0,
-    },
-    {
         "name": "full_body_side_stretch",
         "body_silhouette": "standing side stretch forming a clear curved silhouette, one arm raised overhead, the opposite arm lowered, hips and ribcage shifting in opposite directions while balance stays natural",
         "tags": ["standing", "stretch", "pose_side_stretch"],
-        "weight": 1.0,
-    },
-    {
-        "name": "mid_turn_motion",
-        "body_silhouette": "captured mid-turn with one foot acting as the pivot, skirt or coat hem following the motion, arms slightly separated for balance, and face rotating with the torso rather than looking back over the shoulder",
-        "tags": ["turning", "pose_mid_turn", "dynamic_pose"],
         "weight": 1.0,
     },
 ]
@@ -460,7 +430,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "name": "vertical_overhead_90_degree",
         "composition": "unmistakable true 90-degree ceiling-overhead composition with the floor parallel to the image plane and a clearly readable character",
         "camera": "camera fixed directly on the ceiling above the character, optical axis exactly vertical to the floor at 90 degrees, no diagonal high-angle substitution and no fisheye distortion",
-        "pose": "simple floor-level seated, kneeling, reclining, or upward-looking arrangement designed specifically for the vertical overhead view; limbs remain separated and readable",
+        "pose": "simple upright seated pose viewed directly from above, legs placed neatly to one side or gently crossed, torso stable, hands resting separately, and face looking upward",
         "foreground": "none; only restrained floor or set shapes surround the character",
         "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
         "guardrail": "must read immediately as a ceiling-mounted 90-degree top-down shot; do not convert it into a mild high angle, eye-level portrait, or tiny subject",
@@ -471,7 +441,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "name": "floor_level_leg_length_low_angle",
         "composition": "dramatic floor-level upward fashion frame using vertical leg lines to create a tall elongated silhouette while the face stays readable",
         "camera": "camera close to floor level and below knee height, looking upward along the standing figure with a moderate wide-angle fashion lens",
-        "pose": "upright standing pause or one stable forward step; legs remain naturally separated, torso balanced, and face visible above",
+        "pose": "three-quarter standing pause or one controlled forward step with feet at a natural narrow distance, torso balanced, and face visible above",
         "foreground": "a clean floor edge may anchor the bottom of frame; no foreground obstruction",
         "lighting": "clean face light and a controlled rim keep the upward silhouette readable",
         "guardrail": "show an intentional from-below perspective and long vertical leg line without fetish framing, underwear visibility, distorted feet, or losing the face",
@@ -524,13 +494,6 @@ ACTION_COMPOSITION_COMPATIBILITY = {
         "gentle_diagonal_camera",
         "side_three_quarter_camera",
         "restrained_low_angle_editorial",
-    },
-    "wide_planted_stance": {
-        "eye_level_front_camera",
-        "eye_level_three_quarter_camera",
-        "gentle_diagonal_camera",
-        "restrained_low_angle_editorial",
-        "controlled_high_angle_portrait",
     },
 }
 
@@ -604,45 +567,25 @@ ACTION_SHOT_SCALES = {
         "name": "pose_visible_near_full_body",
         "description": "near full-body fashion framing with crossed feet, shifted hips, arms, and complete silhouette clearly visible",
     },
-    "wide_planted_stance": {
-        "name": "pose_visible_full_body",
-        "description": "full-body framing with both feet and the open arm spaces visible so the wide planted silhouette remains unmistakable",
-    },
     "asymmetric_seated_pose": {
         "name": "pose_visible_seated",
         "description": "knee-up to near full-body framing that clearly shows the asymmetric seated leg levels, forward lean, arms, and seat edge",
     },
-    "floor_seated_diagonal": {
-        "name": "pose_visible_floor_seated",
-        "description": "near full-body framing that clearly shows the floor contact, both legs arranged to one side, supporting hand, and diagonal silhouette",
-    },
-    "one_knee_lowered_pose": {
-        "name": "pose_visible_lowered",
-        "description": "near full-body framing that clearly shows the planted foot, lowered knee, separated arms, and triangular body silhouette",
-    },
-    "upright_kneeling_pose": {
-        "name": "pose_visible_kneeling",
-        "description": "near full-body framing that clearly shows both grounded knees, tall torso, open shoulders, and separately resting hands",
-    },
     "full_body_side_stretch": {
         "name": "pose_visible_full_body",
         "description": "full-body framing with raised hand, lowered hand, feet, and the complete curved side-stretch silhouette visible",
-    },
-    "mid_turn_motion": {
-        "name": "pose_visible_near_full_body",
-        "description": "near full-body framing that clearly shows the pivot foot, rotating torso, separated arms, and moving garment hem",
     },
 }
 
 SPECIAL_COMPOSITION_ACTION_STYLES = {
     "vertical_overhead_90_degree": {
         "name": "overhead_readable_floor_pose",
-        "body_silhouette": "simple seated, kneeling, modest reclining, or upward-looking floor-level pose designed for a true ceiling-overhead view; limbs stay separated, hands simple, and face readable",
+        "body_silhouette": "simple upright seated pose designed for a true ceiling-overhead view, legs placed neatly to one side or gently crossed, torso stable, hands resting separately, and face looking upward",
         "tags": ["overhead", "stable_pose", "camera_specific"],
     },
     "floor_level_leg_length_low_angle": {
         "name": "stable_floor_level_step",
-        "body_silhouette": "upright standing pause or one stable forward step designed for a floor-level upward camera; legs stay naturally separated, torso balanced, hands simple, and face visible",
+        "body_silhouette": "three-quarter standing pause or one controlled forward step designed for a floor-level upward camera; feet stay at a natural narrow distance, torso balanced, hands simple, and face visible",
         "tags": ["standing", "low_camera", "camera_specific"],
     },
     "extreme_chest_up_close_portrait": {
