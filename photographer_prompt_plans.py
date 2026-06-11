@@ -406,12 +406,13 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
     },
     {
         "name": "restrained_low_angle_editorial",
-        "composition": "restrained low-angle editorial frame adding presence while keeping face and outfit naturally proportioned",
-        "camera": "camera slightly below waist or seat height, gentle upward view with normal lens feeling",
-        "pose": "standing, seated, or small step remains balanced and readable",
+        "composition": "restrained low-angle editorial frame with the character presented large and directly front-facing",
+        "camera": "camera slightly below waist or seat height, centered directly in front of the character, gentle upward view with normal lens feeling",
+        "pose": "preserve the selected pose while keeping the face, shoulders, ribcage, and hips squarely oriented toward the camera",
+        "subject_orientation": "mandatory large frontal character orientation: face, shoulders, chest line, ribcage, and hips all face directly toward the camera; no three-quarter, side, profile, turned-away, or diagonal body orientation",
         "foreground": "none; floor line or low step may remain behind the character",
         "lighting": "clean face light and subtle rim preserve readable facial planes",
-        "guardrail": "keep face prominent and proportions natural; do not emphasize legs, chest, or underside anatomy",
+        "guardrail": "keep face prominent and proportions natural; preserve the selected pose but never rotate the person away from a direct frontal orientation; do not emphasize legs, chest, or underside anatomy",
         "tags": ["photographer_composition", "low_camera", "editorial"],
         "weight": 1.0,
     },
@@ -439,12 +440,13 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
     },
     {
         "name": "floor_level_leg_length_low_angle",
-        "composition": "dramatic floor-level upward fashion frame using vertical leg lines to create a tall elongated silhouette while the face stays readable",
-        "camera": "camera close to floor level and below knee height, looking upward along the standing figure with a moderate wide-angle fashion lens",
-        "pose": "three-quarter standing pause or one controlled forward step with feet at a natural narrow distance, torso balanced, and face visible above",
+        "composition": "dramatic floor-level upward fashion frame with the character presented large and directly front-facing",
+        "camera": "camera centered directly in front of the character, close to floor level and below knee height, looking upward with a moderate wide-angle fashion lens",
+        "pose": "preserve the selected pose while keeping the face, shoulders, ribcage, and hips squarely oriented toward the camera",
+        "subject_orientation": "mandatory large frontal character orientation: face, shoulders, chest line, ribcage, and hips all face directly toward the camera; no three-quarter, side, profile, turned-away, or diagonal body orientation",
         "foreground": "a clean floor edge may anchor the bottom of frame; no foreground obstruction",
         "lighting": "clean face light and a controlled rim keep the upward silhouette readable",
-        "guardrail": "show an intentional from-below perspective and long vertical leg line without fetish framing, underwear visibility, distorted feet, or losing the face",
+        "guardrail": "show an intentional from-below perspective while preserving the selected pose and a strict direct frontal person orientation; avoid fetish framing, underwear visibility, distorted feet, or losing the face",
         "tags": ["photographer_composition", "low_camera", "floor_level", "leg_length_perspective"],
         "weight": 1.0,
     },
@@ -497,6 +499,11 @@ ACTION_COMPOSITION_COMPATIBILITY = {
     },
 }
 
+FRONTAL_LOW_ANGLE_COMPOSITION_NAMES = {
+    "restrained_low_angle_editorial",
+    "floor_level_leg_length_low_angle",
+}
+
 
 PHOTOGRAPHER_SHOT_SCALES = [
     {
@@ -538,7 +545,7 @@ SPECIAL_COMPOSITION_SHOT_SCALES = {
     },
     "floor_level_leg_length_low_angle": {
         "name": "floor_level_full_figure",
-        "description": "near full-body vertical framing from feet to face; the upward perspective and long leg line are clearly visible while the face remains readable",
+        "description": "complete character framing that preserves the selected standing, moving, stretching, or seated pose; the upward perspective stays clear while face and full pose remain readable",
     },
     "extreme_chest_up_close_portrait": {
         "name": "strict_upper_chest_closeup",
@@ -578,11 +585,6 @@ ACTION_SHOT_SCALES = {
 }
 
 SPECIAL_COMPOSITION_ACTION_STYLES = {
-    "floor_level_leg_length_low_angle": {
-        "name": "stable_floor_level_step",
-        "body_silhouette": "three-quarter standing pause or one controlled forward step designed for a floor-level upward camera; feet stay at a natural narrow distance, torso balanced, hands simple, and face visible",
-        "tags": ["standing", "low_camera", "camera_specific"],
-    },
     "extreme_chest_up_close_portrait": {
         "name": "quiet_head_and_shoulders",
         "body_silhouette": "quiet head-and-shoulder portrait moment with a natural gaze and relaxed neckline; hands stay outside the tight upper-chest-up crop",
@@ -681,12 +683,18 @@ def choose_photographer_action_style(character_name=None, recent_tags=None, plan
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
     compatible_names = ACTION_COMPOSITION_COMPATIBILITY.get((action or {}).get("name"))
     if not compatible_names:
-        return dict(random.choice(PHOTOGRAPHER_COMPOSITION_PLANS))
-    special_names = set(SPECIAL_COMPOSITION_SHOT_SCALES)
-    compatible = [
-        composition for composition in PHOTOGRAPHER_COMPOSITION_PLANS
-        if composition["name"] in compatible_names or composition["name"] in special_names
-    ]
+        compatible = list(PHOTOGRAPHER_COMPOSITION_PLANS)
+    else:
+        special_names = set(SPECIAL_COMPOSITION_SHOT_SCALES)
+        compatible = [
+            composition for composition in PHOTOGRAPHER_COMPOSITION_PLANS
+            if composition["name"] in compatible_names or composition["name"] in special_names
+        ]
+    if (action or {}).get("name") == "true_profile_walk":
+        compatible = [
+            composition for composition in compatible
+            if composition["name"] not in FRONTAL_LOW_ANGLE_COMPOSITION_NAMES
+        ]
     return dict(random.choice(compatible))
 
 

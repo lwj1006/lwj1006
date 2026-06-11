@@ -87,6 +87,9 @@ def _photographer_block(action_style, shot_scale, composition_plan):
             "slightly side-turned standing portrait, a neutral relaxed pause, or an unspecified three-quarter pose."
         ),
         f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
+        f"Mandatory subject orientation: {_clip_text(composition_plan.get('subject_orientation', ''), 220)}"
+        if composition_plan.get("subject_orientation")
+        else "",
         f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
         f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
         f"Subject scale: {_clip_text(shot_scale.get('description', ''), 145)}",
