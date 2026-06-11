@@ -81,7 +81,11 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
         f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
-        f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 175)}",
+        f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 230)}",
+        (
+            "Pose commitment: execute this one selected body pose clearly. Do not replace it with a generic "
+            "slightly side-turned standing portrait, a neutral relaxed pause, or an unspecified three-quarter pose."
+        ),
         f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
         f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
         f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
@@ -101,7 +105,11 @@ def _character_block(character_name, profile, identity_tokens):
         f"Character: {character_name}.",
         f"Identity: {_clip_text(profile['official_core'], 125)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
-        f"Natural behavior: {_clip_text(profile['interaction_rule'], 185)}",
+        f"Natural behavior detail: {_clip_text(profile['interaction_rule'], 185)}",
+        (
+            "Natural behavior may influence expression and small hand details only. It must not replace, soften, "
+            "or override the single body pose selected in the photographer block."
+        ),
         f"Identity readability: {viewer_distance_for(character_name)}.",
         (
             "Preserve natural original proportions. Use a neutral slim anime build with modest bust, "
@@ -175,7 +183,7 @@ def prompt_for_art_direction(
             outfit_direction or art_plan.get("outfit_direction"),
         )
     action_style = resolve_photographer_action_style(composition_plan, action_style)
-    shot_scale = resolve_photographer_shot_scale(composition_plan, shot_scale)
+    shot_scale = resolve_photographer_shot_scale(composition_plan, shot_scale, action_style)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)

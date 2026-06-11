@@ -304,63 +304,75 @@ PHOTOGRAPHER_SCENE_PLANS = [
 
 PHOTOGRAPHER_ACTION_STYLES = [
     {
-        "name": "natural_standing_pause",
-        "body_silhouette": "natural standing pause with relaxed shoulders, balanced posture, and simple readable hands; body direction follows the selected camera",
-        "tags": ["standing", "stable_pose", "camera_adaptive"],
+        "name": "square_front_power_stance",
+        "body_silhouette": "decisive squared stance facing the selected camera, shoulders and hips nearly frontal, feet clearly separated, weight evenly planted, arms relaxed away from the torso",
+        "tags": ["standing", "pose_front_square", "strong_silhouette"],
         "weight": 1.0,
     },
     {
-        "name": "small_weight_shift",
-        "body_silhouette": "upright posture with a small natural weight shift, relaxed arms, and clear outfit silhouette; orientation follows the selected camera",
-        "tags": ["standing", "weight_shift", "camera_adaptive"],
+        "name": "contrapposto_hip_shift",
+        "body_silhouette": "clear contrapposto pose with weight fully on one leg, the free knee bent, hips visibly shifted, shoulders counterbalanced, and both hands simple and separate from the body",
+        "tags": ["standing", "pose_contrapposto", "strong_silhouette"],
         "weight": 1.0,
     },
     {
-        "name": "gentle_walking_step",
-        "body_silhouette": "gentle motion beat with natural balance; close crops show motion through gaze, hair, and shoulders, while wider crops may show one small walking step",
-        "tags": ["walking", "camera_adaptive", "character_focus"],
+        "name": "long_forward_stride",
+        "body_silhouette": "captured during one long confident forward stride, front leg extended, rear heel lifted, arms naturally counter-swinging, torso upright, and the movement unmistakable",
+        "tags": ["walking", "pose_forward_stride", "dynamic_pose"],
         "weight": 1.0,
     },
     {
-        "name": "quiet_gaze_shift",
-        "body_silhouette": "quiet gaze shift toward or slightly away from the selected camera while posture remains relaxed and readable",
-        "tags": ["gaze_shift", "camera_adaptive", "character_focus"],
+        "name": "true_profile_walk",
+        "body_silhouette": "true side-profile walk moving horizontally across the image plane, face and torso sharing the same side direction, legs separated mid-step, with no turn-back glance",
+        "tags": ["walking", "pose_true_profile", "dynamic_pose"],
         "weight": 1.0,
     },
     {
-        "name": "hair_or_sleeve_micro_action",
-        "body_silhouette": "small natural action such as adjusting hair, sleeve, collar edge, bag strap, or outer layer; fingers stay simple and body direction follows the selected camera",
-        "tags": ["micro_action", "simple_hand", "camera_adaptive"],
+        "name": "cross_step_fashion_pose",
+        "body_silhouette": "fashion cross-step pose with one foot crossing clearly in front of the other, hips offset, upper body tall, one arm lowered and the other bent loosely away from the face",
+        "tags": ["standing", "pose_cross_step", "fashion_pose"],
         "weight": 1.0,
     },
     {
-        "name": "upright_seated_pause",
-        "body_silhouette": "upright seated posture with relaxed shoulders and hands resting simply near lap or seat; body orientation follows the selected camera",
-        "tags": ["seated", "stable_hands", "camera_adaptive"],
+        "name": "wide_planted_stance",
+        "body_silhouette": "wide planted stance with feet beyond shoulder width, knees softly unlocked, torso upright, and arms forming clean open negative spaces instead of resting against the body",
+        "tags": ["standing", "pose_wide_stance", "strong_silhouette"],
         "weight": 1.0,
     },
     {
-        "name": "gentle_lean",
-        "body_silhouette": "subtle balanced posture variation; close crops show a relaxed head-and-shoulder line, while wider crops may show a gentle lean beside the set",
-        "tags": ["lean", "stable_pose", "camera_adaptive"],
+        "name": "asymmetric_seated_pose",
+        "body_silhouette": "clearly seated asymmetric pose on the available seat or low set edge, one knee raised slightly above the other, torso leaning forward a little, forearms separated and hands relaxed",
+        "tags": ["seated", "pose_asymmetric_seated", "strong_silhouette"],
         "weight": 1.0,
     },
     {
-        "name": "light_upward_gaze",
-        "body_silhouette": "light upward gaze with relaxed neck and shoulders, adapted naturally to the selected camera position",
-        "tags": ["upward_gaze", "camera_adaptive", "character_focus"],
+        "name": "floor_seated_diagonal",
+        "body_silhouette": "floor-seated diagonal pose with both legs arranged clearly to one side, torso supported upright without twisting, one hand resting on the floor beside the hip and the other relaxed on the knee",
+        "tags": ["seated", "floor_pose", "pose_floor_diagonal"],
         "weight": 1.0,
     },
     {
-        "name": "simple_lowered_pose",
-        "body_silhouette": "quiet lowered-posture mood adapted to the visible crop; close views prioritize face and shoulders, while wider views may show a simple seated or kneeling arrangement",
-        "tags": ["lowered_pose", "camera_adaptive", "character_focus"],
+        "name": "one_knee_lowered_pose",
+        "body_silhouette": "stable one-knee lowered pose with one foot planted and the opposite knee near the floor, torso upright, arms relaxed and clearly separated, creating a strong triangular silhouette",
+        "tags": ["lowered_pose", "kneeling", "pose_one_knee"],
         "weight": 1.0,
     },
     {
-        "name": "small_turn_in_place",
-        "body_silhouette": "small in-place turn with torso, face, and feet remaining coherent and readable for the selected camera",
-        "tags": ["turning", "camera_adaptive", "character_focus"],
+        "name": "upright_kneeling_pose",
+        "body_silhouette": "upright kneeling pose with both knees grounded, hips above heels, spine tall, shoulders open, and hands resting separately near the thighs without covering the outfit",
+        "tags": ["lowered_pose", "kneeling", "pose_upright_kneeling"],
+        "weight": 1.0,
+    },
+    {
+        "name": "full_body_side_stretch",
+        "body_silhouette": "standing side stretch forming a clear curved silhouette, one arm raised overhead, the opposite arm lowered, hips and ribcage shifting in opposite directions while balance stays natural",
+        "tags": ["standing", "stretch", "pose_side_stretch"],
+        "weight": 1.0,
+    },
+    {
+        "name": "mid_turn_motion",
+        "body_silhouette": "captured mid-turn with one foot acting as the pivot, skirt or coat hem following the motion, arms slightly separated for balance, and face rotating with the torso rather than looking back over the shoulder",
+        "tags": ["turning", "pose_mid_turn", "dynamic_pose"],
         "weight": 1.0,
     },
 ]
@@ -382,7 +394,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "name": "eye_level_three_quarter_camera",
         "composition": "clean three-quarter camera direction showing facial depth, hairstyle, and outfit silhouette",
         "camera": "natural eye-level three-quarter viewpoint with normal perspective; distance follows the selected shot scale",
-        "pose": "selected action remains calm and coherent from the three-quarter direction",
+        "pose": "selected action remains clearly expressed and coherent from the three-quarter direction",
         "foreground": "none; scene lines stay behind or beside the character",
         "lighting": "soft directional light separates character from a restrained background",
         "guardrail": "selected shot scale controls framing distance; preserve natural proportions",
@@ -479,6 +491,49 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
     },
 ]
 
+ACTION_COMPOSITION_COMPATIBILITY = {
+    "square_front_power_stance": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "restrained_low_angle_editorial",
+        "controlled_high_angle_portrait",
+    },
+    "contrapposto_hip_shift": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "restrained_low_angle_editorial",
+        "controlled_high_angle_portrait",
+    },
+    "long_forward_stride": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "restrained_low_angle_editorial",
+    },
+    "true_profile_walk": {
+        "side_three_quarter_camera",
+        "clean_profile_editorial",
+    },
+    "cross_step_fashion_pose": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "side_three_quarter_camera",
+        "restrained_low_angle_editorial",
+    },
+    "wide_planted_stance": {
+        "eye_level_front_camera",
+        "eye_level_three_quarter_camera",
+        "gentle_diagonal_camera",
+        "restrained_low_angle_editorial",
+        "controlled_high_angle_portrait",
+    },
+}
+
 
 PHOTOGRAPHER_SHOT_SCALES = [
     {
@@ -528,6 +583,57 @@ SPECIAL_COMPOSITION_SHOT_SCALES = {
     },
 }
 
+ACTION_SHOT_SCALES = {
+    "square_front_power_stance": {
+        "name": "pose_visible_near_full_body",
+        "description": "near full-body framing that clearly shows the squared shoulders, planted feet, separated arms, and complete body silhouette",
+    },
+    "contrapposto_hip_shift": {
+        "name": "pose_visible_near_full_body",
+        "description": "near full-body framing that clearly shows the supporting leg, bent free knee, hip shift, and counterbalanced shoulders",
+    },
+    "long_forward_stride": {
+        "name": "pose_visible_full_body",
+        "description": "full-body framing with both feet visible so the long forward stride and natural arm counter-swing read immediately",
+    },
+    "true_profile_walk": {
+        "name": "pose_visible_full_body",
+        "description": "full-body side-profile framing with both separated legs visible and enough horizontal room for the walking direction",
+    },
+    "cross_step_fashion_pose": {
+        "name": "pose_visible_near_full_body",
+        "description": "near full-body fashion framing with crossed feet, shifted hips, arms, and complete silhouette clearly visible",
+    },
+    "wide_planted_stance": {
+        "name": "pose_visible_full_body",
+        "description": "full-body framing with both feet and the open arm spaces visible so the wide planted silhouette remains unmistakable",
+    },
+    "asymmetric_seated_pose": {
+        "name": "pose_visible_seated",
+        "description": "knee-up to near full-body framing that clearly shows the asymmetric seated leg levels, forward lean, arms, and seat edge",
+    },
+    "floor_seated_diagonal": {
+        "name": "pose_visible_floor_seated",
+        "description": "near full-body framing that clearly shows the floor contact, both legs arranged to one side, supporting hand, and diagonal silhouette",
+    },
+    "one_knee_lowered_pose": {
+        "name": "pose_visible_lowered",
+        "description": "near full-body framing that clearly shows the planted foot, lowered knee, separated arms, and triangular body silhouette",
+    },
+    "upright_kneeling_pose": {
+        "name": "pose_visible_kneeling",
+        "description": "near full-body framing that clearly shows both grounded knees, tall torso, open shoulders, and separately resting hands",
+    },
+    "full_body_side_stretch": {
+        "name": "pose_visible_full_body",
+        "description": "full-body framing with raised hand, lowered hand, feet, and the complete curved side-stretch silhouette visible",
+    },
+    "mid_turn_motion": {
+        "name": "pose_visible_near_full_body",
+        "description": "near full-body framing that clearly shows the pivot foot, rotating torso, separated arms, and moving garment hem",
+    },
+}
+
 SPECIAL_COMPOSITION_ACTION_STYLES = {
     "vertical_overhead_90_degree": {
         "name": "overhead_readable_floor_pose",
@@ -547,9 +653,12 @@ SPECIAL_COMPOSITION_ACTION_STYLES = {
 }
 
 
-def resolve_photographer_shot_scale(composition_plan, shot_scale):
+def resolve_photographer_shot_scale(composition_plan, shot_scale, action_style=None):
     special = SPECIAL_COMPOSITION_SHOT_SCALES.get(composition_plan.get("name"))
-    return dict(special) if special else dict(shot_scale)
+    if special:
+        return dict(special)
+    action_scale = ACTION_SHOT_SCALES.get((action_style or {}).get("name"))
+    return dict(action_scale) if action_scale else dict(shot_scale)
 
 
 def resolve_photographer_action_style(composition_plan, action_style):
@@ -620,11 +729,27 @@ def choose_photographer_scene_plan(character_name=None, recent_tags=None):
 
 
 def choose_photographer_action_style(character_name=None, recent_tags=None, plan=None):
-    return dict(random.choice(PHOTOGRAPHER_ACTION_STYLES))
+    recent = set(recent_tags or [])
+    fresh_actions = [
+        action for action in PHOTOGRAPHER_ACTION_STYLES
+        if not recent.intersection(
+            tag for tag in action.get("tags", [])
+            if tag.startswith("pose_")
+        )
+    ]
+    return _weighted_choice(fresh_actions or PHOTOGRAPHER_ACTION_STYLES)
 
 
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
-    return dict(random.choice(PHOTOGRAPHER_COMPOSITION_PLANS))
+    compatible_names = ACTION_COMPOSITION_COMPATIBILITY.get((action or {}).get("name"))
+    if not compatible_names:
+        return dict(random.choice(PHOTOGRAPHER_COMPOSITION_PLANS))
+    special_names = set(SPECIAL_COMPOSITION_SHOT_SCALES)
+    compatible = [
+        composition for composition in PHOTOGRAPHER_COMPOSITION_PLANS
+        if composition["name"] in compatible_names or composition["name"] in special_names
+    ]
+    return dict(random.choice(compatible))
 
 
 def choose_photographer_shot_scale(recent_tags=None, plan=None):
