@@ -2268,6 +2268,70 @@ def startup_clothing_selection() -> list[str] | None:
     return selected_themes
 
 
+def next_start_datetime(hour: int, minute: int, now: dt.datetime | None = None) -> dt.datetime:
+    if not 0 <= hour <= 23:
+        raise ValueError("Hour must be between 0 and 23")
+    if not 0 <= minute <= 59:
+        raise ValueError("Minute must be between 0 and 59")
+    now = now or dt.datetime.now()
+    target = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
+    if target <= now:
+        target += dt.timedelta(days=1)
+    return target
+
+
+def _prompt_bounded_integer(prompt: str, minimum: int, maximum: int) -> int:
+    while True:
+        raw_value = input(prompt).strip()
+        try:
+            value = int(raw_value)
+        except ValueError:
+            print(f"Please enter an integer from {minimum} to {maximum}.", flush=True)
+            continue
+        if minimum <= value <= maximum:
+            return value
+        print(f"Please enter an integer from {minimum} to {maximum}.", flush=True)
+
+
+def startup_start_time_selection() -> dt.datetime | None:
+    if noninteractive_selection_enabled():
+        print("Start mode: immediate (--auto-start).", flush=True)
+        return None
+
+    print("=" * 72, flush=True)
+    print("Choose when to start generating:", flush=True)
+    print("  1. Start immediately", flush=True)
+    print("  2. Start at a scheduled time", flush=True)
+    while True:
+        choice = input("Start mode [1/2]: ").strip()
+        if choice in {"", "1"}:
+            print("Start mode: immediate.", flush=True)
+            return None
+        if choice == "2":
+            hour = _prompt_bounded_integer("Start hour [0-23]: ", 0, 23)
+            minute = _prompt_bounded_integer("Start minute [0-59]: ", 0, 59)
+            target = next_start_datetime(hour, minute)
+            print(f"Start mode: scheduled for {target:%Y-%m-%d %H:%M}.", flush=True)
+            return target
+        print("Please enter 1 or 2.", flush=True)
+
+
+def wait_until_start_time(target: dt.datetime | None) -> None:
+    if target is None:
+        return
+    while True:
+        remaining = (target - dt.datetime.now()).total_seconds()
+        if remaining <= 0:
+            print(f"Scheduled start time reached: {target:%Y-%m-%d %H:%M}.", flush=True)
+            return
+        print(
+            f"Waiting for scheduled start: {target:%Y-%m-%d %H:%M} "
+            f"({dt.timedelta(seconds=int(remaining))} remaining). Press Ctrl+C to abort.",
+            flush=True,
+        )
+        time.sleep(min(remaining, 60))
+
+
 def choose_fixed_clothing_theme(
     fixed_clothing_themes: list[str],
     art_plan: dict | None = None,
@@ -2495,9 +2559,8 @@ def main() -> None:
 
     print("Keep ChatGPT desktop open, unlocked, and focused.")
     print("Press Ctrl+C in this terminal to abort. Moving the mouse to a virtual-screen corner pauses the next click.")
-    if "--shutdown" in sys.argv:
-        schedule_safety_shutdown()
-    else:
+    safety_shutdown_enabled = "--shutdown" in sys.argv
+    if not safety_shutdown_enabled:
         print("Safety shutdown is disabled for this feedback run. Use --shutdown to enable it.")
     enable_runtime_git_pull = "--no-runtime-git-pull" not in sys.argv
     if "--runtime-pull-interval" in sys.argv:
@@ -2528,6 +2591,10 @@ def main() -> None:
     fixed_character_selection = startup_character_selection()
     fixed_scene_plan_names = startup_scene_selection()
     fixed_clothing_themes = startup_clothing_selection()
+    scheduled_start = startup_start_time_selection()
+    wait_until_start_time(scheduled_start)
+    if safety_shutdown_enabled:
+        schedule_safety_shutdown()
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
         flush=True,
