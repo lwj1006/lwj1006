@@ -1,6 +1,7 @@
 from art_direction_options import (
     choose_visual_design,
     outfit_has_fixed_colorway,
+    outfit_prop_rule_for,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -11,6 +12,8 @@ from photographer_prompt_plans import (
     choose_photographer_composition_plan,
     choose_photographer_scene_plan,
     choose_photographer_shot_scale,
+    resolve_photographer_action_style,
+    resolve_photographer_shot_scale,
 )
 
 
@@ -117,6 +120,7 @@ def _character_block(character_name, profile, identity_tokens):
 
 
 def _outfit_block(outfit, profile):
+    outfit_prop_rule = outfit_prop_rule_for(outfit)
     if outfit_has_fixed_colorway(outfit):
         color_direction = (
             "Color direction: preserve the garment colors explicitly stated in the outfit. Keep character "
@@ -131,6 +135,7 @@ def _outfit_block(outfit, profile):
         )
     return [
         f"Garment design: {_clip_text(outfit, 190)}",
+        f"Outfit prop pilot: {outfit_prop_rule}." if outfit_prop_rule else "",
         (
             "Use opaque woven or knit fabric. Lightweight lace, chiffon, or gauze may feel airy but must "
             "never look like clear plastic or reveal the body underneath."
@@ -169,6 +174,8 @@ def prompt_for_art_direction(
             action_style,
             outfit_direction or art_plan.get("outfit_direction"),
         )
+    action_style = resolve_photographer_action_style(composition_plan, action_style)
+    shot_scale = resolve_photographer_shot_scale(composition_plan, shot_scale)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)

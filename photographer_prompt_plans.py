@@ -446,13 +446,35 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
     },
     {
         "name": "vertical_overhead_90_degree",
-        "composition": "true 90-degree overhead composition using simple floor shapes around a clearly readable character",
-        "camera": "camera directly above the character, optical axis vertical to the floor, normal perspective without fisheye distortion",
-        "pose": "adapt posture to the selected shot scale: close crops show a clearly readable upward-facing face and hair shape, while wider crops may show a simple seated, kneeling, or modest lying arrangement",
+        "composition": "unmistakable true 90-degree ceiling-overhead composition with the floor parallel to the image plane and a clearly readable character",
+        "camera": "camera fixed directly on the ceiling above the character, optical axis exactly vertical to the floor at 90 degrees, no diagonal high-angle substitution and no fisheye distortion",
+        "pose": "simple floor-level seated, kneeling, reclining, or upward-looking arrangement designed specifically for the vertical overhead view; limbs remain separated and readable",
         "foreground": "none; only restrained floor or set shapes surround the character",
         "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
-        "guardrail": "keep the character large and central enough to remain the first read; avoid clutter and anatomy overlap",
+        "guardrail": "must read immediately as a ceiling-mounted 90-degree top-down shot; do not convert it into a mild high angle, eye-level portrait, or tiny subject",
         "tags": ["photographer_composition", "overhead", "vertical_camera"],
+        "weight": 1.0,
+    },
+    {
+        "name": "floor_level_leg_length_low_angle",
+        "composition": "dramatic floor-level upward fashion frame using vertical leg lines to create a tall elongated silhouette while the face stays readable",
+        "camera": "camera close to floor level and below knee height, looking upward along the standing figure with a moderate wide-angle fashion lens",
+        "pose": "upright standing pause or one stable forward step; legs remain naturally separated, torso balanced, and face visible above",
+        "foreground": "a clean floor edge may anchor the bottom of frame; no foreground obstruction",
+        "lighting": "clean face light and a controlled rim keep the upward silhouette readable",
+        "guardrail": "show an intentional from-below perspective and long vertical leg line without fetish framing, underwear visibility, distorted feet, or losing the face",
+        "tags": ["photographer_composition", "low_camera", "floor_level", "leg_length_perspective"],
+        "weight": 1.0,
+    },
+    {
+        "name": "extreme_chest_up_close_portrait",
+        "composition": "large tight portrait cropped strictly from the upper chest upward, with face, eyes, hairstyle, shoulders, and neckline filling nearly the entire frame",
+        "camera": "close portrait distance at eye level or a gentle three-quarter angle, normal portrait lens, shallow depth of field",
+        "pose": "simple head-and-shoulder posture with a natural gaze; hands remain outside the crop unless one simple fingertip edge appears",
+        "foreground": "none; background becomes a restrained soft field",
+        "lighting": "precise facial light and eye highlights with clean separation around hair and shoulders",
+        "guardrail": "crop only from upper chest upward; do not widen to waist-up or half-body, do not emphasize cleavage, and do not let scenery compete with the face",
+        "tags": ["photographer_composition", "extreme_closeup", "chest_up_crop", "character_focus"],
         "weight": 1.0,
     },
 ]
@@ -490,6 +512,49 @@ PHOTOGRAPHER_SHOT_SCALES = [
         "weight": 1.0,
     },
 ]
+
+SPECIAL_COMPOSITION_SHOT_SCALES = {
+    "vertical_overhead_90_degree": {
+        "name": "overhead_character_dominant",
+        "description": "true 90-degree top-down framing with the character occupying about 60-75 percent of the image; enough body and floor geometry remain visible to prove the vertical ceiling viewpoint",
+    },
+    "floor_level_leg_length_low_angle": {
+        "name": "floor_level_full_figure",
+        "description": "near full-body vertical framing from feet to face; the upward perspective and long leg line are clearly visible while the face remains readable",
+    },
+    "extreme_chest_up_close_portrait": {
+        "name": "strict_upper_chest_closeup",
+        "description": "very large upper-chest-up close portrait; only upper chest, shoulders, neck, face, and hair are visible, filling about 75-90 percent of the image",
+    },
+}
+
+SPECIAL_COMPOSITION_ACTION_STYLES = {
+    "vertical_overhead_90_degree": {
+        "name": "overhead_readable_floor_pose",
+        "body_silhouette": "simple seated, kneeling, modest reclining, or upward-looking floor-level pose designed for a true ceiling-overhead view; limbs stay separated, hands simple, and face readable",
+        "tags": ["overhead", "stable_pose", "camera_specific"],
+    },
+    "floor_level_leg_length_low_angle": {
+        "name": "stable_floor_level_step",
+        "body_silhouette": "upright standing pause or one stable forward step designed for a floor-level upward camera; legs stay naturally separated, torso balanced, hands simple, and face visible",
+        "tags": ["standing", "low_camera", "camera_specific"],
+    },
+    "extreme_chest_up_close_portrait": {
+        "name": "quiet_head_and_shoulders",
+        "body_silhouette": "quiet head-and-shoulder portrait moment with a natural gaze and relaxed neckline; hands stay outside the tight upper-chest-up crop",
+        "tags": ["extreme_closeup", "stable_pose", "camera_specific"],
+    },
+}
+
+
+def resolve_photographer_shot_scale(composition_plan, shot_scale):
+    special = SPECIAL_COMPOSITION_SHOT_SCALES.get(composition_plan.get("name"))
+    return dict(special) if special else dict(shot_scale)
+
+
+def resolve_photographer_action_style(composition_plan, action_style):
+    special = SPECIAL_COMPOSITION_ACTION_STYLES.get(composition_plan.get("name"))
+    return dict(special) if special else dict(action_style)
 
 
 def _weighted_choice(items):

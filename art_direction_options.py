@@ -97,7 +97,7 @@ OUTFIT_DIRECTIONS = [
     "cream open-knit oversized sweater with restrained red, orange, navy, and light-blue stripes, paired with light-wash denim shorts, creative casual style",
     "white crossover draped sleeveless top with a modest neckline and coordinated white skirt or trousers, minimalist resort styling",
     "light-blue oversized button-up shirt with rolled sleeves and a dark-navy high-waist A-line mini skirt, clean intellectual casual style",
-    "white flowing maxi resort dress with a gathered bow-front bodice and relaxed full-length skirt, airy vacation styling",
+    "white flowing midi resort dress with a gathered bow-front bodice, controlled skirt volume, and a muted-color waist accent, airy vacation styling",
     "sky-blue seamless athletic top with wide straps and matching high-waist full-length leggings, clean pilates styling",
     "green-and-white small-check oversized button-up shirt with a gray high-waist pleated skirt and restrained colorful scarf accent, playful preppy style",
     "white mock-neck short-sleeve inner top with a tailored gray sleeveless vest and matching straight skirt, modern preppy set",
@@ -108,7 +108,7 @@ OUTFIT_DIRECTIONS = [
     "white relaxed crew-neck T-shirt with a black asymmetric athletic wrap skirt, clean sporty daily style",
     "navy-and-white striped short-sleeve knit top with a white clean A-line skirt, brown loafers, and restrained preppy styling",
     "white-based red small-floral camisole midi dress with a square neckline, gathered waist, and softly flowing skirt, gentle garden vacation style",
-    "blue-gray micro-plaid short-sleeve shirt dress with a pointed collar, button front, brown belted waist, and integrated pleated skirt, refined vintage preppy style",
+    "blue-gray micro-plaid short-sleeve shirt dress with a pointed collar, button front, brown belted waist, integrated pleated skirt, and a small structured shoulder bag worn securely with hands free, refined vintage preppy style",
     "pastel-lavender oversized T-shirt with a cream high-waist tiered ruffle skirt, soft feminine casual styling",
     "white fitted camisole with light-blue lace-trim neckline and a small bow, paired with a light-blue flowing maxi skirt, fresh summer styling",
     "cream oversized fuzzy knit pullover with pastel-pink, coral-red, and lavender color-blocked sleeves, cozy gentle styling",
@@ -118,7 +118,7 @@ OUTFIT_DIRECTIONS = [
     "camel suede cropped jacket with a matching midi skirt, layered over a navy knit top and blue micro-check shirt, vintage collegiate styling",
     "dark-olive oversized hoodie with light-gray wide-leg sweatpants, relaxed cozy styling",
     "dark-indigo cropped denim jacket and matching high-waist skirt with restrained black floral embroidery, polished embellished denim styling",
-    "black fine-knit cardigan over a white crew-neck inner top with charcoal high-waist wide-leg trousers, French minimalist styling",
+    "black fine-knit cardigan over a white crew-neck inner top with charcoal high-waist wide-leg trousers, with a slim closed umbrella resting beside the character and not held, French minimalist styling",
     "navy short-sleeve fitted knit dress with a round neckline and softly flared hem, refined city styling",
     "pastel-pink jacquard knit sweater with camel-beige geometric woven bands, soft retro preppy styling",
     "light-blue micro-gingham oversized button-up shirt with a pointed collar and folded cuffs, fresh collegiate styling",
@@ -137,7 +137,7 @@ OUTFIT_DIRECTIONS = [
     "oversized multicolor open-knit sweater with relaxed denim shorts, creative casual street style",
     "crossover draped sleeveless top with a modest neckline and coordinated skirt or trousers, minimalist resort styling",
     "oversized button-up shirt with rolled sleeves and a high-waist A-line mini skirt, clean intellectual casual style",
-    "flowing maxi resort dress with a gathered bow-front bodice and relaxed full-length skirt, airy vacation styling",
+    "flowing midi resort dress with a gathered bow-front bodice and controlled skirt volume, airy vacation styling",
     "seamless athletic top with wide straps and matching high-waist full-length leggings, clean pilates styling",
     "small-check oversized button-up shirt with a high-waist pleated skirt and restrained scarf accent, playful preppy style",
     "mock-neck short-sleeve inner top with a tailored sleeveless vest and matching straight skirt, modern preppy set",
@@ -148,7 +148,7 @@ OUTFIT_DIRECTIONS = [
     "relaxed crew-neck T-shirt with an asymmetric athletic wrap skirt, clean sporty daily style",
     "striped short-sleeve knit top with a clean A-line skirt, loafers, and restrained preppy styling",
     "small-floral camisole midi dress with a square neckline, gathered waist, and softly flowing skirt, gentle garden vacation style",
-    "micro-plaid short-sleeve shirt dress with a pointed collar, button front, belted waist, and integrated pleated skirt, refined vintage preppy style",
+    "micro-plaid short-sleeve shirt dress with a pointed collar, button front, belted waist, integrated pleated skirt, and a small structured shoulder bag worn securely with hands free, refined vintage preppy style",
     "oversized T-shirt with a high-waist tiered ruffle skirt, soft feminine casual styling",
     "fitted camisole with lace-trim neckline and a small bow, paired with a flowing maxi skirt, fresh summer styling",
     "oversized fuzzy knit pullover with softly color-blocked sleeves, cozy gentle styling",
@@ -158,7 +158,7 @@ OUTFIT_DIRECTIONS = [
     "suede cropped jacket with a matching midi skirt, layered over a knit top and micro-check shirt, vintage collegiate styling",
     "oversized hoodie with wide-leg sweatpants, relaxed cozy styling",
     "cropped denim jacket and matching high-waist skirt with restrained floral embroidery, polished embellished denim styling",
-    "fine-knit cardigan over a crew-neck inner top with high-waist wide-leg trousers, French minimalist styling",
+    "fine-knit cardigan over a crew-neck inner top with high-waist wide-leg trousers, with a slim closed umbrella resting beside the character and not held, French minimalist styling",
     "short-sleeve fitted knit dress with a round neckline and softly flared hem, refined city styling",
     "jacquard knit sweater with restrained geometric woven bands, soft retro preppy styling",
     "micro-gingham oversized button-up shirt with a pointed collar and folded cuffs, fresh collegiate styling",
@@ -226,12 +226,12 @@ CHARACTER_PROFILES = {
         "color_anchor": "silver white, black, gold",
     },
     "叶瞬光": {
-        "official_core": "long warm brown hair, dark inner hair layers, red eyes, red ribbon or flower hair accessory, human ears only.",
-        "identity_tokens": ["long warm brown hair", "dark inner hair layers", "red eyes", "red ribbon or flower hair accessory", "human ears only"],
-        "viewer_relationship": "quiet off-camera attention, light expression, relaxed hands and shoulder line.",
-        "thumbnail_strategy": "warm brown hair, dark inner layers, red eyes, and red accessory must stay stable; do not add animal ears or tail.",
-        "interaction_rule": "red cord, slim ribbon, clean light streak, or small distant blade-like ornament may be an accent; do not force a hand-held weapon, sect gate, mountain temple, animal ears, or tail.",
-        "color_anchor": "warm brown, red, ivory, black gold",
+        "official_core": "very long warm-brown hair with deep charcoal-black inner sections framing the face, large pointed warm-brown animal ears, red eyes, silver forehead band, red flower-knot hair ornaments, and one very large fluffy warm-brown tail.",
+        "identity_tokens": ["very long warm-brown hair", "deep charcoal-black inner face-framing hair sections", "large pointed warm-brown animal ears", "red eyes", "silver forehead band", "red flower-knot hair ornaments", "one very large fluffy warm-brown tail"],
+        "viewer_relationship": "confident lively gaze or a relaxed side glance; keep both eyes, animal ears, two-tone hair framing, and the large tail silhouette readable.",
+        "thumbnail_strategy": "warm-brown outer hair, dark inner face-framing sections, red eyes, pointed animal ears, silver forehead band, red flower knots, and one huge fluffy brown tail are mandatory identity anchors.",
+        "interaction_rule": "standing, walking, seated, or a small confident gesture are fine; the large tail may form a clean arc behind or beside the body, while weapons and complex hand-held objects remain optional and distant.",
+        "color_anchor": "warm brown, charcoal black, red, silver, muted gold",
     },
     "席德": {
         "official_core": "short light cyan-blue hair, large blue back braid, green or teal-green eyes, mechanical arm parts, orange-yellow cable accents.",
@@ -2023,6 +2023,15 @@ def outfit_variation_for(character_name, outfit_direction=None):
 def outfit_has_fixed_colorway(outfit_direction):
     text = str(outfit_direction or "")
     return any(text.startswith(theme) for theme in FIXED_COLOR_OUTFIT_DIRECTIONS)
+
+
+def outfit_prop_rule_for(outfit_direction):
+    text = str(outfit_direction or "").lower()
+    if "small structured shoulder bag" in text:
+        return "one small structured shoulder bag is worn securely on the shoulder; both hands remain empty and never grip the bag or strap"
+    if "slim closed umbrella" in text:
+        return "one slim closed umbrella rests beside the character as a simple scene prop; it is not held or touched"
+    return ""
 
 
 
