@@ -305,14 +305,6 @@ CHARACTER_PROFILES = {
         "interaction_rule": "hands near chest, relaxed posture, or side gaze are fine; avoid complex gestures.",
         "color_anchor": "silver white, black, gold",
     },
-    "叶瞬光": {
-        "official_core": "very long warm-brown hair with deep charcoal-black inner sections framing the face, large pointed warm-brown animal ears, red eyes, silver forehead band, red flower-knot hair ornaments, and one very large fluffy warm-brown tail.",
-        "identity_tokens": ["very long warm-brown hair", "deep charcoal-black inner face-framing hair sections", "large pointed warm-brown animal ears", "red eyes", "silver forehead band", "red flower-knot hair ornaments", "one very large fluffy warm-brown tail"],
-        "viewer_relationship": "confident lively gaze or a relaxed side glance; keep both eyes, animal ears, two-tone hair framing, and the large tail silhouette readable.",
-        "thumbnail_strategy": "warm-brown outer hair, dark inner face-framing sections, red eyes, pointed animal ears, silver forehead band, red flower knots, and one huge fluffy brown tail are mandatory identity anchors.",
-        "interaction_rule": "standing, walking, seated, or a small confident gesture are fine; the large tail may form a clean arc behind or beside the body, while weapons and complex hand-held objects remain optional and distant.",
-        "color_anchor": "warm brown, charcoal black, red, silver, muted gold",
-    },
     "席德": {
         "official_core": "short light cyan-blue hair, large blue back braid, green or teal-green eyes, mechanical arm parts, orange-yellow cable accents.",
         "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "mechanical arm parts", "orange-yellow cable accents"],
