@@ -183,9 +183,10 @@ MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
 CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可", "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅"]
-CHARACTERS_PER_BATCH = 3
+CHARACTERS_PER_BATCH = 6
+IMAGES_PER_CHARACTER = 20
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
-TOTAL_RUNS = 999
+TOTAL_RUNS = 120
 
 CHECK_INTERVAL_SECONDS = 120
 MAX_UPLOAD_SETTLE_SECONDS = 15
@@ -1835,6 +1836,21 @@ def choose_character_batch(used_characters: list[str]) -> list[str]:
     return selected
 
 
+def build_single_round_character_schedule(
+    character_names: list[str],
+    total_runs: int,
+    images_per_character: int = IMAGES_PER_CHARACTER,
+) -> list[str]:
+    if total_runs <= 0 or images_per_character <= 0:
+        return []
+    schedule = [
+        character_name
+        for character_name in character_names
+        for _ in range(images_per_character)
+    ]
+    return schedule[:total_runs]
+
+
 def _parse_character_selection(raw_choice: str) -> list[str] | None:
     choice = raw_choice.strip()
     if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
@@ -2426,20 +2442,27 @@ def main() -> None:
 
     while run_number <= total_runs and not stop_requested:
         random_character_mode = fixed_character_selection is None
-        selected_characters = (
+        round_characters = (
             choose_character_batch(used_character_batch)
             if random_character_mode
             else fixed_character_selection[:]
         )
+        selected_characters = build_single_round_character_schedule(round_characters, total_runs)
         batch_completed_characters: list[str] = []
         batch_used_themes: set[str] = set()
         batch_used_plans: set[str] = set()
-        validate_reference_files_for_characters(selected_characters)
+        active_batch_character: str | None = None
+        validate_reference_files_for_characters(round_characters)
         print("=" * 72, flush=True)
         print(
-            f"Character-first batch selected ({len(selected_characters)} characters x 1, "
+            f"Single character round selected ({len(round_characters)} characters x up to {IMAGES_PER_CHARACTER} images, "
             f"{'random cycle' if random_character_mode else 'fixed selection'}): "
-            f"{'、'.join(selected_characters)}",
+            f"{'、'.join(round_characters)}",
+            flush=True,
+        )
+        print(
+            f"Planned images this round: {len(selected_characters)}/{total_runs}. "
+            "Each character completes its consecutive image block before switching.",
             flush=True,
         )
         print(
@@ -2456,6 +2479,14 @@ def main() -> None:
         for character_name in selected_characters:
             if run_number > total_runs:
                 break
+            if character_name != active_batch_character:
+                active_batch_character = character_name
+                batch_used_themes.clear()
+                batch_used_plans.clear()
+                print(
+                    f"Starting consecutive block for {character_name}: up to {IMAGES_PER_CHARACTER} images.",
+                    flush=True,
+                )
 
             config_revision = maybe_refresh_runtime_config(enable_git_pull=enable_runtime_git_pull)
             reference_files = reference_files_for_character(character_name)
@@ -2569,7 +2600,8 @@ def main() -> None:
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             mark_character_clothing_theme_used(character_name, theme, used_by_character)
             mark_character_art_plan_used(character_name, plan_name, used_plans_by_character)
-            batch_completed_characters.append(character_name)
+            if character_name not in batch_completed_characters:
+                batch_completed_characters.append(character_name)
             recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
             recent_visual_tags = recent_visual_tags[-12:]
 
@@ -2589,6 +2621,7 @@ def main() -> None:
         if batch_completed_characters:
             if random_character_mode:
                 mark_character_batch_used(batch_completed_characters, used_character_batch)
+        break
 
     print("All runs completed. Safety shutdown remains scheduled.")
 
