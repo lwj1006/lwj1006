@@ -93,7 +93,7 @@ OUTFIT_DIRECTIONS = [
     "white-based blue small-floral wrap dress with a modest V neckline, fitted waist, and soft A-line skirt, fresh garden style",
     "pink ribbed cropped cardigan over a white fitted straight-neck inner top, paired with a black high-waist skirt or trousers, sweet modern styling",
     "blue, cyan, lime, and white striped crochet-knit sleeveless top with medium-wash high-waist straight-leg jeans, colorful creative casual style",
-    "black velvet mermaid evening gown with a modest sweetheart neckline and white chiffon shoulder wrap, elegant banquet styling",
+    "black velvet mermaid evening gown with a modest sweetheart neckline and white chiffon shoulder wrap; keep the gown as dense soft-pile low-sheen velvet and the wrap as lightweight airy opaque chiffon, elegant banquet styling",
     "white fitted ribbed tank top with a gray high-waist pleated skirt and small blue ribbon accent, clean youthful preppy style",
     "cream open-knit oversized sweater with restrained red, orange, navy, and light-blue stripes, paired with light-wash denim shorts, creative casual style",
     "white crossover draped sleeveless top with a modest neckline and coordinated white skirt or trousers, minimalist resort styling",
@@ -113,7 +113,7 @@ OUTFIT_DIRECTIONS = [
     "small-floral wrap dress with a modest V neckline, fitted waist, and soft A-line skirt, fresh garden style",
     "ribbed cropped cardigan over a fitted straight-neck inner top, paired with a high-waist skirt or trousers, sweet modern styling",
     "striped crochet-knit sleeveless top with high-waist straight-leg jeans, colorful creative casual style",
-    "velvet mermaid evening gown with a modest sweetheart neckline and lightweight chiffon shoulder wrap, elegant banquet styling",
+    "velvet mermaid evening gown with a modest sweetheart neckline and lightweight chiffon shoulder wrap; keep the gown as dense soft-pile low-sheen velvet and the wrap as lightweight airy opaque chiffon, elegant banquet styling",
     "fitted ribbed tank top with a high-waist pleated skirt and small ribbon accent, clean youthful preppy style",
     "oversized multicolor open-knit sweater with relaxed denim shorts, creative casual street style",
     "crossover draped sleeveless top with a modest neckline and coordinated skirt or trousers, minimalist resort styling",
@@ -2000,6 +2000,37 @@ def outfit_prop_rule_for(outfit_direction):
         rules.append("a small bouquet may appear beside the body without covering the face or outfit silhouette")
     if "bag" in text:
         rules.append("a small bag may hang naturally from the shoulder or rest beside the body")
+    return "; ".join(rules)
+
+
+def outfit_material_rule_for(outfit_direction):
+    text = str(outfit_direction or "").lower()
+    rules = []
+    soft_materials = ("satin", "lace", "chiffon", "silk", "knit", "cotton", "sweatshirt", "jersey", "tulle", "mesh")
+    if "leather" in text and any(keyword in text for keyword in soft_materials):
+        rules.append(
+            "leather texture and leather shine apply only to the explicitly leather garment; all other garments remain "
+            "soft flexible textiles; never spread leather, latex, vinyl, PVC, plastic, or wet-look shine onto them"
+        )
+    if "velvet" in text and any(keyword in text for keyword in ("chiffon", "blazer", "tailored", "shirt", "lace", "satin")):
+        rules.append(
+            "velvet remains a dense soft-pile fabric with restrained plush highlights only on the velvet garment; "
+            "chiffon stays lightweight and airy, while tailored fabric stays matte and structured"
+        )
+    if "satin" in text and "lace" in text:
+        rules.append(
+            "satin keeps a soft flexible low-gloss drape, while lace remains delicate matte textile lace rather than "
+            "shiny leather, latex, vinyl, PVC, or molded plastic"
+        )
+    if "lace" in text and "denim" in text:
+        rules.append(
+            "lace remains delicate matte textile with opaque lining, while denim remains sturdy woven twill; "
+            "do not merge their textures"
+        )
+    if ("knit" in text or "sweater" in text) and any(keyword in text for keyword in ("denim", "corduroy", "shirt", "blouse")):
+        rules.append(
+            "knitwear remains soft looped yarn, clearly separate from woven denim, corduroy, shirt, or blouse fabric"
+        )
     return "; ".join(rules)
 
 

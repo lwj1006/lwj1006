@@ -1,6 +1,7 @@
 from art_direction_options import (
     choose_visual_design,
     outfit_has_fixed_colorway,
+    outfit_material_rule_for,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -117,6 +118,7 @@ def _character_block(character_name, profile, identity_tokens):
 
 
 def _outfit_block(outfit, profile):
+    outfit_material_rule = outfit_material_rule_for(outfit)
     if outfit_has_fixed_colorway(outfit):
         color_direction = (
             "Color direction: preserve the garment colors explicitly stated in the outfit. Keep character "
@@ -131,6 +133,7 @@ def _outfit_block(outfit, profile):
         )
     return [
         f"Garment design: {_clip_text(outfit, 190)}",
+        f"Material separation: {outfit_material_rule}." if outfit_material_rule else "",
         (
             "Use opaque woven or knit fabric. Lightweight lace, chiffon, or gauze may feel airy but must "
             "never look like clear plastic or reveal the body underneath."
