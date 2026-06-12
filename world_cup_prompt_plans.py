@@ -131,11 +131,6 @@ FOOTBALL_ACTIONS = [
         "body_silhouette": "front-facing football-supporter tense-match pose, both hands clasped firmly together near the upper chest, shoulders slightly raised, eyes wide and intensely hopeful, lips slightly parted",
         "tags": ["supporter_poster", "football_culture", "tense_match"],
     },
-    {
-        "name": "supporter_clap",
-        "body_silhouette": "front-facing football-supporter poster pose caught in lively applause at upper-chest height, hands anatomically separated and readable, delighted cheering smile and energized eyes",
-        "tags": ["supporter_poster", "football_culture", "applause"],
-    },
 ]
 
 
