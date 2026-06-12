@@ -169,7 +169,7 @@ def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
         return plan, action
 
     def choose_world_cup_clothing(character_name, art_plan, used_by_character, batch_used_themes=None):
-        return world_cup_plans.world_cup_outfit_for(character_name)
+        return art_plan["outfit_direction"]
 
     def keep_world_cup_outfit(character_name, theme, art_plan):
         return theme, False
@@ -198,7 +198,7 @@ def activate_prompt_mode(mode: str) -> None:
         _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans)
         print(
             "Prompt mode C active: World Cup front-facing supporter poster. "
-            f"Stable assignments: {len(world_cup_plans.CHARACTER_TEAM_SPECS)} characters.",
+            f"Random kit-design pool: {len(world_cup_plans.TEAM_PROFILE_POOL)} designs.",
             flush=True,
         )
         return

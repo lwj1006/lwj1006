@@ -40,7 +40,14 @@ def prompt_for_art_direction(
     composition_plan = composition_plan or choose_world_cup_composition_plan(recent_tags, art_plan, action_style, outfit_direction)
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
-    spec = world_cup_spec_for(character_name)
+    spec = {
+        "team": art_plan.get("team"),
+        "slug": str(art_plan.get("name", "")).removeprefix("world_cup_"),
+        "kit": "",
+        "fit_reason": art_plan.get("fit_reason", "modern supporter-poster styling"),
+    }
+    if not spec["team"]:
+        spec = world_cup_spec_for(character_name)
     outfit = outfit_direction or art_plan.get("outfit_direction") or world_cup_outfit_for(character_name)
 
     lines = [
@@ -48,8 +55,8 @@ def prompt_for_art_direction(
         "Poster hierarchy: first read is the designed World Cup supporter campaign poster; second read is the national-team-inspired fashion; third read is the recognizable character portrait.",
         "",
         "[CHARACTER-TEAM MATCH]",
-        f"Character: {character_name}. Assigned team inspiration: {spec['team']}.",
-        f"Why this pairing works visually: {spec['fit_reason']}.",
+        f"Character: {character_name}. Randomly selected team inspiration for this poster: {spec['team']}.",
+        f"Selected supporter-poster mood: {spec['fit_reason']}.",
         f"Identity: {profile['official_core']}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
         f"Identity readability: {viewer_distance_for(character_name)}.",
@@ -63,7 +70,7 @@ def prompt_for_art_direction(
         "All fabric is opaque. Execute the selected T-shirt length, hem treatment, and bottom silhouette clearly; do not replace them with a professional player uniform.",
         "A selected front knot must be one small neat clothing knot only. A selected loose longline T-shirt must remain fully untied with its hem down.",
         "A selected cheek mark must stay tiny, simple, unofficial, and readable as team-color fan decoration rather than an official crest.",
-        "Style the outfit as comfortable, tasteful roadside supporter fashion with natural proportions.",
+        "Style the outfit as comfortable, tasteful national-team supporter poster fashion with natural proportions.",
         "",
         "[FRONT-FACING SUPPORTER POSTER]",
         f"Iconic supporter pose: {action_style['body_silhouette']}.",
@@ -75,7 +82,7 @@ def prompt_for_art_direction(
         f"Composition guardrail: {composition_plan['guardrail']}.",
         "The character is posing for a national-team supporter campaign poster, not actually watching a match, playing football, training, or posing as an athlete.",
         "Pose discipline: execute the one selected football-supporter culture pose clearly. Preserve its specific arm position, scarf, flag fabric, jersey-presentation gesture, applause, or team-pride body language instead of replacing it with a generic small fist beside the shoulder.",
-        "Supporter-prop rule: any selected scarf, shoulder-draped flag fabric, or fan banner uses plain national-team color fields only, stays text-free and crest-free, and must not hide the face, hair identity, or jersey design.",
+        "Supporter-prop rule: any selected scarf uses plain national-team color fields only, stays text-free and crest-free, and must not hide the face, hair identity, or jersey design. Do not add a draped flag, wearable flag, or fan banner.",
         "Hands stay simple and anatomically readable. Preserve natural original proportions and a neutral slim anime build.",
         "",
         "[MATCHDAY POSTER WORLD]",

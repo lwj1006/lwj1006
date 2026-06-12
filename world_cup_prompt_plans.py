@@ -74,18 +74,15 @@ KIT_DESIGNS_2026 = {
 }
 
 
-CHARACTER_TEAM_SPECS = {
-    character_name: {
+TEAM_PROFILE_POOL = [
+    {
         "team": team,
         "slug": slug,
         "kit": kit,
         "fit_reason": fit_reason,
     }
-    for character_name, (team, slug, kit, fit_reason) in zip(CHARACTER_NAMES, TEAM_SPECS)
-}
-
-if set(CHARACTER_TEAM_SPECS) != set(CHARACTER_PROFILES):
-    raise ValueError("World Cup character assignments must exactly match CHARACTER_PROFILES")
+    for team, slug, kit, fit_reason in TEAM_SPECS
+]
 
 
 FOOTBALL_ACTIONS = [
@@ -98,11 +95,6 @@ FOOTBALL_ACTIONS = [
         "name": "scarf_across_chest",
         "body_silhouette": "front-facing football-supporter poster pose, both hands holding the ends of a plain team-color scarf stretched cleanly across the upper chest, shoulders open, confident direct gaze",
         "tags": ["supporter_poster", "football_culture", "scarf_chest"],
-    },
-    {
-        "name": "flag_draped_shoulders",
-        "body_silhouette": "front-facing football-supporter poster pose with a plain national-color fabric draped around the shoulders like a fan flag, both hands lightly holding its front edges, direct confident gaze",
-        "tags": ["supporter_poster", "football_culture", "flag_drape"],
     },
     {
         "name": "jersey_color_presentation",
@@ -143,11 +135,6 @@ FOOTBALL_ACTIONS = [
         "name": "number_one_supporter",
         "body_silhouette": "front-facing football-supporter poster pose with one arm raised and one index finger pointing upward in a clear number-one gesture, other arm relaxed, confident direct smile",
         "tags": ["supporter_poster", "football_culture", "number_one"],
-    },
-    {
-        "name": "banner_corner_hold",
-        "body_silhouette": "front-facing football-supporter poster pose holding two upper corners of a small plain national-color fan banner behind the shoulders, arms open, banner text-free, face and hair fully visible",
-        "tags": ["supporter_poster", "football_culture", "banner"],
     },
 ]
 
@@ -213,16 +200,6 @@ SUPPORTER_OUTFIT_VARIANTS = [
         "a simple A-line short skirt",
         "fashionable national-team supporter poster styling",
     ),
-    (
-        "a longline supporter T-shirt worn loose with the full hem naturally down",
-        "a flowing ankle-length casual skirt with a clean simple silhouette",
-        "soft, elegant, and suitable for a composed supporter poster",
-    ),
-    (
-        "a regular-length short-sleeve supporter T-shirt worn naturally with the hem down",
-        "a flowing calf-length or ankle-length casual skirt",
-        "comfortable supporter-poster fashion with gentle movement",
-    ),
 ]
 
 
@@ -235,17 +212,16 @@ FACE_SUPPORTER_MARKS = [
 ]
 
 
-def world_cup_spec_for(character_name):
-    return CHARACTER_TEAM_SPECS.get(character_name, {
-        "team": "Japan",
-        "slug": "samurai_blue",
-        "kit": "deep blue jersey, white shorts, blue socks, restrained red trim",
-        "fit_reason": "clean, technical, character-first",
-    })
+def world_cup_spec_for(character_name=None):
+    return dict(random.choice(TEAM_PROFILE_POOL))
 
 
 def world_cup_outfit_for(character_name):
     spec = world_cup_spec_for(character_name)
+    return world_cup_outfit_for_spec(spec)
+
+
+def world_cup_outfit_for_spec(spec):
     top, bottom, styling_mood = random.choice(SUPPORTER_OUTFIT_VARIANTS)
     face_mark = random.choice(FACE_SUPPORTER_MARKS)
     jersey_design = KIT_DESIGNS_2026.get(spec["slug"], spec["kit"])
@@ -261,8 +237,8 @@ def world_cup_outfit_for(character_name):
     )
 
 
-def world_cup_plan_for(character_name):
-    spec = world_cup_spec_for(character_name)
+def world_cup_plan_for(character_name, spec=None):
+    spec = dict(spec or world_cup_spec_for(character_name))
     return {
         "name": f"world_cup_{spec['slug']}",
         "label": f"{spec['team']} football special",
@@ -272,7 +248,7 @@ def world_cup_plan_for(character_name):
         "spatial_structure": "bright open football stadium in daylight with clean green pitch, pale seating tiers, blue sky, soft white clouds, and simplified shallow stadium geometry",
         "visual_device": "large team-color graphic panels, diagonal banner shapes, scarf-like borders, clean pitch-line curves, bright stadium shapes, and a clear title-space negative area",
         "body_silhouette": "clean iconic supporter-poster pose with a clearly readable face, character identity, jersey, and outfit silhouette",
-        "outfit_direction": world_cup_outfit_for(character_name),
+        "outfit_direction": world_cup_outfit_for_spec(spec),
         "material_language": "opaque supporter jersey fabric, fresh green grass, pale stadium seating, matte graphic panels, abstract fabric banners, and bright campaign daylight",
         "color_strategy": f"national-team colors form large bold poster framing and structured design blocks; character identity colors remain stable; suitability mood is {spec['fit_reason']}",
         "lighting_behavior": "bright premium daylight campaign lighting with clear face, eyes, full hair silhouette, jersey color blocks, blue-sky freshness, and controlled graphic separation",
