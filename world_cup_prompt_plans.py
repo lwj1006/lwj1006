@@ -88,47 +88,47 @@ TEAM_PROFILE_POOL = [
 FOOTBALL_ACTIONS = [
     {
         "name": "scarf_raised_overhead",
-        "body_silhouette": "front-facing football-supporter poster pose, both arms raised clearly overhead while stretching a plain team-color scarf horizontally, chest lifted, wide proud smile with bright excited eyes, strong triangular silhouette",
+        "body_silhouette": "front-facing football-supporter poster pose, both arms raised clearly overhead while stretching a plain team-color scarf horizontally, chest lifted, natural pleased expression that stays faithful to the character's usual personality, strong triangular silhouette",
         "tags": ["supporter_poster", "football_culture", "scarf_overhead"],
     },
     {
         "name": "scarf_across_chest",
-        "body_silhouette": "front-facing football-supporter poster pose, both hands holding the ends of a plain team-color scarf stretched cleanly across the upper chest, shoulders open, warm confident smile and lively eyes",
+        "body_silhouette": "front-facing football-supporter poster pose, both hands holding the ends of a plain team-color scarf stretched cleanly across the upper chest, shoulders open, subtle confident expression faithful to the character",
         "tags": ["supporter_poster", "football_culture", "scarf_chest"],
     },
     {
         "name": "flag_spread_behind_shoulders",
-        "body_silhouette": "front-facing football-supporter hero pose, both arms opened wide while holding the two upper corners of a large national flag fully spread behind the shoulders as a bold background silhouette, flag not worn or wrapped around the body, confident celebratory smile",
+        "body_silhouette": "front-facing football-supporter hero pose, both arms opened wide while holding the two upper corners of a large national flag fully spread behind the shoulders as a bold background silhouette, flag not worn or wrapped around the body, restrained proud expression faithful to the character",
         "tags": ["supporter_poster", "football_culture", "flag_spread"],
     },
     {
         "name": "large_flag_front_diagonal",
-        "body_silhouette": "front-facing football-supporter hero pose holding a large national flag diagonally across the lower foreground with both hands, flag sweeping from one lower corner toward the opposite side while face, upper torso, and jersey design remain fully visible, proud energized smile",
+        "body_silhouette": "front-facing football-supporter hero pose holding a large national flag diagonally across the lower foreground with both hands, flag sweeping from one lower corner toward the opposite side while face, upper torso, and jersey design remain fully visible, natural confident expression",
         "tags": ["supporter_poster", "football_culture", "flag_front"],
     },
     {
         "name": "large_flag_side_wave",
-        "body_silhouette": "front-facing football-supporter celebration pose using both hands to control a clean flagpole at one side while a large national flag billows outward beside the body in a strong side arc, torso engaged, joyful open smile and excited eyes",
+        "body_silhouette": "front-facing football-supporter celebration pose using both hands to control a clean flagpole at one side while a large national flag billows outward beside the body in a strong side arc, torso engaged, naturally cheerful expression without exaggeration",
         "tags": ["supporter_poster", "football_culture", "flag_side"],
     },
     {
         "name": "large_flag_front_open",
-        "body_silhouette": "front-facing football-supporter poster pose holding the two upper corners of a large national flag opened across the lower front of the body at waist height, keeping the jersey upper body, hands, face, and hair identity clearly visible, confident bright smile",
+        "body_silhouette": "front-facing football-supporter poster pose holding the two upper corners of a large national flag opened across the lower front of the body at waist height, keeping the jersey upper body, hands, face, and hair identity clearly visible, subtle proud expression",
         "tags": ["supporter_poster", "football_culture", "flag_front"],
     },
     {
         "name": "small_flag_wave",
-        "body_silhouette": "front-facing football-supporter celebration pose, one hand holding a small national flag on a short clean pole and waving it diagonally above shoulder height, other arm bent in an energetic cheer, open joyful smile",
+        "body_silhouette": "front-facing football-supporter celebration pose, one hand holding a small national flag on a short clean pole and waving it diagonally above shoulder height, other arm bent in an energetic cheer, natural friendly smile faithful to the character",
         "tags": ["supporter_poster", "football_culture", "flag_wave"],
     },
     {
         "name": "double_low_fist_goal_celebration",
-        "body_silhouette": "front-facing football-supporter goal celebration, both fists held low beside the waist with elbows bent and torso leaning slightly forward, delighted open smile and sparkling excited eyes",
+        "body_silhouette": "front-facing football-supporter goal celebration, both fists held low beside the waist with elbows bent and torso leaning slightly forward, controlled happy reaction faithful to the character's normal expression range",
         "tags": ["supporter_poster", "football_culture", "goal_celebration"],
     },
     {
         "name": "tense_clasped_supporter",
-        "body_silhouette": "front-facing football-supporter tense-match pose, both hands clasped firmly together near the upper chest, shoulders slightly raised, eyes wide and intensely hopeful, lips slightly parted",
+        "body_silhouette": "front-facing football-supporter tense-match pose, both hands clasped gently together near the upper chest, shoulders only slightly raised, focused attentive expression with restrained natural tension",
         "tags": ["supporter_poster", "football_culture", "tense_match"],
     },
 ]
