@@ -1,7 +1,6 @@
 from art_direction_options import (
     choose_visual_design,
     outfit_has_fixed_colorway,
-    outfit_prop_rule_for,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -12,8 +11,6 @@ from photographer_prompt_plans import (
     choose_photographer_composition_plan,
     choose_photographer_scene_plan,
     choose_photographer_shot_scale,
-    resolve_photographer_action_style,
-    resolve_photographer_shot_scale,
 )
 
 
@@ -81,24 +78,8 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
         f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
-        f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 230)}",
-        (
-            "Motion guardrail: no long forward stride, large forward stepping motion, running, or exaggerated "
-            "arm swing. A selected side-profile walk may remain small and restrained."
-        ),
-        (
-            "Pose commitment: execute this one selected body pose clearly. Do not replace it with a generic "
-            "slightly side-turned standing portrait, a neutral relaxed pause, or an unspecified three-quarter pose."
-        ),
-        (
-            "Crop discipline: the selected shot scale has priority over showing the complete pose. In close-up, "
-            "bust-up, waist-up, or knee-up framing, show only the naturally visible portion of the pose and never "
-            "widen to a full-body view merely to display feet or the entire silhouette."
-        ),
+        f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 175)}",
         f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
-        f"Mandatory subject orientation: {_clip_text(composition_plan.get('subject_orientation', ''), 220)}"
-        if composition_plan.get("subject_orientation")
-        else "",
         f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
         f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
         f"Subject scale: {_clip_text(shot_scale.get('description', ''), 145)}",
@@ -117,11 +98,7 @@ def _character_block(character_name, profile, identity_tokens):
         f"Character: {character_name}.",
         f"Identity: {_clip_text(profile['official_core'], 125)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
-        f"Natural behavior detail: {_clip_text(profile['interaction_rule'], 185)}",
-        (
-            "Natural behavior may influence expression and small hand details only. It must not replace, soften, "
-            "or override the single body pose selected in the photographer block."
-        ),
+        f"Natural behavior: {_clip_text(profile['interaction_rule'], 185)}",
         f"Identity readability: {viewer_distance_for(character_name)}.",
         (
             "Preserve natural original proportions. Use a neutral slim anime build with modest bust, "
@@ -140,7 +117,6 @@ def _character_block(character_name, profile, identity_tokens):
 
 
 def _outfit_block(outfit, profile):
-    outfit_prop_rule = outfit_prop_rule_for(outfit)
     if outfit_has_fixed_colorway(outfit):
         color_direction = (
             "Color direction: preserve the garment colors explicitly stated in the outfit. Keep character "
@@ -155,7 +131,6 @@ def _outfit_block(outfit, profile):
         )
     return [
         f"Garment design: {_clip_text(outfit, 190)}",
-        f"Outfit prop pilot: {outfit_prop_rule}." if outfit_prop_rule else "",
         (
             "Use opaque woven or knit fabric. Lightweight lace, chiffon, or gauze may feel airy but must "
             "never look like clear plastic or reveal the body underneath."
@@ -194,8 +169,6 @@ def prompt_for_art_direction(
             action_style,
             outfit_direction or art_plan.get("outfit_direction"),
         )
-    action_style = resolve_photographer_action_style(composition_plan, action_style)
-    shot_scale = resolve_photographer_shot_scale(composition_plan, shot_scale, action_style)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)

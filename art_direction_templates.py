@@ -5,7 +5,6 @@ from art_direction_options import (
     choose_shot_scale,
     choose_composition_plan,
     outfit_has_fixed_colorway,
-    outfit_prop_rule_for,
     outfit_variation_for,
     propagation_profile_for,
     required_identity_tokens_for,
@@ -105,7 +104,6 @@ def prompt_for_art_direction(
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
     outfit = outfit_variation_for(character_name, outfit_direction or art_plan.get("outfit_direction"))
-    outfit_prop_rule = outfit_prop_rule_for(outfit)
     if outfit_has_fixed_colorway(outfit):
         color_light_rule = (
             f"Color/light: preserve the garment colors explicitly stated in the outfit while keeping character identity colors stable "
@@ -148,7 +146,6 @@ def prompt_for_art_direction(
         "Scene must not redefine species, hairstyle, personality, or fixed lore.",
         "",
         f"Outfit: {_clip_text(outfit, 105)}",
-        f"Outfit prop pilot: {outfit_prop_rule}." if outfit_prop_rule else "",
         "Outfit opacity rule: all clothing must be opaque woven/knit fabric; lightweight lace, chiffon, or gauze can feel airy but must not look like clear plastic or reveal the body underneath.",
         color_light_rule,
         "",

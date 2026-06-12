@@ -36,6 +36,7 @@ from art_direction_templates import (
     prompt_for_art_direction,
     prompt_template_name,
 )
+from yang_mi_outfits import YANG_MI_COLOR_FREE_THEMES, YANG_MI_ORIGINAL_COLOR_THEMES
 # ChatGPT desktop batch automation.
 # Adjust these coordinates if the ChatGPT window position/size changes.
 
@@ -183,10 +184,9 @@ MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
 CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可", "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅"]
-CHARACTERS_PER_BATCH = 6
-IMAGES_PER_CHARACTER = 20
+CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
-TOTAL_RUNS = 120
+TOTAL_RUNS = 999
 
 CHECK_INTERVAL_SECONDS = 120
 MAX_UPLOAD_SETTLE_SECONDS = 15
@@ -421,7 +421,8 @@ ZHAO_JINMAI_ORIGINAL_COLOR_THEMES = [
     "cream open-knit oversized sweater with restrained red, orange, navy, and light-blue stripes, paired with light-wash denim shorts, creative casual style",
     "white crossover draped sleeveless top with a modest neckline and coordinated white skirt or trousers, minimalist resort styling",
     "light-blue oversized button-up shirt with rolled sleeves and a dark-navy high-waist A-line mini skirt, clean intellectual casual style",
-    "white flowing midi resort dress with a gathered bow-front bodice, controlled skirt volume, and a muted-color waist accent, airy vacation styling",
+    "white flowing maxi resort dress with a gathered bow-front bodice and relaxed full-length skirt, airy vacation styling",
+    "sky-blue seamless athletic top with wide straps and matching high-waist full-length leggings, clean pilates styling",
     "green-and-white small-check oversized button-up shirt with a gray high-waist pleated skirt and restrained colorful scarf accent, playful preppy style",
     "white mock-neck short-sleeve inner top with a tailored gray sleeveless vest and matching straight skirt, modern preppy set",
     "burgundy cropped lightweight windbreaker over a white inner top with a dark-gray high-waist pleated skirt and black sturdy boots, sporty preppy styling",
@@ -431,26 +432,6 @@ ZHAO_JINMAI_ORIGINAL_COLOR_THEMES = [
     "white relaxed crew-neck T-shirt with a black asymmetric athletic wrap skirt, clean sporty daily style",
     "navy-and-white striped short-sleeve knit top with a white clean A-line skirt, brown loafers, and restrained preppy styling",
     "white-based red small-floral camisole midi dress with a square neckline, gathered waist, and softly flowing skirt, gentle garden vacation style",
-    "blue-gray micro-plaid short-sleeve shirt dress with a pointed collar, button front, brown belted waist, integrated pleated skirt, and a small structured shoulder bag worn securely with hands free, refined vintage preppy style",
-    "pastel-lavender oversized T-shirt with a cream high-waist tiered ruffle skirt, soft feminine casual styling",
-    "white fitted camisole with light-blue lace-trim neckline and a small bow, paired with a light-blue flowing maxi skirt, fresh summer styling",
-    "cream oversized fuzzy knit pullover with pastel-pink, coral-red, and lavender color-blocked sleeves, cozy gentle styling",
-    "light-gray short-sleeve utility shirt dress with clean patch pockets and black mid-calf engineer boots, cool city styling",
-    "oversized lavender-striped button-up shirt with a cream high-waist tiered ruffle skirt, soft romantic styling",
-    "light-pink sleeveless chiffon blouse with opaque lining, high neckline, scarf tie, and restrained crystal accents, paired with a matching fitted skirt, refined evening styling",
-    "camel suede cropped jacket with a matching midi skirt, layered over a navy knit top and blue micro-check shirt, vintage collegiate styling",
-    "dark-olive oversized hoodie with light-gray wide-leg sweatpants, relaxed cozy styling",
-    "dark-indigo cropped denim jacket and matching high-waist skirt with restrained black floral embroidery, polished embellished denim styling",
-    "black fine-knit cardigan over a white crew-neck inner top with charcoal high-waist wide-leg trousers, with a slim closed umbrella resting beside the character and not held, French minimalist styling",
-    "navy short-sleeve fitted knit dress with a round neckline and softly flared hem, refined city styling",
-    "pastel-pink jacquard knit sweater with camel-beige geometric woven bands, soft retro preppy styling",
-    "light-blue micro-gingham oversized button-up shirt with a pointed collar and folded cuffs, fresh collegiate styling",
-    "light-blue micro-gingham relaxed shirt dress with a pointed collar and softly pleated flared hem, clean editorial styling",
-    "black-and-ivory abstract-print camisole maxi dress with a modest square neckline and flowing A-line silhouette, artistic resort styling",
-    "camel corduroy oversized blazer with matching high-waist wide-leg trousers and a beige button-up inner layer, retro tailored styling",
-    "red, black, and white striped oversized rugby shirt with dark-indigo tailored high-waist denim shorts, playful retro street style",
-    "cream-to-vivid-red gradient oversized fuzzy knit sweater with balloon sleeves, warm romantic styling",
-    "all-black lightweight cardigan and relaxed tapered trousers with a small white accent, minimalist travel styling",
 ]
 
 ZHAO_JINMAI_COLOR_FREE_THEMES = [
@@ -463,7 +444,8 @@ ZHAO_JINMAI_COLOR_FREE_THEMES = [
     "oversized multicolor open-knit sweater with relaxed denim shorts, creative casual street style",
     "crossover draped sleeveless top with a modest neckline and coordinated skirt or trousers, minimalist resort styling",
     "oversized button-up shirt with rolled sleeves and a high-waist A-line mini skirt, clean intellectual casual style",
-    "flowing midi resort dress with a gathered bow-front bodice and controlled skirt volume, airy vacation styling",
+    "flowing maxi resort dress with a gathered bow-front bodice and relaxed full-length skirt, airy vacation styling",
+    "seamless athletic top with wide straps and matching high-waist full-length leggings, clean pilates styling",
     "small-check oversized button-up shirt with a high-waist pleated skirt and restrained scarf accent, playful preppy style",
     "mock-neck short-sleeve inner top with a tailored sleeveless vest and matching straight skirt, modern preppy set",
     "cropped lightweight windbreaker over a simple inner top with a high-waist pleated skirt and sturdy boots, sporty preppy styling",
@@ -473,106 +455,6 @@ ZHAO_JINMAI_COLOR_FREE_THEMES = [
     "relaxed crew-neck T-shirt with an asymmetric athletic wrap skirt, clean sporty daily style",
     "striped short-sleeve knit top with a clean A-line skirt, loafers, and restrained preppy styling",
     "small-floral camisole midi dress with a square neckline, gathered waist, and softly flowing skirt, gentle garden vacation style",
-    "micro-plaid short-sleeve shirt dress with a pointed collar, button front, belted waist, integrated pleated skirt, and a small structured shoulder bag worn securely with hands free, refined vintage preppy style",
-    "oversized T-shirt with a high-waist tiered ruffle skirt, soft feminine casual styling",
-    "fitted camisole with lace-trim neckline and a small bow, paired with a flowing maxi skirt, fresh summer styling",
-    "oversized fuzzy knit pullover with softly color-blocked sleeves, cozy gentle styling",
-    "short-sleeve utility shirt dress with clean patch pockets and mid-calf engineer boots, cool city styling",
-    "oversized striped button-up shirt with a high-waist tiered ruffle skirt, soft romantic styling",
-    "sleeveless chiffon blouse with opaque lining, high neckline, scarf tie, and restrained crystal accents, paired with a matching fitted skirt, refined evening styling",
-    "suede cropped jacket with a matching midi skirt, layered over a knit top and micro-check shirt, vintage collegiate styling",
-    "oversized hoodie with wide-leg sweatpants, relaxed cozy styling",
-    "cropped denim jacket and matching high-waist skirt with restrained floral embroidery, polished embellished denim styling",
-    "fine-knit cardigan over a crew-neck inner top with high-waist wide-leg trousers, with a slim closed umbrella resting beside the character and not held, French minimalist styling",
-    "short-sleeve fitted knit dress with a round neckline and softly flared hem, refined city styling",
-    "jacquard knit sweater with restrained geometric woven bands, soft retro preppy styling",
-    "micro-gingham oversized button-up shirt with a pointed collar and folded cuffs, fresh collegiate styling",
-    "micro-gingham relaxed shirt dress with a pointed collar and softly pleated flared hem, clean editorial styling",
-    "abstract-print camisole maxi dress with a modest square neckline and flowing A-line silhouette, artistic resort styling",
-    "corduroy oversized blazer with matching high-waist wide-leg trousers and a button-up inner layer, retro tailored styling",
-    "striped oversized rugby shirt with tailored high-waist denim shorts, playful retro street style",
-    "gradient oversized fuzzy knit sweater with balloon sleeves, warm romantic styling",
-    "lightweight cardigan and relaxed tapered trousers with a small contrasting accent, minimalist travel styling",
-]
-
-YANG_MI_ORIGINAL_COLOR_THEMES = [
-    "white ribbed fitted tank top under a lightweight oversized white cotton shirt, relaxed quiet-luxury homewear",
-    "oversized light-blue washed denim jacket over layered white graphic T-shirt and lavender mesh top, paired with black leggings, relaxed airport streetwear",
-    "cream cropped chunky cable-knit sweater with restrained multicolor woven stripes, paired with light-wash high-waist jeans, handcrafted winter styling",
-    "oversized sage-green bomber jacket over a pastel-mint watercolor-floral chiffon midi dress, balanced military-romantic styling",
-    "dusty-blush oversized zip hoodie with matching relaxed jogger pants and a pale-pink athletic inner top, clean wellness styling",
-    "light-blue striped satin pajama shirt with black piping and a matching modest satin camisole, refined homewear styling",
-    "deep-cocoa fitted square-neck long-sleeve top with a light-taupe layered tulle maxi skirt, minimal balletcore styling",
-    "black velvet camisole mini dress under an oversized black tailored blazer, refined monochrome cocktail styling",
-    "dusty-rose wide-neck oversized knit sweater with matching blush lounge shorts, soft apartment styling",
-    "structured ivory sleeveless square-neck dress with blush satin gloves and pearl accents, elegant garden-party styling",
-    "beige fuzzy knitted cropped vest with a tonal geometric pattern, paired with a black high-waist A-line maxi skirt, quiet-luxury casual styling",
-    "white ribbed fitted tank top with a high-waist blue denim mini skirt and black ankle boots, clean summer city styling",
-    "vivid-crimson strapless floor-length evening gown with a fitted silhouette and softly ruched waist, minimalist gala styling",
-    "camel ribbed knit polo top with high-waist ivory trousers, refined office-casual styling",
-    "oversized charcoal-gray blazer layered over a gray utility shirt and dark-charcoal midi skirt, modern minimal tailoring",
-    "medium-gray short-sleeve utility shirt with a high-waist charcoal A-line midi skirt, urban office styling",
-    "charcoal oversized blazer and gray button-up shirt with a mint-green pleated midi skirt, editorial business-casual styling",
-    "oversized graphite blazer with a cool-gray structured shirt and dark wool midi skirt, restrained monochrome office styling",
-    "oversized powder-blue sweatshirt with discreet white shorts and white combat boots, relaxed airport styling",
-    "oversized light-blue boyfriend shirt worn as a shirt dress with black combat boots, minimal airport styling",
-    "oversized black-and-white plaid tweed jacket over a black knit camisole and fitted shorts, urban luxury styling",
-    "light-gray oversized sweatshirt with an emerald-green leather mini skirt and gray ankle boots, casual luxury styling",
-    "cropped pastel-pink T-shirt with a white layered ruffle mini skirt and cream retro sneakers, fresh campus styling",
-    "pink-and-white striped ribbed tank top with tailored white shorts, clean apartment-casual styling",
-    "deep-black camisole evening gown with a high side slit and elegant draped skirt, modern red-carpet styling",
-    "cropped black tweed jacket with a white graphic T-shirt, matching tweed mini skirt, and ankle boots, Parisian ready-to-wear styling",
-    "ivory wide-leg jumpsuit with an asymmetrical layered bodice and black ribbon accents, modern quiet-luxury styling",
-    "black satin lace-trim camisole mini dress under an oversized black leather jacket, polished studio campaign styling",
-    "light-gray ribbed fitted tank top with high-waist white wide-leg trousers and a black leather belt, clean airport styling",
-    "white pearl-embellished mini dress with opaque lining, cap sleeves, and restrained pearl fringe, romantic editorial styling",
-    "light-aqua cropped military jacket over a white fitted tank top and white high-waist jeans, clean modern heroine styling",
-    "white cropped ribbed zip hoodie over a light-blue athletic top with matching white lounge pants, healthy athleisure styling",
-    "olive-green fitted long-sleeve top with dark-blue tailored denim shorts, clean autumn casual styling",
-    "soft-blush strapless evening gown with floral appliques and a satin ribbon waist, romantic gala styling",
-    "short-sleeve white utility shirt with khaki tailored balloon shorts and a matching belt, clean summer safari styling",
-    "light-butter-yellow windbreaker over a white collared shirt and navy pleated mini skirt, fresh preppy styling",
-    "beige fitted tank dress under a white oversized open sun-protection shirt with taupe buckle sandals, minimal vacation styling",
-]
-
-YANG_MI_COLOR_FREE_THEMES = [
-    "ribbed fitted tank top under a lightweight oversized cotton shirt, relaxed quiet-luxury homewear",
-    "oversized washed denim jacket over a graphic T-shirt and mesh high-neck layer, paired with fitted leggings, relaxed airport streetwear",
-    "cropped chunky cable-knit sweater with restrained woven stripe details, paired with high-waist jeans, handcrafted winter styling",
-    "oversized bomber jacket over a watercolor-floral chiffon midi dress, balanced military-romantic styling",
-    "oversized zip hoodie with matching relaxed jogger pants and a simple athletic inner top, clean wellness styling",
-    "striped satin pajama shirt with contrast piping and a matching modest satin camisole, refined homewear styling",
-    "fitted square-neck long-sleeve top with a layered tulle maxi skirt, minimal balletcore styling",
-    "velvet camisole mini dress under an oversized tailored blazer, refined cocktail styling",
-    "wide-neck oversized knit sweater with matching lounge shorts, soft apartment styling",
-    "structured sleeveless square-neck dress with long satin gloves and restrained pearl accents, elegant garden-party styling",
-    "fuzzy knitted cropped vest with a tonal geometric pattern, paired with a high-waist A-line maxi skirt, quiet-luxury casual styling",
-    "ribbed fitted tank top with a high-waist denim mini skirt and ankle boots, clean summer city styling",
-    "strapless floor-length evening gown with a fitted silhouette and softly ruched waist, minimalist gala styling",
-    "ribbed knit polo top with high-waist tailored trousers, refined office-casual styling",
-    "oversized blazer layered over a utility shirt and midi skirt, modern minimal tailoring",
-    "short-sleeve utility shirt with a high-waist A-line midi skirt, urban office styling",
-    "oversized blazer and button-up shirt with a pleated midi skirt, editorial business-casual styling",
-    "oversized blazer with a structured shirt and wool midi skirt, restrained office styling",
-    "oversized sweatshirt with discreet shorts and combat boots, relaxed airport styling",
-    "oversized boyfriend shirt worn as a shirt dress with combat boots, minimal airport styling",
-    "oversized plaid tweed jacket over a knit camisole and fitted shorts, urban luxury styling",
-    "oversized sweatshirt with a leather mini skirt and ankle boots, casual luxury styling",
-    "cropped T-shirt with a layered ruffle mini skirt and retro sneakers, fresh campus styling",
-    "striped ribbed tank top with tailored shorts, clean apartment-casual styling",
-    "camisole evening gown with a high side slit and elegant draped skirt, modern formal-event styling",
-    "cropped tweed jacket over a fitted graphic T-shirt with a tweed mini skirt and ankle boots, Parisian ready-to-wear styling",
-    "tailored wide-leg jumpsuit with an asymmetrical layered bodice and restrained ribbon accents, modern quiet-luxury styling",
-    "satin lace-trim camisole mini dress under an oversized leather jacket, polished studio campaign styling",
-    "ribbed fitted tank top with high-waist wide-leg trousers and a leather belt, clean airport styling",
-    "pearl-embellished mini dress with opaque lining, cap sleeves, and restrained pearl fringe, romantic editorial styling",
-    "cropped military jacket over a fitted tank top and high-waist jeans, clean modern heroine styling",
-    "cropped ribbed zip hoodie over an athletic top with matching lounge pants, healthy athleisure styling",
-    "fitted long-sleeve top with tailored denim shorts, clean autumn casual styling",
-    "strapless evening gown with floral appliques and a satin ribbon waist, romantic gala styling",
-    "short-sleeve utility shirt with tailored balloon shorts and a matching belt, clean summer safari styling",
-    "lightweight windbreaker shirt layered over a collared shirt with a pleated mini skirt, fresh preppy styling",
-    "fitted tank dress under an oversized open sun-protection shirt with buckle sandals, minimal vacation styling",
 ]
 
 CLOTHING_CATEGORY_OPTIONS = [
@@ -1924,21 +1806,6 @@ def choose_character_batch(used_characters: list[str]) -> list[str]:
     return selected
 
 
-def build_single_round_character_schedule(
-    character_names: list[str],
-    total_runs: int,
-    images_per_character: int = IMAGES_PER_CHARACTER,
-) -> list[str]:
-    if total_runs <= 0 or images_per_character <= 0:
-        return []
-    schedule = [
-        character_name
-        for character_name in character_names
-        for _ in range(images_per_character)
-    ]
-    return schedule[:total_runs]
-
-
 def _parse_character_selection(raw_choice: str) -> list[str] | None:
     choice = raw_choice.strip()
     if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
@@ -2597,27 +2464,20 @@ def main() -> None:
 
     while run_number <= total_runs and not stop_requested:
         random_character_mode = fixed_character_selection is None
-        round_characters = (
+        selected_characters = (
             choose_character_batch(used_character_batch)
             if random_character_mode
             else fixed_character_selection[:]
         )
-        selected_characters = build_single_round_character_schedule(round_characters, total_runs)
         batch_completed_characters: list[str] = []
         batch_used_themes: set[str] = set()
         batch_used_plans: set[str] = set()
-        active_batch_character: str | None = None
-        validate_reference_files_for_characters(round_characters)
+        validate_reference_files_for_characters(selected_characters)
         print("=" * 72, flush=True)
         print(
-            f"Single character round selected ({len(round_characters)} characters x up to {IMAGES_PER_CHARACTER} images, "
+            f"Character-first batch selected ({len(selected_characters)} characters x 1, "
             f"{'random cycle' if random_character_mode else 'fixed selection'}): "
-            f"{'、'.join(round_characters)}",
-            flush=True,
-        )
-        print(
-            f"Planned images this round: {len(selected_characters)}/{total_runs}. "
-            "Each character completes its consecutive image block before switching.",
+            f"{'、'.join(selected_characters)}",
             flush=True,
         )
         print(
@@ -2634,14 +2494,6 @@ def main() -> None:
         for character_name in selected_characters:
             if run_number > total_runs:
                 break
-            if character_name != active_batch_character:
-                active_batch_character = character_name
-                batch_used_themes.clear()
-                batch_used_plans.clear()
-                print(
-                    f"Starting consecutive block for {character_name}: up to {IMAGES_PER_CHARACTER} images.",
-                    flush=True,
-                )
 
             config_revision = maybe_refresh_runtime_config(enable_git_pull=enable_runtime_git_pull)
             reference_files = reference_files_for_character(character_name)
@@ -2755,8 +2607,7 @@ def main() -> None:
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             mark_character_clothing_theme_used(character_name, theme, used_by_character)
             mark_character_art_plan_used(character_name, plan_name, used_plans_by_character)
-            if character_name not in batch_completed_characters:
-                batch_completed_characters.append(character_name)
+            batch_completed_characters.append(character_name)
             recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
             recent_visual_tags = recent_visual_tags[-12:]
 
@@ -2776,7 +2627,6 @@ def main() -> None:
         if batch_completed_characters:
             if random_character_mode:
                 mark_character_batch_used(batch_completed_characters, used_character_batch)
-        break
 
     print("All runs completed. Safety shutdown remains scheduled.")
 
