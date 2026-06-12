@@ -42,6 +42,38 @@ TEAM_SPECS = [
 ]
 
 
+# Explicit modern national-team-inspired garment instructions. These prioritize
+# image-generation readability over exact official-kit reproduction.
+KIT_DESIGNS_2026 = {
+    "samurai_blue": "2026-style oceanic ash-blue jersey, deep blue tonal wave-like field, sharp pale-blue shoulder and sleeve geometry, modern structured V-neck",
+    "navy_red_white": "2026 dark home-style jersey with bespoke tonal star jacquard, crisp red-and-white edge details, modern clean collar and structured sleeve panels",
+    "white_green": "2026-era white jersey with fresh green shoulder structure, restrained yellow-red cultural accents, subtle tonal performance texture",
+    "sky_blue_stripes": "2026 home-style sky-blue and white vertical stripes using several shifting blue gradients inspired by championship eras, dark trim, modern clean collar",
+    "white_black": "2026 white jersey with a bold black-red-gold central chevron, white diamond separators, black-and-red collar and sleeve trim",
+    "crimson_green": "2026-era deep crimson jersey with asymmetric dark-green graphic movement, refined gold micro-accents, modern structured collar and cuffs",
+    "red_gold": "2026 red jersey with fine yellow-gold vertical pinstripes, dark navy structure at collar and side panels, clean modern cuffs",
+    "deep_navy": "2026-era deep navy jersey with layered tricolor edge details, subtle tonal movement across the body, modern structured shoulder and sleeve construction",
+    "oranje": "2026-era vivid orange jersey with energetic tonal geometric texture, restrained black collar and sleeve structure, modern clean side panels",
+    "orange_green": "2026-era rich orange jersey with modern green-and-white angular side graphics, subtle tonal cultural texture, clean structured cuffs",
+    "yellow_blue": "2026 home-style bright yellow jersey with retro-inspired blue collar and sleeve structure, subtle tonal body pattern, clean modern fit",
+    "red_white_checks": "2026-era red-and-white check identity reworked as clean shifting check geometry, deep-blue trim, modern structured collar and side panels",
+    "clean_white_navy": "2026-style clean white jersey with subtle tonal lion-and-star jacquard, patriotic navy-and-red collar and cuff details, modern structured shoulder panels",
+    "celeste": "2026-era celeste jersey with subtle tonal sun-ray geometry, black collar and cuff structure, modern clean side panels",
+    "green_white_red": "2026 green jersey with bold tonal Aztec Sun Stone-inspired pattern, refined red-white-blue host accents, structured collar and sleeve trim",
+    "hot_red": "2026-era vivid red jersey with flowing black tonal brush or tiger-inspired motion pattern, clean black collar and sleeve structure",
+    "canary_yellow": "2026-era canary-yellow jersey with a refined tonal cultural pattern, deep-green V-neck and layered sleeve cuffs, modern green side-panel details",
+    "minimal_red": "2026-era deep red jersey with subtle tonal Scandinavian geometric texture, crisp white collar and cuff details, minimal modern structure",
+    "gold_green": "2026-era rich gold jersey with deep-green V-neck, layered green-gold cuffs, and a refined tonal star or constellation-inspired body pattern",
+    "yellow_blue_red": "2026 yellow jersey with delicate tonal butterfly motifs, refined blue-red edge details, modern clean collar and sleeve panels",
+    "red_navy": "2026-era strong red jersey with deep-navy shoulder and side structure, subtle Nordic tonal geometry, crisp white micro-accents",
+    "crimson_white": "2026-era crimson jersey with clean white geometric movement, subtle tonal alpine-inspired structure, modern collar and cuffs",
+    "red_green": "2026-era rich red jersey with deep-green geometric cultural patterning, clean green collar and cuffs, restrained white detailing",
+    "red_black_gold": "2026 deep-red jersey with stained-glass-inspired tonal pattern, black structural panels, refined gold edge details",
+    "maple_red": "2026-era maple-red jersey with subtle tonal leaf-inspired geometry, crisp white structure, modern clean collar and sleeve panels",
+    "crimson_green_alt": "2026-era deep crimson supporter jersey with flowing dark-green graphic panels, restrained gold accents, modern structured collar and cuffs",
+}
+
+
 CHARACTER_TEAM_SPECS = {
     character_name: {
         "team": team,
@@ -58,29 +90,64 @@ if set(CHARACTER_TEAM_SPECS) != set(CHARACTER_PROFILES):
 
 FOOTBALL_ACTIONS = [
     {
-        "name": "front_facing_hopeful_supporter",
-        "body_silhouette": "front-facing iconic supporter-poster pose, shoulders open and upper body stable, hands lightly clasped near the chest, direct eye contact with the viewer, hopeful elegant smile",
-        "tags": ["supporter_poster", "front_facing", "hopeful"],
+        "name": "scarf_raised_overhead",
+        "body_silhouette": "front-facing football-supporter poster pose, both arms raised clearly overhead while stretching a plain team-color scarf horizontally, direct proud eye contact, strong triangular silhouette",
+        "tags": ["supporter_poster", "football_culture", "scarf_overhead"],
     },
     {
-        "name": "front_facing_cheer_fist",
-        "body_silhouette": "front-facing clean supporter-poster pose, shoulders open, one small encouraging fist raised beside the shoulder, direct eye contact and a bright confident smile",
-        "tags": ["supporter_poster", "front_facing", "cheer"],
+        "name": "scarf_across_chest",
+        "body_silhouette": "front-facing football-supporter poster pose, both hands holding the ends of a plain team-color scarf stretched cleanly across the upper chest, shoulders open, confident direct gaze",
+        "tags": ["supporter_poster", "football_culture", "scarf_chest"],
     },
     {
-        "name": "front_facing_team_pride",
-        "body_silhouette": "front-facing supporter-poster pose with shoulders open, one hand resting lightly over the upper chest and the other relaxed, direct proud gaze, clean stable silhouette",
-        "tags": ["supporter_poster", "front_facing", "team_pride"],
+        "name": "flag_draped_shoulders",
+        "body_silhouette": "front-facing football-supporter poster pose with a plain national-color fabric draped around the shoulders like a fan flag, both hands lightly holding its front edges, direct confident gaze",
+        "tags": ["supporter_poster", "football_culture", "flag_drape"],
     },
     {
-        "name": "front_facing_scarf_supporter",
-        "body_silhouette": "front-facing supporter campaign pose with shoulders open and a restrained team-color scarf held neatly across the upper body, direct welcoming gaze and readable face",
-        "tags": ["supporter_poster", "front_facing", "scarf"],
+        "name": "jersey_color_presentation",
+        "body_silhouette": "front-facing football-supporter poster pose, both hands lightly gripping the outer jersey sides near the upper torso to proudly present the team colors and jersey pattern, elbows open, bright direct gaze",
+        "tags": ["supporter_poster", "football_culture", "jersey_pride"],
     },
     {
-        "name": "front_facing_open_cheer",
-        "body_silhouette": "front-facing supporter-poster pose with shoulders open, both hands forming a small clean encouraging gesture near shoulder height, direct friendly gaze and cheerful expression",
-        "tags": ["supporter_poster", "front_facing", "cheer"],
+        "name": "hand_over_heart",
+        "body_silhouette": "front-facing football-supporter poster pose, one open hand placed over the upper chest in a team-pride gesture, other arm relaxed and visible, composed direct eye contact",
+        "tags": ["supporter_poster", "football_culture", "team_pride"],
+    },
+    {
+        "name": "crossed_arm_confidence",
+        "body_silhouette": "front-facing football-supporter hero pose with arms crossed cleanly below the chest, shoulders open, jersey pattern readable, confident direct gaze",
+        "tags": ["supporter_poster", "football_culture", "crossed_arms"],
+    },
+    {
+        "name": "hands_on_hips_confidence",
+        "body_silhouette": "front-facing football-supporter hero pose with both hands placed clearly on the hips, elbows forming a strong wide silhouette, upbeat direct gaze",
+        "tags": ["supporter_poster", "football_culture", "hands_on_hips"],
+    },
+    {
+        "name": "double_low_fist_celebration",
+        "body_silhouette": "front-facing football-supporter celebration pose with both fists held low beside the waist, elbows bent, shoulders open, joyful victorious expression without athletic action",
+        "tags": ["supporter_poster", "football_culture", "celebration"],
+    },
+    {
+        "name": "single_high_arm_rally",
+        "body_silhouette": "front-facing football-supporter rally pose with one arm raised high in a clean open-hand cheer, the other arm relaxed near the body, direct energetic gaze",
+        "tags": ["supporter_poster", "football_culture", "rally"],
+    },
+    {
+        "name": "supporter_clap",
+        "body_silhouette": "front-facing football-supporter poster pose caught in one clean applause gesture at upper-chest height, hands anatomically separated and readable, warm direct smile",
+        "tags": ["supporter_poster", "football_culture", "applause"],
+    },
+    {
+        "name": "number_one_supporter",
+        "body_silhouette": "front-facing football-supporter poster pose with one arm raised and one index finger pointing upward in a clear number-one gesture, other arm relaxed, confident direct smile",
+        "tags": ["supporter_poster", "football_culture", "number_one"],
+    },
+    {
+        "name": "banner_corner_hold",
+        "body_silhouette": "front-facing football-supporter poster pose holding two upper corners of a small plain national-color fan banner behind the shoulders, arms open, banner text-free, face and hair fully visible",
+        "tags": ["supporter_poster", "football_culture", "banner"],
     },
 ]
 
@@ -134,27 +201,27 @@ SUPPORTER_OUTFIT_VARIANTS = [
     (
         "a slightly oversized short-sleeve supporter T-shirt worn naturally with the hem down",
         "a clean pleated short skirt",
-        "youthful roadside supporter styling",
+        "youthful national-team supporter poster styling",
     ),
     (
         "a longline supporter T-shirt with the front hem tied into one small neat knot while the back hem stays loose",
         "clean athletic shorts",
-        "playful, energetic, and clearly spectator-like",
+        "playful, energetic, and clearly suited to a front-facing supporter poster",
     ),
     (
         "a longline supporter T-shirt with the front hem tied into one small neat knot",
         "a simple A-line short skirt",
-        "fashionable but casual fan-zone styling",
+        "fashionable national-team supporter poster styling",
     ),
     (
         "a longline supporter T-shirt worn loose with the full hem naturally down",
         "a flowing ankle-length casual skirt with a clean simple silhouette",
-        "soft, relaxed, and suitable for a quieter spectator",
+        "soft, elegant, and suitable for a composed supporter poster",
     ),
     (
         "a regular-length short-sleeve supporter T-shirt worn naturally with the hem down",
         "a flowing calf-length or ankle-length casual skirt",
-        "comfortable street-viewing fashion with gentle movement",
+        "comfortable supporter-poster fashion with gentle movement",
     ),
 ]
 
@@ -181,14 +248,16 @@ def world_cup_outfit_for(character_name):
     spec = world_cup_spec_for(character_name)
     top, bottom, styling_mood = random.choice(SUPPORTER_OUTFIT_VARIANTS)
     face_mark = random.choice(FACE_SUPPORTER_MARKS)
+    jersey_design = KIT_DESIGNS_2026.get(spec["slug"], spec["kit"])
     return (
-        f"{spec['team']}-inspired national-team supporter poster outfit; team-color reference only: {spec['kit']}; "
-        f"adapt the classic team colors and jersey color blocking into {top}, paired with {bottom}; "
+        f"{spec['team']}-inspired modern national-team supporter poster outfit; jersey design: {jersey_design}; "
+        f"apply this explicit jersey pattern, collar, sleeve-cuff, and panel language to {top}, paired with {bottom}; "
         f"styling mood: {styling_mood}; face supporter detail: {face_mark}; "
         "the selected top and bottom must remain a coherent casual outfit; a tied front hem uses only one small neat knot and must not expose or distort the body; "
         "no football socks or player boots; "
         "tailored to preserve all character hair, ears, tail, mechanical parts, and identity accessories; "
-        "no official crest, no sponsor, no readable text, no readable player name, no readable number"
+        "preserve the specified tonal pattern and garment construction; do not simplify it into a plain-color jersey; "
+        "no official crest, no sponsor, no manufacturer logo, no readable text, no readable player name, no readable number"
     )
 
 
