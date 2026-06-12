@@ -4,7 +4,7 @@ import re
 import chatgpt_batch_pyautogui as batch
 
 
-LAUNCHER_VERSION = "B-multiselect-20260609"
+LAUNCHER_VERSION = "C-world-cup-20260612"
 
 
 def choose_prompt_mode() -> str:
@@ -14,16 +14,19 @@ def choose_prompt_mode() -> str:
             return "A"
         if normalized in {"B", "--MODE=B", "--PROMPT-MODE=B"}:
             return "B"
+        if normalized in {"C", "--MODE=C", "--PROMPT-MODE=C", "--WORLD-CUP"}:
+            return "C"
 
     while True:
         print("")
         print("Choose prompt mode:")
         print("  A = original stable compact style")
         print("  B = photographer four-block style")
-        choice = input("Prompt mode [A/B, default A]: ").strip().upper() or "A"
-        if choice in {"A", "B"}:
+        print("  C = World Cup character-team special")
+        choice = input("Prompt mode [A/B/C, default A]: ").strip().upper() or "A"
+        if choice in {"A", "B", "C"}:
             return choice
-        print("Please enter A or B.")
+        print("Please enter A, B, or C.")
 
 
 def _parse_photographer_scene_selection(raw_choice, plan_count):
@@ -64,7 +67,7 @@ def choose_photographer_scene_plans():
             normalized = normalized.split("=", 1)[1].strip().upper()
         elif normalized.startswith("--SCENE-PLAN="):
             normalized = normalized.split("=", 1)[1].strip().upper()
-        elif normalized in {"A", "B", "--MODE=A", "--MODE=B", "--PROMPT-MODE=A", "--PROMPT-MODE=B"}:
+        elif normalized in {"A", "B", "C", "--MODE=A", "--MODE=B", "--MODE=C", "--PROMPT-MODE=A", "--PROMPT-MODE=B", "--PROMPT-MODE=C", "--WORLD-CUP"}:
             continue
         elif re.fullmatch(r"[\d\s,，-]+|ALL|RANDOM", normalized):
             pass
@@ -143,10 +146,61 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
     batch.prompt_template_name = photographer.prompt_template_name
 
 
+def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
+    def skip_original_scene_selection():
+        print("Original scene category menu skipped: World Cup mode uses dedicated roadside viewing scenes.", flush=True)
+        return None
+
+    def skip_original_clothing_selection():
+        print("Original clothing menu skipped: every character uses their assigned national-team supporter outfit.", flush=True)
+        return None
+
+    def choose_world_cup_plan_and_action(
+        character_name,
+        recent_visual_tags,
+        used_themes_by_character,
+        used_plans_by_character,
+        batch_used_themes=None,
+        batch_used_plans=None,
+        allowed_plan_names=None,
+    ):
+        plan = world_cup_plans.world_cup_plan_for(character_name)
+        action = world_cup_plans.choose_world_cup_action_style(character_name, recent_visual_tags, plan)
+        return plan, action
+
+    def choose_world_cup_clothing(character_name, art_plan, used_by_character, batch_used_themes=None):
+        return world_cup_plans.world_cup_outfit_for(character_name)
+
+    def keep_world_cup_outfit(character_name, theme, art_plan):
+        return theme, False
+
+    batch.choose_character_plan_and_action = choose_world_cup_plan_and_action
+    batch.choose_compatible_clothing_theme = choose_world_cup_clothing
+    batch.outfit_with_optional_black_hosiery = keep_world_cup_outfit
+    batch.choose_shot_scale = world_cup_plans.choose_world_cup_shot_scale
+    batch.choose_composition_plan = world_cup_plans.choose_world_cup_composition_plan
+    batch.startup_scene_selection = skip_original_scene_selection
+    batch.startup_clothing_selection = skip_original_clothing_selection
+    batch.prompt_for_art_direction = world_cup_templates.prompt_for_art_direction
+    batch.prompt_template_name = world_cup_templates.prompt_template_name
+
+
 def activate_prompt_mode(mode: str) -> None:
     print(f"Fenjue prompt launcher version: {LAUNCHER_VERSION}", flush=True)
     if mode == "A":
         print("Prompt mode A active: original stable compact style.", flush=True)
+        return
+
+    if mode == "C":
+        import world_cup_prompt_plans as world_cup_plans
+        import world_cup_prompt_templates as world_cup_templates
+
+        _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans)
+        print(
+            "Prompt mode C active: World Cup roadside supporter special. "
+            f"Stable assignments: {len(world_cup_plans.CHARACTER_TEAM_SPECS)} characters.",
+            flush=True,
+        )
         return
 
     import photographer_prompt_templates as photographer

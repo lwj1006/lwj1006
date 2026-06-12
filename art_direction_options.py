@@ -1989,4 +1989,18 @@ def outfit_has_fixed_colorway(outfit_direction):
     return any(text.startswith(theme) for theme in FIXED_COLOR_OUTFIT_DIRECTIONS)
 
 
+def outfit_prop_rule_for(outfit_direction):
+    text = str(outfit_direction or "").lower()
+    rules = []
+    if "glasses" in text or "eyewear" in text:
+        rules.append("glasses may remain worn naturally but must not hide the eyes")
+    if "hat" in text or "cap" in text:
+        rules.append("headwear may remain worn naturally but must not hide the face or signature hair silhouette")
+    if "bouquet" in text:
+        rules.append("a small bouquet may appear beside the body without covering the face or outfit silhouette")
+    if "bag" in text:
+        rules.append("a small bag may hang naturally from the shoulder or rest beside the body")
+    return "; ".join(rules)
+
+
 
