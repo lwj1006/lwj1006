@@ -22,7 +22,7 @@ def choose_prompt_mode() -> str:
         print("Choose prompt mode:")
         print("  A = original stable compact style")
         print("  B = photographer four-block style")
-        print("  C = World Cup character-team special")
+        print("  C = World Cup roadside supporter special")
         choice = input("Prompt mode [A/B/C, default A]: ").strip().upper() or "A"
         if choice in {"A", "B", "C"}:
             return choice
