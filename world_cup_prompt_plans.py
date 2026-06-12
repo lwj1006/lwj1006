@@ -58,69 +58,69 @@ if set(CHARACTER_TEAM_SPECS) != set(CHARACTER_PROFILES):
 
 FOOTBALL_ACTIONS = [
     {
-        "name": "watching_screen_with_focus",
-        "body_silhouette": "standing naturally at the roadside fan area, looking slightly upward toward an off-frame public screen with focused anticipation, hands relaxed and simple",
-        "tags": ["football_spectator", "watching", "focused"],
+        "name": "front_facing_hopeful_supporter",
+        "body_silhouette": "front-facing iconic supporter-poster pose, shoulders open and upper body stable, hands lightly clasped near the chest, direct eye contact with the viewer, hopeful elegant smile",
+        "tags": ["supporter_poster", "front_facing", "hopeful"],
     },
     {
-        "name": "restrained_goal_reaction",
-        "body_silhouette": "caught just after a goal with a bright natural smile and one small raised fist, joyful but not performing for the camera",
-        "tags": ["football_spectator", "goal_reaction", "emotion"],
+        "name": "front_facing_cheer_fist",
+        "body_silhouette": "front-facing clean supporter-poster pose, shoulders open, one small encouraging fist raised beside the shoulder, direct eye contact and a bright confident smile",
+        "tags": ["supporter_poster", "front_facing", "cheer"],
     },
     {
-        "name": "tense_match_moment",
-        "body_silhouette": "watching a tense match moment with shoulders slightly forward and hands lightly gathered near the chest, face and identity clearly readable",
-        "tags": ["football_spectator", "tense", "candid"],
+        "name": "front_facing_team_pride",
+        "body_silhouette": "front-facing supporter-poster pose with shoulders open, one hand resting lightly over the upper chest and the other relaxed, direct proud gaze, clean stable silhouette",
+        "tags": ["supporter_poster", "front_facing", "team_pride"],
     },
     {
-        "name": "casual_fan_zone_pause",
-        "body_silhouette": "relaxed roadside pause near the fan zone, attention staying on the off-frame match screen, with a small team-color scarf or wrist accent",
-        "tags": ["football_spectator", "street", "casual"],
+        "name": "front_facing_scarf_supporter",
+        "body_silhouette": "front-facing supporter campaign pose with shoulders open and a restrained team-color scarf held neatly across the upper body, direct welcoming gaze and readable face",
+        "tags": ["supporter_poster", "front_facing", "scarf"],
     },
     {
-        "name": "quiet_halftime_wait",
-        "body_silhouette": "quiet halftime moment beside a roadside railing or storefront, calmly waiting while distant match light reflects across the face",
-        "tags": ["football_spectator", "halftime", "quiet"],
+        "name": "front_facing_open_cheer",
+        "body_silhouette": "front-facing supporter-poster pose with shoulders open, both hands forming a small clean encouraging gesture near shoulder height, direct friendly gaze and cheerful expression",
+        "tags": ["supporter_poster", "front_facing", "cheer"],
     },
 ]
 
 
 FOOTBALL_COMPOSITIONS = [
     {
-        "name": "roadside_public_viewing",
-        "composition": "vertical commercial key visual at a roadside public-viewing area, character medium-large and slightly off-center",
-        "camera": "natural eye-level street-photography view with the character's attention directed toward an off-frame screen",
-        "foreground": "one soft railing, curb, or blurred team-color decoration at the edge, never blocking the character",
-        "lighting": "evening street light mixed with soft public-screen glow across the face and jersey",
-        "guardrail": "the character is a spectator, not a football player; keep the public screen off-frame or distant and unreadable",
+        "name": "official_supporter_campaign_poster",
+        "composition": "front-facing vertical national-team supporter campaign poster, character centered or heroically near-center, with clear title-space negative area above or beside the character",
+        "camera": "stable eye-level knee-up or thigh-up poster view, direct eye contact, full hair silhouette visible, clean margin around head, shoulders, and hair",
+        "foreground": "restrained team-color border shapes, scarf-like framing accents, and a clean white pitch-line curve used as graphic layers",
+        "lighting": "bright premium daylight campaign light with clear facial detail and fresh stadium atmosphere",
+        "guardrail": "must read as a designed front-facing supporter poster; no candid viewing behavior, no cramped crop, no dark environment",
     },
     {
-        "name": "shopfront_match_screen",
-        "composition": "character-focused street scene outside a cafe, convenience store, or shop showing the match on a distant screen",
-        "camera": "front three-quarter medium to knee-up candid view, with the character looking toward the screen rather than posing",
-        "foreground": "soft storefront edge and one restrained team-color ribbon or scarf shape",
-        "lighting": "shop-window light and cool match-screen glow keep face and jersey clear",
-        "guardrail": "screen content stays abstract and unreadable; no detailed players, score, logos, or duplicate people",
+        "name": "bright_stadium_graphic_poster",
+        "composition": "vertical graphic supporter campaign poster with an iconic front-facing pose, bright football stadium, and structured national-color design blocks",
+        "camera": "stable eye-level knee-up or thigh-up poster framing with direct eye contact, full hair silhouette, readable outfit, and deliberate clean margins",
+        "foreground": "large diagonal national-color banner shapes, abstract scarf borders, and one clean green-pitch layer",
+        "lighting": "bright sunny commercial light with soft controlled shadows and clean blue-sky fill",
+        "guardrail": "football stadium stays bright, open, simplified, and subordinate; no night lighting, screen viewing, street, cafe, or realistic match action",
     },
     {
-        "name": "night_fan_zone_portrait",
-        "composition": "clean nighttime fan-zone portrait with the character and national-team jersey as the dominant visual read",
-        "camera": "stable front three-quarter waist-up to knee-up candid view",
-        "foreground": "abstract team-color bunting, scarf edge, and soft street-light bokeh only",
-        "lighting": "premium commercial night-street light with gentle screen glow",
-        "guardrail": "all signs and screen marks stay abstract; no readable text, scores, logos, crests, or sponsor marks",
+        "name": "national_color_hero_poster",
+        "composition": "series-ready vertical national-team supporter hero poster with the front-facing character as the central icon and a clear empty title zone",
+        "camera": "stable front-facing thigh-up or knee-up view with direct eye contact, full hairstyle and outfit silhouette readable with generous breathing room",
+        "foreground": "clean national-color arcs, cross-inspired or stripe-inspired abstract blocks, bright pitch-line geometry, and restrained supporter framing",
+        "lighting": "polished bright daylight campaign lighting with controlled graphic separation",
+        "guardrail": "national colors must become large designed poster elements; stadium remains bright and clean; no readable text, scores, logos, or crests",
     },
 ]
 
 
 WORLD_CUP_SHOT_SCALES = [
     {
-        "name": "spectator_three_quarter",
-        "description": "three-quarter or knee-up roadside spectator framing with face, hair identity, jersey construction, hands, and surrounding fan-zone atmosphere clearly readable",
+        "name": "supporter_poster_knee_up",
+        "description": "vertical knee-up or thigh-up supporter-poster framing with full hair silhouette visible, clean margin around head and shoulders, readable face, hands, jersey, and bottom silhouette",
     },
     {
-        "name": "spectator_half_body",
-        "description": "waist-up or half-body candid spectator portrait with expression, gaze direction, hair identity, and national-team jersey clearly readable",
+        "name": "supporter_poster_three_quarter",
+        "description": "vertical three-quarter supporter-poster framing with the complete main silhouette, generous breathing room, and a clear negative-space title area",
     },
 ]
 
@@ -182,7 +182,7 @@ def world_cup_outfit_for(character_name):
     top, bottom, styling_mood = random.choice(SUPPORTER_OUTFIT_VARIANTS)
     face_mark = random.choice(FACE_SUPPORTER_MARKS)
     return (
-        f"{spec['team']}-inspired roadside supporter outfit; team-color reference: {spec['kit']}; "
+        f"{spec['team']}-inspired national-team supporter poster outfit; team-color reference only: {spec['kit']}; "
         f"adapt the classic team colors and jersey color blocking into {top}, paired with {bottom}; "
         f"styling mood: {styling_mood}; face supporter detail: {face_mark}; "
         "the selected top and bottom must remain a coherent casual outfit; a tied front hem uses only one small neat knot and must not expose or distort the body; "
@@ -199,16 +199,16 @@ def world_cup_plan_for(character_name):
         "label": f"{spec['team']} football special",
         "team": spec["team"],
         "fit_reason": spec["fit_reason"],
-        "graphic_concept": f"2026 World Cup-inspired roadside viewing anime key visual for a {spec['team']}-inspired character supporter",
-        "spatial_structure": "roadside public-viewing area, cafe or shopfront exterior, or nighttime fan zone with the match screen kept distant or off-frame",
-        "visual_device": "team-color street decorations, soft public-screen glow, restrained fan-zone bokeh, and subtle football-event atmosphere",
-        "body_silhouette": "natural football-spectator reaction with a clearly readable face, character identity, and supporter jersey",
+        "graphic_concept": f"official campaign-style 2026 World Cup-inspired front-facing supporter poster for a {spec['team']}-inspired character fan",
+        "spatial_structure": "bright open football stadium in daylight with clean green pitch, pale seating tiers, blue sky, soft white clouds, and simplified shallow stadium geometry",
+        "visual_device": "large team-color graphic panels, diagonal banner shapes, scarf-like borders, clean pitch-line curves, bright stadium shapes, and a clear title-space negative area",
+        "body_silhouette": "clean iconic supporter-poster pose with a clearly readable face, character identity, jersey, and outfit silhouette",
         "outfit_direction": world_cup_outfit_for(character_name),
-        "material_language": "opaque supporter jersey fabric, pavement, storefront glass, railing, team-color scarf accents, and restrained evening lighting",
-        "color_strategy": f"the kit's national-team color blocking is dominant and recognizable; character identity colors remain stable; suitability mood is {spec['fit_reason']}",
-        "lighting_behavior": "premium evening street lighting and soft screen glow with clear face, eyes, hair silhouette, and jersey color blocks",
-        "extra_prompt_guardrail": "one clearly featured character only; the character is a roadside spectator, never a player; no pitch action, football-playing pose, teammates, opponents, referees, trophy, readable signage, or official branding",
-        "tags": ["world_cup_special", "football_spectator", "national_team_jersey", "roadside_viewing", spec["slug"]],
+        "material_language": "opaque supporter jersey fabric, fresh green grass, pale stadium seating, matte graphic panels, abstract fabric banners, and bright campaign daylight",
+        "color_strategy": f"national-team colors form large bold poster framing and structured design blocks; character identity colors remain stable; suitability mood is {spec['fit_reason']}",
+        "lighting_behavior": "bright premium daylight campaign lighting with clear face, eyes, full hair silhouette, jersey color blocks, blue-sky freshness, and controlled graphic separation",
+        "extra_prompt_guardrail": "one clearly featured front-facing character only; make a series-ready national-team supporter campaign poster, never a candid viewing scene; no night, darkness, street, cafe, public screen, pitch action, football-playing pose, teammates, opponents, referees, trophy, readable signage, or official branding",
+        "tags": ["world_cup_special", "supporter_campaign_poster", "national_team_jersey", "bright_stadium", "front_facing", spec["slug"]],
         "weight": 1.0,
     }
 

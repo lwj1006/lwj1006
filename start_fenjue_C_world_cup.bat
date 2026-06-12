@@ -1,8 +1,8 @@
 @echo off
 chcp 65001 >nul
 cd /d "%~dp0"
-title Fenjue C World Cup Roadside Supporter Special
-echo Starting Fenjue C World Cup roadside supporter special...
+title Fenjue C World Cup Front-Facing Supporter Poster
+echo Starting Fenjue C World Cup front-facing supporter poster...
 echo Every character has a stable assigned national-team supporter outfit.
 
 where python >nul 2>&1

@@ -22,7 +22,7 @@ def choose_prompt_mode() -> str:
         print("Choose prompt mode:")
         print("  A = original stable compact style")
         print("  B = photographer four-block style")
-        print("  C = World Cup roadside supporter special")
+        print("  C = World Cup front-facing supporter poster")
         choice = input("Prompt mode [A/B/C, default A]: ").strip().upper() or "A"
         if choice in {"A", "B", "C"}:
             return choice
@@ -148,7 +148,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
 
 def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
     def skip_original_scene_selection():
-        print("Original scene category menu skipped: World Cup mode uses dedicated roadside viewing scenes.", flush=True)
+        print("Original scene category menu skipped: World Cup mode uses dedicated bright-stadium supporter posters.", flush=True)
         return None
 
     def skip_original_clothing_selection():
@@ -197,7 +197,7 @@ def activate_prompt_mode(mode: str) -> None:
 
         _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans)
         print(
-            "Prompt mode C active: World Cup roadside supporter special. "
+            "Prompt mode C active: World Cup front-facing supporter poster. "
             f"Stable assignments: {len(world_cup_plans.CHARACTER_TEAM_SPECS)} characters.",
             flush=True,
         )

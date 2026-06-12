@@ -9,11 +9,11 @@ from world_cup_prompt_plans import (
 )
 
 
-STYLE_BASELINE = "high-quality Japanese commercial anime lifestyle key visual, crisp lineart, clean color separation, premium World Cup street-viewing campaign finish"
+STYLE_BASELINE = "high-quality Japanese commercial anime supporter campaign poster, crisp lineart, clean color separation, bold national-color graphic design, premium series-ready World Cup advertising finish"
 
 
 def prompt_template_name(template_index=0):
-    return "fenjue_world_cup_2026_character_team_special_v1"
+    return "fenjue_world_cup_2026_supporter_campaign_poster_v2"
 
 
 def _join_list(values):
@@ -44,7 +44,8 @@ def prompt_for_art_direction(
     outfit = outfit_direction or art_plan.get("outfit_direction") or world_cup_outfit_for(character_name)
 
     lines = [
-        "Independent image task. Uploaded references define character identity only. Create exactly one clearly featured character in one polished World Cup roadside-viewing key visual.",
+        "Independent image task. Uploaded references define character identity only. Create exactly one clearly featured character in one official campaign-style World Cup supporter poster, not a scene of someone actually watching a match.",
+        "Poster hierarchy: first read is the designed World Cup supporter campaign poster; second read is the national-team-inspired fashion; third read is the recognizable character portrait.",
         "",
         "[CHARACTER-TEAM MATCH]",
         f"Character: {character_name}. Assigned team inspiration: {spec['team']}.",
@@ -63,27 +64,31 @@ def prompt_for_art_direction(
         "A selected cheek mark must stay tiny, simple, unofficial, and readable as team-color fan decoration rather than an official crest.",
         "Style the outfit as comfortable, tasteful roadside supporter fashion with natural proportions.",
         "",
-        "[SPECTATOR MOMENT]",
-        f"Natural viewing reaction: {action_style['body_silhouette']}.",
+        "[FRONT-FACING SUPPORTER POSTER]",
+        f"Iconic supporter pose: {action_style['body_silhouette']}.",
         f"Shot scale: {shot_scale['description']}.",
         f"Composition: {composition_plan['composition']}.",
         f"Camera: {composition_plan['camera']}.",
         f"Foreground and depth: {composition_plan['foreground']}.",
         f"Lighting: {composition_plan['lighting']}.",
         f"Composition guardrail: {composition_plan['guardrail']}.",
-        "The character is watching the match as a roadside spectator, not playing football, training, posing as an athlete, or standing on the pitch.",
+        "The character is posing for a national-team supporter campaign poster, not actually watching a match, playing football, training, or posing as an athlete.",
+        "Pose discipline: use a clean iconic front-facing campaign-poster gesture with open shoulders, stable upper body, readable face, and direct viewer engagement; do not replace it with an incidental candid reaction or off-frame viewing gaze.",
         "Hands stay simple and anatomically readable. Preserve natural original proportions and a neutral slim anime build. Optional scarf or small team-color accessory must not hide the face or identity.",
         "",
-        "[MATCHDAY WORLD]",
+        "[MATCHDAY POSTER WORLD]",
         f"Scene: {art_plan['graphic_concept']}. {art_plan['spatial_structure']}.",
         f"World Cup viewing atmosphere: {art_plan['visual_device']}.",
         f"Color direction: {art_plan['color_strategy']}.",
         f"Scene guardrail: {art_plan['extra_prompt_guardrail']}.",
+        "Poster layout rule: use a vertical poster composition, a clean top or side title-space negative area, bold national-color framing, structured graphic layers, and deliberate breathing room around the full hair silhouette.",
+        "Background rule: use a bright open daytime football stadium with fresh green pitch, pale seating tiers, blue sky, soft white clouds, and simplified shallow stadium geometry. Keep it clean, airy, and subordinate to the character.",
+        "Title-space rule: reserve an intentionally empty clean area for later typography, but generate no actual letters, words, numbers, slogan, logo, or UI text.",
         f"Finish: {STYLE_BASELINE}.",
-        "Avoid: football-playing action, kicking, dribbling, shooting, ball at feet, player tunnel, pitch-side athlete pose, extra featured people, duplicate character, broken hands, missing limbs, identity drift, photorealism, 3D render, sexualized pose, fetish framing, trophy, official FIFA marks, official team crest, sponsor logo, watermark, readable words, readable player name, readable jersey number, readable score, readable signage.",
+        "Avoid: watching an off-frame screen, candid spectator reaction, off-frame viewing gaze, night scene, darkness, black background, street, cafe, shopfront, bar, public screen, dramatic night bokeh, realistic deep environment, scenery-dominant composition, cramped crop, missing title-space margin, football-playing action, kicking, dribbling, shooting, ball at feet, player tunnel, pitch-side athlete pose, extra featured people, duplicate character, broken hands, missing limbs, identity drift, photorealism, 3D render, sexualized pose, fetish framing, trophy, official FIFA marks, official team crest, sponsor logo, watermark, readable words, readable player name, readable jersey number, readable score, readable signage.",
     ]
     prompt = _compact_lines(lines)
-    for heading in ("[CHARACTER-TEAM MATCH]", "[NATIONAL-TEAM KIT]", "[SPECTATOR MOMENT]", "[MATCHDAY WORLD]"):
+    for heading in ("[CHARACTER-TEAM MATCH]", "[NATIONAL-TEAM KIT]", "[FRONT-FACING SUPPORTER POSTER]", "[MATCHDAY POSTER WORLD]"):
         if prompt.count(heading) != 1:
             raise ValueError(f"final prompt must contain exactly one {heading} block")
     return prompt

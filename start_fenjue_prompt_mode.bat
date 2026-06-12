@@ -6,7 +6,7 @@ echo Starting Fenjue prompt-mode launcher...
 echo A = original stable compact style
 echo B = photographer four-block style
 echo B supports multi-select: 1 2 3 / 1-3 / 1-3 7 10-12
-echo C = World Cup roadside supporter special
+echo C = World Cup front-facing supporter poster
 
 where python >nul 2>&1
 if not errorlevel 1 (
