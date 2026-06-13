@@ -212,22 +212,12 @@ WORLD_CUP_SHOT_SCALES = [
 
 SUPPORTER_OUTFIT_VARIANTS = [
     (
-        "a tasteful cropped short-sleeve supporter jersey ending naturally around the upper waist, with a complete opaque jersey bodice, structured collar, sleeves, and clearly readable team-color panel design",
-        "a clean pleated short skirt",
-        "fashionable, youthful, and clearly designed as supporter-poster streetwear",
-    ),
-    (
-        "a tasteful cropped short-sleeve supporter jersey ending naturally around the upper waist, with a complete opaque jersey bodice, structured collar, sleeves, and clearly readable team-color panel design",
-        "clean high-waist athletic shorts",
-        "fresh, sporty, and clearly designed as supporter-poster streetwear",
-    ),
-    (
         "a regular-length short-sleeve supporter T-shirt worn naturally with the hem down",
         "clean athletic shorts",
         "fresh, active, and easy to read",
     ),
     (
-        "a slightly oversized short-sleeve supporter T-shirt worn naturally with the hem down",
+        "a slightly oversized regular-length short-sleeve supporter T-shirt worn naturally with the hem down",
         "a clean pleated short skirt",
         "youthful national-team supporter poster styling",
     ),
