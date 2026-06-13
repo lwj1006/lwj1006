@@ -52,7 +52,7 @@ def prompt_for_art_direction(
 
     lines = [
         "Independent image task. Uploaded references define character identity only. Create exactly one clearly featured character in one official campaign-style World Cup supporter poster, not a scene of someone actually watching a match.",
-        "Poster hierarchy: first read is the designed World Cup supporter campaign poster; second read is the national-team-inspired fashion; third read is the recognizable character portrait.",
+        "Poster hierarchy: first read is the recognizable front-facing character portrait; second read is the unofficial national-team-inspired supporter fashion; third read is the designed World Cup campaign-poster framing.",
         "",
         "[CHARACTER-TEAM MATCH]",
         f"Character: {character_name}. Selected team inspiration for this poster: {spec['team']}.",
@@ -64,7 +64,7 @@ def prompt_for_art_direction(
         "",
         "[NATIONAL-TEAM KIT]",
         f"Garment design: {outfit}.",
-        "Make the country association readable through classic jersey color blocking, not through copied official branding.",
+        "Use an unofficial national-team-inspired supporter outfit. Make the country association readable through classic jersey color blocking, never through a real federation badge, official crest, manufacturer logo, sponsor mark, or copied official branding.",
         "Jersey design fidelity: preserve the selected modern tonal pattern, collar shape, sleeve-cuff structure, shoulder treatment, and side-panel geometry. Do not fall back to a plain-color national-team shirt.",
         "The supporter outfit must fit the character naturally and must not hide signature hair accessories, ears, tail, mechanical parts, or other identity anchors.",
         "All fabric is opaque. Execute the selected T-shirt length, hem treatment, and bottom silhouette clearly; do not replace them with a professional player uniform.",
@@ -82,7 +82,7 @@ def prompt_for_art_direction(
         f"Composition guardrail: {composition_plan['guardrail']}.",
         "The character is posing for a national-team supporter campaign poster, not actually watching a match, playing football, training, or posing as an athlete.",
         "Pose and expression discipline: execute the selected football-supporter pose clearly, but keep the face natural, attractive, restrained, and faithful to the character's established personality. Expression intensity stays low to moderate; use relaxed eyes and a closed-mouth or only slightly open natural smile when appropriate. Do not force dramatic acting.",
-        "Supporter-prop rule: a selected scarf stays text-free and crest-free. A selected large or small national flag may be held in front, beside the body, diagonally across the foreground, waved from a pole, or spread behind the shoulders, but must never be worn, wrapped around the body, or draped like a cape. Front flags stay below the upper torso and must not hide the face, hair identity, hands, or main jersey design.",
+        "Supporter-prop rule: a selected scarf stays text-free and crest-free. A selected large or small national flag may be held in front, beside the body, diagonally across the foreground, waved from a pole, or spread behind the shoulders, but must remain a separately held supporter flag: never clothing, never attached to the outfit, never fused into a cape, skirt, or train, and never wrapped around the body. Front flags stay below shoulder level and mainly below the upper torso; they must not hide the face, eyes, hairstyle, ears, fixed accessories, hands, chest silhouette, main jersey design, tail, mechanical parts, or other identity features. A scarf or flag supports the silhouette but never becomes the dominant first read.",
         "Hands stay simple and anatomically readable. Preserve natural original proportions and a neutral slim anime build.",
         "",
         "[MATCHDAY POSTER WORLD]",
