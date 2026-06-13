@@ -170,7 +170,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
     batch.prompt_template_name = photographer.prompt_template_name
 
 
-def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
+def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, selection_mode="random"):
     def skip_original_scene_selection():
         print("Original scene category menu skipped: World Cup mode uses dedicated bright-stadium supporter posters.", flush=True)
         return None
@@ -198,6 +198,14 @@ def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
     def keep_world_cup_outfit(character_name, theme, art_plan):
         return theme, False
 
+    def choose_all_characters_once():
+        selected = batch.CHARACTER_SEQUENCE[:]
+        print(
+            f"World Cup recommended mode: running one complete character round ({len(selected)} characters), then stopping.",
+            flush=True,
+        )
+        return selected
+
     batch.choose_character_plan_and_action = choose_world_cup_plan_and_action
     batch.choose_compatible_clothing_theme = choose_world_cup_clothing
     batch.outfit_with_optional_black_hosiery = keep_world_cup_outfit
@@ -207,6 +215,12 @@ def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans):
     batch.startup_clothing_selection = skip_original_clothing_selection
     batch.prompt_for_art_direction = world_cup_templates.prompt_for_art_direction
     batch.prompt_template_name = world_cup_templates.prompt_template_name
+    if selection_mode == "recommended":
+        batch.startup_character_selection = choose_all_characters_once
+        batch.TOTAL_RUNS = len(batch.CHARACTER_SEQUENCE)
+        while "--runs" in sys.argv:
+            option_index = sys.argv.index("--runs")
+            del sys.argv[option_index:option_index + 2]
 
 
 def activate_prompt_mode(mode: str) -> None:
@@ -221,7 +235,7 @@ def activate_prompt_mode(mode: str) -> None:
 
         selection_mode = choose_world_cup_selection_mode()
         world_cup_plans.set_world_cup_selection_mode(selection_mode)
-        _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans)
+        _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, selection_mode)
         print(
             "Prompt mode C active: World Cup front-facing supporter poster. "
             f"Matching mode: {selection_mode}. "

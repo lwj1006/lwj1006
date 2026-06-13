@@ -109,11 +109,6 @@ FOOTBALL_ACTIONS = [
         "tags": ["supporter_poster", "football_culture", "flag_front"],
     },
     {
-        "name": "large_flag_side_wave",
-        "body_silhouette": "front-facing football-supporter celebration pose using both hands to control a clean flagpole at one side while a large national flag billows outward beside the body in a strong side arc, torso engaged, naturally cheerful expression without exaggeration",
-        "tags": ["supporter_poster", "football_culture", "flag_side"],
-    },
-    {
         "name": "large_flag_front_open",
         "body_silhouette": "front-facing football-supporter poster pose holding the two upper corners of a large national flag opened across the lower front of the body at waist height, keeping the jersey upper body, hands, face, and hair identity clearly visible, subtle proud expression",
         "tags": ["supporter_poster", "football_culture", "flag_front"],
@@ -122,6 +117,11 @@ FOOTBALL_ACTIONS = [
         "name": "small_flag_wave",
         "body_silhouette": "front-facing football-supporter celebration pose, one hand holding a small national flag on a short clean pole and waving it diagonally above shoulder height, other arm bent in an energetic cheer, natural friendly smile faithful to the character",
         "tags": ["supporter_poster", "football_culture", "flag_wave"],
+    },
+    {
+        "name": "large_flag_pole_on_shoulder_peace",
+        "body_silhouette": "front-facing football-supporter fashion-poster pose with one clean large-flag pole resting diagonally on one shoulder; the hand on that same side alone grips and steadies the pole near the shoulder, while the completely free other hand makes a small natural V-sign beside the ear; the large national flag remains entirely behind the character and billows outward in the background, never entering the front torso area or covering the character",
+        "tags": ["supporter_poster", "football_culture", "large_flag", "peace_sign"],
     },
     {
         "name": "double_low_fist_goal_celebration",
@@ -148,7 +148,7 @@ RECOMMENDED_CHARACTER_MATCHES = {
     "星见雅": ("germany_away", "large_flag_front_diagonal"),
     "仪玄": ("italy_away", "flag_spread_behind_shoulders"),
     "叶瞬光": ("spain_home", "large_flag_front_open"),
-    "席德": ("uruguay_home", "large_flag_side_wave"),
+    "席德": ("uruguay_home", "large_flag_pole_on_shoulder_peace"),
     "橘福福": ("netherlands_home", "double_low_fist_goal_celebration"),
     "柚叶": ("belgium_home", "small_flag_wave"),
     "爱丽丝": ("portugal_away", "scarf_across_chest"),
@@ -160,7 +160,7 @@ RECOMMENDED_CHARACTER_MATCHES = {
     "琉音": ("brazil_away", "scarf_raised_overhead"),
     "耀嘉音": ("italy_home", "flag_spread_behind_shoulders"),
     "柏妮思": ("brazil_home", "double_low_fist_goal_celebration"),
-    "妮可": ("spain_away", "large_flag_side_wave"),
+    "妮可": ("spain_away", "football_held_at_side_hip"),
     "简": ("belgium_away", "scarf_across_chest"),
     "月城柳": ("croatia_home", "flag_spread_behind_shoulders"),
     "青衣": ("uruguay_away", "scarf_across_chest"),

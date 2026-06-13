@@ -56,6 +56,13 @@ def prompt_for_art_direction(
         if action_style.get("name") == "football_held_at_side_hip"
         else "Football prop rule: no football appears in this pose."
     )
+    shoulder_pole_rule = (
+        "Shoulder-pole pose rule: the large-flag pole stays diagonally on one shoulder rather than across the neck; exactly one same-side hand grips the pole, "
+        "the other hand remains fully free for the ear-side V-sign, and the entire large flag billows behind the character only. The pole and flag must never "
+        "press against or cross the throat, face, hair, front torso, jersey design, or free arm."
+        if action_style.get("name") == "large_flag_pole_on_shoulder_peace"
+        else ""
+    )
 
     lines = [
         "Independent image task. Uploaded references define character identity only. Create exactly one clearly featured character in one official campaign-style World Cup supporter poster, not a scene of someone actually watching a match.",
@@ -90,6 +97,7 @@ def prompt_for_art_direction(
         "The character is posing for a national-team supporter campaign poster, not actually watching a match, playing football, training, or posing as an athlete.",
         "Pose and expression discipline: execute the selected football-supporter pose clearly, but keep the face natural, attractive, restrained, and faithful to the character's established personality. Expression intensity stays low to moderate; use relaxed eyes and a closed-mouth or only slightly open natural smile when appropriate. Do not force dramatic acting.",
         "Supporter-prop rule: a selected scarf stays text-free and crest-free. A selected large or small national flag may be held in front, beside the body, diagonally across the foreground, waved from a pole, or spread behind the shoulders, but must remain a separately held supporter flag: never clothing, never attached to the outfit, never fused into a cape, skirt, or train, and never wrapped around the body. Front flags stay below shoulder level and mainly below the upper torso; they must not hide the face, eyes, hairstyle, ears, fixed accessories, hands, chest silhouette, main jersey design, tail, mechanical parts, or other identity features. A scarf or flag supports the silhouette but never becomes the dominant first read.",
+        shoulder_pole_rule,
         football_prop_rule,
         "Hands stay simple and anatomically readable. Preserve natural original proportions and a neutral slim anime build.",
         "",
