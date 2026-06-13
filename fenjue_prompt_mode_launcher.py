@@ -4,7 +4,7 @@ import re
 import chatgpt_batch_pyautogui as batch
 
 
-LAUNCHER_VERSION = "C-world-cup-20260612"
+LAUNCHER_VERSION = "C-world-cup-recommended-20260613"
 
 
 def choose_prompt_mode() -> str:
@@ -27,6 +27,30 @@ def choose_prompt_mode() -> str:
         if choice in {"A", "B", "C"}:
             return choice
         print("Please enter A, B, or C.")
+
+
+def choose_world_cup_selection_mode() -> str:
+    for argument in sys.argv[1:]:
+        normalized = argument.strip().upper()
+        if normalized in {"--WORLD-CUP-RECOMMENDED", "--WORLD-CUP-SELECTION=RECOMMENDED"}:
+            return "recommended"
+        if normalized in {"--WORLD-CUP-RANDOM", "--WORLD-CUP-SELECTION=RANDOM"}:
+            return "random"
+
+    if batch.noninteractive_selection_enabled():
+        return "random"
+
+    while True:
+        print("")
+        print("Choose World Cup matching mode:")
+        print("  1 = random traditional-powerhouse team and random supporter action")
+        print("  2 = recommended character, country, and action pairing")
+        choice = input("World Cup matching [1/2, default 1]: ").strip().upper() or "1"
+        if choice in {"1", "R", "RANDOM"}:
+            return "random"
+        if choice in {"2", "RECOMMENDED", "RECOMMEND"}:
+            return "recommended"
+        print("Please enter 1 or 2.")
 
 
 def _parse_photographer_scene_selection(raw_choice, plan_count):
@@ -195,10 +219,13 @@ def activate_prompt_mode(mode: str) -> None:
         import world_cup_prompt_plans as world_cup_plans
         import world_cup_prompt_templates as world_cup_templates
 
+        selection_mode = choose_world_cup_selection_mode()
+        world_cup_plans.set_world_cup_selection_mode(selection_mode)
         _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans)
         print(
             "Prompt mode C active: World Cup front-facing supporter poster. "
-            f"Random kit-design pool: {len(world_cup_plans.TEAM_PROFILE_POOL)} designs.",
+            f"Matching mode: {selection_mode}. "
+            f"Traditional-powerhouse kit-design pool: {len(world_cup_plans.TEAM_PROFILE_POOL)} designs.",
             flush=True,
         )
         return

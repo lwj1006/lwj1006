@@ -55,7 +55,7 @@ def prompt_for_art_direction(
         "Poster hierarchy: first read is the designed World Cup supporter campaign poster; second read is the national-team-inspired fashion; third read is the recognizable character portrait.",
         "",
         "[CHARACTER-TEAM MATCH]",
-        f"Character: {character_name}. Randomly selected team inspiration for this poster: {spec['team']}.",
+        f"Character: {character_name}. Selected team inspiration for this poster: {spec['team']}.",
         f"Selected supporter-poster mood: {spec['fit_reason']}.",
         f"Identity: {profile['official_core']}",
         f"Must keep visible: {_join_list(identity_tokens)}.",

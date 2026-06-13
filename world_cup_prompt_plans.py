@@ -13,64 +13,64 @@ CHARACTER_NAMES = [
 
 
 TEAM_SPECS = [
-    ("Italy", "azzurri_blue", "royal azzurri-blue jersey with restrained white-and-gold trim, white shorts, blue socks", "classic, elegant, tactically composed"),
-    ("United States", "navy_red_white", "navy jersey with clean red-and-white trim, white shorts, navy socks", "bright, pop-minded, commercial"),
-    ("Senegal", "white_green", "white jersey with green and restrained yellow-red trim, green shorts", "warm, friendly, fresh"),
-    ("Argentina", "sky_blue_stripes", "sky-blue and white vertical-striped jersey, black shorts, white socks", "quiet, effortless, technically gifted"),
-    ("Germany", "white_black", "white jersey with black trim and restrained warm-color shoulder accents, black shorts", "sharp, disciplined, powerful"),
-    ("Portugal", "crimson_green", "deep crimson jersey with dark-green trim, green shorts, crimson socks", "calm, luminous, confident"),
-    ("Spain", "red_gold", "rich red jersey with gold and navy trim, navy shorts, red socks", "technical, graceful, composed"),
-    ("France", "deep_navy", "deep navy jersey with restrained tricolor trim, white shorts, red socks", "modern, powerful, controlled"),
-    ("Netherlands", "oranje", "vivid orange jersey with restrained black trim, orange shorts, orange socks", "bold, kinetic, unmistakable"),
-    ("Cote d'Ivoire", "orange_green", "rich orange jersey with green-and-white trim, orange shorts", "vivid, warm, celebratory"),
-    ("Sweden", "yellow_blue", "bright yellow jersey with blue trim, blue shorts, yellow socks", "sunny, light, elegant"),
-    ("Croatia", "red_white_checks", "red-and-white checked jersey, white shorts, blue socks", "distinctive, tactical, mysterious"),
-    ("England", "clean_white_navy", "clean white jersey with navy trim, navy shorts, white socks", "classic, elegant, polished"),
-    ("Uruguay", "celeste", "celeste sky-blue jersey with black trim, black shorts, black socks", "compact, reserved, resilient"),
-    ("Mexico", "green_white_red", "deep green jersey with white and restrained red trim, white shorts", "graphic, festive, determined"),
-    ("South Korea", "hot_red", "hot-red jersey with restrained black trim, black shorts, red socks", "fast, compact, energetic"),
-    ("Brazil", "canary_yellow", "canary-yellow jersey with green trim, blue shorts, white socks", "rhythmic, playful, creative"),
-    ("Denmark", "minimal_red", "minimal deep-red jersey with white trim, red shorts, white socks", "clean, clever, understated"),
-    ("Australia", "gold_green", "gold jersey with dark-green trim, green shorts, gold socks", "active, resilient, outdoorsy"),
-    ("Colombia", "yellow_blue_red", "golden-yellow jersey with blue and restrained red trim, navy shorts", "fashionable, charismatic, joyful"),
-    ("Norway", "red_navy", "red jersey with navy shoulders and restrained white trim, navy shorts", "cool, sharp, focused"),
-    ("Switzerland", "crimson_white", "crimson jersey with a simple white geometric accent, white shorts", "precise, modern, composed"),
-    ("Morocco", "red_green", "strong red jersey with green trim, red shorts, red socks", "graceful, patient, proud"),
-    ("Belgium", "red_black_gold", "deep red jersey with black shoulders and restrained gold trim, black shorts", "professional, strong, graphic"),
-    ("Canada", "maple_red", "clean maple-red jersey with white trim, black shorts, red socks", "disciplined, direct, host-nation energy"),
-    ("Portugal", "crimson_green_alt", "deep crimson jersey with dark-green trim, green shorts, crimson socks", "gentle, mysterious, composed"),
+    ("Italy", "italy_home", "royal azzurri-blue jersey with restrained white-and-gold trim, white shorts", "classic, elegant, tactically composed"),
+    ("Italy", "italy_away", "clean ivory-white jersey with azzurri-blue and antique-gold trim, blue shorts", "refined, luminous, quietly confident"),
+    ("Argentina", "argentina_home", "sky-blue and white vertical-striped jersey with dark trim, black shorts", "quiet, effortless, technically gifted"),
+    ("Argentina", "argentina_away", "deep midnight-blue jersey with sky-blue and silver accents, dark shorts", "cool, focused, technically gifted"),
+    ("Germany", "germany_home", "white jersey with black trim and restrained warm-color accents, black shorts", "sharp, disciplined, powerful"),
+    ("Germany", "germany_away", "deep burgundy-black jersey with restrained red-and-gold geometry, black shorts", "strong, graphic, controlled"),
+    ("Portugal", "portugal_home", "deep crimson jersey with dark-green trim and restrained gold accents, green shorts", "calm, luminous, confident"),
+    ("Portugal", "portugal_away", "pearl-white jersey with crimson-green graphic panels and gold details, white shorts", "gentle, composed, polished"),
+    ("Spain", "spain_home", "rich red jersey with gold and navy trim, navy shorts", "technical, graceful, composed"),
+    ("Spain", "spain_away", "pale golden-cream jersey with red-and-navy details, red shorts", "warm, elegant, expressive"),
+    ("France", "france_home", "deep navy jersey with restrained tricolor trim, white shorts", "modern, powerful, controlled"),
+    ("France", "france_away", "clean white jersey with fine blue-red pinstripes, navy shorts", "polished, poised, modern"),
+    ("Netherlands", "netherlands_home", "vivid orange jersey with restrained black trim, orange shorts", "bold, kinetic, unmistakable"),
+    ("Netherlands", "netherlands_away", "deep navy jersey with luminous orange geometric accents, navy shorts", "cool, graphic, energetic"),
+    ("Croatia", "croatia_home", "red-and-white checked jersey with deep-blue trim, white shorts", "distinctive, tactical, mysterious"),
+    ("Croatia", "croatia_away", "deep-blue jersey with restrained red-white check fragments, blue shorts", "composed, distinctive, clever"),
+    ("England", "england_home", "clean white jersey with navy trim and restrained red details, navy shorts", "classic, elegant, polished"),
+    ("England", "england_away", "deep red jersey with navy-and-white trim, dark shorts", "confident, graphic, traditional"),
+    ("Uruguay", "uruguay_home", "celeste sky-blue jersey with black trim, black shorts", "compact, reserved, resilient"),
+    ("Uruguay", "uruguay_away", "clean white jersey with celeste and black graphic accents, white shorts", "calm, crisp, resilient"),
+    ("Brazil", "brazil_home", "canary-yellow jersey with green trim, blue shorts", "rhythmic, playful, creative"),
+    ("Brazil", "brazil_away", "deep cobalt-blue jersey with green-yellow accents, white shorts", "confident, fluid, creative"),
+    ("Belgium", "belgium_home", "deep red jersey with black shoulders and restrained gold trim, black shorts", "professional, strong, graphic"),
+    ("Belgium", "belgium_away", "warm ivory jersey with burgundy-black and gold details, burgundy shorts", "refined, modern, composed"),
+    ("Sweden", "sweden_home", "bright yellow jersey with blue trim, blue shorts", "sunny, light, elegant"),
+    ("Sweden", "sweden_away", "deep royal-blue jersey with bright yellow graphic accents, blue shorts", "cool, clean, focused"),
 ]
 
 
 # Explicit modern national-team-inspired garment instructions. These prioritize
 # image-generation readability over exact official-kit reproduction.
 KIT_DESIGNS_2026 = {
-    "azzurri_blue": "2026-era luminous royal azzurri-blue jersey with subtle tonal Renaissance-inspired geometric texture, crisp white structure, restrained antique-gold edge details, modern clean collar and cuffs",
-    "navy_red_white": "2026 dark home-style jersey with bespoke tonal star jacquard, crisp red-and-white edge details, modern clean collar and structured sleeve panels",
-    "white_green": "2026-era white jersey with fresh green shoulder structure, restrained yellow-red cultural accents, subtle tonal performance texture",
-    "sky_blue_stripes": "2026 home-style sky-blue and white vertical stripes using several shifting blue gradients inspired by championship eras, dark trim, modern clean collar",
-    "white_black": "2026 white jersey with a bold black-red-gold central chevron, white diamond separators, black-and-red collar and sleeve trim",
-    "crimson_green": "2026-era deep crimson jersey with asymmetric dark-green graphic movement, refined gold micro-accents, modern structured collar and cuffs",
-    "red_gold": "2026 red jersey with fine yellow-gold vertical pinstripes, dark navy structure at collar and side panels, clean modern cuffs",
-    "deep_navy": "2026-era deep navy jersey with layered tricolor edge details, subtle tonal movement across the body, modern structured shoulder and sleeve construction",
-    "oranje": "2026-era vivid orange jersey with energetic tonal geometric texture, restrained black collar and sleeve structure, modern clean side panels",
-    "orange_green": "2026-era rich orange jersey with modern green-and-white angular side graphics, subtle tonal cultural texture, clean structured cuffs",
-    "yellow_blue": "2026 home-style bright yellow jersey with retro-inspired blue collar and sleeve structure, subtle tonal body pattern, clean modern fit",
-    "red_white_checks": "2026-era red-and-white check identity reworked as clean shifting check geometry, deep-blue trim, modern structured collar and side panels",
-    "clean_white_navy": "2026-style clean white jersey with subtle tonal lion-and-star jacquard, patriotic navy-and-red collar and cuff details, modern structured shoulder panels",
-    "celeste": "2026-era celeste jersey with subtle tonal sun-ray geometry, black collar and cuff structure, modern clean side panels",
-    "green_white_red": "2026 green jersey with bold tonal Aztec Sun Stone-inspired pattern, refined red-white-blue host accents, structured collar and sleeve trim",
-    "hot_red": "2026-era vivid red jersey with flowing black tonal brush or tiger-inspired motion pattern, clean black collar and sleeve structure",
-    "canary_yellow": "2026-era canary-yellow jersey with a refined tonal cultural pattern, deep-green V-neck and layered sleeve cuffs, modern green side-panel details",
-    "minimal_red": "2026-era deep red jersey with subtle tonal Scandinavian geometric texture, crisp white collar and cuff details, minimal modern structure",
-    "gold_green": "2026-era rich gold jersey with deep-green V-neck, layered green-gold cuffs, and a refined tonal star or constellation-inspired body pattern",
-    "yellow_blue_red": "2026 yellow jersey with delicate tonal butterfly motifs, refined blue-red edge details, modern clean collar and sleeve panels",
-    "red_navy": "2026-era strong red jersey with deep-navy shoulder and side structure, subtle Nordic tonal geometry, crisp white micro-accents",
-    "crimson_white": "2026-era crimson jersey with clean white geometric movement, subtle tonal alpine-inspired structure, modern collar and cuffs",
-    "red_green": "2026-era rich red jersey with deep-green geometric cultural patterning, clean green collar and cuffs, restrained white detailing",
-    "red_black_gold": "2026 deep-red jersey with stained-glass-inspired tonal pattern, black structural panels, refined gold edge details",
-    "maple_red": "2026-era maple-red jersey with subtle tonal leaf-inspired geometry, crisp white structure, modern clean collar and sleeve panels",
-    "crimson_green_alt": "2026-era deep crimson supporter jersey with flowing dark-green graphic panels, restrained gold accents, modern structured collar and cuffs",
+    "italy_home": "luminous royal azzurri-blue jersey with subtle tonal Renaissance geometry, crisp white structure, restrained antique-gold edges",
+    "italy_away": "ivory-white jersey with elegant azzurri-blue side panels, subtle tonal marble geometry, restrained antique-gold edges",
+    "argentina_home": "sky-blue and white vertical stripes using several shifting blue gradients, dark trim, modern clean collar",
+    "argentina_away": "midnight-blue jersey with luminous sky-blue diagonal movement, restrained silver details, modern clean cuffs",
+    "germany_home": "white jersey with a bold black-red-gold central chevron, white diamond separators, black-and-red trim",
+    "germany_away": "burgundy-black jersey with angular red-gold tonal geometry, black shoulder structure, restrained warm highlights",
+    "portugal_home": "deep crimson jersey with asymmetric dark-green graphic movement, refined gold micro-accents",
+    "portugal_away": "pearl-white jersey with sweeping crimson-green panels, refined gold micro-accents, structured clean collar",
+    "spain_home": "rich red jersey with fine yellow-gold vertical pinstripes, dark navy structure at collar and side panels",
+    "spain_away": "pale golden-cream jersey with warm red graphic arcs, navy structural details, restrained yellow-gold texture",
+    "france_home": "deep navy jersey with layered tricolor edge details, subtle tonal movement, structured shoulder construction",
+    "france_away": "clean white jersey with fine blue-red pinstripes, subtle tonal movement, modern navy shoulder structure",
+    "netherlands_home": "vivid orange jersey with energetic tonal geometric texture and restrained black structure",
+    "netherlands_away": "deep navy jersey with luminous orange angular geometry, clean dark structure, energetic side panels",
+    "croatia_home": "red-and-white check identity reworked as clean shifting check geometry with deep-blue trim",
+    "croatia_away": "deep-blue jersey with fragmented red-white check geometry, modern clean collar and side panels",
+    "england_home": "clean white jersey with subtle tonal lion-and-star jacquard and patriotic navy-red details",
+    "england_away": "deep red jersey with subtle tonal heritage geometry, navy-white collar and cuff details",
+    "uruguay_home": "celeste jersey with subtle tonal sun-ray geometry, black collar and cuff structure",
+    "uruguay_away": "clean white jersey with sweeping celeste panels, restrained black geometry, modern clean cuffs",
+    "brazil_home": "canary-yellow jersey with refined tonal cultural pattern, deep-green V-neck and layered sleeve cuffs",
+    "brazil_away": "deep cobalt-blue jersey with rhythmic green-yellow tonal movement, modern clean shoulder panels",
+    "belgium_home": "deep-red jersey with stained-glass-inspired tonal pattern, black structural panels, refined gold edges",
+    "belgium_away": "warm ivory jersey with restrained burgundy-black stained-glass geometry and refined gold edges",
+    "sweden_home": "bright yellow jersey with retro-inspired blue collar and sleeve structure, subtle tonal body pattern",
+    "sweden_away": "deep royal-blue jersey with bright yellow Nordic geometric movement, clean modern collar and cuffs",
 }
 
 
@@ -83,6 +83,8 @@ TEAM_PROFILE_POOL = [
     }
     for team, slug, kit, fit_reason in TEAM_SPECS
 ]
+
+WORLD_CUP_SELECTION_MODE = "random"
 
 
 FOOTBALL_ACTIONS = [
@@ -132,6 +134,35 @@ FOOTBALL_ACTIONS = [
         "tags": ["supporter_poster", "football_culture", "tense_match"],
     },
 ]
+
+RECOMMENDED_CHARACTER_MATCHES = {
+    "南宫": ("argentina_home", "scarf_across_chest"),
+    "爱芮": ("netherlands_home", "small_flag_wave"),
+    "千夏": ("sweden_home", "scarf_raised_overhead"),
+    "丹": ("france_away", "large_flag_front_open"),
+    "星见雅": ("germany_away", "large_flag_front_diagonal"),
+    "仪玄": ("italy_away", "flag_spread_behind_shoulders"),
+    "叶瞬光": ("spain_home", "large_flag_front_open"),
+    "席德": ("uruguay_home", "large_flag_side_wave"),
+    "橘福福": ("netherlands_home", "double_low_fist_goal_celebration"),
+    "柚叶": ("belgium_home", "large_flag_front_diagonal"),
+    "爱丽丝": ("portugal_away", "scarf_across_chest"),
+    "普罗米娅": ("france_home", "flag_spread_behind_shoulders"),
+    "薇薇安": ("croatia_away", "large_flag_front_open"),
+    "安比": ("germany_home", "scarf_across_chest"),
+    "可琳": ("sweden_away", "small_flag_wave"),
+    "艾莲": ("england_away", "large_flag_front_diagonal"),
+    "琉音": ("brazil_away", "scarf_raised_overhead"),
+    "耀嘉音": ("italy_home", "flag_spread_behind_shoulders"),
+    "柏妮思": ("brazil_home", "double_low_fist_goal_celebration"),
+    "妮可": ("spain_away", "large_flag_side_wave"),
+    "简": ("belgium_away", "large_flag_front_open"),
+    "月城柳": ("croatia_home", "flag_spread_behind_shoulders"),
+    "青衣": ("uruguay_away", "scarf_across_chest"),
+    "伊芙琳": ("portugal_home", "large_flag_front_diagonal"),
+    "朱鸢": ("england_home", "scarf_raised_overhead"),
+    "卢西娅": ("argentina_away", "small_flag_wave"),
+}
 
 
 FOOTBALL_COMPOSITIONS = [
@@ -208,7 +239,23 @@ FACE_SUPPORTER_MARKS = [
 
 
 def world_cup_spec_for(character_name=None):
+    if WORLD_CUP_SELECTION_MODE == "recommended":
+        slug, _ = RECOMMENDED_CHARACTER_MATCHES.get(character_name, (None, None))
+        if slug:
+            return dict(next(spec for spec in TEAM_PROFILE_POOL if spec["slug"] == slug))
     return dict(random.choice(TEAM_PROFILE_POOL))
+
+
+def set_world_cup_selection_mode(mode):
+    global WORLD_CUP_SELECTION_MODE
+    normalized = str(mode or "random").strip().lower()
+    if normalized not in {"random", "recommended"}:
+        raise ValueError(f"Unknown World Cup selection mode: {mode}")
+    WORLD_CUP_SELECTION_MODE = normalized
+
+
+def world_cup_selection_mode():
+    return WORLD_CUP_SELECTION_MODE
 
 
 def world_cup_outfit_for(character_name):
@@ -254,6 +301,10 @@ def world_cup_plan_for(character_name, spec=None):
 
 
 def choose_world_cup_action_style(character_name=None, recent_tags=None, art_plan=None):
+    if WORLD_CUP_SELECTION_MODE == "recommended":
+        _, action_name = RECOMMENDED_CHARACTER_MATCHES.get(character_name, (None, None))
+        if action_name:
+            return dict(next(action for action in FOOTBALL_ACTIONS if action["name"] == action_name))
     return dict(random.choice(FOOTBALL_ACTIONS))
 
 
