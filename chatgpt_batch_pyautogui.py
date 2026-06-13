@@ -37,6 +37,7 @@ from art_direction_templates import (
     prompt_template_name,
 )
 from yang_mi_outfits import YANG_MI_COLOR_FREE_THEMES, YANG_MI_ORIGINAL_COLOR_THEMES
+from zhang_wonyoung_outfits import ZHANG_WONYOUNG_COLOR_FREE_THEMES, ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES
 # ChatGPT desktop batch automation.
 # Adjust these coordinates if the ChatGPT window position/size changes.
 
@@ -477,6 +478,16 @@ CLOTHING_CATEGORY_OPTIONS = [
         "key": "yang_mi_color_free",
         "label": "风格: 杨幂无配色服装",
         "themes": YANG_MI_COLOR_FREE_THEMES,
+    },
+    {
+        "key": "zhang_wonyoung_original",
+        "label": "风格: 张元英原版服装",
+        "themes": ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES,
+    },
+    {
+        "key": "zhang_wonyoung_color_free",
+        "label": "风格: 张元英无配色服装",
+        "themes": ZHANG_WONYOUNG_COLOR_FREE_THEMES,
     },
     {
         "key": "daily_city",
