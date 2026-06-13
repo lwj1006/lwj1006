@@ -13,7 +13,7 @@ CHARACTER_NAMES = [
 
 
 TEAM_SPECS = [
-    ("Japan", "samurai_blue", "deep blue jersey, white shorts, blue socks, restrained red trim", "precise, clever, technical"),
+    ("Italy", "azzurri_blue", "royal azzurri-blue jersey with restrained white-and-gold trim, white shorts, blue socks", "classic, elegant, tactically composed"),
     ("United States", "navy_red_white", "navy jersey with clean red-and-white trim, white shorts, navy socks", "bright, pop-minded, commercial"),
     ("Senegal", "white_green", "white jersey with green and restrained yellow-red trim, green shorts", "warm, friendly, fresh"),
     ("Argentina", "sky_blue_stripes", "sky-blue and white vertical-striped jersey, black shorts, white socks", "quiet, effortless, technically gifted"),
@@ -45,7 +45,7 @@ TEAM_SPECS = [
 # Explicit modern national-team-inspired garment instructions. These prioritize
 # image-generation readability over exact official-kit reproduction.
 KIT_DESIGNS_2026 = {
-    "samurai_blue": "2026-style oceanic ash-blue jersey, deep blue tonal wave-like field, sharp pale-blue shoulder and sleeve geometry, modern structured V-neck",
+    "azzurri_blue": "2026-era luminous royal azzurri-blue jersey with subtle tonal Renaissance-inspired geometric texture, crisp white structure, restrained antique-gold edge details, modern clean collar and cuffs",
     "navy_red_white": "2026 dark home-style jersey with bespoke tonal star jacquard, crisp red-and-white edge details, modern clean collar and structured sleeve panels",
     "white_green": "2026-era white jersey with fresh green shoulder structure, restrained yellow-red cultural accents, subtle tonal performance texture",
     "sky_blue_stripes": "2026 home-style sky-blue and white vertical stripes using several shifting blue gradients inspired by championship eras, dark trim, modern clean collar",
