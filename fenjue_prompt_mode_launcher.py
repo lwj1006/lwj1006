@@ -53,6 +53,35 @@ def choose_world_cup_selection_mode() -> str:
         print("Please enter 1 or 2.")
 
 
+def choose_world_cup_recommended_start() -> int:
+    raw_choice = ""
+    for argument in sys.argv[1:]:
+        normalized = argument.strip()
+        if normalized.upper().startswith("--WORLD-CUP-START="):
+            raw_choice = normalized.split("=", 1)[1].strip()
+            break
+
+    if not raw_choice and not batch.noninteractive_selection_enabled():
+        print("")
+        print("Choose where the recommended World Cup round starts:")
+        for index, character_name in enumerate(batch.CHARACTER_SEQUENCE, start=1):
+            print(f"  {index} = {character_name}")
+        raw_choice = input(
+            f"Recommended start [1-{len(batch.CHARACTER_SEQUENCE)} or character name, default 1]: "
+        ).strip()
+
+    if not raw_choice:
+        return 0
+    if raw_choice.isdigit():
+        index = int(raw_choice)
+        if 1 <= index <= len(batch.CHARACTER_SEQUENCE):
+            return index - 1
+    for index, character_name in enumerate(batch.CHARACTER_SEQUENCE):
+        if raw_choice.lower() == character_name.lower():
+            return index
+    raise ValueError(f"Unknown World Cup recommended start character: {raw_choice}")
+
+
 def _parse_photographer_scene_selection(raw_choice, plan_count):
     normalized = raw_choice.strip().upper()
     if normalized in {"", "0", "ALL", "RANDOM"}:
@@ -170,7 +199,7 @@ def _activate_photographer_runtime_hooks(photographer, photographer_plans):
     batch.prompt_template_name = photographer.prompt_template_name
 
 
-def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, selection_mode="random"):
+def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, selection_mode="random", recommended_start_index=0):
     def skip_original_scene_selection():
         print("Original scene category menu skipped: World Cup mode uses dedicated bright-stadium supporter posters.", flush=True)
         return None
@@ -199,9 +228,9 @@ def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, sele
         return theme, False
 
     def choose_all_characters_once():
-        selected = batch.CHARACTER_SEQUENCE[:]
+        selected = batch.CHARACTER_SEQUENCE[recommended_start_index:]
         print(
-            f"World Cup recommended mode: running one complete character round ({len(selected)} characters), then stopping.",
+            f"World Cup recommended mode: starting from {selected[0]}, running {len(selected)} characters in fixed order, then stopping.",
             flush=True,
         )
         return selected
@@ -217,7 +246,7 @@ def _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, sele
     batch.prompt_template_name = world_cup_templates.prompt_template_name
     if selection_mode == "recommended":
         batch.startup_character_selection = choose_all_characters_once
-        batch.TOTAL_RUNS = len(batch.CHARACTER_SEQUENCE)
+        batch.TOTAL_RUNS = len(batch.CHARACTER_SEQUENCE) - recommended_start_index
         while "--runs" in sys.argv:
             option_index = sys.argv.index("--runs")
             del sys.argv[option_index:option_index + 2]
@@ -234,8 +263,14 @@ def activate_prompt_mode(mode: str) -> None:
         import world_cup_prompt_templates as world_cup_templates
 
         selection_mode = choose_world_cup_selection_mode()
+        recommended_start_index = choose_world_cup_recommended_start() if selection_mode == "recommended" else 0
         world_cup_plans.set_world_cup_selection_mode(selection_mode)
-        _activate_world_cup_runtime_hooks(world_cup_templates, world_cup_plans, selection_mode)
+        _activate_world_cup_runtime_hooks(
+            world_cup_templates,
+            world_cup_plans,
+            selection_mode,
+            recommended_start_index,
+        )
         print(
             "Prompt mode C active: World Cup front-facing supporter poster. "
             f"Matching mode: {selection_mode}. "

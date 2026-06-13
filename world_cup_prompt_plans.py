@@ -119,9 +119,9 @@ FOOTBALL_ACTIONS = [
         "tags": ["supporter_poster", "football_culture", "flag_wave"],
     },
     {
-        "name": "large_flag_pole_on_shoulder_peace",
-        "body_silhouette": "front-facing football-supporter fashion-poster pose with one clean large-flag pole resting diagonally on one shoulder; the hand on that same side alone grips and steadies the pole near the shoulder, while the completely free other hand makes a small natural V-sign beside the ear; the large national flag remains entirely behind the character and billows outward in the background, never entering the front torso area or covering the character",
-        "tags": ["supporter_poster", "football_culture", "large_flag", "peace_sign"],
+        "name": "giant_flagpole_on_shoulder_peace",
+        "body_silhouette": "front-facing football-supporter hero-poster pose carrying one unmistakably long, thick stadium-scale flagpole horizontally across one shoulder, with the pole visibly extending far beyond the body and out toward the image edge; the same-side hand grips the pole firmly beside the shoulder while the completely free other hand makes a natural V-sign beside the ear; one enormous national supporter flag is attached to the far rear end of the pole and spreads broadly behind the character across a large background area, never appearing as a small hand flag and never entering the front torso area",
+        "tags": ["supporter_poster", "football_culture", "giant_flag", "giant_flagpole", "peace_sign"],
     },
     {
         "name": "double_low_fist_goal_celebration",
@@ -148,7 +148,7 @@ RECOMMENDED_CHARACTER_MATCHES = {
     "星见雅": ("germany_away", "large_flag_front_diagonal"),
     "仪玄": ("italy_away", "flag_spread_behind_shoulders"),
     "叶瞬光": ("spain_home", "large_flag_front_open"),
-    "席德": ("uruguay_home", "large_flag_pole_on_shoulder_peace"),
+    "席德": ("uruguay_home", "giant_flagpole_on_shoulder_peace"),
     "橘福福": ("netherlands_home", "double_low_fist_goal_celebration"),
     "柚叶": ("belgium_home", "small_flag_wave"),
     "爱丽丝": ("portugal_away", "scarf_across_chest"),

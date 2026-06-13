@@ -57,10 +57,11 @@ def prompt_for_art_direction(
         else "Football prop rule: no football appears in this pose."
     )
     shoulder_pole_rule = (
-        "Shoulder-pole pose rule: the large-flag pole stays diagonally on one shoulder rather than across the neck; exactly one same-side hand grips the pole, "
-        "the other hand remains fully free for the ear-side V-sign, and the entire large flag billows behind the character only. The pole and flag must never "
-        "press against or cross the throat, face, hair, front torso, jersey design, or free arm."
-        if action_style.get("name") == "large_flag_pole_on_shoulder_peace"
+        "Giant shoulder-flag rule: use one long, thick, stadium-scale flagpole carried horizontally across one shoulder, visibly extending far beyond the body toward the image edge. "
+        "It must read immediately as a giant supporter flagpole, never a short handheld pole, small flag stick, baton, or raised hand flag. Exactly one same-side hand grips the pole beside the shoulder; "
+        "the other hand remains fully free for the ear-side V-sign. One enormous national flag is attached to the rear end and fills a broad area behind the character only. "
+        "Do not raise the pole vertically or overhead. The pole and flag must never cross the throat, face, hair, front torso, jersey design, or free arm."
+        if action_style.get("name") == "giant_flagpole_on_shoulder_peace"
         else ""
     )
 
