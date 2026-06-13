@@ -133,6 +133,11 @@ FOOTBALL_ACTIONS = [
         "body_silhouette": "front-facing football-supporter tense-match pose, both hands clasped gently together near the upper chest, shoulders only slightly raised, focused attentive expression with restrained natural tension",
         "tags": ["supporter_poster", "football_culture", "tense_match"],
     },
+    {
+        "name": "football_held_at_side_hip",
+        "body_silhouette": "front-facing football-supporter fashion-poster pose, one relaxed arm naturally secures exactly one clean football against the outer side of the hip with the hand resting low beside the ball, the other arm hangs relaxed, torso and hips form a subtle gentle offset, face stays clearly visible with a calm natural side glance; the ball remains below waist level and does not cover the jersey or body silhouette",
+        "tags": ["supporter_poster", "football_culture", "football_side_hip"],
+    },
 ]
 
 RECOMMENDED_CHARACTER_MATCHES = {
@@ -207,6 +212,16 @@ WORLD_CUP_SHOT_SCALES = [
 
 SUPPORTER_OUTFIT_VARIANTS = [
     (
+        "a tasteful cropped short-sleeve supporter jersey ending naturally around the upper waist, with a complete opaque jersey bodice, structured collar, sleeves, and clearly readable team-color panel design",
+        "a clean pleated short skirt",
+        "fashionable, youthful, and clearly designed as supporter-poster streetwear",
+    ),
+    (
+        "a tasteful cropped short-sleeve supporter jersey ending naturally around the upper waist, with a complete opaque jersey bodice, structured collar, sleeves, and clearly readable team-color panel design",
+        "clean high-waist athletic shorts",
+        "fresh, sporty, and clearly designed as supporter-poster streetwear",
+    ),
+    (
         "a regular-length short-sleeve supporter T-shirt worn naturally with the hem down",
         "clean athletic shorts",
         "fresh, active, and easy to read",
@@ -225,6 +240,16 @@ SUPPORTER_OUTFIT_VARIANTS = [
         "a longline supporter T-shirt with the front hem tied into one small neat knot",
         "a simple A-line short skirt",
         "fashionable national-team supporter poster styling",
+    ),
+    (
+        "a loose longline short-sleeve supporter T-shirt worn naturally with the full hem down and no knot",
+        "clean athletic shorts",
+        "relaxed, modern, and clearly suited to a front-facing supporter poster",
+    ),
+    (
+        "a loose longline short-sleeve supporter T-shirt worn naturally with the full hem down and no knot",
+        "a clean pleated short skirt",
+        "relaxed youthful national-team supporter poster styling",
     ),
 ]
 

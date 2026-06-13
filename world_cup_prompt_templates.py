@@ -49,6 +49,13 @@ def prompt_for_art_direction(
     if not spec["team"]:
         spec = world_cup_spec_for(character_name)
     outfit = outfit_direction or art_plan.get("outfit_direction") or world_cup_outfit_for(character_name)
+    football_prop_rule = (
+        "Football prop exception: show exactly one clean unbranded football naturally secured against the outer side of one hip below waist level. "
+        "It is a calm supporter-fashion prop, not sports action. Keep the other hand relaxed; do not hold the ball with both hands, lift it toward the chest, "
+        "place it at the feet, kick it, dribble it, or let it cover the jersey, waist silhouette, tail, mechanical parts, or identity features."
+        if action_style.get("name") == "football_held_at_side_hip"
+        else "Football prop rule: no football appears in this pose."
+    )
 
     lines = [
         "Independent image task. Uploaded references define character identity only. Create exactly one clearly featured character in one official campaign-style World Cup supporter poster, not a scene of someone actually watching a match.",
@@ -67,8 +74,8 @@ def prompt_for_art_direction(
         "Use an unofficial national-team-inspired supporter outfit. Make the country association readable through classic jersey color blocking, never through a real federation badge, official crest, manufacturer logo, sponsor mark, or copied official branding.",
         "Jersey design fidelity: preserve the selected modern tonal pattern, collar shape, sleeve-cuff structure, shoulder treatment, and side-panel geometry. Do not fall back to a plain-color national-team shirt.",
         "The supporter outfit must fit the character naturally and must not hide signature hair accessories, ears, tail, mechanical parts, or other identity anchors.",
-        "All fabric is opaque. Execute the selected T-shirt length, hem treatment, and bottom silhouette clearly; do not replace them with a professional player uniform.",
-        "A selected front knot must be one small neat clothing knot only. A selected loose longline T-shirt must remain fully untied with its hem down.",
+        "All fabric is opaque. Execute the selected cropped, regular-length, or longline supporter-jersey length, hem treatment, and bottom silhouette clearly; do not replace them with a professional player uniform.",
+        "Jersey-length rule: a selected cropped jersey is a complete opaque short-sleeve football-supporter top ending naturally around the upper waist and may reveal only a modest clean waistline; it is never a bra top, bikini top, micro crop, lingerie, or underboob design. A selected regular-length jersey keeps its hem naturally down. A selected front knot must be one small neat clothing knot only. A selected loose longline T-shirt must remain fully untied with its full hem down.",
         "A selected cheek mark must stay tiny, simple, unofficial, and readable as team-color fan decoration rather than an official crest.",
         "Style the outfit as comfortable, tasteful national-team supporter poster fashion with natural proportions.",
         "",
@@ -83,6 +90,7 @@ def prompt_for_art_direction(
         "The character is posing for a national-team supporter campaign poster, not actually watching a match, playing football, training, or posing as an athlete.",
         "Pose and expression discipline: execute the selected football-supporter pose clearly, but keep the face natural, attractive, restrained, and faithful to the character's established personality. Expression intensity stays low to moderate; use relaxed eyes and a closed-mouth or only slightly open natural smile when appropriate. Do not force dramatic acting.",
         "Supporter-prop rule: a selected scarf stays text-free and crest-free. A selected large or small national flag may be held in front, beside the body, diagonally across the foreground, waved from a pole, or spread behind the shoulders, but must remain a separately held supporter flag: never clothing, never attached to the outfit, never fused into a cape, skirt, or train, and never wrapped around the body. Front flags stay below shoulder level and mainly below the upper torso; they must not hide the face, eyes, hairstyle, ears, fixed accessories, hands, chest silhouette, main jersey design, tail, mechanical parts, or other identity features. A scarf or flag supports the silhouette but never becomes the dominant first read.",
+        football_prop_rule,
         "Hands stay simple and anatomically readable. Preserve natural original proportions and a neutral slim anime build.",
         "",
         "[MATCHDAY POSTER WORLD]",
@@ -94,7 +102,7 @@ def prompt_for_art_direction(
         "Background rule: use a bright open daytime football stadium with fresh green pitch, pale seating tiers, blue sky, soft white clouds, and simplified shallow stadium geometry. Keep it clean, airy, and subordinate to the character.",
         "Title-space rule: reserve an intentionally empty clean area for later typography, but generate no actual letters, words, numbers, slogan, logo, or UI text.",
         f"Finish: {STYLE_BASELINE}.",
-        "Avoid: exaggerated facial acting, unnaturally wide smile, forced open mouth, shouting mouth, tongue visible, overly wide eyes, sparkling manic eyes, strained eyebrows, crying face, distorted expression, blank expression, emotionless face, mechanical raised open hand, polite clapping pose, hands hovering as if clapping, attendance-roll gesture, stiff idle pose, flag worn as clothing, flag wrapped around the body, flag cape, watching an off-frame screen, off-frame viewing gaze, night scene, darkness, black background, street, cafe, shopfront, bar, public screen, dramatic night bokeh, realistic deep environment, scenery-dominant composition, cramped crop, missing title-space margin, football-playing action, kicking, dribbling, shooting, ball at feet, player tunnel, pitch-side athlete pose, extra featured people, duplicate character, broken hands, missing limbs, identity drift, photorealism, 3D render, sexualized pose, fetish framing, trophy, official FIFA marks, official team crest, sponsor logo, watermark, readable words, readable player name, readable jersey number, readable score, readable signage.",
+        "Avoid: exaggerated facial acting, unnaturally wide smile, forced open mouth, shouting mouth, tongue visible, overly wide eyes, sparkling manic eyes, strained eyebrows, crying face, distorted expression, blank expression, emotionless face, mechanical raised open hand, polite clapping pose, hands hovering as if clapping, attendance-roll gesture, stiff idle pose, bra-like jersey, bikini-like jersey, lingerie-like jersey, micro crop, underboob, flag worn as clothing, flag wrapped around the body, flag cape, watching an off-frame screen, off-frame viewing gaze, night scene, darkness, black background, street, cafe, shopfront, bar, public screen, dramatic night bokeh, realistic deep environment, scenery-dominant composition, cramped crop, missing title-space margin, football-playing action, kicking, dribbling, shooting, ball at feet, multiple footballs, ball covering the torso, player tunnel, pitch-side athlete pose, extra featured people, duplicate character, broken hands, missing limbs, identity drift, photorealism, 3D render, sexualized pose, fetish framing, trophy, official FIFA marks, official team crest, sponsor logo, watermark, readable words, readable player name, readable jersey number, readable score, readable signage.",
     ]
     prompt = _compact_lines(lines)
     for heading in ("[CHARACTER-TEAM MATCH]", "[NATIONAL-TEAM KIT]", "[FRONT-FACING SUPPORTER POSTER]", "[MATCHDAY POSTER WORLD]"):
