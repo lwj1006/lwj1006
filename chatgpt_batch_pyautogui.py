@@ -2205,9 +2205,16 @@ def wait_until_start_time(target: dt.datetime | None) -> None:
 def choose_fixed_clothing_theme(
     fixed_clothing_themes: list[str],
     art_plan: dict | None = None,
-    batch_used_themes: set[str] | None = None,
+    cycle_used_themes: set[str] | None = None,
 ) -> str:
-    batch_used_themes = batch_used_themes or set()
+    cycle_used_themes = cycle_used_themes if cycle_used_themes is not None else set()
+    if fixed_clothing_themes and all(theme in cycle_used_themes for theme in fixed_clothing_themes):
+        cycle_used_themes.clear()
+        print(
+            "Fixed clothing selection cycle complete; clearing fixed-pool history and starting a new randomized cycle.",
+            flush=True,
+        )
+
     if art_plan is not None:
         compatible = [
             theme for theme in fixed_clothing_themes
@@ -2216,13 +2223,14 @@ def choose_fixed_clothing_theme(
         if compatible:
             available_compatible = [
                 theme for theme in compatible
-                if theme not in batch_used_themes
+                if theme not in cycle_used_themes
             ]
-            return random.choice(available_compatible or compatible)
+            if available_compatible:
+                return random.choice(available_compatible)
 
     available = [
         theme for theme in fixed_clothing_themes
-        if theme not in batch_used_themes
+        if theme not in cycle_used_themes
     ]
     return random.choice(available or fixed_clothing_themes)
 
@@ -2461,6 +2469,7 @@ def main() -> None:
     fixed_character_selection = startup_character_selection()
     fixed_scene_plan_names = startup_scene_selection()
     fixed_clothing_themes = startup_clothing_selection()
+    fixed_clothing_cycle_used: set[str] = set()
     scheduled_start = startup_start_time_selection()
     wait_until_start_time(scheduled_start)
     if safety_shutdown_enabled:
@@ -2532,10 +2541,12 @@ def main() -> None:
                 theme = choose_fixed_clothing_theme(
                     fixed_clothing_themes,
                     art_plan,
-                    batch_used_themes,
+                    fixed_clothing_cycle_used,
                 )
             plan_name = art_plan["name"]
             batch_used_themes.add(theme)
+            if fixed_clothing_themes is not None:
+                fixed_clothing_cycle_used.add(theme)
             batch_used_plans.add(plan_name)
             outfit_prompt, black_hosiery_applied = outfit_with_optional_black_hosiery(
                 character_name,
