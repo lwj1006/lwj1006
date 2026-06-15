@@ -10,6 +10,7 @@ from art_direction_options import (
 from photographer_prompt_plans import (
     choose_photographer_action_style,
     choose_photographer_composition_plan,
+    choose_photographer_focus_style,
     choose_photographer_scene_plan,
     choose_photographer_shot_scale,
 )
@@ -74,7 +75,7 @@ def _scene_block(art_plan):
     return lines
 
 
-def _photographer_block(action_style, shot_scale, composition_plan):
+def _photographer_block(action_style, shot_scale, composition_plan, focus_style):
     return [
         "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
         f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
@@ -84,6 +85,7 @@ def _photographer_block(action_style, shot_scale, composition_plan):
         f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
         f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
         f"Subject scale: {_clip_text(shot_scale.get('description', ''), 145)}",
+        f"Optical focus treatment: {_clip_text(focus_style.get('description', ''), 155)}",
         f"Framing guardrail: {_clip_text(composition_plan.get('guardrail', ''), 130)}",
         (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
@@ -156,6 +158,7 @@ def prompt_for_art_direction(
     outfit_direction=None,
     shot_scale=None,
     composition_plan=None,
+    focus_style=None,
 ):
     if art_plan is None:
         art_plan = choose_photographer_scene_plan(character_name, recent_tags)
@@ -163,8 +166,6 @@ def prompt_for_art_direction(
         action_style = choose_photographer_action_style(character_name, recent_tags, art_plan)
     if visual_design is None:
         visual_design = choose_visual_design(recent_tags, art_plan)
-    if shot_scale is None:
-        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan)
     if composition_plan is None:
         composition_plan = choose_photographer_composition_plan(
             recent_tags,
@@ -172,6 +173,10 @@ def prompt_for_art_direction(
             action_style,
             outfit_direction or art_plan.get("outfit_direction"),
         )
+    if shot_scale is None:
+        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan, composition_plan)
+    if focus_style is None:
+        focus_style = choose_photographer_focus_style(recent_tags, art_plan, composition_plan)
 
     profile = propagation_profile_for(character_name)
     identity_tokens = required_identity_tokens_for(character_name)
@@ -184,7 +189,7 @@ def prompt_for_art_direction(
         *_scene_block(art_plan),
         "",
         "[PHOTOGRAPHER]",
-        *_photographer_block(action_style, shot_scale, composition_plan),
+        *_photographer_block(action_style, shot_scale, composition_plan, focus_style),
         "",
         "[CHARACTER]",
         *_character_block(character_name, profile, identity_tokens),

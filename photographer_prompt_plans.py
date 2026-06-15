@@ -394,7 +394,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "clean side-front or soft frontal light keeps face and clothing readable",
         "guardrail": "background remains subordinate; selected shot scale controls framing distance",
         "tags": ["photographer_composition", "eye_level", "front_view"],
-        "weight": 1.0,
+        "weight": 1.15,
     },
     {
         "name": "eye_level_three_quarter_camera",
@@ -405,7 +405,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft directional light separates character from a restrained background",
         "guardrail": "selected shot scale controls framing distance; preserve natural proportions",
         "tags": ["photographer_composition", "eye_level", "three_quarter"],
-        "weight": 1.0,
+        "weight": 1.15,
     },
     {
         "name": "gentle_diagonal_camera",
@@ -416,7 +416,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "environment light leads gently toward the face and outfit",
         "guardrail": "keep horizon and body proportions stable; selected shot scale controls distance",
         "tags": ["photographer_composition", "eye_level", "diagonal_camera"],
-        "weight": 1.0,
+        "weight": 0.8,
     },
     {
         "name": "side_three_quarter_camera",
@@ -427,7 +427,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "even readable light with clear separation from the ground and background",
         "guardrail": "keep face readable and proportions natural; selected shot scale controls distance",
         "tags": ["photographer_composition", "eye_level", "side_three_quarter"],
-        "weight": 1.0,
+        "weight": 0.9,
     },
     {
         "name": "clean_profile_editorial",
@@ -438,7 +438,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft side-front or rim-balanced light separates profile from background",
         "guardrail": "keep both profile and outfit readable; avoid silhouette-only darkness",
         "tags": ["photographer_composition", "profile", "side_view"],
-        "weight": 1.0,
+        "weight": 0.65,
     },
     {
         "name": "restrained_low_angle_editorial",
@@ -449,7 +449,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "clean face light and subtle rim preserve readable facial planes",
         "guardrail": "keep face prominent and proportions natural; do not emphasize legs, chest, or underside anatomy",
         "tags": ["photographer_composition", "low_camera", "editorial"],
-        "weight": 1.0,
+        "weight": 0.55,
     },
     {
         "name": "controlled_high_angle_portrait",
@@ -460,7 +460,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft top-side light with clean eyes and readable clothing detail",
         "guardrail": "character remains large; avoid tiny subject or excessive floor area",
         "tags": ["photographer_composition", "high_camera", "character_focus"],
-        "weight": 1.0,
+        "weight": 0.6,
     },
     {
         "name": "vertical_overhead_90_degree",
@@ -471,7 +471,62 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft overhead or side-overhead light keeps face, hair, hands, and outfit readable",
         "guardrail": "keep the character large and central enough to remain the first read; avoid clutter and anatomy overlap",
         "tags": ["photographer_composition", "overhead", "vertical_camera"],
-        "weight": 1.0,
+        "weight": 0.05,
+    },
+    {
+        "name": "centered_symmetry_editorial",
+        "composition": "calm symmetrical editorial composition with the character centered and surrounding lines kept simple",
+        "camera": "straight eye-level camera with a normal portrait lens; distance follows the selected shot scale",
+        "pose": "selected action remains natural and is not replaced by a rigid formal stance",
+        "foreground": "none; balanced scene lines remain behind the character",
+        "lighting": "balanced soft light preserves facial depth instead of flattening the character",
+        "guardrail": "symmetry controls the frame only; keep the pose relaxed and avoid passport-photo stiffness",
+        "tags": ["photographer_composition", "eye_level", "symmetry"],
+        "weight": 0.7,
+    },
+    {
+        "name": "off_center_negative_space_editorial",
+        "composition": "character placed clearly on one third with clean negative space supporting the gaze and outfit silhouette",
+        "camera": "natural eye-level or slight three-quarter camera with normal perspective; distance follows the selected shot scale",
+        "pose": "selected action remains readable and naturally directs attention into the open space",
+        "foreground": "none; negative space stays clean and does not become scenery-dominant",
+        "lighting": "directional soft light leads from the open space toward the face",
+        "guardrail": "character remains large and immediately readable; do not push the subject against the frame edge",
+        "tags": ["photographer_composition", "eye_level", "negative_space"],
+        "weight": 0.75,
+    },
+    {
+        "name": "long_lens_compressed_editorial",
+        "composition": "polished long-lens editorial frame with calm compressed depth and strong subject separation",
+        "camera": "eye-level or slight side three-quarter viewpoint with a restrained telephoto lens feeling; distance follows the selected shot scale",
+        "pose": "selected action remains quiet and coherent without forced fashion posing",
+        "foreground": "no foreground obstruction; distant scene layers compress softly behind the character",
+        "lighting": "clean subject light separates face, hair, and outfit from the softened background",
+        "guardrail": "keep natural proportions and a sharp subject; avoid flat cutout appearance or busy background layers",
+        "tags": ["photographer_composition", "telephoto", "compressed_depth"],
+        "weight": 0.7,
+    },
+    {
+        "name": "environmental_medium_wide_editorial",
+        "composition": "environmental editorial frame showing a little more location while the character remains the unmistakable first focus",
+        "camera": "eye-level medium-wide camera with normal perspective and a stable horizon",
+        "pose": "selected action remains simple and readable within the environment",
+        "foreground": "none; use only clean scene spacing around the character",
+        "lighting": "environment light supports clear facial and outfit separation",
+        "guardrail": "character occupies about 40-55 percent of the image; avoid tiny subject, scenic panorama, or clutter",
+        "tags": ["photographer_composition", "environmental_portrait", "medium_wide"],
+        "weight": 0.55,
+    },
+    {
+        "name": "shoulder_height_intimate_editorial",
+        "composition": "intimate photographer-nearby portrait with natural eye contact or a quiet gaze shift",
+        "camera": "camera held around shoulder height with a natural portrait lens; distance follows the selected close or medium shot scale",
+        "pose": "selected action stays small, candid, and anatomically clear",
+        "foreground": "none; keep the nearby frame open around face and shoulders",
+        "lighting": "soft face-priority light keeps eyes, hair, and upper outfit detail crisp",
+        "guardrail": "avoid chest-dominant framing, facial distortion, or uncomfortable close-pressure",
+        "tags": ["photographer_composition", "shoulder_height", "intimate_portrait"],
+        "weight": 0.65,
     },
 ]
 
@@ -506,6 +561,45 @@ PHOTOGRAPHER_SHOT_SCALES = [
         "name": "bust_closeup",
         "description": "bust-up portrait centered on face, hairstyle, shoulders, and upper outfit construction with comfortable framing",
         "weight": 1.0,
+    },
+    {
+        "name": "head_to_waist_editorial",
+        "description": "head-to-waist editorial framing with face, hands when naturally visible, and upper outfit construction clearly readable",
+        "weight": 1.15,
+    },
+    {
+        "name": "three_quarter_body_editorial",
+        "description": "three-quarter-body framing from head to mid-thigh or calf; show the outfit line without requiring feet or a full-body pose",
+        "weight": 1.1,
+    },
+    {
+        "name": "environmental_medium_wide",
+        "description": "medium-wide environmental portrait; character occupies about 40-55 percent of the image and remains the immediate first focus",
+        "weight": 0.65,
+    },
+]
+
+
+PHOTOGRAPHER_FOCUS_STYLES = [
+    {
+        "name": "clean_deep_subject_focus",
+        "description": "character, face, hands, and outfit remain crisp; background stays readable but subordinate",
+        "weight": 6.0,
+    },
+    {
+        "name": "soft_background_bokeh",
+        "description": "gentle background bokeh and shallow depth of field separate the character; eyes, face, hands, and outfit stay sharply focused",
+        "weight": 1.25,
+    },
+    {
+        "name": "subtle_edge_defocus",
+        "description": "a tiny scene-native edge near one side of the frame may fall softly out of focus; it never overlaps the face or body, while the character stays crisp",
+        "weight": 0.65,
+    },
+    {
+        "name": "telephoto_background_softness",
+        "description": "distant background planes melt into restrained telephoto softness; the complete visible character remains sharply resolved",
+        "weight": 0.8,
     },
 ]
 
@@ -578,8 +672,43 @@ def choose_photographer_action_style(character_name=None, recent_tags=None, plan
 
 
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):
-    return dict(random.choice(PHOTOGRAPHER_COMPOSITION_PLANS))
+    return _weighted_choice(PHOTOGRAPHER_COMPOSITION_PLANS)
 
 
-def choose_photographer_shot_scale(recent_tags=None, plan=None):
-    return dict(random.choice(PHOTOGRAPHER_SHOT_SCALES))
+def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan=None):
+    composition_name = (composition_plan or {}).get("name", "")
+    if composition_name == "environmental_medium_wide_editorial":
+        compatible_names = {
+            "medium_character_focus",
+            "knee_up_character_focus",
+            "three_quarter_body_editorial",
+            "environmental_medium_wide",
+        }
+    elif composition_name == "shoulder_height_intimate_editorial":
+        compatible_names = {
+            "face_closeup",
+            "bust_closeup",
+            "waist_up_clear_portrait",
+            "head_to_waist_editorial",
+            "medium_character_focus",
+        }
+    else:
+        compatible_names = None
+    pool = [
+        shot_scale for shot_scale in PHOTOGRAPHER_SHOT_SCALES
+        if compatible_names is None or shot_scale["name"] in compatible_names
+    ]
+    return _weighted_choice(pool)
+
+
+def choose_photographer_focus_style(recent_tags=None, plan=None, composition_plan=None):
+    foreground = str((composition_plan or {}).get("foreground", "")).lower()
+    composition_name = (composition_plan or {}).get("name", "")
+    edge_defocus_allowed = composition_name == "clean_profile_editorial"
+    pool = [
+        focus_style for focus_style in PHOTOGRAPHER_FOCUS_STYLES
+        if focus_style["name"] != "subtle_edge_defocus"
+        or edge_defocus_allowed
+        or ("none" not in foreground and "no foreground" not in foreground)
+    ]
+    return _weighted_choice(pool)
