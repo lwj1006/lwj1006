@@ -88,6 +88,11 @@ def _photographer_block(action_style, shot_scale, composition_plan, focus_style)
         f"Optical focus treatment: {_clip_text(focus_style.get('description', ''), 155)}",
         f"Framing guardrail: {_clip_text(composition_plan.get('guardrail', ''), 130)}",
         (
+            "Hard crop rule: never create a full-body, near-full-body, head-to-toe, or distant standing-character image. "
+            "Do not show both feet completely. Even for standing, walking, seated, high-angle, or wide environmental shots, "
+            "crop at upper calf or closer and keep the face plus outfit as the dominant read."
+        ),
+        (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
             "and perspective must describe the same captured instant. Follow the selected camera angle, "
             "shot scale, and body direction exactly rather than replacing them with a generic default portrait. "
