@@ -200,6 +200,7 @@ POST_CHARACTER_SELECTION_DELAY_SECONDS = 3
 SEND_MOUSE_AWAY_OFFSET = (-220, -90)
 WORK_REMINDER_INTERVAL = 14
 WORK_REMINDER_TEXT = "REMINDER: This is still an image-generation-only batch. Do not explain or comment. Generate the image directly."
+IMAGE_PROMPT_PREFIX = "【根据以下提示词完成图片的生成】"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
 LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
@@ -1391,6 +1392,13 @@ def send_prompt(prompt: str) -> None:
     click_send_button()
 
 
+def with_image_prompt_prefix(prompt: str) -> str:
+    prompt = str(prompt).strip()
+    if prompt.startswith(IMAGE_PROMPT_PREFIX):
+        return prompt
+    return f"{IMAGE_PROMPT_PREFIX}\n{prompt}"
+
+
 def send_work_reminder(completed_run_number: int) -> None:
     print(
         f"[{completed_run_number:02d}] reminder: sending plain text work reminder, no upload and no image prompt",
@@ -2574,6 +2582,7 @@ def main() -> None:
                 shot_scale=shot_scale,
                 composition_plan=composition_plan,
             )
+            prompt = with_image_prompt_prefix(prompt)
 
             print("=" * 72, flush=True)
             print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
