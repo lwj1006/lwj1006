@@ -328,10 +328,28 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "weight": 1.0,
     },
     {
-        "name": "hair_or_sleeve_micro_action",
-        "body_silhouette": "small natural action such as adjusting hair, sleeve, collar edge, bag strap, or outer layer; fingers stay simple and body direction follows the selected camera",
+        "name": "sleeve_or_bag_micro_action",
+        "body_silhouette": "small natural action such as lightly adjusting a sleeve cuff, bag strap, or outer-layer edge; the other hand rests naturally below shoulder level and body direction follows the selected camera",
         "tags": ["micro_action", "simple_hand", "camera_adaptive"],
         "weight": 1.0,
+    },
+    {
+        "name": "small_camera_v_sign",
+        "body_silhouette": "small one-hand V-sign toward the selected camera, held beside the shoulder with clear space from the face; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "v_sign", "simple_hand", "camera_adaptive"],
+        "weight": 0.45,
+    },
+    {
+        "name": "small_camera_ok_sign",
+        "body_silhouette": "small one-hand OK-sign toward the selected camera, held around shoulder level without covering the face; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "ok_sign", "simple_hand", "camera_adaptive"],
+        "weight": 0.35,
+    },
+    {
+        "name": "small_camera_wave",
+        "body_silhouette": "small restrained one-hand wave toward the selected camera with the palm below face level; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "small_wave", "simple_hand", "camera_adaptive"],
+        "weight": 0.35,
     },
     {
         "name": "upright_seated_pause",
@@ -555,7 +573,8 @@ def choose_photographer_scene_plan(character_name=None, recent_tags=None):
 
 
 def choose_photographer_action_style(character_name=None, recent_tags=None, plan=None):
-    return dict(random.choice(PHOTOGRAPHER_ACTION_STYLES))
+    weights = [float(action.get("weight", 1.0)) for action in PHOTOGRAPHER_ACTION_STYLES]
+    return dict(random.choices(PHOTOGRAPHER_ACTION_STYLES, weights=weights, k=1)[0])
 
 
 def choose_photographer_composition_plan(recent_tags=None, plan=None, action=None, outfit_direction=None):

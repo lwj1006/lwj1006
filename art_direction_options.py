@@ -1,9 +1,10 @@
-import json
+﻿import json
 import random
 from pathlib import Path
 
 from yang_mi_outfits import YANG_MI_COLOR_FREE_THEMES, YANG_MI_ORIGINAL_COLOR_THEMES
 from zhang_wonyoung_outfits import ZHANG_WONYOUNG_COLOR_FREE_THEMES, ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES
+from zhang_ruonan_outfits import ZHANG_RUONAN_COLOR_FREE_THEMES, ZHANG_RUONAN_ORIGINAL_COLOR_THEMES
 
 PROJECT_DIR = Path(__file__).resolve().parent
 RUNTIME_CONFIG_PATH = PROJECT_DIR / "config" / "runtime_art_direction.json"
@@ -136,11 +137,14 @@ OUTFIT_DIRECTIONS.extend(YANG_MI_ORIGINAL_COLOR_THEMES)
 OUTFIT_DIRECTIONS.extend(YANG_MI_COLOR_FREE_THEMES)
 OUTFIT_DIRECTIONS.extend(ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES)
 OUTFIT_DIRECTIONS.extend(ZHANG_WONYOUNG_COLOR_FREE_THEMES)
+OUTFIT_DIRECTIONS.extend(ZHANG_RUONAN_ORIGINAL_COLOR_THEMES)
+OUTFIT_DIRECTIONS.extend(ZHANG_RUONAN_COLOR_FREE_THEMES)
 
 FIXED_COLOR_OUTFIT_DIRECTIONS = (
     set(OUTFIT_DIRECTIONS[-190:-170])
     | set(YANG_MI_ORIGINAL_COLOR_THEMES)
     | set(ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES)
+    | set(ZHANG_RUONAN_ORIGINAL_COLOR_THEMES)
 )
 
 
@@ -169,7 +173,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["mint gray-green short layered hair", "large mint bow", "soft asymmetrical bangs", "pink-gold eyes"],
         "viewer_relationship": "warm friendly eye contact, soft cheerful smile, approachable and slightly playful expression.",
         "thumbnail_strategy": "mint hair, large bow, and clear eyes must stay stable; do not turn her into a generic long-haired character.",
-        "interaction_rule": "small daily gestures, lightly fixing hair, holding sleeves, subtle cute reactions, relaxed seated poses.",
+        "interaction_rule": "small daily gestures, hands relaxed near the sides or sleeves, subtle cute reactions, and relaxed seated poses.",
         "color_anchor": "mint, pale gold, soft white",
     },
     "丹": {
@@ -328,7 +332,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["short layered black bob with gray highlights", "pointed elf ears with multiple silver piercings", "turquoise-green eyes", "long dark-crimson rear hair extension", "segmented gray rat tail with metallic arrow-shaped tip"],
         "viewer_relationship": "playful confident presence with a natural front, three-quarter, or side gaze; keep the eyes, ears, hair silhouette, and tail readable.",
         "thumbnail_strategy": "black-gray bob, turquoise-green eyes, pierced elf ears, crimson rear hair extension, and segmented rat tail must stay clear; outfit and undercover gear may vary.",
-        "interaction_rule": "small teasing expression, relaxed stance, or one simple hand near the hair is fine; keep hands object-free and avoid complex undercover or tactical props.",
+        "interaction_rule": "small teasing expression or relaxed stance is fine; keep hands object-free and naturally below shoulder level, and avoid complex undercover or tactical props.",
         "color_anchor": "black, dark crimson, gray, silver, turquoise green",
     },
     "月城柳": {
@@ -344,7 +348,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["long dark-green twin tails", "blunt bangs with two short front braids", "turquoise-green eyes", "jade leaf-shaped hair ornaments", "small white ribbon accents"],
         "viewer_relationship": "calm leisurely presence with a natural front, three-quarter, or side gaze; keep the eyes, twin-tail silhouette, front braids, and jade ornaments readable.",
         "thumbnail_strategy": "dark-green twin tails, turquoise-green eyes, blunt bangs, two front braids, and jade leaf ornaments must stay clear; mechanical details are optional supporting accents.",
-        "interaction_rule": "relaxed listening, a small hair-adjusting gesture, or hands resting naturally are fine; keep hands object-free and let any android or staff-like detail remain subtle in the background.",
+        "interaction_rule": "relaxed listening or hands resting naturally near the sides or lap are fine; keep hands object-free and let any android or staff-like detail remain subtle in the background.",
         "color_anchor": "dark green, teal, jade, black, muted gold",
     },
     "伊芙琳": {
@@ -360,7 +364,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["high black ponytail with vivid red streaks", "short layered bangs", "amber-orange eyes", "silver mechanical headband"],
         "viewer_relationship": "serious composed presence with a natural front, three-quarter, or side gaze; keep the eyes, ponytail silhouette, red streaks, and headband readable.",
         "thumbnail_strategy": "black high ponytail, vivid red streaks, amber-orange eyes, and silver mechanical headband must stay clear; police uniform and tactical equipment are not fixed identity.",
-        "interaction_rule": "disciplined standing, walking, or a simple hand near the earpiece is fine; keep hands simple and avoid forcing police equipment, firearms, or tactical action.",
+        "interaction_rule": "disciplined standing or walking with hands relaxed near the sides is fine; avoid forcing police equipment, firearms, or tactical action.",
         "color_anchor": "black, vivid red, blue, silver, amber",
     },
     "卢西娅": {
@@ -368,7 +372,7 @@ CHARACTER_PROFILES = {
         "identity_tokens": ["short light-blue hair with braided ponytail", "small black horns", "long pointed elf ears", "golden-green eyes", "dark-blue tassel braid tip with small gold ornaments"],
         "viewer_relationship": "gentle mysterious presence with a natural front, three-quarter, or side gaze; keep the eyes, blue hair silhouette, horns, elf ears, and braided tassel readable.",
         "thumbnail_strategy": "light-blue hair, small black horns, golden-green eyes, pointed elf ears, and dark-blue tassel braid tip must stay clear; cape panels and magical tools are optional.",
-        "interaction_rule": "a quiet contemplative pose, relaxed standing, or one simple hand near the hair is fine; staff-like forms and magical accessories may appear only as unobtrusive background elements.",
+        "interaction_rule": "a quiet contemplative pose or relaxed standing with hands naturally lowered is fine; staff-like forms and magical accessories may appear only as unobtrusive background elements.",
         "color_anchor": "light blue, teal, dark blue, black, muted gold",
     }
 }
@@ -419,7 +423,7 @@ ART_DIRECTION_PLANS = [
         "graphic_concept": "bright practice-room or mirror-studio key visual; the character feels freshly finished with training, caught by the camera during a natural pause",
         "spatial_structure": "large mirror, pale floor, window light, and a few circular lamp dots; keep the background spacious and uncluttered",
         "visual_device": "mirror reflection and window light make the hair silhouette, face, and main accessory read clearly at thumbnail size",
-        "body_silhouette": "close knee-up or seated pose, character relatively large in frame, hands relaxed near the face, jacket, or lap",
+        "body_silhouette": "close knee-up or seated pose, character relatively large in frame, hands relaxed near the jacket edge, sides, or lap",
         "outfit_direction": "cropped sweatshirt, embellished mini skirt, clean idol-stage outfit",
         "material_language": "soft sweatshirt fabric, small skirt embellishments, polished floor reflection, mirror glass, soft hair shine",
         "color_strategy": "the scene may stay bright and clean, but the outfit should usually carry a distinct non-white mid-tone, dark, earthy, or muted-chromatic main value",
@@ -728,9 +732,9 @@ ACTION_STYLES = [
         "tags": ["walking", "stable_hands"],
     },
     {
-        "name": "adjusting_hair",
-        "body_silhouette": "one hand lightly adjusting hair, the other hand relaxed downward, complete readable fingers",
-        "tags": ["hair_touch", "simple_hand"],
+        "name": "adjusting_sleeve_cuff",
+        "body_silhouette": "one hand lightly adjusting a sleeve cuff below shoulder level, the other hand relaxed downward, complete readable fingers",
+        "tags": ["micro_action", "simple_hand"],
     },
     {
         "name": "relaxed_visible_hands",
@@ -802,6 +806,24 @@ ACTION_STYLES.append(
         "tags": ["stretch", "stable_hands"],
     }
 )
+
+ACTION_STYLES.extend([
+    {
+        "name": "small_camera_v_sign",
+        "body_silhouette": "small one-hand V-sign toward the camera, held beside the shoulder with clear space from the face; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "v_sign", "simple_hand", "eye_contact"],
+    },
+    {
+        "name": "small_camera_ok_sign",
+        "body_silhouette": "small one-hand OK-sign toward the camera, held around shoulder level without covering the face; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "ok_sign", "simple_hand", "eye_contact"],
+    },
+    {
+        "name": "small_camera_wave",
+        "body_silhouette": "small restrained one-hand wave toward the camera with the palm below face level; the other arm stays relaxed and the body remains still",
+        "tags": ["small_gesture", "small_wave", "simple_hand", "eye_contact"],
+    },
+])
 
 
 CAMERA_COMPOSITION_ACTION_NAMES = {
@@ -906,9 +928,9 @@ COMPOSITION_PLANS = [
     },
     {
         "name": "pure_white_social_close_portrait",
-        "composition": "high-key close portrait with large clean white margin around the image; face, eyes, hairstyle, and one simple hand shape dominate the read",
+        "composition": "high-key close portrait with large clean white margin around the image; face, eyes, hairstyle, and shoulder line dominate the read",
         "camera": "close-up to bust-up, natural eye-level or slight high angle, shallow depth of field but crisp eyes",
-        "pose": "quiet direct gaze, soft smile, side glance, or one hand near cheek, hair, collar, or a small flower; keep fingers simple",
+        "pose": "quiet direct gaze, soft smile, or side glance; hands remain naturally below shoulder level or outside the close crop",
         "foreground": "optional tiny flower, petal, hair strand, or soft white edge near camera, never covering both eyes",
         "lighting": "bright natural daylight, white overexposed margins, clean catchlights, soft facial shadow",
         "guardrail": "avoid busy room, distant figure, seated floor pose, big props, UI text, or cleavage crop",
@@ -918,7 +940,7 @@ COMPOSITION_PLANS = [
         "name": "pure_white_half_body_social_photo",
         "composition": "vertical social-photo half-body portrait with clean white space above or below, character cropped from head to waist or upper torso",
         "camera": "half-body to upper-torso, slight high angle or front three-quarter, face remains the sharpest detail",
-        "pose": "natural standing or light lean; hands may touch hair, collar, frame edge, or a small flower while staying outside clothing",
+        "pose": "natural standing or light lean; hands rest near the sides or may lightly touch a sleeve cuff, frame edge, or small flower",
         "foreground": "white margin, soft flower edge, or hair crossing one side can add depth without becoming a separate scene",
         "lighting": "sunny high-key fill, clean white background, gentle skin and hair highlights",
         "guardrail": "avoid full-length fashion pose, distant figure, cluttered background, bed/floor pose, or large handheld objects",
@@ -1038,7 +1060,7 @@ COMPOSITION_PLANS = [
         "name": "hat_brim_shadow_closeup",
         "composition": "tight close-up with wide hat brim or veil shadow crossing upper face while eyes remain visible",
         "camera": "tight bust-up, frontal or slight side angle, shallow depth",
-        "pose": "quiet direct gaze, fingers near cheek or chin, shoulders relaxed",
+        "pose": "quiet direct gaze with relaxed shoulders; hands remain naturally lowered or outside the close crop",
         "foreground": "hat brim shadow and hair strands create layered close framing",
         "lighting": "soft skin light and darker eye shadow contrast without losing readability",
         "guardrail": "avoid hand covering mouth, face too dark, or oversexual finger pose",
@@ -1065,14 +1087,14 @@ COMPOSITION_PLANS = [
         "tags": ["lace", "curtain", "backlight", "foreground_occlusion"],
     },
     {
-        "name": "soft_hand_on_cheek_close_face",
-        "composition": "intimate close-up where face fills most of frame and one hand supports cheek naturally",
+        "name": "soft_relaxed_close_face",
+        "composition": "intimate close-up where face fills most of frame and the shoulder line remains natural",
         "camera": "close-up, shallow depth of field, warm soft light",
-        "pose": "cheek resting on hand, direct quiet gaze or slightly lowered eyelids",
+        "pose": "direct quiet gaze or slightly lowered eyelids; hands remain outside the close crop",
         "foreground": "loose hair strands cross face lightly without hiding eyes",
         "lighting": "warm soft light, glossy eyes, delicate skin texture",
         "guardrail": "avoid plastic doll face, oversexual expression, wet-shirt look, or cleavage crop",
-        "tags": ["close_character", "hand_on_cheek", "soft_light", "eye_contact"],
+        "tags": ["close_character", "relaxed_pose", "soft_light", "eye_contact"],
     },
 ]
 
@@ -1668,7 +1690,7 @@ COMPOSITION_BASE_WEIGHTS = {
     "lace_curtain_backlight_occlusion": 0.18,
     "gray_studio_large_dress_shape": 0.25,
     "hat_brim_shadow_closeup": 0.55,
-    "soft_hand_on_cheek_close_face": 0.7,
+    "soft_relaxed_close_face": 0.7,
 }
 
 GENERIC_COMPOSITION_NAMES = {
@@ -1700,7 +1722,7 @@ COMPOSITION_ALLOWED_ACTIONS = {
         "gentle_side_glance",
         "quiet_prop_after_moment",
     },
-    "soft_hand_on_cheek_close_face": {
+    "soft_relaxed_close_face": {
         "steady_eye_contact",
         "gentle_side_glance",
     },
@@ -1799,7 +1821,7 @@ COMPOSITION_FORBIDDEN_PLAN_TAGS = {
     "cinematic_wide_flower_side_view": {"pure_white", "poster", "industrial", "aquarium", "beach", "product", "ribbon"},
     "lace_curtain_backlight_occlusion": {"outdoor", "rooftop", "beach", "aquarium", "pure_white", "mirror", "acrylic", "glass", "ribbon"},
     "diagonal_window_light_haze": {"aquarium", "beach", "mirror", "acrylic", "glass", "ribbon", "product"},
-    "soft_hand_on_cheek_close_face": {"far_shot", "deep_perspective", "large_space"},
+    "soft_relaxed_close_face": {"far_shot", "deep_perspective", "large_space"},
     "high_angle_bed_or_floor_frame": {"low_camera"},
 }
 
@@ -1807,7 +1829,7 @@ FAR_SPACE_COMPOSITION_FORBIDDEN_NAMES = {
     "clean_three_quarter_character_frame",
     "slight_side_medium_close_frame",
     "quiet_close_upper_body_frame",
-    "soft_hand_on_cheek_close_face",
+    "soft_relaxed_close_face",
     "hat_brim_shadow_closeup",
 }
 
@@ -1816,17 +1838,17 @@ SCENE_COMPOSITION_ALLOWLIST = {
         *GENERIC_COMPOSITION_NAMES,
         "floor_diagonal_negative_space",
         "hat_brim_shadow_closeup",
-        "soft_hand_on_cheek_close_face",
+        "soft_relaxed_close_face",
     },
     "record_shop_listening_corner": {
         *GENERIC_COMPOSITION_NAMES,
         "hat_brim_shadow_closeup",
-        "soft_hand_on_cheek_close_face",
+        "soft_relaxed_close_face",
     },
     "planetarium_star_dome": {
         *GENERIC_COMPOSITION_NAMES,
         "hat_brim_shadow_closeup",
-        "soft_hand_on_cheek_close_face",
+        "soft_relaxed_close_face",
         "floor_diagonal_negative_space",
     },
     "pure_white_character_focus": {
@@ -2039,6 +2061,3 @@ def outfit_material_rule_for(outfit_direction):
             "knitwear remains soft looped yarn, clearly separate from woven denim, corduroy, shirt, or blouse fabric"
         )
     return "; ".join(rules)
-
-
-
