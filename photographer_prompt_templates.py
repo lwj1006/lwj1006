@@ -174,7 +174,7 @@ def prompt_for_art_direction(
             outfit_direction or art_plan.get("outfit_direction"),
         )
     if shot_scale is None:
-        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan, composition_plan)
+        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan, composition_plan, action_style)
     if focus_style is None:
         focus_style = choose_photographer_focus_style(recent_tags, art_plan, composition_plan)
 

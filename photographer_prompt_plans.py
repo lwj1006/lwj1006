@@ -675,8 +675,16 @@ def choose_photographer_composition_plan(recent_tags=None, plan=None, action=Non
     return _weighted_choice(PHOTOGRAPHER_COMPOSITION_PLANS)
 
 
-def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan=None):
+def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan=None, action=None):
     composition_name = (composition_plan or {}).get("name", "")
+    action_name = (action or {}).get("name", "")
+    plan_name = (plan or {}).get("name", "")
+    sparse_studio_names = {
+        "pure_white_studio",
+        "clean_studio_character_focus",
+        "soft_editorial_wall",
+        "minimal_colored_backdrop_studio",
+    }
     if composition_name == "environmental_medium_wide_editorial":
         compatible_names = {
             "medium_character_focus",
@@ -695,9 +703,34 @@ def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan
     else:
         compatible_names = None
     pool = [
-        shot_scale for shot_scale in PHOTOGRAPHER_SHOT_SCALES
+        dict(shot_scale) for shot_scale in PHOTOGRAPHER_SHOT_SCALES
         if compatible_names is None or shot_scale["name"] in compatible_names
     ]
+    for shot_scale in pool:
+        if shot_scale["name"] != "full_body_clean_context":
+            continue
+        if plan_name in sparse_studio_names and action_name in {
+            "natural_standing_pause",
+            "small_weight_shift",
+            "quiet_gaze_shift",
+            "small_camera_v_sign",
+            "small_camera_ok_sign",
+            "small_camera_wave",
+        }:
+            shot_scale["weight"] = 0.05
+        elif action_name == "small_camera_wave":
+            shot_scale["weight"] = 0.08
+        elif action_name in {
+            "natural_standing_pause",
+            "quiet_gaze_shift",
+            "light_upward_gaze",
+            "sleeve_or_bag_micro_action",
+        }:
+            shot_scale["weight"] = 0.2
+        elif action_name in {"small_camera_v_sign", "small_camera_ok_sign", "small_weight_shift"}:
+            shot_scale["weight"] = 0.4
+        else:
+            shot_scale["weight"] = 0.55
     return _weighted_choice(pool)
 
 
