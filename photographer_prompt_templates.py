@@ -90,7 +90,13 @@ def _photographer_block(action_style, shot_scale, composition_plan, focus_style)
         (
             "Hard crop rule: never create a full-body, near-full-body, head-to-toe, or distant standing-character image. "
             "Do not show both feet completely. Even for standing, walking, seated, high-angle, or wide environmental shots, "
-            "crop at upper calf or closer and keep the face plus outfit as the dominant read."
+            "crop at mid-thigh or closer, preferably waist-up or half-body when the outfit is fitted or revealing. "
+            "Keep the face plus upper outfit as the dominant read."
+        ),
+        (
+            "Body direction safety: prefer front or natural front three-quarter body direction. Avoid body-facing-away, "
+            "over-the-shoulder seated poses, pure side body display, hip-first framing, long-leg display, or camera angles "
+            "that emphasize chest, waist, hips, thighs, or back."
         ),
         (
             "The photographer position, subject movement, body direction, weight, gaze, foreground, "
@@ -111,6 +117,10 @@ def _character_block(character_name, profile, identity_tokens):
         (
             "Preserve natural original proportions. Use a neutral slim anime build with modest bust, "
             "no cleavage emphasis, no chest-forward pose, and no exaggerated hourglass silhouette."
+        ),
+        (
+            "Posture stays non-suggestive: torso faces mostly front or front three-quarter, shoulders remain normally worn, "
+            "clothing must not slip off the shoulder, and seated poses must not present hips, thighs, back, or waist as the main subject."
         ),
         (
             "Hands stay simple, empty of objects, and anatomically readable. They must not hold, lift, set down, "
@@ -167,25 +177,27 @@ def prompt_for_art_direction(
 ):
     if art_plan is None:
         art_plan = choose_photographer_scene_plan(character_name, recent_tags)
-    if action_style is None:
-        action_style = choose_photographer_action_style(character_name, recent_tags, art_plan)
     if visual_design is None:
         visual_design = choose_visual_design(recent_tags, art_plan)
+
+    profile = propagation_profile_for(character_name)
+    identity_tokens = required_identity_tokens_for(character_name)
+    outfit = outfit_variation_for(character_name, outfit_direction or art_plan.get("outfit_direction"))
+
+    if action_style is None:
+        action_style = choose_photographer_action_style(character_name, recent_tags, art_plan, outfit)
     if composition_plan is None:
         composition_plan = choose_photographer_composition_plan(
             recent_tags,
             art_plan,
             action_style,
             outfit_direction or art_plan.get("outfit_direction"),
+            outfit,
         )
     if shot_scale is None:
-        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan, composition_plan, action_style)
+        shot_scale = choose_photographer_shot_scale(recent_tags, art_plan, composition_plan, action_style, outfit)
     if focus_style is None:
         focus_style = choose_photographer_focus_style(recent_tags, art_plan, composition_plan)
-
-    profile = propagation_profile_for(character_name)
-    identity_tokens = required_identity_tokens_for(character_name)
-    outfit = outfit_variation_for(character_name, outfit_direction or art_plan.get("outfit_direction"))
 
     lines = [
         "Independent image task. References define character identity only. Create one coherent photographer-composed anime key visual with one character, not photorealistic.",

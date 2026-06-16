@@ -374,6 +374,14 @@ CHARACTER_PROFILES = {
         "thumbnail_strategy": "light-blue hair, small black horns, golden-green eyes, pointed elf ears, and dark-blue tassel braid tip must stay clear; cape panels and magical tools are optional.",
         "interaction_rule": "a quiet contemplative pose or relaxed standing with hands naturally lowered is fine; staff-like forms and magical accessories may appear only as unobtrusive background elements.",
         "color_anchor": "light blue, teal, dark blue, black, muted gold",
+    },
+    "维琳娜": {
+        "official_core": "very long pale silver-lavender hair, heavy side-swept bangs covering one eye, pointed elf ears, violet visible eye, and oversized white-blue bow ornaments.",
+        "identity_tokens": ["very long pale silver-lavender hair", "heavy side-swept bangs covering one eye", "pointed elf ears", "violet visible eye", "oversized white-blue bow ornaments"],
+        "viewer_relationship": "composed teasing presence with a natural front or front three-quarter gaze; keep the visible eye, one-eye bangs shape, elf ears, bow ornaments, and flowing hair silhouette clear.",
+        "thumbnail_strategy": "one-eye side-swept fringe, pale silver-lavender long hair, pointed elf ears, violet eye, and large white-blue bow ornaments are the core read; outfit may vary with the selected fashion theme.",
+        "interaction_rule": "elegant relaxed hands, a small sleeve or ribbon adjustment, or a refined quiet pose are preferred; a tiny fan-shaped accessory may appear only as a subtle background or clothing detail, not as a complex hand-held prop.",
+        "color_anchor": "pale silver-lavender, deep blue, white, gold",
     }
 }
 
