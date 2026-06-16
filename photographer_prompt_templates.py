@@ -58,14 +58,13 @@ def _clip_text(value, limit):
 
 def _scene_block(art_plan):
     lines = [
-        f"Location and atmosphere: {_clip_text(art_plan.get('graphic_concept', ''), 135)}",
-        f"Spatial structure: {_clip_text(art_plan.get('spatial_structure', ''), 165)}",
-        f"Environmental visual rhythm: {_clip_text(art_plan.get('visual_device', ''), 125)}",
-        f"Light and scene color: {_clip_text(art_plan.get('lighting_behavior', ''), 115)} {_clip_text(art_plan.get('color_strategy', ''), 115)}",
+        f"Scene: {_clip_text(art_plan.get('graphic_concept', ''), 105)}",
+        f"Space: {_clip_text(art_plan.get('spatial_structure', ''), 110)}",
+        f"Light: {_clip_text(art_plan.get('lighting_behavior', ''), 90)}",
         f"Scene guardrail: {_clip_text(art_plan.get('extra_prompt_guardrail', ''), 135)}"
         if art_plan.get("extra_prompt_guardrail")
         else "",
-        "Keep one coherent, restrained location. Background supports the character and must never compete with face or outfit.",
+        "One coherent location; background supports the character instead of becoming the subject.",
     ]
     scene_text = " ".join(str(art_plan.get(key, "")) for key in ("name", "graphic_concept", "spatial_structure", "visual_device", "tags")).lower()
     if any(word in scene_text for word in ("poster", "letter", "typography", "graphic")):
@@ -77,32 +76,18 @@ def _scene_block(art_plan):
 
 def _photographer_block(action_style, shot_scale, composition_plan, focus_style):
     return [
-        "Photographic intent: create a stable photographer-composed anime image with face and outfit as the first visual focus.",
-        f"Photographer position and framing: {_clip_text(composition_plan.get('composition', ''), 135)}",
-        f"Lens and viewpoint: {_clip_text(composition_plan.get('camera', ''), 115)}",
-        f"Exact timing and subject motion: {_clip_text(action_style.get('body_silhouette', ''), 175)}",
-        f"Camera-specific pose handling: {_clip_text(composition_plan.get('pose', ''), 165)}",
-        f"Perspective and foreground depth: {_clip_text(composition_plan.get('foreground', ''), 115)}",
-        f"Exposure and separation: {_clip_text(composition_plan.get('lighting', ''), 100)}",
-        f"Subject scale: {_clip_text(shot_scale.get('description', ''), 145)}",
-        f"Optical focus treatment: {_clip_text(focus_style.get('description', ''), 155)}",
-        f"Framing guardrail: {_clip_text(composition_plan.get('guardrail', ''), 130)}",
+        "Photographic intent: attractive editorial anime image; face, outfit, and mood must read immediately.",
+        f"Camera: {_clip_text(composition_plan.get('camera', ''), 100)}",
+        f"Framing: {_clip_text(shot_scale.get('description', ''), 115)}",
+        f"Pose moment: {_clip_text(action_style.get('body_silhouette', ''), 120)}",
+        f"Composition: {_clip_text(composition_plan.get('composition', ''), 110)}",
+        f"Focus and light: {_clip_text(focus_style.get('description', ''), 95)} {_clip_text(composition_plan.get('lighting', ''), 75)}",
         (
-            "Hard crop rule: never create a full-body, near-full-body, head-to-toe, or distant standing-character image. "
-            "Do not show both feet completely. Even for standing, walking, seated, high-angle, or wide environmental shots, "
-            "crop at mid-thigh or closer, preferably waist-up or half-body when the outfit is fitted or revealing. "
-            "Keep the face plus upper outfit as the dominant read."
+            "Full-body is allowed only when it looks like a deliberate editorial photo: natural weight, readable face, clean hands, "
+            "and light or set geometry supporting the silhouette. Avoid plain standing product-pose images."
         ),
         (
-            "Body direction safety: prefer front or natural front three-quarter body direction. Avoid body-facing-away, "
-            "over-the-shoulder seated poses, pure side body display, hip-first framing, long-leg display, or camera angles "
-            "that emphasize chest, waist, hips, thighs, or back."
-        ),
-        (
-            "The photographer position, subject movement, body direction, weight, gaze, foreground, "
-            "and perspective must describe the same captured instant. Follow the selected camera angle, "
-            "shot scale, and body direction exactly rather than replacing them with a generic default portrait. "
-            "Keep the character readable and the background subordinate."
+            "Keep the body direction coherent with the camera. No body-facing-away turn-back pose, hip-first framing, or low-angle body display."
         ),
     ]
 
@@ -110,26 +95,13 @@ def _photographer_block(action_style, shot_scale, composition_plan, focus_style)
 def _character_block(character_name, profile, identity_tokens):
     return [
         f"Character: {character_name}.",
-        f"Identity: {_clip_text(profile['official_core'], 125)}",
+        f"Identity: {_clip_text(profile['official_core'], 115)}",
         f"Must keep visible: {_join_list(identity_tokens)}.",
-        f"Natural behavior: {_clip_text(profile['interaction_rule'], 185)}",
-        f"Identity readability: {viewer_distance_for(character_name)}.",
-        (
-            "Preserve natural original proportions. Use a neutral slim anime build with modest bust, "
-            "no cleavage emphasis, no chest-forward pose, and no exaggerated hourglass silhouette."
-        ),
-        (
-            "Posture stays non-suggestive: torso faces mostly front or front three-quarter, shoulders remain normally worn, "
-            "clothing must not slip off the shoulder, and seated poses must not present hips, thighs, back, or waist as the main subject."
-        ),
+        f"Behavior: {_clip_text(profile['interaction_rule'], 130)}",
+        "Natural proportions and clean posture; keep the character appealing without chest-forward or exaggerated body-display posing.",
         (
             "Hands stay simple, empty of objects, and anatomically readable. They must not hold, lift, set down, "
-            "or touch cups, mugs, drinking glasses, bottles, or beverage containers. Hands stay outside "
-            "clothing and away from clothing openings."
-        ),
-        (
-            "Scene, camera, and action may change, but species, hairstyle, eye color, identity accessories, "
-            "and fixed character traits must remain stable."
+            "or touch cups, mugs, drinking glasses, bottles, or beverage containers."
         ),
     ]
 
@@ -149,16 +121,14 @@ def _outfit_block(outfit, profile):
             "muted-chromatic main value. A white or pale background must not make the clothing white."
         )
     return [
-        f"Garment design: {_clip_text(outfit, 190)}",
+        f"Garment design: {_clip_text(outfit, 150)}",
         f"Material separation: {outfit_material_rule}." if outfit_material_rule else "",
         (
-            "Use opaque woven or knit fabric. Lightweight lace, chiffon, or gauze may feel airy but must "
-            "never look like clear plastic or reveal the body underneath."
+            "Opaque wearable fabric; lace, chiffon, and gauze may feel airy but never plastic or see-through."
         ),
         color_direction,
         (
-            f"Finish: {STYLE_BASELINE}. Keep clothing cohesive and wearable; avoid random clashing colors, "
-            "rainbow mixing, and harsh neon contrast."
+            f"Finish: {STYLE_BASELINE}. Keep clothing cohesive, stylish, and wearable."
         ),
         NEGATIVE_GUARDRAILS,
     ]

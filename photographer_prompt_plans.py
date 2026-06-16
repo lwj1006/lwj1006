@@ -337,19 +337,19 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "name": "small_camera_v_sign",
         "body_silhouette": "small one-hand V-sign toward the selected camera, held beside the shoulder with clear space from the face; the other arm stays relaxed and the body remains still",
         "tags": ["small_gesture", "v_sign", "simple_hand", "camera_adaptive"],
-        "weight": 0.32,
+        "weight": 0.42,
     },
     {
         "name": "small_camera_ok_sign",
         "body_silhouette": "small one-hand OK-sign toward the selected camera, held around shoulder level without covering the face; the other arm stays relaxed and the body remains still",
         "tags": ["small_gesture", "ok_sign", "simple_hand", "camera_adaptive"],
-        "weight": 0.22,
+        "weight": 0.30,
     },
     {
         "name": "small_camera_wave",
         "body_silhouette": "small restrained one-hand wave toward the selected camera with the palm below face level; the other arm stays relaxed and the body remains still",
         "tags": ["small_gesture", "small_wave", "simple_hand", "camera_adaptive"],
-        "weight": 0.22,
+        "weight": 0.30,
     },
     {
         "name": "upright_seated_pause",
@@ -367,19 +367,19 @@ PHOTOGRAPHER_ACTION_STYLES = [
         "name": "light_upward_gaze",
         "body_silhouette": "light upward gaze with relaxed neck and shoulders, adapted naturally to the selected camera position",
         "tags": ["upward_gaze", "camera_adaptive", "character_focus"],
-        "weight": 0.65,
+        "weight": 0.85,
     },
     {
         "name": "simple_lowered_pose",
         "body_silhouette": "quiet lowered-posture mood adapted to the visible crop; close views prioritize face and shoulders, while wider views may show a simple seated or kneeling arrangement",
         "tags": ["lowered_pose", "camera_adaptive", "character_focus"],
-        "weight": 0.35,
+        "weight": 0.55,
     },
     {
         "name": "small_turn_in_place",
         "body_silhouette": "small in-place turn with torso and face still oriented mostly toward the selected camera; never a body-facing-away turn-back pose",
         "tags": ["turning", "camera_adaptive", "character_focus"],
-        "weight": 0.25,
+        "weight": 0.45,
     },
 ]
 
@@ -427,7 +427,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "even readable light with clear separation from the ground and background",
         "guardrail": "keep face readable and proportions natural; selected shot scale controls distance",
         "tags": ["photographer_composition", "eye_level", "side_three_quarter"],
-        "weight": 0.35,
+        "weight": 0.62,
     },
     {
         "name": "clean_profile_editorial",
@@ -438,7 +438,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft side-front or rim-balanced light separates profile from background",
         "guardrail": "keep both profile and outfit readable; avoid silhouette-only darkness",
         "tags": ["photographer_composition", "profile", "side_view"],
-        "weight": 0.12,
+        "weight": 0.24,
     },
     {
         "name": "restrained_low_angle_editorial",
@@ -449,7 +449,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "clean face light and subtle rim preserve readable facial planes",
         "guardrail": "keep face prominent and proportions natural; do not emphasize legs, chest, or underside anatomy",
         "tags": ["photographer_composition", "low_camera", "editorial"],
-        "weight": 0.18,
+        "weight": 0.30,
     },
     {
         "name": "controlled_high_angle_portrait",
@@ -460,7 +460,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft top-side light with clean eyes and readable clothing detail",
         "guardrail": "character remains large; avoid tiny subject or excessive floor area",
         "tags": ["photographer_composition", "high_camera", "character_focus"],
-        "weight": 0.6,
+        "weight": 0.95,
     },
     {
         "name": "vertical_overhead_90_degree",
@@ -515,7 +515,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "environment light supports clear facial and outfit separation",
         "guardrail": "character occupies about 40-55 percent of the image; avoid tiny subject, scenic panorama, or clutter",
         "tags": ["photographer_composition", "environmental_portrait", "medium_wide"],
-        "weight": 0.55,
+        "weight": 0.70,
     },
     {
         "name": "shoulder_height_intimate_editorial",
@@ -526,7 +526,7 @@ PHOTOGRAPHER_COMPOSITION_PLANS = [
         "lighting": "soft face-priority light keeps eyes, hair, and upper outfit detail crisp",
         "guardrail": "avoid chest-dominant framing, facial distortion, or uncomfortable close-pressure",
         "tags": ["photographer_composition", "shoulder_height", "intimate_portrait"],
-        "weight": 0.5,
+        "weight": 0.75,
     },
 ]
 
@@ -535,42 +535,47 @@ PHOTOGRAPHER_SHOT_SCALES = [
     {
         "name": "knee_up_character_focus",
         "description": "thigh-up or high-knee framing used sparingly; character occupies about 55-70 percent of the image and face plus upper outfit are the first read",
-        "weight": 1.2,
+        "weight": 1.85,
     },
     {
         "name": "medium_character_focus",
         "description": "medium shot with character occupying about 45-60 percent of the image; face, hands, and outfit silhouette remain clear",
-        "weight": 2.8,
+        "weight": 2.45,
     },
     {
         "name": "waist_up_clear_portrait",
         "description": "waist-up framing with comfortable headroom and clear outfit context; avoid chest-dominant crop or close pressure",
-        "weight": 1.8,
+        "weight": 1.45,
     },
     {
         "name": "face_closeup",
         "description": "intentional face close-up with eyes, expression, hairstyle, and a small shoulder-level outfit detail clearly readable",
-        "weight": 1.15,
+        "weight": 0.95,
     },
     {
         "name": "bust_closeup",
         "description": "bust-up portrait centered on face, hairstyle, shoulders, and upper outfit construction with comfortable framing",
-        "weight": 1.35,
+        "weight": 1.05,
     },
     {
         "name": "head_to_waist_editorial",
         "description": "head-to-waist editorial framing with face, hands when naturally visible, and upper outfit construction clearly readable",
-        "weight": 1.8,
+        "weight": 1.45,
     },
     {
         "name": "three_quarter_body_editorial",
         "description": "three-quarter-body framing from head to mid-thigh at most; show the outfit line without turning the image into a leg or body display",
-        "weight": 0.22,
+        "weight": 0.65,
     },
     {
         "name": "environmental_medium_wide",
         "description": "medium-wide environmental portrait; character occupies about 40-55 percent of the image and remains the immediate first focus",
-        "weight": 0.12,
+        "weight": 0.45,
+    },
+    {
+        "name": "curated_full_body_editorial",
+        "description": "full-body editorial framing with a clear camera reason: readable face, complete outfit, natural weight, clean hands, and scene light or geometry supporting the silhouette",
+        "weight": 0.75,
     },
 ]
 
@@ -715,26 +720,30 @@ def choose_photographer_composition_plan(recent_tags=None, plan=None, action=Non
         blocked = {
             "clean_profile_editorial",
             "restrained_low_angle_editorial",
-            "shoulder_height_intimate_editorial",
             "vertical_overhead_90_degree",
         }
         pool = [composition for composition in pool if composition["name"] not in blocked]
         for composition in pool:
             if composition["name"] == "side_three_quarter_camera":
-                composition["weight"] = max(float(composition.get("weight", 1.0)) * 0.35, 0.01)
+                composition["weight"] = max(float(composition.get("weight", 1.0)) * 0.55, 0.01)
+            elif composition["name"] == "shoulder_height_intimate_editorial":
+                composition["weight"] = max(float(composition.get("weight", 1.0)) * 0.4, 0.01)
             elif composition["name"] in {"eye_level_front_camera", "eye_level_three_quarter_camera", "centered_symmetry_editorial"}:
-                composition["weight"] = max(float(composition.get("weight", 1.0)) * 1.25, 0.01)
+                composition["weight"] = max(float(composition.get("weight", 1.0)) * 1.12, 0.01)
     return _weighted_choice(pool)
 
 
 def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan=None, action=None, outfit_text=None):
     composition_name = (composition_plan or {}).get("name", "")
+    plan_name = (plan or {}).get("name", "")
+    action_name = (action or {}).get("name", "")
     if composition_name == "environmental_medium_wide_editorial":
         compatible_names = {
             "medium_character_focus",
             "knee_up_character_focus",
             "three_quarter_body_editorial",
             "environmental_medium_wide",
+            "curated_full_body_editorial",
         }
     elif composition_name == "shoulder_height_intimate_editorial":
         compatible_names = {
@@ -750,15 +759,49 @@ def choose_photographer_shot_scale(recent_tags=None, plan=None, composition_plan
         dict(shot_scale) for shot_scale in PHOTOGRAPHER_SHOT_SCALES
         if compatible_names is None or shot_scale["name"] in compatible_names
     ]
+    full_body_compositions = {
+        "controlled_high_angle_portrait",
+        "environmental_medium_wide_editorial",
+        "long_lens_compressed_editorial",
+        "off_center_negative_space_editorial",
+        "gentle_diagonal_camera",
+        "centered_symmetry_editorial",
+    }
+    simple_studio_plans = {
+        "pure_white_studio",
+        "clean_studio_character_focus",
+        "soft_editorial_wall",
+        "minimal_colored_backdrop_studio",
+    }
+    static_actions = {
+        "natural_standing_pause",
+        "quiet_gaze_shift",
+        "sleeve_or_bag_micro_action",
+        "small_camera_v_sign",
+        "small_camera_ok_sign",
+        "small_camera_wave",
+    }
+    for shot_scale in pool:
+        if shot_scale["name"] != "curated_full_body_editorial":
+            continue
+        if composition_name not in full_body_compositions:
+            shot_scale["weight"] = 0.01
+        elif plan_name in simple_studio_plans and action_name in static_actions:
+            shot_scale["weight"] = 0.12
+        elif action_name in {"upright_seated_pause", "gentle_lean", "simple_lowered_pose"}:
+            shot_scale["weight"] = 0.85
+        else:
+            shot_scale["weight"] = 0.55
     if _is_revealing_outfit(outfit_text):
-        safer_names = {
-            "medium_character_focus",
-            "waist_up_clear_portrait",
-            "face_closeup",
-            "bust_closeup",
-            "head_to_waist_editorial",
-        }
-        pool = [shot_scale for shot_scale in pool if shot_scale["name"] in safer_names]
+        for shot_scale in pool:
+            if shot_scale["name"] == "knee_up_character_focus":
+                shot_scale["weight"] = max(float(shot_scale.get("weight", 1.0)) * 0.55, 0.01)
+            elif shot_scale["name"] == "three_quarter_body_editorial":
+                shot_scale["weight"] = max(float(shot_scale.get("weight", 1.0)) * 0.4, 0.01)
+            elif shot_scale["name"] == "environmental_medium_wide":
+                shot_scale["weight"] = max(float(shot_scale.get("weight", 1.0)) * 0.35, 0.01)
+            elif shot_scale["name"] == "curated_full_body_editorial":
+                shot_scale["weight"] = max(float(shot_scale.get("weight", 1.0)) * 0.35, 0.01)
     return _weighted_choice(pool)
 
 
