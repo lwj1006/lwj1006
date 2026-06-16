@@ -4,7 +4,7 @@ import re
 import chatgpt_batch_pyautogui as batch
 
 
-LAUNCHER_VERSION = "C-world-cup-recommended-20260613"
+LAUNCHER_VERSION = "D-target-mode-20260616"
 
 
 def choose_prompt_mode() -> str:
@@ -16,6 +16,8 @@ def choose_prompt_mode() -> str:
             return "B"
         if normalized in {"C", "--MODE=C", "--PROMPT-MODE=C", "--WORLD-CUP"}:
             return "C"
+        if normalized in {"D", "--MODE=D", "--PROMPT-MODE=D", "--TARGET"}:
+            return "D"
 
     while True:
         print("")
@@ -23,10 +25,11 @@ def choose_prompt_mode() -> str:
         print("  A = original stable compact style")
         print("  B = photographer four-block style")
         print("  C = World Cup front-facing supporter poster")
-        choice = input("Prompt mode [A/B/C, default A]: ").strip().upper() or "A"
-        if choice in {"A", "B", "C"}:
+        print("  D = target image batch from ../target")
+        choice = input("Prompt mode [A/B/C/D, default A]: ").strip().upper() or "A"
+        if choice in {"A", "B", "C", "D"}:
             return choice
-        print("Please enter A, B, or C.")
+        print("Please enter A, B, C, or D.")
 
 
 def choose_world_cup_selection_mode() -> str:
@@ -120,7 +123,7 @@ def choose_photographer_scene_plans():
             normalized = normalized.split("=", 1)[1].strip().upper()
         elif normalized.startswith("--SCENE-PLAN="):
             normalized = normalized.split("=", 1)[1].strip().upper()
-        elif normalized in {"A", "B", "C", "--MODE=A", "--MODE=B", "--MODE=C", "--PROMPT-MODE=A", "--PROMPT-MODE=B", "--PROMPT-MODE=C", "--WORLD-CUP"}:
+        elif normalized in {"A", "B", "C", "D", "--MODE=A", "--MODE=B", "--MODE=C", "--MODE=D", "--PROMPT-MODE=A", "--PROMPT-MODE=B", "--PROMPT-MODE=C", "--PROMPT-MODE=D", "--WORLD-CUP", "--TARGET"}:
             continue
         elif re.fullmatch(r"[\d\s,，-]+|ALL|RANDOM", normalized):
             pass
@@ -279,6 +282,10 @@ def activate_prompt_mode(mode: str) -> None:
         )
         return
 
+    if mode == "D":
+        print("Prompt mode D active: target image batch. Images are read from ../target and moved to ../complete.", flush=True)
+        return
+
     import photographer_prompt_templates as photographer
     import photographer_prompt_plans as photographer_plans
 
@@ -293,5 +300,11 @@ def activate_prompt_mode(mode: str) -> None:
 
 
 if __name__ == "__main__":
-    activate_prompt_mode(choose_prompt_mode())
-    batch.main()
+    selected_mode = choose_prompt_mode()
+    activate_prompt_mode(selected_mode)
+    if selected_mode == "D":
+        import target_batch_pyautogui as target_batch
+
+        target_batch.main()
+    else:
+        batch.main()

@@ -16,19 +16,21 @@ import pyautogui
 from chatgpt_batch_pyautogui import (
     COORDS,
     PROJECT_DIR,
-    UPLOAD_SETTLE_SECONDS,
     calibrate_coords,
     click_slow,
     load_calibrated_coords,
     paste_text,
     send_prompt,
     take_screenshot,
+    upload_settle_seconds,
     wait_for_generation,
     wait_with_echo,
+    with_image_prompt_prefix,
 )
 
-TARGET_DIR = PROJECT_DIR / "target"
-COMPLETE_DIR = PROJECT_DIR / "complete"
+WORKSPACE_DIR = PROJECT_DIR.parent
+TARGET_DIR = WORKSPACE_DIR / "target"
+COMPLETE_DIR = WORKSPACE_DIR / "complete"
 TARGET_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 MAX_TARGET_RUNS: int | None = None
 
@@ -174,7 +176,7 @@ def upload_target_file(path: Path) -> None:
     paste_text(f'"{path}"')
     pyautogui.press("enter")
 
-    wait_with_echo(UPLOAD_SETTLE_SECONDS, "Upload settle")
+    wait_with_echo(upload_settle_seconds(1), "Upload settle")
 
 
 def process_target_file(path: Path, run_number: int) -> None:
@@ -183,7 +185,7 @@ def process_target_file(path: Path, run_number: int) -> None:
     print(f"[{run_number:02d}] file: {path.name}", flush=True)
 
     upload_target_file(path)
-    send_prompt(FIXED_PROMPT)
+    send_prompt(with_image_prompt_prefix(FIXED_PROMPT))
     take_screenshot(f"target_{run_number:02d}_sent")
 
     moved_to = move_to_complete(path)
