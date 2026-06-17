@@ -1,27 +1,25 @@
-# auto-image-create
+﻿# auto-image-create develop
 
-ChatGPT desktop image batch automation project.
+ChatGPT desktop image batch automation project. Python code is organized as packages instead of root-level scripts.
 
-## Files
+## Entry point
 
-- `chatgpt_batch_pyautogui.py`: main automation script.
-- `prompt_templates.py`: prompt templates. Add new templates here and register them in `PROMPT_TEMPLATE_FUNCTIONS`.
-- `prompt_options.py`: random pools for clothing themes, scenes, poses, lighting, and moods.
-- `backups/chatgpt_batch_pyautogui.monolith.py`: copy of the previous single-file script.
+- `start_fenjue_prompt_mode.bat`: common A/B/C/D/E launcher.
+- `fenjue_prompt_mode_launcher.py`: thin Python entry point for the same router.
 
-## Prompt Rotation
+## Package layout
 
-The main script rotates templates by run number:
+- `fenjue/runtime/`: desktop automation runtime and target-image batch runner.
+- `fenjue/modes/original/`: mode A, scene + character + outfit.
+- `fenjue/modes/photographer/`: mode B, photographer mode.
+- `fenjue/modes/artist_composition/`: mode C, restored autoCreateV2 master artist composition pipeline.
+- `fenjue/modes/target_batch/`: mode D, fixed prompt target-image batch.
+- `fenjue/data/outfits/`: character outfit pools.
+- `fenjue/legacy/`: older prompt prototype code kept for reference.
+- `tools/`: reports and audit scripts.
 
-```python
-template_index = run_number - 1
-prompt = prompt_for_theme(..., template_index=template_index)
-```
-
-With two templates, runs alternate template 1, template 2, template 1, template 2...
-
-## Recalibrate Coordinates
+## Recalibrate coordinates
 
 ```powershell
-python .\chatgpt_batch_pyautogui.py --calibrate
+python .\fenjue_prompt_mode_launcher.py --calibrate
 ```

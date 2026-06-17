@@ -1,23 +1,23 @@
 @echo off
 chcp 65001 >nul
 cd /d "%~dp0"
-title Fenjue A-B-C-D Prompt Mode
-echo Starting Fenjue prompt-mode launcher...
-echo A = original stable compact style
-echo B = photographer four-block style
-echo B supports multi-select: 1 2 3 / 1-3 / 1-3 7 10-12
-echo C = World Cup front-facing supporter poster
-echo D = target image batch from ..\target
+title Fenjue Prompt Mode Router
+echo Starting Fenjue prompt-mode router...
+echo A = original scene-character-outfit
+echo B = photographer mode
+echo C = master artist composition
+echo D = target fixed prompt batch
+echo E = reserved photoset template mode
 
 where python >nul 2>&1
 if not errorlevel 1 (
-    python fenjue_prompt_mode_launcher.py
+    python fenjue_prompt_mode_launcher.py %*
     goto :done
 )
 
 set "LOCAL_PYTHON=%LOCALAPPDATA%\Programs\Python\Python310\python.exe"
 if exist "%LOCAL_PYTHON%" (
-    "%LOCAL_PYTHON%" fenjue_prompt_mode_launcher.py
+    "%LOCAL_PYTHON%" fenjue_prompt_mode_launcher.py %*
     goto :done
 )
 
