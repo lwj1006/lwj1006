@@ -29,6 +29,22 @@ GENERAL_CHARACTER_ADAPTATION = (
 )
 
 
+A3_HAND_DRAWN_STYLE = (
+    "A_3 style experiment: keep the original photoset prompt and composition, but render it as unmistakable hand-drawn Japanese 2D anime art. "
+    "Visible clean black lineart must outline the face, hair silhouette, eyes, hands, clothing edges, fabric folds, props, and key furniture. "
+    "Use cel-shaded anime forms with soft painted gradients, simplified smooth anime skin, stylized large eyes, graphic hair strand groups, "
+    "and illustration-like color separation. The room can keep photographic composition and lighting, but the final surface must look drawn, "
+    "not photographed. Prefer a polished anime key visual / light-novel cover finish over semi-realistic digital painting."
+)
+
+
+A3_NEGATIVE = (
+    "photorealistic, hyperrealistic, live-action photo, cosplay photo, DSLR photo, realistic skin pores, photographic skin texture, "
+    "semi-realistic face, 3D render, doll, plastic figure, waxy skin, no lineart, invisible outlines, overly soft airbrushed edges, "
+    "oil painting realism, realistic human portrait, raw photo, film still"
+)
+
+
 @dataclass(frozen=True)
 class PhotosetShot:
     index: int
@@ -57,10 +73,24 @@ def normalize_template_id(value: str | int) -> str:
     return text
 
 
+def _template_sort_key(template_id: str) -> tuple[int, int, str]:
+    match = re.match(r"^(\d+)", template_id)
+    number = int(match.group(1)) if match else 999999
+    upper = template_id.upper()
+    if upper.endswith("_A_3"):
+        variant = 2
+    elif template_id.lower().endswith("_adapted"):
+        variant = 1
+    else:
+        variant = 0
+    return number, variant, template_id
+
+
 def list_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
     if not root.exists():
         return []
-    return sorted(path.name for path in root.iterdir() if path.is_dir() and (path / f"{path.name}.md").exists())
+    ids = [path.name for path in root.iterdir() if path.is_dir() and (path / f"{path.name}.md").exists()]
+    return sorted(ids, key=_template_sort_key)
 
 
 def _heading_pattern() -> re.Pattern[str]:
@@ -196,6 +226,10 @@ def _is_adapted_template(template: PhotosetTemplate) -> bool:
     return template.template_id.lower().endswith("_adapted")
 
 
+def _is_a3_template(template: PhotosetTemplate) -> bool:
+    return template.template_id.upper().endswith("_A_3")
+
+
 def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     ready_block = shot.ready_prompt or shot.section_text
     negative_block = shot.negative_prompt or (
@@ -204,6 +238,7 @@ def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, s
     )
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
+
 Uploaded character reference images define the identity of {character_name}. The photoset reference image defines only this shot's design: outfit language, pose, camera, lighting, environment, composition, and mood. Replace the reference person's identity with {character_name}; do not copy the reference person's face.
 
 [PHOTOSET]
@@ -276,7 +311,22 @@ Identity drift, wrong hairstyle, wrong hair color, copied reference-person face,
 """.strip()
 
 
+def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
+    base_prompt = _prompt_for_original_shot(character_name, template, shot)
+    return f"""
+{base_prompt}
+
+[A_3 HAND-DRAWN ANIME STYLE ADDENDUM]
+{A3_HAND_DRAWN_STYLE}
+
+[A_3 EXTRA NEGATIVE]
+{A3_NEGATIVE}
+""".strip()
+
+
 def prompt_for_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
+    if _is_a3_template(template):
+        return _prompt_for_a3_shot(character_name, template, shot)
     if _is_adapted_template(template):
         return _prompt_for_adapted_shot(character_name, template, shot)
     return _prompt_for_original_shot(character_name, template, shot)
