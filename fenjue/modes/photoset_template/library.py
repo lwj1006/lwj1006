@@ -312,7 +312,7 @@ Identity drift, wrong hairstyle, wrong hair color, copied reference-person face,
 
 
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
-    base_prompt = _prompt_for_original_shot(character_name, template, shot)
+    base_prompt = _prompt_for_adapted_shot(character_name, template, shot)
     return f"""
 {base_prompt}
 
