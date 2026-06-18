@@ -8,7 +8,7 @@ from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_tem
 
 LABEL = "photoset template mode"
 
-_active_template: PhotosetTemplate | None = None
+_active_templates: tuple[PhotosetTemplate, ...] = ()
 _active_character: str | None = None
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
@@ -27,23 +27,83 @@ def _option_value(argv: list[str], *names: str) -> str | None:
     return None
 
 
-def _choose_template(argv: list[str], batch) -> PhotosetTemplate:
-    raw = _option_value(argv, "--TEMPLATE", "--PHOTOSET", "--E-TEMPLATE")
-    if raw:
-        return load_template(raw)
+def _display_template_id(template_id: str) -> str:
+    return template_id.removesuffix("_adapted") + "_ADD" if template_id.endswith("_adapted") else template_id
 
+
+def _template_from_menu_token(token: str, available: list[str]) -> str:
+    item = token.strip()
+    if not item:
+        raise ValueError("Empty photoset template selection.")
+
+    # Short menu input: 1 -> first displayed template, 2 -> second displayed template.
+    if item.isdigit() and not item.startswith("0"):
+        index = int(item)
+        if 1 <= index <= len(available):
+            return available[index - 1]
+
+    normalized = item
+    upper = item.upper()
+    if upper.endswith("_ADD"):
+        normalized = item[:-4] + "_adapted"
+    elif upper.endswith("_ADAPTED"):
+        normalized = item[:-8] + "_adapted"
+
+    if normalized.isdigit():
+        normalized = f"{int(normalized):03d}"
+    return normalized
+
+
+def _split_template_selection(raw: str, available: list[str]) -> list[str]:
+    text = raw.strip()
+    if not text:
+        return []
+    lowered = text.lower()
+    if lowered in {"all", "*"}:
+        return available[:]
+    if lowered in {"all_add", "add", "all_adapted", "adapted"}:
+        return [template_id for template_id in available if template_id.endswith("_adapted")]
+    if lowered in {"all_original", "original"}:
+        return [template_id for template_id in available if not template_id.endswith("_adapted")]
+
+    selected: list[str] = []
+    for part in text.replace("，", ",").replace(" ", ",").split(","):
+        item = part.strip()
+        if not item:
+            continue
+        if "-" in item and all(piece.strip().isdigit() for piece in item.split("-", 1)):
+            start_text, end_text = item.split("-", 1)
+            start, end = int(start_text), int(end_text)
+            step = 1 if start <= end else -1
+            for number in range(start, end + step, step):
+                selected.append(_template_from_menu_token(str(number), available))
+            continue
+        selected.append(_template_from_menu_token(item, available))
+    return selected
+
+
+def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
+    raw = _option_value(argv, "--TEMPLATES", "--TEMPLATE", "--PHOTOSETS", "--PHOTOSET", "--E-TEMPLATES", "--E-TEMPLATE")
     available = list_template_ids()
+    if raw:
+        selections = _split_template_selection(raw, available)
+        return tuple(load_template(template_id) for template_id in selections)
+
     if batch.noninteractive_selection_enabled():
-        return load_template(available[0])
+        return (load_template(available[0]),)
 
     while True:
         print("")
-        print("Choose photoset template:")
-        for template_id in available:
-            print(f"  {template_id}")
-        choice = input(f"Photoset template [default {available[0]}]: ").strip() or available[0]
+        print("Choose photoset template(s):")
+        for index, template_id in enumerate(available, start=1):
+            print(f"  {index} = {_display_template_id(template_id)}")
+        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001_ADD, all_original, all_add, or all.")
+        choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         try:
-            return load_template(choice)
+            selections = _split_template_selection(choice, available)
+            if not selections:
+                raise ValueError("No photoset templates selected.")
+            return tuple(load_template(template_id) for template_id in selections)
         except (FileNotFoundError, ValueError) as exc:
             print(exc)
 
@@ -72,16 +132,36 @@ def _choose_character(argv: list[str], batch) -> str:
         print("Unknown character. Please enter a listed number or exact character name.")
 
 
+def _active_template_and_shot() -> tuple[PhotosetTemplate, PhotosetShot]:
+    if not _active_templates:
+        raise RuntimeError("Photoset mode has no active templates.")
+    remaining = _current_shot_index
+    for template in _active_templates:
+        if remaining < len(template.shots):
+            return template, template.shots[remaining]
+        remaining -= len(template.shots)
+    template = _active_templates[-1]
+    return template, template.shots[-1]
+
+
+def _active_template() -> PhotosetTemplate:
+    template, _ = _active_template_and_shot()
+    return template
+
+
 def _active_shot() -> PhotosetShot:
-    assert _active_template is not None
-    index = min(_current_shot_index, len(_active_template.shots) - 1)
-    return _active_template.shots[index]
+    _, shot = _active_template_and_shot()
+    return shot
+
+
+def _total_shots() -> int:
+    return sum(len(template.shots) for template in _active_templates)
 
 
 def activate(batch, args=None) -> None:
-    global _active_template, _active_character, _current_shot_index
+    global _active_templates, _active_character, _current_shot_index
     argv = list(args or [])
-    _active_template = _choose_template(argv, batch)
+    _active_templates = _choose_templates(argv, batch)
     _active_character = _choose_character(argv, batch)
     _current_shot_index = 0
 
@@ -118,7 +198,7 @@ def activate(batch, args=None) -> None:
     ):
         shot = _active_shot()
         plan = {
-            "name": f"photoset_{_active_template.template_id}_shot_{shot.index:02d}",
+            "name": f"photoset_{_active_template().template_id}_shot_{shot.index:02d}",
             "graphic_concept": shot.title,
             "spatial_structure": shot.title,
             "visual_device": f"photoset reference image {shot.index}",
@@ -126,8 +206,8 @@ def activate(batch, args=None) -> None:
             "color_strategy": "use the selected photoset color grade and continuity system",
             "material_language": "use the selected photoset outfit and fabric language",
             "body_silhouette": shot.title,
-            "outfit_direction": f"photoset {_active_template.template_id} outfit system",
-            "tags": {"photoset_template", f"photoset_{_active_template.template_id}", f"shot_{shot.index:02d}"},
+            "outfit_direction": f"photoset {_active_template().template_id} outfit system",
+            "tags": {"photoset_template", f"photoset_{_active_template().template_id}", f"shot_{shot.index:02d}"},
         }
         action = {
             "name": f"photoset_shot_{shot.index:02d}",
@@ -165,8 +245,8 @@ def activate(batch, args=None) -> None:
     ):
         global _current_shot_index
         shot = _active_shot()
-        assert _active_template is not None
-        prompt = prompt_for_shot(character_name, _active_template, shot)
+        template = _active_template()
+        prompt = prompt_for_shot(character_name, template, shot)
         _current_shot_index += 1
         return prompt
 
@@ -184,9 +264,9 @@ def activate(batch, args=None) -> None:
     batch.choose_composition_plan = choose_photoset_composition
     batch.collect_cooldown_tags = collect_photoset_tags
     batch.prompt_for_art_direction = prompt_for_photoset
-    batch.prompt_template_name = lambda template_index=0: f"photoset_template_{_active_template.template_id}"
+    batch.prompt_template_name = lambda template_index=0: f"photoset_template_{_active_template().template_id}"
     batch.CHARACTERS_PER_BATCH = 1
-    batch.TOTAL_RUNS = len(_active_template.shots)
+    batch.TOTAL_RUNS = _total_shots()
 
     while "--runs" in sys.argv:
         option_index = sys.argv.index("--runs")
@@ -194,8 +274,8 @@ def activate(batch, args=None) -> None:
 
     print(
         "Prompt mode E active: photoset template mode. "
-        f"Template: {_active_template.template_id}. "
+        f"Templates: {', '.join(_display_template_id(template.template_id) for template in _active_templates)}. "
         f"Character: {_active_character}. "
-        f"Shots: {len(_active_template.shots)}.",
+        f"Shots: {_total_shots()}.",
         flush=True,
     )
