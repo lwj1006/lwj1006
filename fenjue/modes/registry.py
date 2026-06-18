@@ -17,7 +17,7 @@ PROMPT_MODES = {
     "B": PromptMode("B", "photographer mode", "fenjue.modes.photographer.mode"),
     "C": PromptMode("C", "master artist composition", "fenjue.modes.artist_composition.mode"),
     "D": PromptMode("D", "target fixed prompt batch", "fenjue.modes.target_batch.mode"),
-    "E": PromptMode("E", "reserved photoset template mode", "fenjue.modes.reserved.mode_e", ready=False),
+    "E": PromptMode("E", "photoset template mode", "fenjue.modes.photoset_template.mode"),
 }
 
 def available_mode_codes() -> tuple[str, ...]:

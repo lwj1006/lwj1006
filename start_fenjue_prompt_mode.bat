@@ -7,7 +7,7 @@ echo A = original scene-character-outfit
 echo B = photographer mode
 echo C = master artist composition
 echo D = target fixed prompt batch
-echo E = reserved photoset template mode
+echo E = photoset template mode
 
 where python >nul 2>&1
 if not errorlevel 1 (

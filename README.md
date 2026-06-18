@@ -14,6 +14,7 @@ ChatGPT desktop image batch automation project. Python code is organized as pack
 - `fenjue/modes/photographer/`: mode B, photographer mode.
 - `fenjue/modes/artist_composition/`: mode C, restored autoCreateV2 master artist composition pipeline.
 - `fenjue/modes/target_batch/`: mode D, fixed prompt target-image batch.
+- `fenjue/modes/photoset_template/`: mode E, markdown/reference-image photoset templates from `templatesE/`.
 - `fenjue/data/outfits/`: character outfit pools.
 - `fenjue/legacy/`: older prompt prototype code kept for reference.
 - `tools/`: reports and audit scripts.

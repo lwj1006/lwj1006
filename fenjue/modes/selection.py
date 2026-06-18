@@ -16,7 +16,7 @@ def normalize_mode_argument(argument: str) -> str | None:
         return "C"
     if normalized in {"D", "--MODE=D", "--PROMPT-MODE=D", "--TARGET"}:
         return "D"
-    if normalized in {"E", "--MODE=E", "--PROMPT-MODE=E"}:
+    if normalized in {"E", "--MODE=E", "--PROMPT-MODE=E", "--PHOTOSET", "--TEMPLATE-MODE"}:
         return "E"
     return None
 
