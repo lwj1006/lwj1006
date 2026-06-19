@@ -73,23 +73,50 @@ def normalize_template_id(value: str | int) -> str:
     return text
 
 
-def _template_sort_key(template_id: str) -> tuple[int, int, str]:
-    match = re.match(r"^(\d+)", template_id)
-    number = int(match.group(1)) if match else 999999
+def _variant_for(template_id: str) -> str:
     upper = template_id.upper()
     if upper.endswith("_A_3"):
-        variant = 2
-    elif template_id.lower().endswith("_adapted"):
-        variant = 1
-    else:
-        variant = 0
-    return number, variant, template_id
+        return "a3"
+    if template_id.lower().endswith("_adapted"):
+        return "adapted"
+    return "original"
 
 
-def list_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
+def _base_template_id(template_id: str) -> str:
+    if template_id.upper().endswith("_A_3"):
+        return template_id[:-4]
+    if template_id.lower().endswith("_adapted"):
+        return template_id[:-8]
+    return template_id
+
+
+def _variant_template_id(base_id: str, variant: str) -> str:
+    if variant == "adapted":
+        return f"{base_id}_adapted"
+    if variant == "a3":
+        return f"{base_id}_A_3"
+    return base_id
+
+
+def _template_sort_key(template_id: str) -> tuple[int, int, str]:
+    base_id = _base_template_id(template_id)
+    match = re.match(r"^(\d+)", base_id)
+    number = int(match.group(1)) if match else 999999
+    variant_order = {"original": 0, "adapted": 1, "a3": 2}[_variant_for(template_id)]
+    return number, variant_order, template_id
+
+
+def list_base_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
     if not root.exists():
         return []
     ids = [path.name for path in root.iterdir() if path.is_dir() and (path / f"{path.name}.md").exists()]
+    return sorted(ids, key=lambda value: _template_sort_key(value))
+
+
+def list_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
+    ids: list[str] = []
+    for base_id in list_base_template_ids(root):
+        ids.extend([base_id, _variant_template_id(base_id, "adapted"), _variant_template_id(base_id, "a3")])
     return sorted(ids, key=_template_sort_key)
 
 
@@ -201,8 +228,9 @@ def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
 
 def load_template(template_id: str | int, root: Path = TEMPLATE_ROOT) -> PhotosetTemplate:
     normalized = normalize_template_id(template_id)
-    folder = root / normalized
-    markdown_path = folder / f"{normalized}.md"
+    base_id = _base_template_id(normalized)
+    folder = root / base_id
+    markdown_path = folder / f"{base_id}.md"
     if not markdown_path.exists():
         available = ", ".join(list_template_ids(root)) or "none"
         raise FileNotFoundError(f"Photoset template {normalized} was not found. Available templates: {available}")
