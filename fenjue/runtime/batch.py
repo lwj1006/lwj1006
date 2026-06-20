@@ -201,6 +201,7 @@ UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
 UPLOAD_COOLDOWN_SECONDS = 90 * 60
 UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
 WEB_REFRESH_SETTLE_SECONDS = 20
+STARTUP_REFRESH_SETTLE_SECONDS = 10
 _uploaded_images_since_cooldown = 0
 _last_upload_counter_at = 0.0
 _upload_counter_loaded = False
@@ -1380,10 +1381,33 @@ def wait_with_echo(seconds: int, label: str) -> None:
         time.sleep(1)
 
 
-def refresh_chatgpt_web_after_upload_cooldown() -> None:
-    print("Upload cooldown: refreshing ChatGPT web page with Ctrl+R", flush=True)
+def refresh_chatgpt_web_page(reason: str, settle_seconds: int, settle_label: str) -> None:
+    print(f"{reason}: refreshing ChatGPT web page with Ctrl+R", flush=True)
     pyautogui.hotkey("ctrl", "r")
-    wait_with_echo(WEB_REFRESH_SETTLE_SECONDS, "Web refresh settle")
+    wait_with_echo(settle_seconds, settle_label)
+
+
+def refresh_chatgpt_web_after_upload_cooldown() -> None:
+    refresh_chatgpt_web_page(
+        "Upload cooldown",
+        WEB_REFRESH_SETTLE_SECONDS,
+        "Web refresh settle",
+    )
+
+
+def startup_refresh_before_button_work() -> None:
+    print(
+        f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
+        flush=True,
+    )
+    time.sleep(POST_CHARACTER_SELECTION_DELAY_SECONDS)
+    print("Startup refresh: focusing ChatGPT window via send-button coordinate", flush=True)
+    click_slow(*COORDS["send_button"], after=0.5)
+    refresh_chatgpt_web_page(
+        "Startup refresh",
+        STARTUP_REFRESH_SETTLE_SECONDS,
+        "Startup refresh settle",
+    )
 
 
 def _save_upload_counter_state() -> None:
@@ -2617,11 +2641,7 @@ def main() -> None:
     wait_until_start_time(scheduled_start)
     if safety_shutdown_enabled:
         schedule_safety_shutdown()
-    print(
-        f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
-        flush=True,
-    )
-    time.sleep(POST_CHARACTER_SELECTION_DELAY_SECONDS)
+    startup_refresh_before_button_work()
     run_number = 1
     stop_requested = False
 

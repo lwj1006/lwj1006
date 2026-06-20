@@ -23,6 +23,7 @@ from fenjue.runtime.batch import (
     apply_upload_cooldown_if_needed,
     record_uploaded_image_count,
     send_prompt,
+    startup_refresh_before_button_work,
     take_screenshot,
     upload_settle_seconds,
     wait_for_generation,
@@ -216,7 +217,7 @@ def main() -> None:
     print(f"Target dir: {TARGET_DIR}", flush=True)
     print(f"Complete dir: {COMPLETE_DIR}", flush=True)
     print("This script uploads exactly one target file per prompt.", flush=True)
-    time.sleep(2)
+    startup_refresh_before_button_work()
 
     run_number = 1
     while True:
