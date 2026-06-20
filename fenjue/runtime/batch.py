@@ -197,6 +197,13 @@ TOTAL_RUNS = 999
 
 CHECK_INTERVAL_SECONDS = 200
 MAX_UPLOAD_SETTLE_SECONDS = 15
+UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
+UPLOAD_COOLDOWN_SECONDS = 90 * 60
+UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
+WEB_REFRESH_SETTLE_SECONDS = 20
+_uploaded_images_since_cooldown = 0
+_last_upload_counter_at = 0.0
+_upload_counter_loaded = False
 TEXT_BEFORE_SEND_SECONDS = 10
 ECHO_COUNTDOWN_LAST_SECONDS = 20
 SINGLE_CLICK_HOLD_SECONDS = 0.06
@@ -928,6 +935,7 @@ USED_CHARACTER_CLOTHING_THEMES_FILE = PROJECT_DIR / "config" / "used_character_c
 USED_CHARACTER_ART_PLANS_FILE = PROJECT_DIR / "config" / "used_character_art_plans.json"
 USED_CHARACTER_BATCH_FILE = PROJECT_DIR / "config" / "used_character_batches.json"
 CLOTHING_THEME_USAGE_LOG_FILE = PROJECT_DIR / "config" / "clothing_theme_usage_log.jsonl"
+UPLOAD_COUNTER_STATE_FILE = PROJECT_DIR / "config" / "upload_cooldown_state.json"
 
 
 def upload_settle_seconds(reference_count: int) -> int:
@@ -1372,14 +1380,124 @@ def wait_with_echo(seconds: int, label: str) -> None:
         time.sleep(1)
 
 
+def refresh_chatgpt_web_after_upload_cooldown() -> None:
+    print("Upload cooldown: refreshing ChatGPT web page with Ctrl+R", flush=True)
+    pyautogui.hotkey("ctrl", "r")
+    wait_with_echo(WEB_REFRESH_SETTLE_SECONDS, "Web refresh settle")
+
+
+def _save_upload_counter_state() -> None:
+    UPLOAD_COUNTER_STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    UPLOAD_COUNTER_STATE_FILE.write_text(
+        json.dumps(
+            {
+                "uploaded_images_since_cooldown": _uploaded_images_since_cooldown,
+                "last_upload_at": _last_upload_counter_at,
+                "last_upload_at_iso": dt.datetime.fromtimestamp(_last_upload_counter_at).isoformat(timespec="seconds") if _last_upload_counter_at else "",
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
+def _reset_upload_counter_state(reason: str) -> None:
+    global _uploaded_images_since_cooldown, _last_upload_counter_at
+    if _uploaded_images_since_cooldown or _last_upload_counter_at:
+        print(f"Upload cooldown: resetting persisted upload counter ({reason}).", flush=True)
+    _uploaded_images_since_cooldown = 0
+    _last_upload_counter_at = 0.0
+    _save_upload_counter_state()
+
+
+def _load_upload_counter_state() -> None:
+    global _upload_counter_loaded, _uploaded_images_since_cooldown, _last_upload_counter_at
+    if _upload_counter_loaded:
+        return
+    _upload_counter_loaded = True
+
+    if not UPLOAD_COUNTER_STATE_FILE.exists():
+        _uploaded_images_since_cooldown = 0
+        _last_upload_counter_at = 0.0
+        return
+
+    try:
+        state = json.loads(UPLOAD_COUNTER_STATE_FILE.read_text(encoding="utf-8"))
+        _uploaded_images_since_cooldown = max(0, int(state.get("uploaded_images_since_cooldown", 0)))
+        _last_upload_counter_at = max(0.0, float(state.get("last_upload_at", 0.0)))
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        print(f"Upload cooldown: could not read persisted counter, starting from 0: {exc}", flush=True)
+        _uploaded_images_since_cooldown = 0
+        _last_upload_counter_at = 0.0
+        return
+
+    if _last_upload_counter_at <= 0:
+        _uploaded_images_since_cooldown = 0
+        return
+
+    elapsed = time.time() - _last_upload_counter_at
+    if elapsed >= UPLOAD_COUNTER_WINDOW_SECONDS:
+        _reset_upload_counter_state(f"last upload was {int(elapsed // 60)} minutes ago")
+        return
+
+    print(
+        "Upload cooldown: loaded persisted counter "
+        f"{_uploaded_images_since_cooldown}/{UPLOAD_COOLDOWN_IMAGE_LIMIT}; "
+        f"last upload was {int(elapsed // 60)} minutes ago.",
+        flush=True,
+    )
+
+
+def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
+    next_upload_count = max(0, int(next_upload_count))
+    if next_upload_count <= 0:
+        return
+
+    _load_upload_counter_state()
+    projected_total = _uploaded_images_since_cooldown + next_upload_count
+    if _uploaded_images_since_cooldown < UPLOAD_COOLDOWN_IMAGE_LIMIT and projected_total <= UPLOAD_COOLDOWN_IMAGE_LIMIT:
+        return
+
+    print(
+        "Upload cooldown: "
+        f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
+        f"next upload has {next_upload_count} images and would reach {projected_total}. "
+        f"Sleeping {UPLOAD_COOLDOWN_SECONDS // 60} minutes before refreshing web and continuing.",
+        flush=True,
+    )
+    wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown")
+    refresh_chatgpt_web_after_upload_cooldown()
+    _reset_upload_counter_state("cooldown completed")
+
+
+def record_uploaded_image_count(uploaded_count: int) -> None:
+    global _uploaded_images_since_cooldown, _last_upload_counter_at
+    uploaded_count = max(0, int(uploaded_count))
+    if uploaded_count <= 0:
+        return
+    _load_upload_counter_state()
+    _uploaded_images_since_cooldown += uploaded_count
+    _last_upload_counter_at = time.time()
+    _save_upload_counter_state()
+    print(
+        "Upload cooldown: "
+        f"recorded {uploaded_count} uploaded image(s); "
+        f"current 3-hour total {_uploaded_images_since_cooldown}/{UPLOAD_COOLDOWN_IMAGE_LIMIT}.",
+        flush=True,
+    )
+
+
 def upload_reference_images(reference_files: list[str]) -> list[str]:
+    upload_files = prepare_upload_files(reference_files)
+    apply_upload_cooldown_if_needed(len(upload_files))
+
     print("Upload: opening plus menu", flush=True)
     # Use the ChatGPT input plus menu instead of Ctrl+U.
     click_slow(*COORDS["plus_button"], after=1.0)
     print("Upload: choosing add photo/file menu item", flush=True)
     click_slow(*COORDS["add_photo_file_menu"], after=2.0)
 
-    upload_files = prepare_upload_files(reference_files)
     file_list = " ".join(f'"{p}"' for p in upload_files)
     time.sleep(0.25)
 
@@ -1393,6 +1511,7 @@ def upload_reference_images(reference_files: list[str]) -> list[str]:
 
     # Wait for ChatGPT to attach/process thumbnails before typing text.
     wait_with_echo(upload_settle_seconds(len(upload_files)), "Upload settle")
+    record_uploaded_image_count(len(upload_files))
     return upload_files
 
 

@@ -20,6 +20,8 @@ from fenjue.runtime.batch import (
     click_slow,
     load_calibrated_coords,
     paste_text,
+    apply_upload_cooldown_if_needed,
+    record_uploaded_image_count,
     send_prompt,
     take_screenshot,
     upload_settle_seconds,
@@ -170,6 +172,7 @@ def move_to_complete(source: Path) -> Path:
 
 def upload_target_file(path: Path) -> None:
     print(f"Upload target: {path}", flush=True)
+    apply_upload_cooldown_if_needed(1)
     print("Upload: opening plus menu", flush=True)
     click_slow(*COORDS["plus_button"], after=1.0)
     print("Upload: choosing add photo/file menu item", flush=True)
@@ -181,6 +184,7 @@ def upload_target_file(path: Path) -> None:
     pyautogui.press("enter")
 
     wait_with_echo(upload_settle_seconds(1), "Upload settle")
+    record_uploaded_image_count(1)
 
 
 def process_target_file(path: Path, run_number: int) -> None:
