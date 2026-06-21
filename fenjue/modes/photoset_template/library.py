@@ -30,7 +30,7 @@ GENERAL_CHARACTER_ADAPTATION = (
 
 
 A3_HAND_DRAWN_STYLE = (
-    "A_3 style experiment: keep the original photoset prompt and composition, but render it as unmistakable hand-drawn Japanese 2D anime art. "
+    "Mode 3 style: keep the original photoset prompt and composition, but render it as unmistakable hand-drawn Japanese 2D anime art. "
     "Visible clean black lineart must outline the face, hair silhouette, eyes, hands, clothing edges, fabric folds, props, and key furniture. "
     "Use cel-shaded anime forms with soft painted gradients, simplified smooth anime skin, stylized large eyes, graphic hair strand groups, "
     "and illustration-like color separation. The room can keep photographic composition and lighting, but the final surface must look drawn, "
@@ -116,12 +116,12 @@ def list_base_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
 def list_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
     ids: list[str] = []
     for base_id in list_base_template_ids(root):
-        ids.extend([base_id, _variant_template_id(base_id, "adapted"), _variant_template_id(base_id, "a3")])
+        ids.append(_variant_template_id(base_id, "a3"))
     return sorted(ids, key=_template_sort_key)
 
 
 def _heading_pattern() -> re.Pattern[str]:
-    return re.compile(r"^#\s+Image\s+(\d+)\b\s*(?:\W+\s*(.*?))?\s*$", re.MULTILINE)
+    return re.compile(r"^#{1,3}\s+Image\s+(\d+)\b\s*(?:\W+\s*(.*?))?\s*$", re.MULTILINE)
 
 
 def _section_between(text: str, start_pattern: str, stop_pattern: str = r"^#{1,3}\s+") -> str:
@@ -146,6 +146,30 @@ IDENTITY_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\ba\s+young\s+adult\s+woman\b", re.IGNORECASE), "the selected character"),
 )
 
+PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bbare\s+upper\s+back\b", re.IGNORECASE), "elegant back-facing pose with airy fabric coverage"),
+    (re.compile(r"\bdelicate\s+bare\s+back\b", re.IGNORECASE), "delicate back-facing pose with fabric coverage"),
+    (re.compile(r"\bbare\s+back\b", re.IGNORECASE), "back-facing pose with fabric coverage"),
+    (re.compile(r"\bexposed\s+shoulders?\b", re.IGNORECASE), "soft shoulder-line styling with secure fabric coverage"),
+    (re.compile(r"\bshoulders?\s+exposed\b", re.IGNORECASE), "shoulder line softly framed by fabric"),
+    (re.compile(r"\bexposed\s+leg\b", re.IGNORECASE), "leg line shaped by the gown movement"),
+    (re.compile(r"\boff[- ]shoulder\b", re.IGNORECASE), "soft draped neckline"),
+    (re.compile(r"\bstrapless\b", re.IGNORECASE), "structured evening neckline"),
+    (re.compile(r"\bthin\s+straps?\b", re.IGNORECASE), "delicate shoulder straps"),
+    (re.compile(r"\blingerie[- ](?:inspired|like)\b", re.IGNORECASE), "delicate fashion"),
+    (re.compile(r"\blingerie\b", re.IGNORECASE), "delicate fashionwear"),
+    (re.compile(r"\bsemi[- ]transparent\b", re.IGNORECASE), "airy layered"),
+    (re.compile(r"\btransparent\b", re.IGNORECASE), "airy layered"),
+    (re.compile(r"\btranslucent\b", re.IGNORECASE), "airy layered"),
+    (re.compile(r"\bsheer\b", re.IGNORECASE), "light layered"),
+    (re.compile(r"\bsee[- ]through\b", re.IGNORECASE), "light layered"),
+    (re.compile(r"\bwet[- ]skin\s+detail\b", re.IGNORECASE), "dewy skin highlights"),
+    (re.compile(r"\bwet\s+skin\s+droplets\b", re.IGNORECASE), "dewy highlight details"),
+    (re.compile(r"\bcleavage\b", re.IGNORECASE), "neckline detail"),
+    (re.compile(r"\bunderboob\b|\bsideboob\b", re.IGNORECASE), "unsafe crop"),
+    (re.compile(r"\bnude\b", re.IGNORECASE), "neutral"),
+)
+
 
 def _compact(text: str, limit: int) -> str:
     squashed = re.sub(r"\n{3,}", "\n\n", text).strip()
@@ -162,6 +186,13 @@ def _remove_template_identity_traits(text: str) -> str:
     cleaned = re.sub(r",\s*,", ",", cleaned)
     cleaned = re.sub(r"\s{2,}", " ", cleaned)
     cleaned = re.sub(r"\n\s*\n\s*\n+", "\n\n", cleaned)
+    return cleaned.strip(" ,\n")
+
+
+def _soften_platform_sensitive_terms(text: str) -> str:
+    cleaned = text
+    for pattern, replacement in PLATFORM_SENSITIVE_PATTERNS:
+        cleaned = pattern.sub(replacement, cleaned)
     return cleaned.strip(" ,\n")
 
 
@@ -182,6 +213,7 @@ def _profile_identity_block(character_name: str) -> str:
 
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
     cleaned = _remove_template_identity_traits(text)
+    cleaned = _soften_platform_sensitive_terms(cleaned)
     cleaned = re.sub(r"\bthe selected character\b", character_name, cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\bHer\b", f"{character_name}'s", cleaned)
     cleaned = re.sub(r"\bher\b", f"{character_name}'s", cleaned)
@@ -293,12 +325,12 @@ This image belongs to one coherent photoset. Keep the same outfit system, hair s
 
 def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     ready_block = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
-    global_style = _compact(_remove_template_identity_traits(template.global_identity), 1800)
+    global_style = _compact(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity)), 1800)
     negative_block = shot.negative_prompt or (
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
     )
-    negative_block = _remove_template_identity_traits(negative_block)
+    negative_block = _soften_platform_sensitive_terms(_remove_template_identity_traits(negative_block))
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
 
@@ -335,6 +367,7 @@ This image belongs to one coherent photoset. Keep the outfit system, room family
 
 [NEGATIVE]
 {negative_block}
+Keep the styling elegant and editorial, but avoid platform-sensitive revealing framing, clothing slipping, overly revealing light-layered clothing, or body-part emphasis.
 Identity drift, wrong hairstyle, wrong hair color, copied reference-person face, copied reference-person hair silhouette, changed bangs, changed body proportions, tall mature model body when the character is youthful, overlong legs, enlarged bust, mature sharp face, dark brown/sepia color cast, muddy shadows, low-key fantasy room.
 """.strip()
 
@@ -344,10 +377,10 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     return f"""
 {base_prompt}
 
-[A_3 HAND-DRAWN ANIME STYLE ADDENDUM]
+[MODE 3 HAND-DRAWN ANIME STYLE ADDENDUM]
 {A3_HAND_DRAWN_STYLE}
 
-[A_3 EXTRA NEGATIVE]
+[MODE 3 EXTRA NEGATIVE]
 {A3_NEGATIVE}
 """.strip()
 

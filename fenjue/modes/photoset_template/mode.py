@@ -28,6 +28,8 @@ def _option_value(argv: list[str], *names: str) -> str | None:
 
 
 def _display_template_id(template_id: str) -> str:
+    if template_id.upper().endswith("_A_3"):
+        return template_id[:-4]
     if template_id.endswith("_adapted"):
         return template_id.removesuffix("_adapted") + "_ADD"
     return template_id
@@ -47,14 +49,20 @@ def _template_from_menu_token(token: str, available: list[str]) -> str:
     normalized = item
     upper = item.upper()
     if upper.endswith("_ADD"):
-        normalized = item[:-4] + "_adapted"
+        normalized = item[:-4] + "_A_3"
     elif upper.endswith("_ADAPTED"):
-        normalized = item[:-8] + "_adapted"
+        normalized = item[:-8] + "_A_3"
     elif upper.endswith("_A3"):
         normalized = item[:-3] + "_A_3"
+    elif upper.endswith("_A_3"):
+        normalized = item
 
     if normalized.isdigit():
-        normalized = f"{int(normalized):03d}"
+        normalized = f"{int(normalized):03d}_A_3"
+    elif normalized.upper() not in {template_id.upper() for template_id in available}:
+        candidate = f"{normalized}_A_3"
+        if candidate.upper() in {template_id.upper() for template_id in available}:
+            normalized = candidate
     return normalized
 
 
@@ -65,12 +73,8 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
     lowered = text.lower()
     if lowered in {"all", "*"}:
         return available[:]
-    if lowered in {"all_add", "add", "all_adapted", "adapted"}:
-        return [template_id for template_id in available if template_id.endswith("_adapted")]
-    if lowered in {"all_a3", "a3", "all_a_3", "a_3"}:
-        return [template_id for template_id in available if template_id.upper().endswith("_A_3")]
-    if lowered in {"all_original", "original"}:
-        return [template_id for template_id in available if not template_id.endswith("_adapted") and not template_id.upper().endswith("_A_3")]
+    if lowered in {"all_a3", "a3", "all_a_3", "a_3", "mode3", "mode_3"}:
+        return available[:]
 
     selected: list[str] = []
     for part in text.replace("，", ",").replace(" ", ",").split(","):
@@ -103,7 +107,7 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
         print("Choose photoset template(s):")
         for index, template_id in enumerate(available, start=1):
             print(f"  {index} = {_display_template_id(template_id)}")
-        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001_ADD or 001_A_3, all_original, all_add, all_a3, or all.")
+        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001, all_a3, or all.")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         try:
             selections = _split_template_selection(choice, available)
