@@ -1435,9 +1435,27 @@ def _reset_upload_counter_state(reason: str) -> None:
     _save_upload_counter_state()
 
 
+def _reset_upload_counter_if_window_expired() -> bool:
+    if _last_upload_counter_at <= 0:
+        return False
+
+    elapsed = time.time() - _last_upload_counter_at
+    if elapsed >= UPLOAD_COUNTER_WINDOW_SECONDS:
+        _reset_upload_counter_state(f"last upload was {int(elapsed // 60)} minutes ago")
+        return True
+    return False
+
+
+def clear_upload_counter_state(reason: str = "manual reset") -> None:
+    global _upload_counter_loaded
+    _upload_counter_loaded = True
+    _reset_upload_counter_state(reason)
+
+
 def _load_upload_counter_state() -> None:
     global _upload_counter_loaded, _uploaded_images_since_cooldown, _last_upload_counter_at
     if _upload_counter_loaded:
+        _reset_upload_counter_if_window_expired()
         return
     _upload_counter_loaded = True
 
@@ -1460,11 +1478,10 @@ def _load_upload_counter_state() -> None:
         _uploaded_images_since_cooldown = 0
         return
 
-    elapsed = time.time() - _last_upload_counter_at
-    if elapsed >= UPLOAD_COUNTER_WINDOW_SECONDS:
-        _reset_upload_counter_state(f"last upload was {int(elapsed // 60)} minutes ago")
+    if _reset_upload_counter_if_window_expired():
         return
 
+    elapsed = time.time() - _last_upload_counter_at
     print(
         "Upload cooldown: loaded persisted counter "
         f"{_uploaded_images_since_cooldown}/{UPLOAD_COOLDOWN_IMAGE_LIMIT}; "

@@ -10,8 +10,17 @@ def _calibration_requested(argv: list[str]) -> bool:
     return any(argument.strip().lower() in {"--calibrate", "--reset-coords", "--reset-coordinates"} for argument in argv)
 
 
+def _upload_counter_clear_requested(argv: list[str]) -> bool:
+    return any(argument.strip().lower() in {"--clear-upload-counter", "--reset-upload-counter", "--clear-cooldown"} for argument in argv)
+
+
 def main() -> None:
     args = sys.argv[1:]
+    if _upload_counter_clear_requested(args):
+        batch.clear_upload_counter_state("manual reset from launcher")
+        print("Upload cooldown counter cleared.")
+        return
+
     if _calibration_requested(args):
         batch.main()
         return
