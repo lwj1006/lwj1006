@@ -1,6 +1,7 @@
 
 from __future__ import annotations
 
+import random
 import sys
 
 from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_template, prompt_for_shot
@@ -75,6 +76,10 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
         return available[:]
     if lowered in {"all_a3", "a3", "all_a_3", "a_3", "mode3", "mode_3"}:
         return available[:]
+    if lowered in {"random", "rondom", "shuffle", "all_random", "random_all"}:
+        shuffled = available[:]
+        random.shuffle(shuffled)
+        return shuffled
 
     selected: list[str] = []
     for part in text.replace("，", ",").replace(" ", ",").split(","):
@@ -107,7 +112,7 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
         print("Choose photoset template(s):")
         for index, template_id in enumerate(available, start=1):
             print(f"  {index} = {_display_template_id(template_id)}")
-        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001, all_a3, or all.")
+        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001, all, or random.")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         try:
             selections = _split_template_selection(choice, available)
