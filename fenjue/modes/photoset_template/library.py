@@ -121,7 +121,10 @@ def list_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
 
 
 def _heading_pattern() -> re.Pattern[str]:
-    return re.compile(r"^#{1,3}\s+Image\s+(\d+)\b\s*(?:\W+\s*(.*?))?\s*$", re.MULTILINE)
+    return re.compile(
+        r"^#{1,3}\s+(?:(?:\d+|[A-Za-z]+)\.\s*)?Image\s+0*(?P<index>\d+)\b\s*(?:[-—:]+\s*(?P<title>.*?))?\s*$",
+        re.IGNORECASE | re.MULTILINE,
+    )
 
 
 def _section_between(text: str, start_pattern: str, stop_pattern: str = r"^#{1,3}\s+") -> str:
@@ -132,6 +135,22 @@ def _section_between(text: str, start_pattern: str, stop_pattern: str = r"^#{1,3
     stop = re.search(stop_pattern, text[start:], flags=re.MULTILINE)
     end = start + stop.start() if stop else len(text)
     return text[start:end].strip()
+
+
+def _first_code_or_inline_prompt(text: str) -> str:
+    fenced = re.search(r"```(?:text|prompt)?\s*\n(.*?)\n```", text, flags=re.IGNORECASE | re.DOTALL)
+    if fenced:
+        return fenced.group(1).strip()
+    inline = re.search(r"`([^`]{80,})`", text, flags=re.DOTALL)
+    if inline:
+        return inline.group(1).strip()
+    return text.strip()
+
+
+def _named_prompt_block(section: str) -> str:
+    labels = r"(?:Ready-to-Use Prompt|Reusable Prompt|Prompt Block|Prompt Notes|可复用提示词)"
+    block = _section_between(section, rf"^#{{2,4}}\s+(?:\d+(?:\.\d+)?\.?\s+)?{labels}\s*$")
+    return _first_code_or_inline_prompt(block) if block else ""
 
 
 IDENTITY_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
@@ -238,12 +257,12 @@ def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
     matches = list(_heading_pattern().finditer(markdown))
     shots: list[PhotosetShot] = []
     for position, match in enumerate(matches):
-        index = int(match.group(1))
-        title = (match.group(2) or f"Image {index}").strip()
+        index = int(match.group("index"))
+        title = (match.group("title") or f"Image {index}").strip()
         start = match.end()
         end = matches[position + 1].start() if position + 1 < len(matches) else len(markdown)
         section = markdown[start:end].strip()
-        ready = _section_between(section, r"^##\s+\d+\.\s+Ready-to-Use Prompt\s*$")
+        ready = _section_between(section, r"^##\s+\d+\.\s+Ready-to-Use Prompt\s*$") or _named_prompt_block(section)
         negative = _section_between(section, r"^##\s+\d+\.\s+Negative Prompt\s*$")
         shots.append(
             PhotosetShot(
