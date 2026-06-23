@@ -10,7 +10,8 @@ from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_tem
 LABEL = "photoset template mode"
 
 _active_templates: tuple[PhotosetTemplate, ...] = ()
-_active_character: str | None = None
+_active_characters: tuple[str, ...] = ()
+_active_shot_schedule: tuple[tuple[PhotosetTemplate, PhotosetShot], ...] = ()
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
 
@@ -123,40 +124,52 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
             print(exc)
 
 
-def _choose_character(argv: list[str], batch) -> str:
-    raw = _option_value(argv, "--CHARACTER", "--E-CHARACTER")
+def _parse_character_selection(raw: str, batch) -> list[str]:
+    selected = batch._parse_character_selection(raw)
+    if selected is None:
+        return batch.CHARACTER_SEQUENCE[:]
+    return selected
+
+
+def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
+    raw = _option_value(argv, "--CHARACTERS", "--CHARACTER", "--E-CHARACTERS", "--E-CHARACTER")
     if raw:
-        return raw
+        return tuple(_parse_character_selection(raw, batch))
 
     if batch.noninteractive_selection_enabled():
-        return batch.CHARACTER_SEQUENCE[0]
+        return (batch.CHARACTER_SEQUENCE[0],)
 
     while True:
         print("")
-        print("Choose one character for photoset mode:")
+        print("Choose character(s) for photoset mode:")
         for index, character_name in enumerate(batch.CHARACTER_SEQUENCE, start=1):
             print(f"  {index} = {character_name}")
-        choice = input(f"Character [1-{len(batch.CHARACTER_SEQUENCE)}, default 1]: ").strip() or "1"
-        if choice.isdigit():
-            index = int(choice)
-            if 1 <= index <= len(batch.CHARACTER_SEQUENCE):
-                return batch.CHARACTER_SEQUENCE[index - 1]
-        for character_name in batch.CHARACTER_SEQUENCE:
-            if choice.lower() == character_name.lower():
-                return character_name
-        print("Unknown character. Please enter a listed number or exact character name.")
+        print("Input examples: 1 = one character; 1 2 = rotate two characters; 1-3 = rotate a range; names are also OK.")
+        choice = input(f"Character(s) [default 1]: ").strip() or "1"
+        try:
+            selected = _parse_character_selection(choice, batch)
+        except ValueError as exc:
+            print(f"{exc}. Please try again.")
+            continue
+        if not selected:
+            print("No characters selected. Please try again.")
+            continue
+        return tuple(selected)
+
+
+def _build_shot_schedule(templates: tuple[PhotosetTemplate, ...], shuffle: bool) -> tuple[tuple[PhotosetTemplate, PhotosetShot], ...]:
+    schedule = [(template, shot) for template in templates for shot in template.shots]
+    if shuffle:
+        random.shuffle(schedule)
+    return tuple(schedule)
 
 
 def _active_template_and_shot() -> tuple[PhotosetTemplate, PhotosetShot]:
-    if not _active_templates:
-        raise RuntimeError("Photoset mode has no active templates.")
-    remaining = _current_shot_index
-    for template in _active_templates:
-        if remaining < len(template.shots):
-            return template, template.shots[remaining]
-        remaining -= len(template.shots)
-    template = _active_templates[-1]
-    return template, template.shots[-1]
+    if not _active_shot_schedule:
+        raise RuntimeError("Photoset mode has no active shot schedule.")
+    if _current_shot_index < len(_active_shot_schedule):
+        return _active_shot_schedule[_current_shot_index]
+    return _active_shot_schedule[-1]
 
 
 def _active_template() -> PhotosetTemplate:
@@ -170,22 +183,22 @@ def _active_shot() -> PhotosetShot:
 
 
 def _total_shots() -> int:
-    return sum(len(template.shots) for template in _active_templates)
+    return len(_active_shot_schedule)
 
 
 def activate(batch, args=None) -> None:
-    global _active_templates, _active_character, _current_shot_index
+    global _active_templates, _active_characters, _active_shot_schedule, _current_shot_index
     argv = list(args or [])
     _active_templates = _choose_templates(argv, batch)
-    _active_character = _choose_character(argv, batch)
+    _active_characters = _choose_characters(argv, batch)
+    _active_shot_schedule = _build_shot_schedule(_active_templates, shuffle=len(_active_characters) > 1)
     _current_shot_index = 0
 
     original_reference_files_for_character = batch.reference_files_for_character
 
     def fixed_character_selection():
-        assert _active_character is not None
-        print(f"Photoset mode character: {_active_character}", flush=True)
-        return [_active_character]
+        print(f"Photoset mode characters: {' / '.join(_active_characters)}", flush=True)
+        return list(_active_characters)
 
     def skip_scene_selection():
         print("Original scene menu skipped: photoset mode uses the selected template shots.", flush=True)
@@ -280,7 +293,7 @@ def activate(batch, args=None) -> None:
     batch.collect_cooldown_tags = collect_photoset_tags
     batch.prompt_for_art_direction = prompt_for_photoset
     batch.prompt_template_name = lambda template_index=0: f"photoset_template_{_active_template().template_id}"
-    batch.CHARACTERS_PER_BATCH = 1
+    batch.CHARACTERS_PER_BATCH = max(1, len(_active_characters))
     batch.TOTAL_RUNS = _total_shots()
 
     while "--runs" in sys.argv:
@@ -290,7 +303,8 @@ def activate(batch, args=None) -> None:
     print(
         "Prompt mode E active: photoset template mode. "
         f"Templates: {', '.join(_display_template_id(template.template_id) for template in _active_templates)}. "
-        f"Character: {_active_character}. "
-        f"Shots: {_total_shots()}.",
+        f"Characters: {' / '.join(_active_characters)}. "
+        f"Shot order: {'random' if len(_active_characters) > 1 else 'template order'}. "
+        f"Total shots: {_total_shots()}.",
         flush=True,
     )
