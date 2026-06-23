@@ -11,6 +11,7 @@ LABEL = "photoset template mode"
 
 _active_templates: tuple[PhotosetTemplate, ...] = ()
 _active_characters: tuple[str, ...] = ()
+_active_character_schedule: tuple[str, ...] = ()
 _active_shot_schedule: tuple[tuple[PhotosetTemplate, PhotosetShot], ...] = ()
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
@@ -157,10 +158,15 @@ def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
         return tuple(selected)
 
 
-def _build_shot_schedule(templates: tuple[PhotosetTemplate, ...], shuffle: bool) -> tuple[tuple[PhotosetTemplate, PhotosetShot], ...]:
-    schedule = [(template, shot) for template in templates for shot in template.shots]
-    if shuffle:
-        random.shuffle(schedule)
+def _build_photoset_schedule(
+    templates: tuple[PhotosetTemplate, ...],
+    characters: tuple[str, ...],
+) -> tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...]:
+    schedule: list[tuple[str, PhotosetTemplate, PhotosetShot]] = []
+    for template_index, template in enumerate(templates):
+        character_name = characters[template_index % len(characters)]
+        for shot in template.shots:
+            schedule.append((character_name, template, shot))
     return tuple(schedule)
 
 
@@ -170,6 +176,14 @@ def _active_template_and_shot() -> tuple[PhotosetTemplate, PhotosetShot]:
     if _current_shot_index < len(_active_shot_schedule):
         return _active_shot_schedule[_current_shot_index]
     return _active_shot_schedule[-1]
+
+
+def _active_character_for_shot() -> str:
+    if not _active_character_schedule:
+        raise RuntimeError("Photoset mode has no active character schedule.")
+    if _current_shot_index < len(_active_character_schedule):
+        return _active_character_schedule[_current_shot_index]
+    return _active_character_schedule[-1]
 
 
 def _active_template() -> PhotosetTemplate:
@@ -187,18 +201,20 @@ def _total_shots() -> int:
 
 
 def activate(batch, args=None) -> None:
-    global _active_templates, _active_characters, _active_shot_schedule, _current_shot_index
+    global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule, _current_shot_index
     argv = list(args or [])
     _active_templates = _choose_templates(argv, batch)
     _active_characters = _choose_characters(argv, batch)
-    _active_shot_schedule = _build_shot_schedule(_active_templates, shuffle=len(_active_characters) > 1)
+    photoset_schedule = _build_photoset_schedule(_active_templates, _active_characters)
+    _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
+    _active_shot_schedule = tuple((template, shot) for _, template, shot in photoset_schedule)
     _current_shot_index = 0
 
     original_reference_files_for_character = batch.reference_files_for_character
 
     def fixed_character_selection():
         print(f"Photoset mode characters: {' / '.join(_active_characters)}", flush=True)
-        return list(_active_characters)
+        return list(_active_character_schedule)
 
     def skip_scene_selection():
         print("Original scene menu skipped: photoset mode uses the selected template shots.", flush=True)
@@ -293,7 +309,7 @@ def activate(batch, args=None) -> None:
     batch.collect_cooldown_tags = collect_photoset_tags
     batch.prompt_for_art_direction = prompt_for_photoset
     batch.prompt_template_name = lambda template_index=0: f"photoset_template_{_active_template().template_id}"
-    batch.CHARACTERS_PER_BATCH = max(1, len(_active_characters))
+    batch.CHARACTERS_PER_BATCH = max(1, _total_shots())
     batch.TOTAL_RUNS = _total_shots()
 
     while "--runs" in sys.argv:
@@ -304,7 +320,8 @@ def activate(batch, args=None) -> None:
         "Prompt mode E active: photoset template mode. "
         f"Templates: {', '.join(_display_template_id(template.template_id) for template in _active_templates)}. "
         f"Characters: {' / '.join(_active_characters)}. "
-        f"Shot order: {'random' if len(_active_characters) > 1 else 'template order'}. "
+        "Rotation: one character completes one full template, then the next character takes the next template. "
+        f"Total templates: {len(_active_templates)}. "
         f"Total shots: {_total_shots()}.",
         flush=True,
     )
