@@ -186,6 +186,7 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bwet\s+skin\s+droplets\b", re.IGNORECASE), "dewy highlight details"),
     (re.compile(r"\bcleavage\b", re.IGNORECASE), "neckline detail"),
     (re.compile(r"\bunderboob\b|\bsideboob\b", re.IGNORECASE), "unsafe crop"),
+    (re.compile(r"\bbikini\b", re.IGNORECASE), "sporty blue poolwear with secure coverage"),
     (re.compile(r"\bnude\b", re.IGNORECASE), "neutral"),
 )
 
