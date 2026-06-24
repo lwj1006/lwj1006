@@ -214,7 +214,12 @@ def activate(batch, args=None) -> None:
 
     def fixed_character_selection():
         print(f"Photoset mode characters: {' / '.join(_active_characters)}", flush=True)
-        return list(_active_character_schedule)
+        return list(_active_characters)
+
+    def resolve_photoset_run_character(character_name: str, run_number: int) -> str:
+        global _current_shot_index
+        _current_shot_index = max(0, min(run_number - 1, _total_shots() - 1))
+        return _active_character_for_shot()
 
     def skip_scene_selection():
         print("Original scene menu skipped: photoset mode uses the selected template shots.", flush=True)
@@ -297,6 +302,7 @@ def activate(batch, args=None) -> None:
     def collect_photoset_tags(art_plan, action_style):
         return ["photoset_template", art_plan.get("name", "photoset_unknown")]
 
+    batch.resolve_run_character = resolve_photoset_run_character
     batch.startup_character_selection = fixed_character_selection
     batch.startup_scene_selection = skip_scene_selection
     batch.startup_clothing_selection = skip_clothing_selection
@@ -309,7 +315,7 @@ def activate(batch, args=None) -> None:
     batch.collect_cooldown_tags = collect_photoset_tags
     batch.prompt_for_art_direction = prompt_for_photoset
     batch.prompt_template_name = lambda template_index=0: f"photoset_template_{_active_template().template_id}"
-    batch.CHARACTERS_PER_BATCH = max(1, _total_shots())
+    batch.CHARACTERS_PER_BATCH = max(1, len(_active_characters))
     batch.TOTAL_RUNS = _total_shots()
 
     while "--runs" in sys.argv:

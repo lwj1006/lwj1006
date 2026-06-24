@@ -57,6 +57,11 @@ REFERENCE_FILES = [
 
 TOTAL_RUNS = 99
 
+
+def resolve_run_character(character_name: str, run_number: int) -> str:
+    return character_name
+
+
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
     "南宫": [
@@ -2695,6 +2700,7 @@ def main() -> None:
             if run_number > total_runs:
                 break
 
+            character_name = resolve_run_character(character_name, run_number)
             config_revision = maybe_refresh_runtime_config(enable_git_pull=enable_runtime_git_pull)
             reference_files = reference_files_for_character(character_name)
             art_plan, action_style = choose_character_plan_and_action(
