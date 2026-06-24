@@ -172,6 +172,14 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bexposed\s+shoulders?\b", re.IGNORECASE), "soft shoulder-line styling with secure fabric coverage"),
     (re.compile(r"\bshoulders?\s+exposed\b", re.IGNORECASE), "shoulder line softly framed by fabric"),
     (re.compile(r"\bexposed\s+leg\b", re.IGNORECASE), "leg line shaped by the gown movement"),
+    (re.compile(r"\brevealing\s+skin\s+and\s+collarbone\b", re.IGNORECASE), "soft collar area with secure fabric coverage"),
+    (re.compile(r"\brevealing\s+(?:a\s+)?(?:thin\s+)?(?:white\s+)?camisole\s+strap(?:\s+and\s+pale\s+white\s+underlayer)?\b", re.IGNORECASE), "with a secure inner layer visible"),
+    (re.compile(r"\brevealing\s+the\s+airy\s+quality\s+of\s+the\s+fabric\b", re.IGNORECASE), "showing the soft movement of the fabric"),
+    (re.compile(r"\brevealing\s+delicate\s+white\s+inner\s+structure\b", re.IGNORECASE), "showing delicate layered white structure"),
+    (re.compile(r"\bno\s+revealing\s+emphasis\b", re.IGNORECASE), "no body-emphasis framing"),
+    (re.compile(r"\brevealing\b", re.IGNORECASE), "securely styled"),
+    (re.compile(r"\bslipped\s+off\s+one\s+shoulder\b", re.IGNORECASE), "softly draped with secure shoulder coverage"),
+    (re.compile(r"\boff\s+one\s+shoulder\b", re.IGNORECASE), "softly draped with secure shoulder coverage"),
     (re.compile(r"\boff[- ]shoulder\b", re.IGNORECASE), "soft draped neckline"),
     (re.compile(r"\bstrapless\b", re.IGNORECASE), "structured evening neckline"),
     (re.compile(r"\bthin\s+straps?\b", re.IGNORECASE), "delicate shoulder straps"),
@@ -189,6 +197,33 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bbikini\b", re.IGNORECASE), "sporty blue poolwear with secure coverage"),
     (re.compile(r"\bnude\b", re.IGNORECASE), "neutral"),
 )
+
+
+def _has_cjk(text: str) -> bool:
+    return any("\u4e00" <= char <= "\u9fff" for char in text)
+
+
+def _english_only_text(text: str) -> str:
+    lines = []
+    for line in text.splitlines():
+        if _has_cjk(line):
+            continue
+        lines.append(line)
+    cleaned = "\n".join(lines)
+    cleaned = re.sub(r"```(?:text|prompt)?\s*\n\s*```", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+    return cleaned
+
+
+def _english_title(text: str, fallback: str) -> str:
+    cleaned = _english_only_text(text).strip(" -—:|/")
+    if cleaned:
+        cleaned = _soften_platform_sensitive_terms(cleaned)
+    return cleaned or fallback
+
+
+def _prompt_subject_name(character_name: str) -> str:
+    return "the selected character"
 
 
 def _compact(text: str, limit: int) -> str:
@@ -234,9 +269,11 @@ def _profile_identity_block(character_name: str) -> str:
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
     cleaned = _remove_template_identity_traits(text)
     cleaned = _soften_platform_sensitive_terms(cleaned)
-    cleaned = re.sub(r"\bthe selected character\b", character_name, cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bHer\b", f"{character_name}'s", cleaned)
-    cleaned = re.sub(r"\bher\b", f"{character_name}'s", cleaned)
+    subject_name = _prompt_subject_name(character_name)
+    cleaned = _english_only_text(cleaned)
+    cleaned = re.sub(r"\bthe selected character\b", subject_name, cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bHer\b", f"{subject_name}'s", cleaned)
+    cleaned = re.sub(r"\bher\b", f"{subject_name}'s", cleaned)
     return cleaned.strip()
 
 
@@ -259,7 +296,7 @@ def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
     shots: list[PhotosetShot] = []
     for position, match in enumerate(matches):
         index = int(match.group("index"))
-        title = (match.group("title") or f"Image {index}").strip()
+        title = _english_title(match.group("title") or "", f"Image {index}")
         start = match.end()
         end = matches[position + 1].start() if position + 1 < len(matches) else len(markdown)
         section = markdown[start:end].strip()
@@ -297,7 +334,7 @@ def load_template(template_id: str | int, root: Path = TEMPLATE_ROOT) -> Photose
         template_id=normalized,
         folder=folder,
         markdown_path=markdown_path,
-        global_identity=_global_identity(markdown),
+        global_identity=_english_only_text(_global_identity(markdown)),
         shots=shots,
     )
 
@@ -311,7 +348,8 @@ def _is_a3_template(template: PhotosetTemplate) -> bool:
 
 
 def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
-    ready_block = shot.ready_prompt or shot.section_text
+    subject_name = _prompt_subject_name(character_name)
+    ready_block = _english_only_text(shot.ready_prompt or shot.section_text)
     negative_block = shot.negative_prompt or (
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
@@ -319,7 +357,7 @@ def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, s
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
 
-Uploaded character reference images define the identity of {character_name}. The photoset reference image defines only this shot's design: outfit language, pose, camera, lighting, environment, composition, and mood. Replace the reference person's identity with {character_name}; do not copy the reference person's face.
+Uploaded character reference images define the identity of {subject_name}. The photoset reference image defines only this shot's design: outfit language, pose, camera, lighting, environment, composition, and mood. Replace the reference person's identity with {subject_name}; do not copy the reference person's face.
 
 [PHOTOSET]
 Template: {template.template_id}
@@ -333,7 +371,7 @@ Shot title: {shot.title}
 {ready_block}
 
 [CHARACTER IDENTITY OVERRIDE]
-The final subject is {character_name}. Preserve {character_name}'s uploaded-reference identity, face design, hairstyle, eye color, fixed accessories, species traits, and personality signals. The photoset styling may adapt clothing, pose, lighting, and setting only.
+The final subject is {subject_name}. Preserve the uploaded-reference identity, face design, hairstyle, eye color, fixed accessories, species traits, and personality signals. The photoset styling may adapt clothing, pose, lighting, and setting only.
 
 [CONTINUITY RULE]
 This image belongs to one coherent photoset. Keep the same outfit system, hair styling logic, color grade, environment family, and photographic language described above, while executing this shot's unique pose and camera.
@@ -344,8 +382,9 @@ This image belongs to one coherent photoset. Keep the same outfit system, hair s
 
 
 def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
+    subject_name = _prompt_subject_name(character_name)
     ready_block = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
-    global_style = _compact(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity)), 1800)
+    global_style = _compact(_english_only_text(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity))), 1800)
     negative_block = shot.negative_prompt or (
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
@@ -355,7 +394,7 @@ def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, sh
 Independent image task. Create exactly one finished anime-style photoset image.
 
 [HIGHEST PRIORITY: CHARACTER LOCK]
-The final subject is {character_name}. Character reference images override every person-related detail in the photoset template and photoset reference image.
+The final subject is {subject_name}. Character reference images override every person-related detail in the photoset template and photoset reference image.
 {_profile_identity_block(character_name)}
 {_character_adaptation(character_name)}
 
@@ -380,21 +419,21 @@ Match the photoset reference color logic closely: bright window-side daylight, c
 {ready_block}
 
 [ADAPTATION RULE]
-Use the pose as a pose, not as a body transplant. Adjust stool height, leg length impression, camera crop, and facial maturity so the same composition fits {character_name}. If any template wording conflicts with {character_name}'s profile or references, delete the template wording mentally and keep {character_name}.
+Use the pose as a pose, not as a body transplant. Adjust stool height, leg length impression, camera crop, and facial maturity so the same composition fits {subject_name}. If any template wording conflicts with the character profile or references, delete the template wording mentally and keep the uploaded character identity.
 
 [CONTINUITY RULE]
 This image belongs to one coherent photoset. Keep the outfit system, room family, lighting direction, color grade, props, and photographic language consistent across the set. Do not use template hair styling or template body type as continuity; character continuity comes only from {character_name}'s references.
 
 [NEGATIVE]
 {negative_block}
-Keep the styling elegant and editorial, but avoid platform-sensitive revealing framing, clothing slipping, overly revealing light-layered clothing, or body-part emphasis.
+Keep the styling elegant and editorial, but use platform-safe framing, stable clothing, opaque fabric treatment, and no body-part emphasis.
 Identity drift, wrong hairstyle, wrong hair color, copied reference-person face, copied reference-person hair silhouette, changed bangs, changed body proportions, tall mature model body when the character is youthful, overlong legs, enlarged bust, mature sharp face, dark brown/sepia color cast, muddy shadows, low-key fantasy room.
 """.strip()
 
 
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     base_prompt = _prompt_for_adapted_shot(character_name, template, shot)
-    return f"""
+    prompt = f"""
 {base_prompt}
 
 [MODE 3 HAND-DRAWN ANIME STYLE ADDENDUM]
@@ -403,6 +442,7 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
 [MODE 3 EXTRA NEGATIVE]
 {A3_NEGATIVE}
 """.strip()
+    return _english_only_text(prompt)
 
 
 def prompt_for_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
