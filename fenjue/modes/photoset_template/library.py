@@ -183,13 +183,20 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\boff[- ]shoulder\b", re.IGNORECASE), "soft draped neckline"),
     (re.compile(r"\bstrapless\b", re.IGNORECASE), "structured evening neckline"),
     (re.compile(r"\bthin\s+straps?\b", re.IGNORECASE), "delicate shoulder straps"),
+    (re.compile(r"\bfloral\s+organza\s+dress\b", re.IGNORECASE), "floral chiffon dress with opaque lining"),
+    (re.compile(r"\bpale\s+floral\s+organza\s+fabric\b", re.IGNORECASE), "pale floral chiffon fabric with opaque lining"),
+    (re.compile(r"\borganza\b", re.IGNORECASE), "matte chiffon"),
+    (re.compile(r"\bairy\s+layered\s+fabric\b", re.IGNORECASE), "soft layered fabric with opaque lining"),
+    (re.compile(r"\blayered\s+airy\s+skirt\b", re.IGNORECASE), "layered skirt with a clear sewn silhouette"),
+    (re.compile(r"\blayered\s+airy\b", re.IGNORECASE), "layered with a clear sewn silhouette"),
+    (re.compile(r"\bairy\s+layered\b", re.IGNORECASE), "soft layered cloth"),
     (re.compile(r"\blingerie[- ](?:inspired|like)\b", re.IGNORECASE), "delicate fashion"),
     (re.compile(r"\blingerie\b", re.IGNORECASE), "delicate fashionwear"),
-    (re.compile(r"\bsemi[- ]transparent\b", re.IGNORECASE), "airy layered"),
-    (re.compile(r"\btransparent\b", re.IGNORECASE), "airy layered"),
-    (re.compile(r"\btranslucent\b", re.IGNORECASE), "airy layered"),
-    (re.compile(r"\bsheer\b", re.IGNORECASE), "light layered"),
-    (re.compile(r"\bsee[- ]through\b", re.IGNORECASE), "light layered"),
+    (re.compile(r"\bsemi[- ]transparent\b", re.IGNORECASE), "soft opaque layered fabric"),
+    (re.compile(r"\btransparent\b", re.IGNORECASE), "glasslike"),
+    (re.compile(r"\btranslucent\b", re.IGNORECASE), "soft opaque layered fabric"),
+    (re.compile(r"\bsheer\b", re.IGNORECASE), "soft opaque layered"),
+    (re.compile(r"\bsee[- ]through\b", re.IGNORECASE), "soft opaque layered"),
     (re.compile(r"\bwet[- ]skin\s+detail\b", re.IGNORECASE), "dewy skin highlights"),
     (re.compile(r"\bwet\s+skin\s+droplets\b", re.IGNORECASE), "dewy highlight details"),
     (re.compile(r"\bcleavage\b", re.IGNORECASE), "neckline detail"),
@@ -248,6 +255,9 @@ def _soften_platform_sensitive_terms(text: str) -> str:
     cleaned = text
     for pattern, replacement in PLATFORM_SENSITIVE_PATTERNS:
         cleaned = pattern.sub(replacement, cleaned)
+    cleaned = re.sub(r"\bsoft opaque layered fabric fabric\b", "soft opaque layered fabric", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bwith opaque lining with soft opaque layered fabric\b", "with opaque lining and soft layered fabric", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bsoft opaque layered pastel floral chiffon dress with opaque lining with soft opaque layered fabric\b", "soft opaque layered pastel floral chiffon dress with opaque lining and soft layered fabric", cleaned, flags=re.IGNORECASE)
     return cleaned.strip(" ,\n")
 
 
@@ -418,6 +428,9 @@ Match the photoset reference color logic closely: bright window-side daylight, c
 [SHOT DESIGN PROMPT - IDENTITY WORDS ALREADY FILTERED]
 {ready_block}
 
+[OUTFIT STRUCTURE LOCK]
+The outfit must read as a real finished garment, not decorative material placed on skin. Keep a clear bodice, clear skirt or shorts boundary, stable shoulder construction, secure back coverage, and visible opaque lining. Fabric may be soft, floral, layered, and fairy-like, but it must stay matte, cloth-like, continuous, and sewn together. Keep ruffles attached to the dress, keep flower patterns printed or embroidered on fabric, and translate delicate reference fabric into a coherent matte cloth dress with a finished silhouette.
+
 [ADAPTATION RULE]
 Use the pose as a pose, not as a body transplant. Adjust stool height, leg length impression, camera crop, and facial maturity so the same composition fits {subject_name}. If any template wording conflicts with the character profile or references, delete the template wording mentally and keep the uploaded character identity.
 
@@ -426,7 +439,7 @@ This image belongs to one coherent photoset. Keep the outfit system, room family
 
 [NEGATIVE]
 {negative_block}
-Keep the styling elegant and editorial, but use platform-safe framing, stable clothing, opaque fabric treatment, and no body-part emphasis.
+Keep the styling elegant and editorial, with stable clothing, opaque lined fabric, a clear sewn garment silhouette, secure shoulder and back coverage, and no body-part emphasis.
 Identity drift, wrong hairstyle, wrong hair color, copied reference-person face, copied reference-person hair silhouette, changed bangs, changed body proportions, tall mature model body when the character is youthful, overlong legs, enlarged bust, mature sharp face, dark brown/sepia color cast, muddy shadows, low-key fantasy room.
 """.strip()
 
