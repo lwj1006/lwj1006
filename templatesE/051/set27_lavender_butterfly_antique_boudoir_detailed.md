@@ -1,0 +1,175 @@
+# English System Version For Template 051
+
+This file has been converted to English. The canonical E-mode template used by the automation is `051.md`.
+
+The same English shot plan is mirrored below for readability.
+
+# 051 - Lavender Butterfly Antique Boudoir
+
+## Global Photoset Identity
+
+```text
+lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit system: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Keep this set coherent across every shot: same room or location family, same color grade, same outfit category, same prop family, and the same camera language. The uploaded character references define the final identity; never copy the template person, hair, face, height, body type, or maturity impression.
+```
+
+# Image 01 - Glass Bottle Close Portrait With Butterfly Cheek Accent
+
+## 1. Shot Intent
+
+This shot uses reference image 1 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+close portrait beside a small glass bottle and lavender blossoms, butterfly accent near the cheek, face sharp, hands gently holding the prop, shallow depth of field. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 02 - Side Profile Looking Up Into Lavender Window Light
+
+## 1. Shot Intent
+
+This shot uses reference image 2 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+side profile portrait looking upward into soft window light, lavender flower strands behind the head, one hand near the collar, delicate rim light on hair. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 03 - Front Portrait Holding Butterfly Among Flower Cascade
+
+## 1. Shot Intent
+
+This shot uses reference image 3 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+front half-body portrait holding a butterfly prop with both hands, cascading purple flowers framing the upper background, calm direct gaze. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 04 - Side-Eye Portrait With Butterfly And Dark Wood Flowers
+
+## 1. Shot Intent
+
+This shot uses reference image 4 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+three-quarter portrait with side-eye expression, butterfly held near the lips, dark antique wood and violet flowers behind, intimate crop. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 05 - Seated Half Body Framed By Glass Bottle And Flowers
+
+## 1. Shot Intent
+
+This shot uses reference image 5 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+seated half-body composition framed by a glass bottle in foreground, lavender flowers around shoulders, soft vintage room depth. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 06 - Closed-Eye Prayer Hands In Lavender Haze
+
+## 1. Shot Intent
+
+This shot uses reference image 6 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+closed-eye portrait with hands gently overlapped near the chest, quiet wishful mood, lavender haze and butterfly detail around the face. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 07 - Full Seated Centerpiece In Antique Flower Room
+
+## 1. Shot Intent
+
+This shot uses reference image 7 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+full seated portrait in the center of the antique flower room, dress skirt arranged clearly, purple blossoms and wood furniture visible. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 08 - Kneeling Turn-Back Pose With Soft Feathered Skirt Edge
+
+## 1. Shot Intent
+
+This shot uses reference image 8 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+kneeling turn-back composition, looking over shoulder, skirt spread neatly on the floor, lavender flowers and soft haze behind. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```
+
+# Image 09 - Low Side-Lying Butterfly Portrait
+
+## 1. Shot Intent
+
+This shot uses reference image 9 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+low-angle side-lying portrait on a soft fabric surface, butterfly held near the face, intimate but platform-safe framing, face and hands crisp. lavender antique boudoir photoset, purple flower curtains, glass bottles, butterfly props, dark carved wood furniture, soft window haze, romantic vintage room, violet and cream palette, quiet storybook mood. Outfit: a secure ivory-lavender chiffon dress with opaque lining, soft ruffled sleeves, fitted bodice, coherent sewn skirt, small pearl or ribbon accents, matte cloth texture. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, modern streetwear, wedding gown, plastic dress, loose petals as clothing, dark horror room, neon light, copied template hair, mature body exaggeration
+```

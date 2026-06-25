@@ -1,0 +1,139 @@
+# English System Version For Template 061
+
+This file has been converted to English. The canonical E-mode template used by the automation is `061.md`.
+
+The same English shot plan is mirrored below for readability.
+
+# 061 - Sporty Blue White Sofa Magazine Editorial
+
+## Global Photoset Identity
+
+```text
+bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit system: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Keep this set coherent across every shot: same room or location family, same color grade, same outfit category, same prop family, and the same camera language. The uploaded character references define the final identity; never copy the template person, hair, face, height, body type, or maturity impression.
+```
+
+# Image 01 - Sofa Magazine Full Body Portrait
+
+## 1. Shot Intent
+
+This shot uses reference image 1 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+full-body portrait seated on navy sofa holding a magazine, blue-white outfit readable, geometric blanket and teddy bear nearby. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 02 - Front Seated Window Light Pose
+
+## 1. Shot Intent
+
+This shot uses reference image 2 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+front seated pose near white curtains, hands relaxed on lap, bright room and navy sofa contrast. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 03 - Chin-On-Hand Close Sofa Portrait
+
+## 1. Shot Intent
+
+This shot uses reference image 3 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+close portrait resting chin lightly on hand, striped top and silver accessory detail visible, soft commercial lighting. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 04 - Side Sofa Portrait Hugging Teddy Bear
+
+## 1. Shot Intent
+
+This shot uses reference image 4 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+side portrait on sofa hugging teddy bear, white skirt and sporty top stable, warm blanket texture behind. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 05 - Overhead Sofa Reclining Editorial
+
+## 1. Shot Intent
+
+This shot uses reference image 5 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+slightly overhead safe reclining sofa pose, magazine and blanket arranged graphically, outfit continuity clear. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 06 - Side Chair Sporty Editorial Pose
+
+## 1. Shot Intent
+
+This shot uses reference image 6 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+side seated pose on chair beside sofa, legs arranged modestly, blue-white styling and clean room visible. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
+
+# Image 07 - Magazine Close Portrait With Blue Stripes
+
+## 1. Shot Intent
+
+This shot uses reference image 7 as composition and mood guidance only. Preserve the selected character identity from uploaded character references.
+
+## 2. Ready-to-Use Prompt
+
+```text
+close portrait with magazine foreground, blue-white striped top as visual anchor, soft direct gaze. bright indoor sporty editorial portrait, navy velvet sofa, blue-white striped fashion top, white skirt, vintage geometric blanket, magazine, teddy bear, soft daylight. Outfit: a blue-white striped sporty fashion top with secure shoulder construction, white pleated mini skirt or tennis skirt, opaque lined fabric, clean indoor magazine styling. Use a hand-drawn anime illustration interpretation with clean black lineart, cel-shaded forms, soft painted gradients, and polished light-novel cover finish. Match the reference image composition: camera distance, crop, pose geometry, hand placement, body scale in frame, major props, light direction, and color grade. Keep the face readable, hands natural, garment edges coherent, and fabric matte and sewn together. Keep styling platform-safe and editorial. Do not borrow the reference person identity, hairstyle, face, body type, or proportions.
+```
+
+## 3. Negative Prompt
+
+```text
+extra people, duplicate subject, copied reference-person face, copied template hairstyle, wrong character identity, unstable clothing, broken garment construction, clothing made from loose petals or random fabric pieces, body-part emphasis, unsafe crop, broken hands, extra fingers, distorted legs, unreadable face, text, watermark, logo, low quality, plastic skin, photorealistic live-action finish, professional match uniform, swimsuit, lingerie styling, messy room, dark moody lighting, unstable clothing, copied reference face
+```
