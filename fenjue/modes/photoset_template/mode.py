@@ -5,6 +5,7 @@ import random
 import sys
 
 from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_template, prompt_for_shot
+from .descriptions import template_description
 
 
 LABEL = "photoset template mode"
@@ -113,7 +114,8 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
         print("")
         print("Choose photoset template(s):")
         for index, template_id in enumerate(available, start=1):
-            print(f"  {index} = {_display_template_id(template_id)}")
+            description = template_description(template_id)
+            print(f"  {index}: {description} [{_display_template_id(template_id)}]")
         print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001, all, or random.")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         try:
