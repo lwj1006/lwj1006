@@ -193,7 +193,7 @@ def write_runtime_sample_reports(results: list[dict]) -> None:
 
 def main() -> None:
     random.seed(20260604)
-    batch.maybe_refresh_runtime_config(force=True, enable_git_pull=False)
+    batch.refresh_runtime_config()
     plans = options.ART_DIRECTION_PLANS
     plan_names = [plan["name"] for plan in plans]
     strong_themes = [

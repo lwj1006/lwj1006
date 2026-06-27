@@ -200,32 +200,28 @@ CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
 
-CHECK_INTERVAL_SECONDS = 200
-MAX_UPLOAD_SETTLE_SECONDS = 15
+CHECK_INTERVAL_SECONDS = 250
+UPLOAD_SETTLE_SECONDS = 15
 UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
 UPLOAD_COOLDOWN_SECONDS = 90 * 60
 UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
 WEB_REFRESH_SETTLE_SECONDS = 20
-STARTUP_REFRESH_SETTLE_SECONDS = 10
+STARTUP_REFRESH_SETTLE_SECONDS = 20
 _uploaded_images_since_cooldown = 0
 _last_upload_counter_at = 0.0
 _upload_counter_loaded = False
-TEXT_BEFORE_SEND_SECONDS = 10
+TEXT_BEFORE_SEND_SECONDS = 20
 ECHO_COUNTDOWN_LAST_SECONDS = 20
 SINGLE_CLICK_HOLD_SECONDS = 0.06
 SEND_CLICK_HOLD_SECONDS = 0.14
 SEND_RELEASE_SETTLE_SECONDS = 0.35
 POST_CHARACTER_SELECTION_DELAY_SECONDS = 3
 SEND_MOUSE_AWAY_OFFSET = (-220, -90)
-WORK_REMINDER_INTERVAL = 14
-WORK_REMINDER_TEXT = "REMINDER: This is still an image-generation-only batch. Do not explain or comment. Generate the image directly."
 IMAGE_PROMPT_PREFIX = "【根据以下提示词完成图片的生成】"
 SAFE_SCREEN_MARGIN = 8
 SAFETY_SHUTDOWN_TARGET_TIME = "12:00"
 LOW_PROBABILITY_SCENE_OUTFIT_CHANCE = 0.08
 RUNTIME_CONFIG_PATH = PROJECT_DIR / "config" / "runtime_art_direction.json"
-RUNTIME_GIT_PULL_INTERVAL_SECONDS = 300
-RUNTIME_GIT_PULL_TIMEOUT_SECONDS = 60
 DEFAULT_BLACK_HOSIERY_CHANCE = 0.23
 CHARACTER_BLACK_HOSIERY_CHANCES = {
     "艾莲": 0.47,
@@ -915,7 +911,6 @@ SCENE_CATEGORY_OPTIONS = [
         ],
     },
 ]
-LAST_RUNTIME_GIT_PULL_AT = 0.0
 LAST_RUNTIME_CONFIG_REVISION = art_options.RUNTIME_CONFIG_REVISION
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
@@ -944,10 +939,9 @@ CLOTHING_THEME_USAGE_LOG_FILE = PROJECT_DIR / "config" / "clothing_theme_usage_l
 UPLOAD_COUNTER_STATE_FILE = PROJECT_DIR / "config" / "upload_cooldown_state.json"
 
 
-def upload_settle_seconds(reference_count: int) -> int:
-    """Wait 5s for one or two files, +5s for each additional pair, capped at 15s."""
-    reference_count = max(1, int(reference_count))
-    return min(MAX_UPLOAD_SETTLE_SECONDS, 5 + ((reference_count - 1) // 2) * 5)
+def upload_settle_seconds(_reference_count: int) -> int:
+    """Use one fixed wait after every upload, regardless of reference count."""
+    return UPLOAD_SETTLE_SECONDS
 
 
 def prepare_upload_files(reference_files: list[str] | None = None) -> list[str]:
@@ -1063,51 +1057,9 @@ def load_runtime_batch_config(path: Path = RUNTIME_CONFIG_PATH) -> str:
     return apply_runtime_batch_config(data)
 
 
-def git_current_revision() -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "--short", "HEAD"],
-        cwd=PROJECT_DIR,
-        capture_output=True,
-        text=True,
-        check=False,
-        timeout=10,
-    )
-    if result.returncode != 0:
-        return "unknown"
-    return result.stdout.strip() or "unknown"
-
-
-def git_pull_runtime_config() -> bool:
-    result = subprocess.run(
-        ["git", "pull", "--ff-only"],
-        cwd=PROJECT_DIR,
-        capture_output=True,
-        text=True,
-        check=False,
-        timeout=RUNTIME_GIT_PULL_TIMEOUT_SECONDS,
-    )
-    if result.returncode == 0:
-        detail = (result.stdout or "").strip().splitlines()
-        print(f"Runtime git pull ok: {detail[-1] if detail else 'up to date'}", flush=True)
-        return True
-    stderr = (result.stderr or result.stdout or "").strip()
-    print(f"Runtime git pull skipped/failed; keeping current config: {stderr}", flush=True)
-    return False
-
-
-def maybe_refresh_runtime_config(
-    *,
-    force: bool = False,
-    enable_git_pull: bool = True,
-) -> str:
-    global LAST_RUNTIME_GIT_PULL_AT, LAST_RUNTIME_CONFIG_REVISION
-    now = time.monotonic()
-    due = force or (now - LAST_RUNTIME_GIT_PULL_AT >= RUNTIME_GIT_PULL_INTERVAL_SECONDS)
-    if not due:
-        return LAST_RUNTIME_CONFIG_REVISION
-    LAST_RUNTIME_GIT_PULL_AT = now
-    if enable_git_pull:
-        git_pull_runtime_config()
+def refresh_runtime_config() -> str:
+    """Load the local runtime config once without any Git or network operation."""
+    global LAST_RUNTIME_CONFIG_REVISION
     if not RUNTIME_CONFIG_PATH.exists():
         print(f"Runtime config not found; using Python defaults: {RUNTIME_CONFIG_PATH}", flush=True)
         LAST_RUNTIME_CONFIG_REVISION = art_options.RUNTIME_CONFIG_REVISION
@@ -1119,7 +1071,7 @@ def maybe_refresh_runtime_config(
         return LAST_RUNTIME_CONFIG_REVISION
     LAST_RUNTIME_CONFIG_REVISION = revision
     print(
-        f"Runtime config active: revision={revision}, git={git_current_revision()}, "
+        f"Runtime config active: revision={revision}, "
         f"plans={len(ART_DIRECTION_PLANS)}, clothing={len(CLOTHING_THEMES)}",
         flush=True,
     )
@@ -1580,15 +1532,6 @@ def with_image_prompt_prefix(prompt: str) -> str:
     return f"{IMAGE_PROMPT_PREFIX}\n{prompt}"
 
 
-def send_work_reminder(completed_run_number: int) -> None:
-    print(
-        f"[{completed_run_number:02d}] reminder: sending plain text work reminder, no upload and no image prompt",
-        flush=True,
-    )
-    send_prompt(WORK_REMINDER_TEXT)
-    wait_with_echo(CHECK_INTERVAL_SECONDS, f"[{completed_run_number:02d}] reminder settle")
-
-
 def take_screenshot(label: str) -> Path:
     timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
     path = SCREENSHOT_DIR / f"{label}_{timestamp}.png"
@@ -1598,8 +1541,8 @@ def take_screenshot(label: str) -> Path:
 
 def wait_for_generation(run_number: int) -> Path:
     # The script cannot visually understand completion by itself without OCR/CV.
-    # It captures a check screenshot every 30 seconds, then assumes the generation
-    # is complete after one interval, matching the manual workflow used here.
+    # It assumes generation is complete after the configured interval, then captures
+    # one check screenshot, matching the manual workflow used here.
     wait_with_echo(CHECK_INTERVAL_SECONDS, f"[{run_number:02d}] generation check")
     path = take_screenshot(f"run_{run_number:02d}_check")
     print(f"[{run_number:02d}] check screenshot: {path}")
@@ -2611,7 +2554,6 @@ def shutdown_now() -> None:
 
 
 def main() -> None:
-    global RUNTIME_GIT_PULL_INTERVAL_SECONDS
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE = 0.15
 
@@ -2629,13 +2571,7 @@ def main() -> None:
     safety_shutdown_enabled = "--shutdown" in sys.argv
     if not safety_shutdown_enabled:
         print("Safety shutdown is disabled for this feedback run. Use --shutdown to enable it.")
-    enable_runtime_git_pull = "--no-runtime-git-pull" not in sys.argv
-    if "--runtime-pull-interval" in sys.argv:
-        interval_index = sys.argv.index("--runtime-pull-interval")
-        if interval_index + 1 >= len(sys.argv):
-            raise ValueError("--runtime-pull-interval requires seconds")
-        RUNTIME_GIT_PULL_INTERVAL_SECONDS = max(30, int(sys.argv[interval_index + 1]))
-    maybe_refresh_runtime_config(force=True, enable_git_pull=enable_runtime_git_pull)
+    refresh_runtime_config()
     time.sleep(3)
 
     print(
@@ -2701,7 +2637,7 @@ def main() -> None:
                 break
 
             character_name = resolve_run_character(character_name, run_number)
-            config_revision = maybe_refresh_runtime_config(enable_git_pull=enable_runtime_git_pull)
+            config_revision = LAST_RUNTIME_CONFIG_REVISION
             reference_files = reference_files_for_character(character_name)
             art_plan, action_style = choose_character_plan_and_action(
                 character_name,
@@ -2819,9 +2755,6 @@ def main() -> None:
             batch_completed_characters.append(character_name)
             recent_visual_tags.extend(collect_cooldown_tags(art_plan, action_style))
             recent_visual_tags = recent_visual_tags[-12:]
-
-            if run_number % WORK_REMINDER_INTERVAL == 0 and run_number < total_runs:
-                send_work_reminder(run_number)
 
             if "--once" in sys.argv or "--review-url" in sys.argv:
                 open_images_page_for_review()
