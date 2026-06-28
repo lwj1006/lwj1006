@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from importlib import import_module
 
-LAUNCHER_VERSION = "package-router-20260617"
+LAUNCHER_VERSION = "package-router-20260628"
 
 @dataclass(frozen=True)
 class PromptMode:
@@ -18,6 +18,7 @@ PROMPT_MODES = {
     "C": PromptMode("C", "master artist composition", "fenjue.modes.artist_composition.mode"),
     "D": PromptMode("D", "target fixed prompt batch", "fenjue.modes.target_batch.mode"),
     "E": PromptMode("E", "photoset template mode", "fenjue.modes.photoset_template.mode"),
+    "E2": PromptMode("E2", "refined photoset template mode", "fenjue.modes.photoset_refined.mode"),
 }
 
 def available_mode_codes() -> tuple[str, ...]:

@@ -6,6 +6,13 @@ from pathlib import Path
 
 from fenjue.modes.original.plans import propagation_profile_for, required_identity_tokens_for
 
+from .extended_templates import (
+    EXTENDED_IMAGE_INDICES,
+    EXTENDED_SHOT_TITLES,
+    SHOT_OUTFIT_OVERRIDES,
+    STANDARD_NEGATIVE_PROMPT,
+)
+
 
 PROJECT_DIR = Path(__file__).resolve().parents[3]
 TEMPLATE_ROOT = PROJECT_DIR / "templatesE"
@@ -109,7 +116,11 @@ def _template_sort_key(template_id: str) -> tuple[int, int, str]:
 def list_base_template_ids(root: Path = TEMPLATE_ROOT) -> list[str]:
     if not root.exists():
         return []
-    ids = [path.name for path in root.iterdir() if path.is_dir() and (path / f"{path.name}.md").exists()]
+    ids = [
+        path.name
+        for path in root.iterdir()
+        if path.is_dir() and any(path.glob("*.md"))
+    ]
     return sorted(ids, key=lambda value: _template_sort_key(value))
 
 
@@ -301,6 +312,67 @@ def _image_path(folder: Path, index: int) -> Path | None:
     return None
 
 
+def _markdown_path(folder: Path, base_id: str) -> Path | None:
+    standard = folder / f"{base_id}.md"
+    if standard.exists():
+        return standard
+    candidates = sorted(folder.glob("*.md"))
+    return candidates[0] if candidates else None
+
+
+def _english_full_prompt(markdown: str) -> str:
+    match = re.search(
+        r"^##\s+\d+\.\s+English Prompt[^\n]*\n(?P<body>.*?)(?=^##\s+\d+\.)",
+        markdown,
+        flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
+    )
+    return match.group("body").strip() if match else ""
+
+
+def _remove_reference_person_sentences(text: str) -> str:
+    person_terms = re.compile(
+        r"\b(?:young adult|woman|girl|hair|bangs|face|facial|skin|makeup|blush|lashes|"
+        r"eyeliner|eyeshadow|eyes|lips|expression|body shape|body type)\b",
+        flags=re.IGNORECASE,
+    )
+    sentences = re.split(r"(?<=[.!?])\s+", text)
+    kept = [sentence for sentence in sentences if not person_terms.search(sentence)]
+    return " ".join(kept).strip()
+
+
+def _extended_shots(folder: Path, base_id: str, markdown: str) -> tuple[PhotosetShot, ...]:
+    titles = EXTENDED_SHOT_TITLES.get(base_id)
+    indices = EXTENDED_IMAGE_INDICES.get(base_id)
+    if not titles or not indices:
+        return ()
+
+    source = _english_full_prompt(markdown)
+    source = _remove_reference_person_sentences(source)
+    source = _soften_platform_sensitive_terms(source)
+    source = _compact(source, 2600)
+    shots: list[PhotosetShot] = []
+    for index, title in zip(indices, titles):
+        outfit_override = SHOT_OUTFIT_OVERRIDES.get((base_id, index), "")
+        outfit_line = f"Exact outfit for this shot: {outfit_override}\n" if outfit_override else ""
+        prompt = f"""Reference-matched photoset shot: {title}.
+The uploaded character references are the only authority for identity, hairstyle, hair ornaments, face, age impression, height, and body proportions. Never copy those person traits from the photoset reference.
+The current photoset reference image is the authority for camera height, crop, body placement, pose geometry, hand contact, garment construction, props, room layout, light direction, and color grade. Reproduce this exact shot rather than an average of the set.
+{outfit_line}{source}
+Keep every garment visibly sewn and wearable: preserve its category, neckline, straps or sleeves, waist position, hem length, layering, fabric weight, trim, pattern, and opaque lining. Adapt the same outfit to the selected character's canonical proportions without changing the design.
+Render as polished hand-drawn Japanese 2D anime art with visible clean black line art, controlled cel shading, painted light, and no photographic skin texture."""
+        shots.append(
+            PhotosetShot(
+                index=index,
+                title=title,
+                reference_image=_image_path(folder, index),
+                section_text=prompt.strip(),
+                ready_prompt=prompt.strip(),
+                negative_prompt=STANDARD_NEGATIVE_PROMPT,
+            )
+        )
+    return tuple(shots)
+
+
 def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
     matches = list(_heading_pattern().finditer(markdown))
     shots: list[PhotosetShot] = []
@@ -329,12 +401,14 @@ def load_template(template_id: str | int, root: Path = TEMPLATE_ROOT) -> Photose
     normalized = normalize_template_id(template_id)
     base_id = _base_template_id(normalized)
     folder = root / base_id
-    markdown_path = folder / f"{base_id}.md"
-    if not markdown_path.exists():
+    markdown_path = _markdown_path(folder, base_id)
+    if markdown_path is None:
         available = ", ".join(list_template_ids(root)) or "none"
         raise FileNotFoundError(f"Photoset template {normalized} was not found. Available templates: {available}")
     markdown = markdown_path.read_text(encoding="utf-8")
     shots = _parse_shots(folder, markdown)
+    if not shots:
+        shots = _extended_shots(folder, base_id, markdown)
     if not shots:
         raise ValueError(f"Photoset template {normalized} has no '# Image N' sections.")
     missing_images = [shot.index for shot in shots if shot.reference_image is None]
@@ -344,7 +418,13 @@ def load_template(template_id: str | int, root: Path = TEMPLATE_ROOT) -> Photose
         template_id=normalized,
         folder=folder,
         markdown_path=markdown_path,
-        global_identity=_english_only_text(_global_identity(markdown)),
+        global_identity=(
+            _remove_reference_person_sentences(
+                _english_full_prompt(markdown) or _english_only_text(_global_identity(markdown))
+            )
+            if base_id in EXTENDED_SHOT_TITLES
+            else _english_only_text(_global_identity(markdown))
+        ),
         shots=shots,
     )
 

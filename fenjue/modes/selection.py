@@ -18,6 +18,8 @@ def normalize_mode_argument(argument: str) -> str | None:
         return "D"
     if normalized in {"E", "--MODE=E", "--PROMPT-MODE=E", "--PHOTOSET", "--TEMPLATE-MODE"}:
         return "E"
+    if normalized in {"E2", "--MODE=E2", "--PROMPT-MODE=E2", "--PHOTOSET-REFINED", "--TEMPLATE-REFINED"}:
+        return "E2"
     return None
 
 def choose_prompt_mode(argv: list[str]) -> str:
@@ -30,10 +32,10 @@ def choose_prompt_mode(argv: list[str]) -> str:
         print("Choose prompt mode:")
         for line in prompt_mode_lines():
             print(line)
-        choice = input("Prompt mode [A/B/C/D/E, default A]: ").strip().upper() or "A"
+        choice = input("Prompt mode [A/B/C/D/E/E2, default A]: ").strip().upper() or "A"
         if choice in SUPPORTED_MODES:
             return choice
-        print("Please enter A, B, C, D, or E.")
+        print("Please enter A, B, C, D, E, or E2.")
 
 def parse_index_selection(raw_choice: str, item_count: int) -> list[int] | None:
     normalized = raw_choice.strip().upper()

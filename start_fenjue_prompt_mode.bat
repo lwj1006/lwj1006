@@ -10,13 +10,14 @@ echo B = photographer mode
 echo C = master artist composition
 echo D = target fixed prompt batch
 echo E = photoset template mode
+echo E2 = refined photoset template mode
 echo R = reset/recalibrate ChatGPT coordinates
 echo U = clear upload cooldown counter
 
 set "LAUNCH_ARGS=%*"
 if "%~1"=="" (
     echo.
-    set /p "CHOICE=Choose [A/B/C/D/E/R/U, default A]: "
+    set /p "CHOICE=Choose [A/B/C/D/E/E2/R/U, default A]: "
     if "!CHOICE!"=="" set "CHOICE=A"
     if /I "!CHOICE!"=="R" (
         set "LAUNCH_ARGS=--calibrate"
