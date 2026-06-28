@@ -78,7 +78,6 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "千夏1.png"),
         str(PROJECT_DIR / "assets" / "千夏2.png"),
         str(PROJECT_DIR / "assets" / "千夏3.png"),
-        str(PROJECT_DIR / "assets" / "千夏4.jpg"),
     ],
     "丹": [
         str(PROJECT_DIR / "assets" / "dan.png"),
@@ -267,8 +266,11 @@ BLACK_HOSIERY_INCOMPATIBLE_PLAN_NAMES = {
 
 SCREENSHOT_DIR = PROJECT_DIR / "screenshots"
 SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
-USE_RUNTIME_UPLOAD_COPIES = False
-RUNTIME_UPLOAD_DIR = PROJECT_DIR / "runtime_uploads"
+USE_RUNTIME_UPLOAD_COPIES = True
+# Windows' file-name field can truncate a quoted list of long absolute paths.
+# Stage each upload under a short drive-root path so every reference fits.
+RUNTIME_UPLOAD_DIR = Path(PROJECT_DIR.anchor) / "_fu"
+RUNTIME_UPLOAD_MAX_AGE_SECONDS = 6 * 60 * 60
 if USE_RUNTIME_UPLOAD_COPIES:
     RUNTIME_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 FEEDBACK_DIR = PROJECT_DIR / "feedback"
@@ -944,16 +946,29 @@ def upload_settle_seconds(_reference_count: int) -> int:
     return UPLOAD_SETTLE_SECONDS
 
 
+def cleanup_stale_runtime_uploads() -> None:
+    if not USE_RUNTIME_UPLOAD_COPIES or not RUNTIME_UPLOAD_DIR.exists():
+        return
+    cutoff = time.time() - RUNTIME_UPLOAD_MAX_AGE_SECONDS
+    for path in RUNTIME_UPLOAD_DIR.iterdir():
+        try:
+            if path.is_file() and path.stat().st_mtime < cutoff:
+                path.unlink()
+        except OSError as exc:
+            print(f"Upload staging cleanup skipped for {path}: {exc}", flush=True)
+
+
 def prepare_upload_files(reference_files: list[str] | None = None) -> list[str]:
     reference_files = reference_files or REFERENCE_FILES
     if not USE_RUNTIME_UPLOAD_COPIES:
         return [str(Path(source)) for source in reference_files]
 
-    timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    cleanup_stale_runtime_uploads()
+    timestamp = dt.datetime.now().strftime("%y%m%d%H%M%S%f")
     upload_files: list[str] = []
     for index, source in enumerate(reference_files, start=1):
         source_path = Path(source)
-        target = RUNTIME_UPLOAD_DIR / f"{source_path.stem}_upload_{timestamp}_{index}{source_path.suffix}"
+        target = RUNTIME_UPLOAD_DIR / f"u{timestamp}_{index}{source_path.suffix.lower()}"
         shutil.copy2(source_path, target)
         upload_files.append(str(target))
     return upload_files
