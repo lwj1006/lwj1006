@@ -5,9 +5,11 @@ import re
 from .library import (
     A3_HAND_DRAWN_STYLE,
     A3_NEGATIVE,
+    ANIME_FACE_DETAIL,
     PhotosetShot,
     PhotosetTemplate,
     _adapt_shot_prompt,
+    _anime_only_positive_text,
     _character_adaptation,
     _compact,
     _english_only_text,
@@ -233,17 +235,23 @@ def prompt_for_refined_shot(
         _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
     )
     global_evidence = _compact(
-        _strip_reference_person_traits(_english_only_text(
+        _anime_only_positive_text(_strip_reference_person_traits(_english_only_text(
             _soften_platform_sensitive_terms(
                 _remove_template_identity_traits(template.global_identity)
             )
-        )),
+        ))),
         2600,
     )
     title = refined_shot_title(template, shot)
 
     return _english_only_text(f"""
 Independent image task. Create exactly one polished hand-drawn Japanese anime illustration.
+
+[ABSOLUTE HIGHEST PRIORITY: HAND-DRAWN 2D ANIME]
+The final image must be an unmistakable hand-drawn Japanese 2D anime illustration with visible clean black lineart and controlled cel shading. Never produce a photograph, live-action portrait, cosplay image, 3D render, or semi-realistic face.
+
+[ANIME FACE AND EXPRESSION PRECISION]
+{ANIME_FACE_DETAIL}
 
 [E2 REFERENCE AUTHORITY]
 The uploaded character references and the single photoset reference image have different jobs.

@@ -52,6 +52,16 @@ A3_NEGATIVE = (
 )
 
 
+ANIME_FACE_DETAIL = (
+    "Preserve the selected character's canonical anime face design from the character references. "
+    "Match the current photoset reference's emotional intent through precise gaze direction, upper- and lower-eyelid opening, "
+    "eyebrow angle, cheek tension, head tilt, and mouth shape, but never copy the reference model's facial identity. "
+    "Draw crisp upper lash lines, readable lower lashes, layered iris color, centered pupils, two controlled catchlights, "
+    "a clean nose mark, a clearly drawn lip line, and subtle cel-shaded blush. Keep both eyes aligned and equally finished. "
+    "Avoid a blank stare, generic smile, frozen doll face, asymmetrical eyes, muddy pupils, photographic lips, or an unfinished face."
+)
+
+
 @dataclass(frozen=True)
 class PhotosetShot:
     index: int
@@ -217,6 +227,19 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 
+ANIME_POSITIVE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\bphotorealistic\b|\bhyperrealistic\b", re.IGNORECASE), "high-detail hand-drawn anime illustration"),
+    (re.compile(r"\brealistic skin texture\b|\brealistic skin\b", re.IGNORECASE), "smooth cel-shaded anime skin"),
+    (re.compile(r"\bhigh[- ]end editorial photography\b|\beditorial photography\b", re.IGNORECASE), "polished anime editorial illustration"),
+    (re.compile(r"\bfashion photography\b", re.IGNORECASE), "anime fashion illustration"),
+    (re.compile(r"\bportrait photography\b", re.IGNORECASE), "anime portrait illustration"),
+    (re.compile(r"\bprofessional photography\b", re.IGNORECASE), "professional anime illustration"),
+    (re.compile(r"\bfilm photography\b", re.IGNORECASE), "anime film-inspired color treatment"),
+    (re.compile(r"\bfilm still\b", re.IGNORECASE), "anime cinematic keyframe"),
+    (re.compile(r"\bDSLR photo\b|\blive-action photo\b|\braw photo\b", re.IGNORECASE), "hand-drawn anime image"),
+)
+
+
 def _has_cjk(text: str) -> bool:
     return any("\u4e00" <= char <= "\u9fff" for char in text)
 
@@ -272,6 +295,13 @@ def _soften_platform_sensitive_terms(text: str) -> str:
     return cleaned.strip(" ,\n")
 
 
+def _anime_only_positive_text(text: str) -> str:
+    cleaned = text
+    for pattern, replacement in ANIME_POSITIVE_REPLACEMENTS:
+        cleaned = pattern.sub(replacement, cleaned)
+    return cleaned.strip()
+
+
 def _character_adaptation(character_name: str) -> str:
     return CHARACTER_PHOTOSET_ADAPTATIONS.get(character_name, GENERAL_CHARACTER_ADAPTATION)
 
@@ -292,6 +322,7 @@ def _adapt_shot_prompt(character_name: str, text: str) -> str:
     cleaned = _soften_platform_sensitive_terms(cleaned)
     subject_name = _prompt_subject_name(character_name)
     cleaned = _english_only_text(cleaned)
+    cleaned = _anime_only_positive_text(cleaned)
     cleaned = re.sub(r"\bthe selected character\b", subject_name, cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\bHer\b", f"{subject_name}'s", cleaned)
     cleaned = re.sub(r"\bher\b", f"{subject_name}'s", cleaned)
@@ -474,7 +505,7 @@ This image belongs to one coherent photoset. Keep the same outfit system, hair s
 def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     ready_block = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
-    global_style = _compact(_english_only_text(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity))), 1800)
+    global_style = _compact(_anime_only_positive_text(_english_only_text(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity)))), 1800)
     negative_block = shot.negative_prompt or (
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
@@ -500,7 +531,10 @@ Shot: {shot.index} / {len(template.shots)}
 Shot title: {shot.title}
 
 [COLOR AND LIGHT MATCH]
-Match the photoset reference color logic closely: bright window-side daylight, cream wall values, golden afternoon highlights, soft nostalgic low-contrast air, readable black clothing, and visible window-shadow geometry. Avoid turning the room into a dark brown antique interior, heavy sepia grade, muddy shadows, over-dramatic oil-paint lighting, or a generic fantasy study. Preserve the left-window brightness and airy editorial lifestyle feeling.
+Use only the current photoset reference image as the color and lighting authority. Match its dominant background hue, white balance, exposure, highlight color, shadow color, contrast, saturation, light direction, shadow hardness, rim light, and atmospheric density. Do not import cream walls, golden window light, sepia grading, or any other palette from a different template.
+
+[FACIAL EXPRESSION PRECISION]
+{ANIME_FACE_DETAIL}
 
 [COMPACT PHOTOSET STYLE]
 {global_style}
@@ -515,7 +549,7 @@ The outfit must read as a real finished garment, not decorative material placed 
 Use the pose as a pose, not as a body transplant. Adjust stool height, leg length impression, camera crop, and facial maturity so the same composition fits {subject_name}. If any template wording conflicts with the character profile or references, delete the template wording mentally and keep the uploaded character identity.
 
 [CONTINUITY RULE]
-This image belongs to one coherent photoset. Keep the outfit system, room family, lighting direction, color grade, props, and photographic language consistent across the set. Do not use template hair styling or template body type as continuity; character continuity comes only from {character_name}'s references.
+This image belongs to one coherent photoset. Keep only details visibly shared by adjacent reference images. If this shot changes outfit, room, lighting, props, or palette, the current reference image wins. Do not use template hair styling or template body type as continuity; character continuity comes only from {character_name}'s references.
 
 [NEGATIVE]
 {negative_block}
@@ -527,10 +561,14 @@ Identity drift, wrong hairstyle, wrong hair color, copied reference-person face,
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     base_prompt = _prompt_for_adapted_shot(character_name, template, shot)
     prompt = f"""
-{base_prompt}
-
-[MODE 3 HAND-DRAWN ANIME STYLE ADDENDUM]
+[ABSOLUTE HIGHEST PRIORITY: HAND-DRAWN 2D ANIME]
+The final image must be an unmistakable hand-drawn Japanese 2D anime illustration, never a photograph, live-action portrait, cosplay image, or semi-realistic render. Visible clean black lineart and cel-shaded color separation must be established before applying any scene, lens, light, or material description.
 {A3_HAND_DRAWN_STYLE}
+
+[ABSOLUTE HIGHEST PRIORITY: ANIME FACE AND EXPRESSION]
+{ANIME_FACE_DETAIL}
+
+{base_prompt}
 
 [MODE 3 EXTRA NEGATIVE]
 {A3_NEGATIVE}
