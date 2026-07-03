@@ -4,6 +4,12 @@ chcp 65001 >nul
 cd /d "%~dp0"
 title Fenjue Prompt Mode Router
 
+set "RUNTIME_UPLOAD_DIR=%~d0\_fu"
+if not exist "%RUNTIME_UPLOAD_DIR%" mkdir "%RUNTIME_UPLOAD_DIR%"
+echo Clearing temporary upload files: %RUNTIME_UPLOAD_DIR%
+del /f /q /a "%RUNTIME_UPLOAD_DIR%\*" >nul 2>&1
+for /d %%D in ("%RUNTIME_UPLOAD_DIR%\*") do rd /s /q "%%~fD"
+
 echo Fenjue prompt-mode router
 echo A = original scene-character-outfit
 echo B = photographer mode

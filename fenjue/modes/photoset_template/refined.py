@@ -290,7 +290,7 @@ Keep character identity constant across the set. Carry over outfit, set, and col
 
 [HAND-DRAWN ANIME FINISH]
 {A3_HAND_DRAWN_STYLE}
-Use clean visible black lineart, controlled cel shading, drawn fabric folds, stylized anime facial planes, and illustration color separation. Preserve photographic composition without producing photographic skin or live-action rendering.
+Use clean visible black lineart, refined layered cel shading, restrained soft transitions, carefully drawn fabric folds, delicate anime facial planes, grouped hair masses, and rich illustration color separation. Preserve only the reference geometry and palette; never preserve photographic skin, realistic hair strands, lens blur, bokeh, airbrushed light, or live-action surface rendering.
 
 [NEGATIVE]
 Identity drift, reference-model face, reference-model hairstyle, wrong bangs, wrong eye color, wrong fixed accessories, wrong species traits, copied adult model proportions, stretched torso, overlong legs, undersized head, enlarged bust or hips, mature sharp face, pose substitution, wrong crop, centered composition when the reference is offset, missing support surface, floating body, disconnected garment pieces, decorative material pasted onto skin, transparent unlined clothing, accidental exposure, body-part emphasis, extra fingers, fused hands, extra limbs, duplicated props, unreadable face, text, logo, watermark.

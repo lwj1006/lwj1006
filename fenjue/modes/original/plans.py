@@ -201,11 +201,11 @@ CHARACTER_PROFILES = {
         "color_anchor": "silver white, black, gold",
     },
     "叶瞬光": {
-        "official_core": "long warm brown hair, dark inner hair layers, red eyes, red ribbon or flower hair accessory, human ears only.",
-        "identity_tokens": ["long warm brown hair", "dark inner hair layers", "red eyes", "red ribbon or flower hair accessory", "human ears only"],
+        "official_core": "very long layered warm chestnut-brown outer hair with deep indigo-black inner layers, thick rounded bangs, two tall triangular crown hair tufts made entirely of brown hair, red eyes, a slim red-white headband, a large red rear ribbon bow, and small red knot ornaments; human ears, no animal ears.",
+        "identity_tokens": ["very long layered warm chestnut-brown outer hair", "deep indigo-black inner hair layers", "thick rounded bangs", "two triangular crown hair tufts made of hair, not ears", "red eyes", "slim red-white headband", "large red rear ribbon bow and small red knot ornaments", "human ears, no animal ears"],
         "viewer_relationship": "quiet off-camera attention, light expression, relaxed hands and shoulder line.",
-        "thumbnail_strategy": "warm brown hair, dark inner layers, red eyes, and red accessory must stay stable; do not add animal ears or tail.",
-        "interaction_rule": "red cord, slim ribbon, clean light streak, or small distant blade-like ornament may be an accent; do not force a hand-held weapon, sect gate, mountain temple, animal ears, or tail.",
+        "thumbnail_strategy": "warm chestnut-brown outer hair, indigo-black inner layers, triangular crown hair tufts, red eyes, red-white headband, rear bow, and small red knot ornaments must stay stable; never turn the hair tufts into animal ears.",
+        "interaction_rule": "the pointed crown shapes are hair locks, not biological ears. Do not infer or force a tail from the large flowing hair silhouette. Preserve the red-white headband and red ribbon-knot ornaments, never replace them with flowers, and ignore the white-haired companion visible in one group reference. Do not force a hand-held weapon, sect gate, or mountain temple.",
         "color_anchor": "warm brown, red, ivory, black gold",
     },
     "席德": {
@@ -289,11 +289,11 @@ CHARACTER_PROFILES = {
         "color_anchor": "black, white, gold green, teal, red",
     },
     "耀嘉音": {
-        "official_core": "very long dark teal hair, swept bangs, pale pink eyes, pearl-like headband, elegant earrings.",
-        "identity_tokens": ["very long dark teal hair", "swept bangs", "pale pink eyes", "pearl-like headband", "elegant earrings"],
-        "viewer_relationship": "natural expression and composed posture, without locking personality.",
-        "thumbnail_strategy": "dark teal long hair, swept bangs, pale pink eyes, pearl-like headband, and earrings must stay readable.",
-        "interaction_rule": "graceful hand pose or side gaze are fine; avoid forcing long hand-held props, heavy accessory styling, fixed formal styling, or fixed expression.",
+        "official_core": "very long voluminous deep teal-black hair, short straight choppy bangs across the forehead, cheek-length curved side locks, narrow pale pink-red eyes, a wide white pearl-silver jeweled headband with small diamond studs, and large gold hoop earrings with green jade beads.",
+        "identity_tokens": ["very long voluminous deep teal-black hair", "short straight choppy bangs", "cheek-length curved side locks", "narrow pale pink-red eyes", "wide white pearl-silver jeweled headband with diamond studs", "large gold hoop earrings with green jade beads"],
+        "viewer_relationship": "confident narrow-eyed gaze, softly angular adult anime face, poised smile, and elegant self-assured posture.",
+        "thumbnail_strategy": "deep teal-black hair, short choppy bangs, pink-red narrow eyes, wide white jeweled headband, and gold-green hoop earrings must remain readable.",
+        "interaction_rule": "the jeweled headband and gold-green hoop earrings are permanent identity anchors. Staff, stage props, black corset costume, red jacket, white performance sleeves, weapons, and character-reference poses are not fixed identity and must not transfer into photoset clothing.",
         "color_anchor": "dark teal, pale pink, pearl white, gold",
     },
     "柏妮思": {

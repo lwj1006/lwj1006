@@ -21,10 +21,9 @@ IMAGE_EXTENSIONS = (".jpeg", ".jpg", ".png", ".webp")
 
 CHARACTER_PHOTOSET_ADAPTATIONS = {
     "千夏": (
-        "Chinatsu adaptation: compact youthful anime proportions, cute approachable face, soft cheerful expression, "
-        "petite-to-average height impression, not a tall mature fashion-model silhouette. Keep her mint gray-green short layered hair, "
-        "large mint bow, soft asymmetrical bangs, and pink-gold eyes. Scale the template pose and furniture relationship to her body; "
-        "do not lengthen legs, enlarge bust/hips, sharpen the face into a mature model, or give her template-reference hair."
+        "Chinatsu adaptation: keep compact youthful proportions, a cute soft face, and a petite-to-average height impression. "
+        "Scale the pose and furniture to her body; do not create a tall mature silhouette, elongated legs, enlarged proportions, "
+        "a sharp mature face, or the photoset model's hair."
     ),
 }
 
@@ -37,18 +36,18 @@ GENERAL_CHARACTER_ADAPTATION = (
 
 
 A3_HAND_DRAWN_STYLE = (
-    "Mode 3 style: keep the original photoset prompt and composition, but render it as unmistakable hand-drawn Japanese 2D anime art. "
-    "Visible clean black lineart must outline the face, hair silhouette, eyes, hands, clothing edges, fabric folds, props, and key furniture. "
-    "Use cel-shaded anime forms with soft painted gradients, simplified smooth anime skin, stylized large eyes, graphic hair strand groups, "
-    "and illustration-like color separation. The room can keep photographic composition and lighting, but the final surface must look drawn, "
-    "not photographed. Prefer a polished anime key visual / light-novel cover finish over semi-realistic digital painting."
+    "Render the original composition as a premium hand-drawn Japanese anime key visual. Keep clean black lineart visible around the face, eyes, "
+    "hair masses, hands, garment edges, folds, and important props, with elegant line-weight variation rather than thick uniform outlines. "
+    "Use refined layered cel shading, restrained soft transitions, detailed irises, carefully grouped hair locks, nuanced fabric texture, and luminous "
+    "illustrated light. Preserve a clearly drawn 2D surface while achieving polished light-novel-cover finish; avoid both photographic realism and cheap flat coloring."
 )
 
 
 A3_NEGATIVE = (
-    "photorealistic, hyperrealistic, live-action photo, cosplay photo, DSLR photo, realistic skin pores, photographic skin texture, "
-    "semi-realistic face, 3D render, doll, plastic figure, waxy skin, no lineart, invisible outlines, overly soft airbrushed edges, "
-    "oil painting realism, realistic human portrait, raw photo, film still"
+    "photorealistic, live-action, cosplay, semi-realistic face, 3D render, game CG, painterly rendering, "
+    "realistic skin texture, pores, glossy realistic lips, modeled nostrils, airbrushed face, invisible lineart, "
+    "photographic depth of field, lens bokeh, individual realistic hair strands, crude flat coloring, low-detail face, "
+    "generic anime avatar, thick uniform outlines, rough sketch, muddy colors"
 )
 
 
@@ -56,8 +55,9 @@ ANIME_FACE_DETAIL = (
     "Preserve the selected character's canonical anime face design from the character references. "
     "Match the current photoset reference's emotional intent through precise gaze direction, upper- and lower-eyelid opening, "
     "eyebrow angle, cheek tension, head tilt, and mouth shape, but never copy the reference model's facial identity. "
-    "Draw crisp upper lash lines, readable lower lashes, layered iris color, centered pupils, two controlled catchlights, "
-    "a clean nose mark, a clearly drawn lip line, and subtle cel-shaded blush. Keep both eyes aligned and equally finished. "
+    "Draw crisp upper lash lines, readable lower lashes, layered iris color, centered pupils, and two controlled catchlights. "
+    "Use only a tiny graphic anime nose mark and a small simplified anime mouth line, never modeled nostrils or volumetric glossy lips. "
+    "Use restrained illustrated blush with a controlled soft transition. Keep both eyes aligned and equally finished. "
     "Avoid a blank stare, generic smile, frozen doll face, asymmetrical eyes, muddy pupils, photographic lips, or an unfinished face."
 )
 
@@ -237,7 +237,194 @@ ANIME_POSITIVE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bfilm photography\b", re.IGNORECASE), "anime film-inspired color treatment"),
     (re.compile(r"\bfilm still\b", re.IGNORECASE), "anime cinematic keyframe"),
     (re.compile(r"\bDSLR photo\b|\blive-action photo\b|\braw photo\b", re.IGNORECASE), "hand-drawn anime image"),
+    (re.compile(r"\bno anime skin texture\b", re.IGNORECASE), "no photographic skin texture"),
+    (re.compile(r"\brealistic anime\b", re.IGNORECASE), "polished hand-drawn anime"),
+    (re.compile(r"\bpainterly realism\b", re.IGNORECASE), "hand-drawn cel-shaded anime illustration"),
+    (re.compile(r"\bJapanese photobook aesthetic\b", re.IGNORECASE), "Japanese light-novel illustration aesthetic"),
+    (re.compile(r"\bphotobook\b", re.IGNORECASE), "illustration series"),
+    (re.compile(r"\bphotoshoot\b|\bphoto shoot\b", re.IGNORECASE), "illustration set"),
+    (re.compile(r"\b\d{2,3}\s*mm(?:\s+portrait)?\s+lens\b", re.IGNORECASE), "reference-matched portrait framing"),
+    (re.compile(r"\bportrait lens\b", re.IGNORECASE), "portrait framing"),
+    (re.compile(r"\bshallow depth of field\b", re.IGNORECASE), "layered anime depth with a simplified background"),
+    (re.compile(r"\bsoft focus\b", re.IGNORECASE), "soft-edged illustrated background"),
+    (re.compile(r"\bbokeh\b", re.IGNORECASE), "simplified painted light shapes"),
+    (re.compile(r"\brealistic fabric texture\b", re.IGNORECASE), "clearly drawn fabric folds and texture"),
+    (re.compile(r"\b(?:fair|luminous|clear|dewy) skin\b", re.IGNORECASE), "clean flat cel-shaded anime complexion"),
+    (re.compile(r"\bnatural skin tone\b", re.IGNORECASE), "flat anime skin palette"),
+    (re.compile(r"\bcinematic lighting\b", re.IGNORECASE), "graphic anime lighting"),
+    (re.compile(r"\bpainted illumination\b", re.IGNORECASE), "luminous illustrated anime lighting"),
+    (re.compile(r"\bpainted light\b", re.IGNORECASE), "luminous illustrated anime light"),
+    (re.compile(r"\bsmooth stylized anime skin\b", re.IGNORECASE), "refined cel-shaded anime skin"),
+    (re.compile(r"\bsoft painted gradients\b", re.IGNORECASE), "restrained soft transitions within layered cel shading"),
+    (re.compile(r"\ba (?:clearly drawn|clear) lip line\b", re.IGNORECASE), "a small simplified anime mouth line"),
 )
+
+
+TEMPLATE_PERSON_TRAIT_CLAUSE = re.compile(
+    r"\b(?:adult(?:-presenting)?|young adult|woman|model|hair|hairstyle|bangs|"
+    r"hairpins?|hair ornaments?|hair accessories|braids?|braided|buns?|ponytails?|"
+    r"pigtails?|twin[- ]tails?|updo|makeup|eyeliner|eyeshadow|lipstick|lips|skin|"
+    r"eyes?|lashes|eyelashes|cheeks|blush|complexion|facial features|nose|mouth|gaze|"
+    r"expression|smile|face stickers?|beauty mark|tiara|flower crown|headpiece|"
+    r"glitter under (?:her|the) eyes|body type|slender body|curvy body)\b",
+    re.IGNORECASE,
+)
+
+PROTECTED_INSTRUCTION_LINE = re.compile(
+    r"^(?:\[|#|---|`|Reference-matched|Create a hand-drawn\b|Never\b|Character references\b|"
+    r"The uploaded character references\b|The current photoset reference\b|"
+    r"Preserve the exact garment\b|Render as\b)",
+    re.IGNORECASE,
+)
+
+
+def _remove_template_person_clauses(text: str) -> str:
+    """Discard the photoset model's appearance while retaining shot design evidence."""
+    kept_lines: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        protected_instruction = PROTECTED_INSTRUCTION_LINE.match(stripped)
+        if protected_instruction:
+            kept_lines.append(line)
+            continue
+        clauses = re.split(r"\s*[,;]\s*", line)
+        kept = [clause.strip() for clause in clauses if clause.strip() and not TEMPLATE_PERSON_TRAIT_CLAUSE.search(clause)]
+        if kept:
+            kept_lines.append(", ".join(kept))
+    return "\n".join(kept_lines).strip()
+
+
+def _remove_character_trait_conflicts(character_name: str, text: str) -> str:
+    identity = " ".join(required_identity_tokens_for(character_name)).lower()
+    cleaned = text
+    has_nonhuman_ears = (
+        ("animal ears" in identity and "no animal ears" not in identity)
+        or "tiger ears" in identity
+        or "elf ears" in identity
+    )
+    has_horns = "horns" in identity
+    has_tail = "tail" in identity
+    if has_nonhuman_ears or has_horns:
+        cleaned = re.sub(
+            r"\b(?:human ears only|no real animal ears|real animal ears|no animal ears|"
+            r"cat ears|bear ears growing from (?:the )?head)\b",
+            "",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+    if has_tail:
+        cleaned = re.sub(r"\b(?:no (?:animal )?tail|animal tail)\b", "", cleaned, flags=re.IGNORECASE)
+    if has_nonhuman_ears:
+        cleaned = re.sub(
+            r"\s*(?:decorated with|with)\s+two\s+(?:soft\s+)?(?:plush\s+)?(?:caramel\s+)?"
+            r"(?:teddy\s+)?bear\s+ears(?:\s+attached\s+to\s+the\s+hat|\s+on\s+the\s+hat\s+only)?",
+            "",
+            cleaned,
+            flags=re.IGNORECASE,
+        )
+    cleaned = re.sub(r",\s*,+", ",", cleaned)
+    cleaned = re.sub(r"\s{2,}", " ", cleaned)
+    return cleaned.strip(" ,\n")
+
+
+POSTURE_WORDS = re.compile(
+    r"\b(?:stand(?:s|ing)?|standing|sit(?:s|ting)?|seated|lie|lies|lying|"
+    r"recline[sd]?|reclining|kneel(?:s|ing)?|kneeling|walk(?:s|ing)?|walking|"
+    r"crouch(?:es|ing)?|crouching|prone|supine)\b",
+    re.IGNORECASE,
+)
+POSE_ACTION_WORDS = re.compile(
+    r"\b(?:look(?:s|ing)?|gaze[sd]?|gazing|touch(?:es|ing)?|hold(?:s|ing)?|"
+    r"reach(?:es|ing)?|raise[sd]?|raising|rest(?:s|ing)?|lean(?:s|ing)?|"
+    r"turn(?:s|ing)?|smell(?:s|ing)?|hug(?:s|ging)?|present(?:s|ing)?)\b",
+    re.IGNORECASE,
+)
+HAND_ACTION_WORDS = re.compile(
+    r"\b(?:touch(?:es|ing)?|hold(?:s|ing)?|reach(?:es|ing)?|raise[sd]?|raising|"
+    r"rest(?:s|ing)?|grasp(?:s|ing)?|grip(?:s|ping)?|carry|carries|carrying|"
+    r"present(?:s|ing)?|adjust(?:s|ing)?|brush(?:es|ing)?)\b",
+    re.IGNORECASE,
+)
+CHOICE_WORDS = re.compile(r"\b(?:or|either|alternatively)\b", re.IGNORECASE)
+CAMERA_CHOICE_WORDS = re.compile(
+    r"\b(?:\d{2,3}\s*mm|wide[- ]angle|telephoto|close[- ]up|tight portrait|"
+    r"half[- ]body|waist[- ]up|knee[- ]up|full[- ]body|overhead|high[- ]angle|low[- ]angle)\b",
+    re.IGNORECASE,
+)
+EXPRESSION_CHOICE_WORDS = re.compile(
+    r"\b(?:look(?:s|ing)?|gaze[sd]?|gazing|eyes? closed|closing (?:the )?eyes?|"
+    r"smile[sd]?|smiling|side profile|front profile|expression)\b",
+    re.IGNORECASE,
+)
+MULTI_SHOT_TRANSITION_WORDS = re.compile(
+    r"\b(?:two[- ]part|first half|front half|back half|second half|then|later|"
+    r"adjacent shots?|depending on (?:the )?shot|across the set)\b",
+    re.IGNORECASE,
+)
+
+
+def _remove_ambiguous_pose_and_camera_choices(text: str) -> str:
+    """Remove set-wide alternatives that conflict with one current shot image."""
+    text = re.sub(
+        r"\b(?:\d{2,3}\s*mm\s*(?:to|[-–—])\s*\d{2,3}\s*mm|"
+        r"\d{2,3}\s*(?:to|[-–—])\s*\d{2,3}\s*mm)\b",
+        "reference-matched focal length",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
+        r"\b\d{2,3}\s*mm\s*(?:or|/|to|[-–—])\s*\d{2,3}\s*mm(?:\s+portrait)?\s+lens\b",
+        "reference-matched lens perspective",
+        text,
+        flags=re.IGNORECASE,
+    )
+    kept_lines: list[str] = []
+    for line in text.splitlines():
+        if PROTECTED_INSTRUCTION_LINE.match(line.strip()):
+            kept_lines.append(line)
+            continue
+        kept_sentences: list[str] = []
+        for sentence in re.split(r"(?<=[.!?])\s+", line):
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+            if re.search(r"\b(?:pose|camera|framing)\s+(?:options?|variations?|choices?)\s*:", sentence, re.IGNORECASE):
+                continue
+            postures = {match.lower() for match in POSTURE_WORDS.findall(sentence)}
+            actions = {match.lower() for match in POSE_ACTION_WORDS.findall(sentence)}
+            hand_actions = {match.lower() for match in HAND_ACTION_WORDS.findall(sentence)}
+            expressions = {match.lower() for match in EXPRESSION_CHOICE_WORDS.findall(sentence)}
+            has_choice = bool(CHOICE_WORDS.search(sentence))
+            has_clause_breaks = "," in sentence or ";" in sentence
+            if len(postures) >= 2 and not has_clause_breaks:
+                continue
+            if has_choice and not has_clause_breaks and len(sentence) < 500 and len(postures) + len(actions) >= 2:
+                continue
+            if has_choice and not has_clause_breaks and len(expressions) >= 2:
+                continue
+
+            kept_clauses: list[str] = []
+            for clause in re.split(r"\s*[,;]\s*", sentence):
+                clause = clause.strip()
+                if not clause:
+                    continue
+                if MULTI_SHOT_TRANSITION_WORDS.search(clause):
+                    continue
+                clause_has_choice = bool(CHOICE_WORDS.search(clause))
+                clause_actions = POSE_ACTION_WORDS.findall(clause)
+                clause_hands = HAND_ACTION_WORDS.findall(clause)
+                clause_cameras = CAMERA_CHOICE_WORDS.findall(clause)
+                if clause_has_choice:
+                    continue
+                if len({item.lower() for item in clause_cameras}) >= 2 and re.search(r"\b(?:and|or|to)\b", clause, re.IGNORECASE):
+                    kept_clauses.append("reference-matched camera framing and perspective")
+                    continue
+                kept_clauses.append(clause)
+            if kept_clauses:
+                kept_sentences.append(", ".join(kept_clauses))
+        if kept_sentences:
+            kept_lines.append(" ".join(kept_sentences))
+    return "\n".join(kept_lines).strip()
 
 
 def _has_cjk(text: str) -> bool:
@@ -274,6 +461,19 @@ def _compact(text: str, limit: int) -> str:
     return squashed[:limit].rsplit(" ", 1)[0].strip()
 
 
+def _dedupe_negative_terms(*blocks: str) -> str:
+    terms: list[str] = []
+    seen: set[str] = set()
+    for block in blocks:
+        for raw_term in re.split(r"[,\n]+", block):
+            term = raw_term.strip(" `.-")
+            key = term.casefold()
+            if term and key not in seen:
+                seen.add(key)
+                terms.append(term)
+    return ", ".join(terms)
+
+
 def _remove_template_identity_traits(text: str) -> str:
     cleaned = text
     for pattern, replacement in IDENTITY_SENSITIVE_PATTERNS:
@@ -302,6 +502,49 @@ def _anime_only_positive_text(text: str) -> str:
     return cleaned.strip()
 
 
+TRAILING_SET_WIDE_SECTION = re.compile(
+    r"^#{1,4}\s+(?:Cross[- ]Image\b|Set[- ]Wide\b|Best Use Cases\b|"
+    r"Prompt Construction Formula\b|Example Master Prompt\b|Negative Prompt Suggestions\b|"
+    r"Final Practical Summary\b)",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
+def _simplify_verbose_environment(text: str) -> str:
+    if len(text) <= 3500:
+        return text
+    pattern = re.compile(
+        r"(?P<head>^##\s+\d+\.\s+Environment(?:\s*&\s*Props)?[^\n]*\n)"
+        r"(?P<body>.*?)(?=^##\s+\d+\.|\Z)",
+        re.IGNORECASE | re.MULTILINE | re.DOTALL,
+    )
+
+    def compact(match: re.Match[str]) -> str:
+        lines = [line.strip() for line in match.group("body").splitlines() if line.strip()]
+        intro = next(
+            (line for line in lines if not line.startswith("-") and not line.endswith(":")),
+            "Keep the main environment shown in the final reference.",
+        )
+        anchors = [line for line in lines if line.startswith("-")][:8]
+        anchor_text = "\n".join(anchors)
+        return f"{match.group('head')}{intro}\nMain background anchors:\n{anchor_text}\n"
+
+    return pattern.sub(compact, text)
+
+
+def _current_shot_only(text: str) -> str:
+    """Drop set-wide advice accidentally stored after a single-shot prompt."""
+    match = TRAILING_SET_WIDE_SECTION.search(text)
+    current = text[: match.start()].rstrip(" -\n") if match else text
+    current = re.sub(
+        r"^##\s+\d+\.\s+Narrative(?:\s*/\s*Mood)?\b.*?(?=^##\s+\d+\.|\Z)",
+        "",
+        current,
+        flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
+    ).strip()
+    return _simplify_verbose_environment(current)
+
+
 def _character_adaptation(character_name: str) -> str:
     return CHARACTER_PHOTOSET_ADAPTATIONS.get(character_name, GENERAL_CHARACTER_ADAPTATION)
 
@@ -318,14 +561,17 @@ def _profile_identity_block(character_name: str) -> str:
 
 
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
-    cleaned = _remove_template_identity_traits(text)
+    cleaned = _remove_template_person_clauses(_current_shot_only(text))
+    cleaned = _remove_template_identity_traits(cleaned)
+    cleaned = _remove_character_trait_conflicts(character_name, cleaned)
     cleaned = _soften_platform_sensitive_terms(cleaned)
+    cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned)
     subject_name = _prompt_subject_name(character_name)
     cleaned = _english_only_text(cleaned)
     cleaned = _anime_only_positive_text(cleaned)
+    cleaned = re.sub(r"`{2,3}(?:text|prompt)?", "", cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\bthe selected character\b", subject_name, cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bHer\b", f"{subject_name}'s", cleaned)
-    cleaned = re.sub(r"\bher\b", f"{subject_name}'s", cleaned)
+    cleaned = re.sub(r"\bthe model\b", subject_name, cleaned, flags=re.IGNORECASE)
     return cleaned.strip()
 
 
@@ -420,9 +666,9 @@ def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
                 index=index,
                 title=title,
                 reference_image=_image_path(folder, index),
-                section_text=section[:7000].strip(),
-                ready_prompt=ready[:3500].strip(),
-                negative_prompt=negative[:1800].strip(),
+                section_text=_compact(section, 7000),
+                ready_prompt=_compact(ready, 3500),
+                negative_prompt=_compact(negative, 1800),
             )
         )
     return tuple(shots)
@@ -505,12 +751,27 @@ This image belongs to one coherent photoset. Keep the same outfit system, hair s
 def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     ready_block = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
-    global_style = _compact(_anime_only_positive_text(_english_only_text(_soften_platform_sensitive_terms(_remove_template_identity_traits(template.global_identity)))), 1800)
+    global_style = _compact(
+        _anime_only_positive_text(
+            _english_only_text(
+                _soften_platform_sensitive_terms(
+                    _remove_character_trait_conflicts(
+                        character_name,
+                        _remove_template_person_clauses(
+                            _remove_template_identity_traits(template.global_identity)
+                        ),
+                    )
+                )
+            )
+        ),
+        1800,
+    )
     negative_block = shot.negative_prompt or (
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
     )
     negative_block = _soften_platform_sensitive_terms(_remove_template_identity_traits(negative_block))
+    negative_block = _remove_character_trait_conflicts(character_name, negative_block)
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
 
@@ -525,13 +786,25 @@ The final subject is {subject_name}. Character reference images override every p
 3. Template markdown defines outfit category, scene objects, camera language, and lighting plan only after the character lock is satisfied.
 Never copy the photoset reference person's face, hair color, hairstyle, bangs, height, mature body type, or personal identity.
 
+[UPLOADED IMAGE ROLE MAP]
+All uploaded images except the final image are character-reference images. Read them together only for canonical face geometry, eye design, exact hair silhouette and bangs, fixed head accessories, fixed jewelry, species traits, age impression, and body proportions. Their clothing, costume colors, weapons, staffs, tools, hand poses, body poses, backgrounds, lighting, and scene props are not transferable and must not appear merely because they are visible in the character references.
+If a character-reference image contains multiple people, identify the target as the person consistently repeated across the complete character-reference set. Every companion, crossover character, background person, partial face, and overlapping body belongs to someone else and must be ignored. Never merge another person's hair, face, eyes, ears, accessories, clothing, or body into the selected character.
+The final uploaded image is the current photoset reference. It alone defines this shot's garment, pose, hand contacts, camera, crop, set, props, light direction, and color palette. It is never a rendering-style reference: do not copy its photographic skin, realistic face, individual hair strands, lens blur, bokeh, retouching, or surface realism. Its person identity, face, hairstyle, bangs, makeup, hair ornaments, body type, and age impression are not transferable.
+
+[EXCLUSIVE OUTFIT SOURCE LOCK]
+Build the outfit exclusively from the final photoset reference image. First match its base garment color, garment category, silhouette, neckline, shoulder construction, sleeves or straps, bodice structure, waist position, skirt or trouser construction, hem, layering, fabric weight, trim, pattern, appliques, and opaque lining. Do not reuse, recolor toward, hybridize with, or add any garment, armor, uniform, cape, sleeve, stocking, footwear, weapon harness, or costume ornament visible in the character-reference images. The selected character keeps only fixed identity accessories; every changeable clothing item comes from the final photoset image.
+
+[SINGLE POSE, CAMERA, AND ANATOMY LOCK]
+The current single photoset reference image is the sole authority for this shot's camera and body action. Execute only the one pose visibly shown in that image. Never combine alternate standing, sitting, reclining, leaning, looking, touching, or prop actions from set-wide prose. Match one camera distance, one crop, one viewing angle, and one perspective from the current image; never average lens or framing alternatives.
+Preserve normal two-arm anatomy. Account for every visible shoulder, elbow, wrist, and hand as one continuous limb. Each visible hand performs exactly the contact shown in the current reference and interacts with at most one prop or body area. A hand or arm hidden by the crop, hair, flowers, furniture, or the torso stays hidden; do not invent a replacement hand. Keep the torso supported by the same chair, table, floor, bed, wall, or standing leg shown in the reference. Do not add decorative hands, duplicated fingers, extra arms, or impossible joints to fill negative space.
+
 [PHOTOSET]
 Template: {template.template_id}
 Shot: {shot.index} / {len(template.shots)}
 Shot title: {shot.title}
 
 [COLOR AND LIGHT MATCH]
-Use only the current photoset reference image as the color and lighting authority. Match its dominant background hue, white balance, exposure, highlight color, shadow color, contrast, saturation, light direction, shadow hardness, rim light, and atmospheric density. Do not import cream walls, golden window light, sepia grading, or any other palette from a different template.
+Use only the current photoset reference image as the palette and light-direction authority. Match its dominant background hue, white balance, exposure hierarchy, highlight color, shadow color, contrast, saturation, light direction, and broad shadow placement, then translate them into flat graphic anime color regions and hard-edged two-step cel shadows. Do not reproduce photographic skin response, realistic light falloff, lens bloom, bokeh, depth-of-field blur, or airbrushed atmosphere. Do not import cream walls, golden window light, sepia grading, or any palette from a different template.
 
 [FACIAL EXPRESSION PRECISION]
 {ANIME_FACE_DETAIL}
@@ -555,23 +828,59 @@ This image belongs to one coherent photoset. Keep only details visibly shared by
 {negative_block}
 Keep the styling elegant and editorial, with stable clothing, opaque lined fabric, a clear sewn garment silhouette, secure shoulder and back coverage, and no body-part emphasis.
 Identity drift, wrong hairstyle, wrong hair color, copied reference-person face, copied reference-person hair silhouette, changed bangs, changed body proportions, tall mature model body when the character is youthful, overlong legs, enlarged bust, mature sharp face, dark brown/sepia color cast, muddy shadows, low-key fantasy room.
+Third hand, more than two arms, duplicated hand, floating hand, hand emerging from hair or flowers, disconnected wrist, conflicting poses, mixed camera angles, combined lens alternatives, invented off-frame limb.
 """.strip()
 
 
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
-    base_prompt = _prompt_for_adapted_shot(character_name, template, shot)
+    subject_name = _prompt_subject_name(character_name)
+    shot_prompt = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
+    if not shot_prompt:
+        shot_prompt = (
+            f"Follow the visible final photoset reference exactly for this shot: {shot.title}. "
+            "Preserve its outfit construction, pose, hand contacts, framing, main setting anchors, light direction, and palette."
+        )
+    source_negative = _compact(
+        _english_only_text(
+            _remove_character_trait_conflicts(
+                character_name,
+                _remove_template_identity_traits(shot.negative_prompt),
+            )
+        ),
+        350,
+    )
+    negative = _dedupe_negative_terms(
+        source_negative,
+        A3_NEGATIVE,
+        "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
+        "extra arm, third hand, duplicated limb, fused hand, extra fingers, broken joint, impossible pose, "
+        "conflicting camera, text, logo, watermark",
+    )
+
     prompt = f"""
-[ABSOLUTE HIGHEST PRIORITY: HAND-DRAWN 2D ANIME]
-The final image must be an unmistakable hand-drawn Japanese 2D anime illustration, never a photograph, live-action portrait, cosplay image, or semi-realistic render. Visible clean black lineart and cel-shaded color separation must be established before applying any scene, lens, light, or material description.
-{A3_HAND_DRAWN_STYLE}
+Independent image task. Create one finished image.
 
-[ABSOLUTE HIGHEST PRIORITY: ANIME FACE AND EXPRESSION]
-{ANIME_FACE_DETAIL}
+[STYLE]
+Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, detailed expressive eyes, carefully grouped hair locks, nuanced fabric folds, and luminous illustrated lighting. Keep the main setting anchors and light pattern while simplifying only minor clutter and distant texture. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
 
-{base_prompt}
+[CHARACTER]
+The subject is {subject_name}. Character references define canonical identity and proportions only, never clothing or scene design.
+{_profile_identity_block(character_name)}
+{_character_adaptation(character_name)}
 
-[MODE 3 EXTRA NEGATIVE]
-{A3_NEGATIVE}
+[REFERENCE ROLES]
+All images except the final one define only the target character's face, eyes, hair, fixed identity accessories, species traits, age, and proportions. Ignore companions, outfits, weapons, poses, and backgrounds.
+The final image alone defines outfit, pose, hand contacts, camera, crop, set, props, light, and palette. Never copy its person's identity or body type. Visible final-image evidence overrides text.
+
+[SHOT]
+Template {template.template_id}, image {shot.index} of {len(template.shots)}: {shot.title}
+{shot_prompt}
+
+[FACE AND ANATOMY]
+Keep the canonical anime face. Match the final reference's gaze, eyelids, brows, head tilt, and mouth expression. Use aligned detailed eyes, a tiny anime nose mark, and a small mouth line. Preserve exactly two continuous arms and reproduce only visible hand contacts; never invent hidden hands. Adapt the pose to canonical proportions without changing camera or outfit.
+
+[NEGATIVE]
+{negative}
 """.strip()
     return _english_only_text(prompt)
 
