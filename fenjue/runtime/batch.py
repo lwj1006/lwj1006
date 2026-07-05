@@ -62,6 +62,11 @@ def resolve_run_character(character_name: str, run_number: int) -> str:
     return character_name
 
 
+def record_completed_run(character_name: str, run_number: int) -> None:
+    """Mode hook called only after a run finishes its generation wait."""
+    return None
+
+
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
     "南宫": [
@@ -199,7 +204,7 @@ CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
 
-CHECK_INTERVAL_SECONDS = 250
+CHECK_INTERVAL_SECONDS = 300
 UPLOAD_SETTLE_SECONDS = 15
 UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
 UPLOAD_COOLDOWN_SECONDS = 90 * 60
@@ -1332,13 +1337,19 @@ def paste_text(text: str) -> None:
     time.sleep(0.5)
 
 
-def wait_with_echo(seconds: int, label: str) -> None:
+def wait_with_echo(seconds: int, label: str, *, end_time: dt.datetime | None = None) -> None:
     """Wait with a quiet countdown that only prints during the final seconds."""
     seconds = max(0, int(seconds))
     if seconds == 0:
         return
 
-    print(f"{label}: waiting {seconds}s", flush=True)
+    if end_time is None:
+        print(f"{label}: waiting {seconds}s", flush=True)
+    else:
+        print(
+            f"{label}: waiting until {end_time.strftime('%Y-%m-%d %H:%M')} local time.",
+            flush=True,
+        )
     quiet_seconds = max(0, seconds - ECHO_COUNTDOWN_LAST_SECONDS)
     if quiet_seconds:
         time.sleep(quiet_seconds)
@@ -1467,14 +1478,17 @@ def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
     if _uploaded_images_since_cooldown < UPLOAD_COOLDOWN_IMAGE_LIMIT and projected_total <= UPLOAD_COOLDOWN_IMAGE_LIMIT:
         return
 
+    cooldown_end = dt.datetime.now() + dt.timedelta(seconds=UPLOAD_COOLDOWN_SECONDS)
+    generation_resume = cooldown_end + dt.timedelta(seconds=WEB_REFRESH_SETTLE_SECONDS)
     print(
         "Upload cooldown: "
         f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
         f"next upload has {next_upload_count} images and would reach {projected_total}. "
-        f"Sleeping {UPLOAD_COOLDOWN_SECONDS // 60} minutes before refreshing web and continuing.",
+        f"Image generation will resume at {generation_resume.strftime('%Y-%m-%d %H:%M')} local time "
+        "after refreshing the web page.",
         flush=True,
     )
-    wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown")
+    wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown", end_time=cooldown_end)
     refresh_chatgpt_web_after_upload_cooldown()
     _reset_upload_counter_state("cooldown completed")
 
@@ -2745,6 +2759,7 @@ def main() -> None:
             take_screenshot(f"run_{run_number:02d}_sent")
             screenshot_path = wait_for_generation(run_number)
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
+            record_completed_run(character_name, run_number)
             mark_character_clothing_theme_used(character_name, theme, used_by_character)
             mark_character_art_plan_used(character_name, plan_name, used_plans_by_character)
             batch_completed_characters.append(character_name)

@@ -1,14 +1,18 @@
 
 from __future__ import annotations
 
+import json
 import random
 import sys
+from pathlib import Path
 
 from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_template, prompt_for_shot
 from .descriptions import template_description
 
 
 LABEL = "photoset template mode"
+PROJECT_DIR = Path(__file__).resolve().parents[3]
+COMPLETED_TEMPLATE_FILE = PROJECT_DIR / "config" / "used_character_photoset_templates.json"
 
 _active_templates: tuple[PhotosetTemplate, ...] = ()
 _active_characters: tuple[str, ...] = ()
@@ -16,6 +20,7 @@ _active_character_schedule: tuple[str, ...] = ()
 _active_shot_schedule: tuple[tuple[PhotosetTemplate, PhotosetShot], ...] = ()
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
+_completed_templates_by_character: dict[str, list[str]] = {}
 
 
 def _option_value(argv: list[str], *names: str) -> str | None:
@@ -160,6 +165,113 @@ def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
         return tuple(selected)
 
 
+def _load_completed_templates(available: list[str]) -> dict[str, list[str]]:
+    if not COMPLETED_TEMPLATE_FILE.exists():
+        return {}
+    try:
+        data = json.loads(COMPLETED_TEMPLATE_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        print(f"Photoset history is invalid; starting fresh: {exc}", flush=True)
+        return {}
+    if not isinstance(data, dict):
+        return {}
+
+    valid_ids = set(available)
+    cleaned: dict[str, list[str]] = {}
+    for character_name, template_ids in data.items():
+        if not isinstance(character_name, str) or not isinstance(template_ids, list):
+            continue
+        cleaned[character_name] = list(dict.fromkeys(
+            template_id for template_id in template_ids
+            if isinstance(template_id, str) and template_id in valid_ids
+        ))
+    return cleaned
+
+
+def _save_completed_templates(history: dict[str, list[str]]) -> None:
+    COMPLETED_TEMPLATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    temporary = COMPLETED_TEMPLATE_FILE.with_suffix(".tmp")
+    temporary.write_text(
+        json.dumps(history, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    temporary.replace(COMPLETED_TEMPLATE_FILE)
+
+
+def _mark_template_completed(
+    character_name: str,
+    template: PhotosetTemplate,
+    completed: dict[str, list[str]],
+    available_count: int,
+) -> bool:
+    completed_ids = completed.setdefault(character_name, [])
+    if template.template_id in completed_ids:
+        return False
+    completed_ids.append(template.template_id)
+    _save_completed_templates(completed)
+    print(
+        f"Photoset history: {character_name} completed {_display_template_id(template.template_id)}; "
+        f"progress {len(completed_ids)}/{available_count} -> {COMPLETED_TEMPLATE_FILE}",
+        flush=True,
+    )
+    return True
+
+
+def _resolve_template_assignments(
+    requested_templates: tuple[PhotosetTemplate, ...],
+    characters: tuple[str, ...],
+    completed: dict[str, list[str]],
+    available_ids: list[str],
+) -> tuple[tuple[str, PhotosetTemplate], ...]:
+    assignments: list[tuple[str, PhotosetTemplate]] = []
+    scheduled_by_character = {character_name: set() for character_name in characters}
+    history_changed = False
+
+    for slot_index, requested_template in enumerate(requested_templates):
+        character_name = characters[slot_index % len(characters)]
+        used_list = completed.setdefault(character_name, [])
+        used = set(used_list)
+        if len(used) >= len(available_ids):
+            used_list.clear()
+            used.clear()
+            history_changed = True
+            print(
+                f"Photoset cycle complete for {character_name}: starting a new {len(available_ids)}-template cycle.",
+                flush=True,
+            )
+
+        scheduled = scheduled_by_character[character_name]
+        selected_id = requested_template.template_id
+        if selected_id in used or selected_id in scheduled:
+            candidates = [
+                template_id for template_id in available_ids
+                if template_id not in used and template_id not in scheduled
+            ]
+            if not candidates:
+                print(
+                    f"Photoset history: {character_name} has no unfinished templates left for this run; "
+                    f"skipping requested {_display_template_id(selected_id)}.",
+                    flush=True,
+                )
+                continue
+            replacement_id = random.choice(candidates)
+            reason = "already completed" if selected_id in used else "already scheduled"
+            print(
+                f"Photoset history: {character_name} {_display_template_id(selected_id)} is {reason}; "
+                f"replaced with {_display_template_id(replacement_id)}.",
+                flush=True,
+            )
+            selected_id = replacement_id
+
+        scheduled.add(selected_id)
+        template = requested_template if selected_id == requested_template.template_id else load_template(selected_id)
+        assignments.append((character_name, template))
+
+    if history_changed:
+        _save_completed_templates(completed)
+    return tuple(assignments)
+
+
 def _build_photoset_schedule(
     templates: tuple[PhotosetTemplate, ...],
     characters: tuple[str, ...],
@@ -170,6 +282,16 @@ def _build_photoset_schedule(
         for shot in template.shots:
             schedule.append((character_name, template, shot))
     return tuple(schedule)
+
+
+def _build_assigned_photoset_schedule(
+    assignments: tuple[tuple[str, PhotosetTemplate], ...],
+) -> tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...]:
+    return tuple(
+        (character_name, template, shot)
+        for character_name, template in assignments
+        for shot in template.shots
+    )
 
 
 def _active_template_and_shot() -> tuple[PhotosetTemplate, PhotosetShot]:
@@ -203,11 +325,30 @@ def _total_shots() -> int:
 
 
 def activate(batch, args=None) -> None:
-    global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule, _current_shot_index
+    global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule
+    global _current_shot_index, _completed_templates_by_character
     argv = list(args or [])
-    _active_templates = _choose_templates(argv, batch)
+    requested_templates = _choose_templates(argv, batch)
     _active_characters = _choose_characters(argv, batch)
-    photoset_schedule = _build_photoset_schedule(_active_templates, _active_characters)
+    available_ids = list_template_ids()
+    _completed_templates_by_character = _load_completed_templates(available_ids)
+    for character_name in _active_characters:
+        completed_count = len(_completed_templates_by_character.get(character_name, []))
+        print(
+            f"Photoset history: {character_name} completed {completed_count}/{len(available_ids)}; "
+            f"{len(available_ids) - completed_count} remaining in the current cycle.",
+            flush=True,
+        )
+    assignments = _resolve_template_assignments(
+        requested_templates,
+        _active_characters,
+        _completed_templates_by_character,
+        available_ids,
+    )
+    if not assignments:
+        raise RuntimeError("No unfinished photoset templates are available for the selected characters.")
+    _active_templates = tuple(template for _, template in assignments)
+    photoset_schedule = _build_assigned_photoset_schedule(assignments)
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
     _active_shot_schedule = tuple((template, shot) for _, template, shot in photoset_schedule)
     _current_shot_index = 0
@@ -222,6 +363,21 @@ def activate(batch, args=None) -> None:
         global _current_shot_index
         _current_shot_index = max(0, min(run_number - 1, _total_shots() - 1))
         return _active_character_for_shot()
+
+    def record_completed_photoset_run(character_name: str, run_number: int) -> None:
+        schedule_index = run_number - 1
+        if not 0 <= schedule_index < len(photoset_schedule):
+            return
+        scheduled_character, template, shot = photoset_schedule[schedule_index]
+        if character_name != scheduled_character or shot is not template.shots[-1]:
+            return
+
+        _mark_template_completed(
+            character_name,
+            template,
+            _completed_templates_by_character,
+            len(available_ids),
+        )
 
     def skip_scene_selection():
         print("Original scene menu skipped: photoset mode uses the selected template shots.", flush=True)
@@ -305,6 +461,7 @@ def activate(batch, args=None) -> None:
         return ["photoset_template", art_plan.get("name", "photoset_unknown")]
 
     batch.resolve_run_character = resolve_photoset_run_character
+    batch.record_completed_run = record_completed_photoset_run
     batch.startup_character_selection = fixed_character_selection
     batch.startup_scene_selection = skip_scene_selection
     batch.startup_clothing_selection = skip_clothing_selection
