@@ -25,6 +25,12 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Scale the pose and furniture to her body; do not create a tall mature silhouette, elongated legs, enlarged proportions, "
         "a sharp mature face, or the photoset model's hair."
     ),
+    "铃": (
+        "Belle adaptation: keep a lively youthful academy-girl impression, short deep blue-violet bob hair, a large side-swept bang, "
+        "teal-blue eyes, the orange N-shaped hair clip, and small teal earrings clear in every shot. Adapt the photoset pose to her "
+        "compact bright silhouette; do not copy the photoset model's long hair, mature body type, heavy glamour face, or unrelated hair accessories. "
+        "Music-shop props, a portable CD player, student cap, or academy uniform are optional reference motifs only, not mandatory outfit locks."
+    ),
 }
 
 

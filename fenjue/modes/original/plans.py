@@ -382,6 +382,14 @@ CHARACTER_PROFILES = {
         "thumbnail_strategy": "one-eye side-swept fringe, pale silver-lavender long hair, pointed elf ears, violet eye, and large white-blue bow ornaments are the core read; outfit may vary with the selected fashion theme.",
         "interaction_rule": "elegant relaxed hands, a small sleeve or ribbon adjustment, or a refined quiet pose are preferred; a tiny fan-shaped accessory may appear only as a subtle background or clothing detail, not as a complex hand-held prop.",
         "color_anchor": "pale silver-lavender, deep blue, white, gold",
+    },
+    "铃": {
+        "official_core": "short deep blue-violet bob hair with a large side-swept bang covering part of one eye, teal-blue eyes, an orange N-shaped hair clip, small teal earrings, and a bright music-loving academy-girl impression.",
+        "identity_tokens": ["short deep blue-violet bob hair", "large side-swept bang covering part of one eye", "teal-blue eyes", "orange N-shaped hair clip", "small teal earrings"],
+        "viewer_relationship": "cheerful, curious, quick-witted, and friendly; expressions can be a wink, bright smile, or playful focused gaze, but the face stays clean and readable.",
+        "thumbnail_strategy": "deep blue-violet short hair, side-swept bang, teal eyes, orange N hair clip, and small teal earrings must remain readable; do not turn her into a long-haired mature model or generic blue-haired girl.",
+        "interaction_rule": "music-shop gestures, holding a record case, listening pose, small finger-to-lips wink, or light academy pose are compatible; the portable CD player, student cap, academy uniform, and Yunki-style outfit are reference outfits or props only, not mandatory identity anchors for every photoset.",
+        "color_anchor": "deep blue violet, teal blue, orange, black, warm gold",
     }
 }
 
@@ -1283,6 +1291,7 @@ KNOWN_CHARACTER_NAMES = [
     "伊芙琳",
     "朱鸢",
     "卢西娅",
+    "铃",
 ]
 
 
