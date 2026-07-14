@@ -248,29 +248,16 @@ def _resolve_template_assignments(
         scheduled = scheduled_by_character[character_name]
         selected_id = requested_template.template_id
         if selected_id in used or selected_id in scheduled:
-            candidates = [
-                template_id for template_id in available_ids
-                if template_id not in used and template_id not in scheduled
-            ]
-            if not candidates:
-                print(
-                    f"Photoset history: {character_name} has no unfinished templates left for this run; "
-                    f"skipping requested {_display_template_id(selected_id)}.",
-                    flush=True,
-                )
-                continue
-            replacement_id = random.choice(candidates)
             reason = "already completed" if selected_id in used else "already scheduled"
             print(
                 f"Photoset history: {character_name} {_display_template_id(selected_id)} is {reason}; "
-                f"replaced with {_display_template_id(replacement_id)}.",
+                "skipping it without selecting a template outside the requested set.",
                 flush=True,
             )
-            selected_id = replacement_id
+            continue
 
         scheduled.add(selected_id)
-        template = requested_template if selected_id == requested_template.template_id else load_template(selected_id)
-        assignments.append((character_name, template))
+        assignments.append((character_name, requested_template))
 
     if history_changed:
         _save_completed_templates(completed)
