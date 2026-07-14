@@ -169,12 +169,12 @@ CHARACTER_PROFILES = {
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
-        "official_core": "mint gray-green layered bob with a high side ponytail, a large dark-mint geometric bow at the ponytail base, soft asymmetrical bangs, multicolored amber-gold and cyan eyes, and compact youthful facial features.",
-        "identity_tokens": ["mint gray-green layered bob with high side ponytail", "large dark-mint geometric ponytail bow", "soft asymmetrical bangs", "multicolored amber-gold and cyan eyes"],
+        "official_core": "pale mint-gray-green asymmetrical high-layered short bob with a rounded airy silhouette, thick separated blunt bangs near the upper eyelids, one partially exposed temple secured by a black hollow triangular clip, several small electronic-style clips on the heavier opposite fringe, and a single mid-high half-up side ponytail secured by a large faceted teal four-point star-shaped ornament; the jaw-to-nape bob has broad grouped locks and feathered outward tips, while the rear layers and ponytail deepen into muted teal with subtle pale lavender-gray tips; multicolored amber-gold and cyan eyes and compact youthful facial features.",
+        "identity_tokens": ["pale mint-gray-green jaw-to-nape asymmetrical layered short bob", "thick separated blunt bangs with one exposed temple", "black hollow triangular clip and small electronic-style fringe clips", "single mid-high half-up side ponytail", "large faceted teal four-point star-shaped ponytail ornament, not a bow", "muted teal rear layers with subtle pale lavender-gray tips", "multicolored amber-gold and cyan eyes"],
         "viewer_relationship": "warm friendly eye contact, soft cheerful smile, approachable and slightly playful expression.",
-        "thumbnail_strategy": "mint hair, large bow, and clear eyes must stay stable; do not turn her into a generic long-haired character.",
+        "thumbnail_strategy": "the compact mint short-bob foundation, strongly asymmetrical half-up side ponytail, faceted teal four-point star ornament, fringe clips, and clear multicolored eyes must stay stable; never turn the ornament into a bow or the short bob into long hair or a full high ponytail.",
         "interaction_rule": "small daily gestures, hands relaxed near the sides or sleeves, subtle cute reactions, and relaxed seated poses.",
-        "color_anchor": "mint, pale gold, soft white",
+        "color_anchor": "pale mint gray-green, muted teal, pale lavender gray, amber gold, cyan",
     },
     "丹": {
         "official_core": "pale pink short layered hair, airy uneven bangs, pink-purple eyes, small silver-blue hair accessory, soft open face.",

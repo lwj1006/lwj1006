@@ -22,6 +22,8 @@ IMAGE_EXTENSIONS = (".jpeg", ".jpg", ".png", ".webp")
 CHARACTER_PHOTOSET_ADAPTATIONS = {
     "千夏": (
         "Chinatsu adaptation: keep compact youthful proportions, a cute soft face, and a petite-to-average height impression. "
+        "Keep the jaw-to-nape short-bob foundation, thick asymmetrical clipped fringe, and only one mid-high half-up side ponytail. "
+        "The ponytail ornament is a large faceted teal four-point star shape, never a bow; do not expand the half-up ponytail into a full high ponytail or long hair. "
         "Scale the pose and furniture to her body; do not create a tall mature silhouette, elongated legs, enlarged proportions, "
         "a sharp mature face, or the photoset model's hair."
     ),
