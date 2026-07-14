@@ -1,5 +1,7 @@
 from textwrap import dedent
 
+from fenjue.modes.original.plans import propagation_profile_for, required_identity_tokens_for
+
 from .plans import (
     ANTI_SAFE_COMPOSITION,
     choose_action_style,
@@ -11,9 +13,9 @@ from .plans import (
 
 CHARACTER_LOCKS = {
     "千夏": (
-        "千夏：薄荷绿/浅灰绿色中短层次发，后发自然散开，轻微短发狼尾感；"
-        "后顶部偏右只有一小束装饰性小揪发，绑大号薄荷绿蝴蝶结，不是马尾。"
-        "厚重不对称刘海，一侧遮挡额头与部分眼部，另一侧露耳，黑色心形耳饰；粉金渐变瞳。"
+        "千夏：薄荷绿/浅灰绿色层次 bob 短发，后部扎成高位侧马尾；"
+        "侧马尾根部固定大号深薄荷绿几何蝴蝶结，不是长发或双马尾。"
+        "厚重不对称刘海，一侧遮挡额头与部分眼部；瞳色是琥珀金与青色交织的多色渐变。"
         "气质是紧张但认真、敏感创作者、努力装镇定。"
     ),
     "南宫": (
@@ -59,6 +61,18 @@ CHARACTER_LOCKS = {
 }
 
 
+def _character_lock(name: str) -> str:
+    if name in CHARACTER_LOCKS:
+        return CHARACTER_LOCKS[name]
+    profile = propagation_profile_for(name)
+    required = "；".join(required_identity_tokens_for(name))
+    return (
+        f"{name}：{profile['official_core']} "
+        f"必须清楚保留：{required}。"
+        f"人物表现规则：{profile['interaction_rule']}"
+    )
+
+
 def _character_names(character_name: str) -> list[str]:
     names = [name.strip() for name in character_name.replace("，", "、").split("、") if name.strip()]
     return names or ["丹"]
@@ -78,7 +92,7 @@ def prompt_template_name(template_index: int = 0) -> str:
 
 def _identity_lock(character_name: str) -> str:
     names = _character_names(character_name)
-    locks = " ".join(CHARACTER_LOCKS.get(name, CHARACTER_LOCKS["丹"]) for name in names)
+    locks = " ".join(_character_lock(name) for name in names)
     if _is_group(names):
         subject_rule = (
             "本次虽然保留多人能力，但当前 art direction pipeline 优先单人；如果出现多人，必须逐个锁定对应参考图身份，不允许发型、发色、发饰互换。"

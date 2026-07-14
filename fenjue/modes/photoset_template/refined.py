@@ -196,6 +196,37 @@ REFERENCE_PERSON_SENTENCE = re.compile(
     re.IGNORECASE,
 )
 
+GARMENT_COLOR_WORDS = (
+    "black|white|gray|grey|silver|ivory|cream|beige|brown|red|pink|rose|blue|cyan|teal|"
+    "green|mint|yellow|gold|golden|orange|purple|lavender|violet|navy|charcoal|"
+    "pale|light|dark|deep|soft|muted|dusty|warm|cool|bright|pure|off-white|gray-white|grey-white"
+)
+
+GARMENT_TERMS = (
+    "robe|hanfu|kimono|dress|gown|skirt|shorts|pants|trousers|jeans|top|shirt|blouse|"
+    "camisole|bodice|cardigan|hoodie|sweater|jacket|coat|cape|uniform|sailor|pajama|"
+    "sundress|apron|collar|sleeve|sleeves|cuff|cuffs|sock|socks|stocking|stockings|"
+    "tights|shoe|shoes|loafer|loafers|boot|boots|chiffon|tulle|lace|satin|silk|knit|"
+    "cotton|fabric|lining|textile"
+)
+
+GARMENT_COLOR_LOCK = re.compile(
+    rf"\b(?P<color>(?:{GARMENT_COLOR_WORDS})(?:[- ]+(?:{GARMENT_COLOR_WORDS})){{0,3}})\s+"
+    rf"(?P<middle>(?:[\w-]+\s+){{0,3}})?(?P<garment>{GARMENT_TERMS})\b",
+    re.IGNORECASE,
+)
+
+
+def _neutralize_outfit_color_locks(text: str) -> str:
+    """Keep garment construction from template notes but remove fixed clothing colors."""
+
+    def replace(match: re.Match[str]) -> str:
+        middle = match.group("middle") or ""
+        garment = match.group("garment")
+        return f"character-adaptive {middle}{garment}"
+
+    return GARMENT_COLOR_LOCK.sub(replace, text)
+
 
 def _strip_reference_person_traits(text: str) -> str:
     """Keep shot design evidence while removing the template model's identity."""
@@ -231,18 +262,22 @@ def prompt_for_refined_shot(
     shot: PhotosetShot,
 ) -> str:
     subject_name = "the selected character"
-    shot_evidence = _strip_reference_person_traits(
-        _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
+    shot_evidence = _neutralize_outfit_color_locks(
+        _strip_reference_person_traits(
+            _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
+        )
     )
     global_evidence = _compact(
-        _anime_only_positive_text(_strip_reference_person_traits(_english_only_text(
-            _soften_platform_sensitive_terms(
-                _remove_template_identity_traits(template.global_identity)
-            )
-        ))),
+        _neutralize_outfit_color_locks(
+            _anime_only_positive_text(_strip_reference_person_traits(_english_only_text(
+                _soften_platform_sensitive_terms(
+                    _remove_template_identity_traits(template.global_identity)
+                )
+            )))
+        ),
         2600,
     )
-    title = refined_shot_title(template, shot)
+    title = _neutralize_outfit_color_locks(refined_shot_title(template, shot))
 
     return _english_only_text(f"""
 Independent image task. Create exactly one polished hand-drawn Japanese anime illustration.
@@ -255,7 +290,7 @@ The final image must be an unmistakable hand-drawn Japanese 2D anime illustratio
 
 [E2 REFERENCE AUTHORITY]
 The uploaded character references and the single photoset reference image have different jobs.
-Character references are the only authority for identity and anatomy. The photoset reference image is the only authority for this shot's pose geometry, framing, outfit design, set layout, lighting, and color treatment. The written notes are a precise aid; whenever wording and visible evidence differ, follow the visible current-shot reference.
+Character references are the only authority for identity, anatomy, and character color harmony. The photoset reference image is the only authority for this shot's pose geometry, framing, outfit construction, set layout, and lighting. The written notes are a precise aid; whenever wording and visible evidence differ, follow the visible current-shot reference.
 
 [CHARACTER IDENTITY AND PROPORTION LOCK]
 The final subject is {subject_name}.
@@ -272,27 +307,29 @@ Exact shot read: {title}
 Reconstruct the reference image's camera distance, camera height, pitch, roll, crop boundaries, subject occupancy, head position, body direction, weight-bearing point, limb foreshortening, hand placement, leg placement, gaze direction, foreground overlap, and negative-space distribution. Keep the same visible body range. Do not automatically turn a close-up into a full-body image or center an off-center composition. Preserve which objects sit in front of, beside, and behind the subject.
 
 [OUTFIT TRANSLATION]
-Match this shot's visible garment category, silhouette, neckline shape, sleeve shape, waist position, hem length, layer count, color, pattern scale, trim placement, and fabric weight. Fit that design to {subject_name}'s canonical body. Render it as a coherent finished anime garment with connected panels, stable seams, and an opaque lining where needed. Preserve fashionable shape and delicacy; do not replace it with generic conservative clothing. Do not copy the reference model's hairstyle or use hair as part of the outfit.
+Match this shot's visible garment category, silhouette, neckline shape, sleeve shape, waist position, hem length, layer count, pattern scale, trim placement, and fabric weight. Do not lock the garment to the photoset reference's exact clothing color. Recolor the outfit into a tasteful anime palette that suits {subject_name}'s canonical hair color, eye color, fixed accessories, personality impression, and the current scene lighting. Preserve visible pattern logic and trim placement, but allow hue, accent color, and saturation to shift so the character looks intentionally styled for this setting. Fit that design to {subject_name}'s canonical body. Render it as a coherent finished anime garment with connected panels, stable seams, and an opaque lining where needed. Preserve fashionable shape and delicacy; do not replace it with generic conservative clothing. Do not copy the reference model's hairstyle or use hair as part of the outfit.
 
 [POSE AND HANDS]
 Treat the pose as a joint-and-support diagram. State one clear support for the pelvis and torso, preserve the reference shoulder and hip rotation, and keep every visible hand anatomically readable. A hand touching hair, face, flower, glass, book, fruit, chair, floor, or clothing must make the same contact shown in the reference. Do not invent a second prop, extra fingers, extra limbs, crossed anatomy, or a new body direction.
 
 [SCENE, LIGHT, AND COLOR]
-Use the current photoset reference image, not any other template, for environmental geometry and color. Match its dominant background hue, white balance, exposure level, highlight color, shadow color, contrast, saturation, light-source direction, shadow hardness, rim-light strength, depth of field, and atmospheric density. Preserve the reference's key furniture, flowers, windows, plants, vessels, fabric, water, or architectural forms at approximately the same positions and scale. Do not add a generic warm vintage room, golden window light, cream walls, or sepia grading unless they are visibly present in this exact reference image.
+Use the current photoset reference image, not any other template, for environmental geometry and scene lighting. Match its dominant background hue, white balance, exposure level, highlight color, shadow color, contrast, saturation, light-source direction, shadow hardness, rim-light strength, depth of field, and atmospheric density. Clothing color is the exception: choose a character-adaptive outfit palette that harmonizes with the selected character and this scene instead of copying the template model's exact garment color. Preserve the reference's key furniture, flowers, windows, plants, vessels, fabric, water, or architectural forms at approximately the same positions and scale. Do not add a generic warm vintage room, golden window light, cream walls, or sepia grading unless they are visibly present in this exact reference image.
 
 [CONTINUITY WITHOUT FALSE UNIFORMITY]
-Keep character identity constant across the set. Carry over outfit, set, and color details only when they are visibly shared by adjacent reference images. If this shot changes outfit, location, prop system, time of day, or palette, this shot's reference wins. Never force one room or one garment across a deliberately mixed-concept template.
+Keep character identity constant across the set. Carry over outfit construction, set, and scene-lighting details only when they are visibly shared by adjacent reference images. Keep the chosen character-adaptive outfit palette coherent across shots in the same template, while allowing small value shifts caused by lighting. If this shot changes outfit, location, prop system, time of day, or scene palette, this shot's reference wins. Never force one room or one garment across a deliberately mixed-concept template.
 
 [EXISTING IMAGE-SPECIFIC EVIDENCE]
+In the following evidence, any remaining garment color words are subordinate to the E2 outfit recolor rule. Treat them as clues for scene mood only, never as mandatory clothing colors.
 {global_evidence}
 
 {shot_evidence}
 
 [HAND-DRAWN ANIME FINISH]
 {A3_HAND_DRAWN_STYLE}
-Use clean visible black lineart, refined layered cel shading, restrained soft transitions, carefully drawn fabric folds, delicate anime facial planes, grouped hair masses, and rich illustration color separation. Preserve only the reference geometry and palette; never preserve photographic skin, realistic hair strands, lens blur, bokeh, airbrushed light, or live-action surface rendering.
+Use clean visible black lineart, refined layered cel shading, restrained soft transitions, carefully drawn fabric folds, delicate anime facial planes, grouped hair masses, and rich illustration color separation. Preserve the reference geometry, scene lighting, and background color mood; adapt outfit colors to the selected character. Never preserve photographic skin, realistic hair strands, lens blur, bokeh, airbrushed light, or live-action surface rendering.
 
 [NEGATIVE]
 Identity drift, reference-model face, reference-model hairstyle, wrong bangs, wrong eye color, wrong fixed accessories, wrong species traits, copied adult model proportions, stretched torso, overlong legs, undersized head, enlarged bust or hips, mature sharp face, pose substitution, wrong crop, centered composition when the reference is offset, missing support surface, floating body, disconnected garment pieces, decorative material pasted onto skin, transparent unlined clothing, accidental exposure, body-part emphasis, extra fingers, fused hands, extra limbs, duplicated props, unreadable face, text, logo, watermark.
+template-model outfit color copied exactly when it clashes with the selected character, character-reference clothing copied into the photoset outfit, random costume recolor that ignores scene lighting, mismatched outfit accent colors.
 {A3_NEGATIVE}
 """).strip()

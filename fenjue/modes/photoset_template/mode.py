@@ -49,12 +49,6 @@ def _template_from_menu_token(token: str, available: list[str]) -> str:
     if not item:
         raise ValueError("Empty photoset template selection.")
 
-    # Short menu input: 1 -> first displayed template, 2 -> second displayed template.
-    if item.isdigit() and not item.startswith("0"):
-        index = int(item)
-        if 1 <= index <= len(available):
-            return available[index - 1]
-
     normalized = item
     upper = item.upper()
     if upper.endswith("_ADD"):
@@ -72,7 +66,13 @@ def _template_from_menu_token(token: str, available: list[str]) -> str:
         candidate = f"{normalized}_A_3"
         if candidate.upper() in {template_id.upper() for template_id in available}:
             normalized = candidate
-    return normalized
+
+    available_by_id = {template_id.upper(): template_id for template_id in available}
+    matched = available_by_id.get(normalized.upper())
+    if matched is None:
+        display_id = _display_template_id(normalized)
+        raise ValueError(f"Photoset template {display_id} is unavailable or has been deleted.")
+    return matched
 
 
 def _split_template_selection(raw: str, available: list[str]) -> list[str]:
@@ -99,7 +99,10 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
             start, end = int(start_text), int(end_text)
             step = 1 if start <= end else -1
             for number in range(start, end + step, step):
-                selected.append(_template_from_menu_token(str(number), available))
+                try:
+                    selected.append(_template_from_menu_token(str(number), available))
+                except ValueError:
+                    continue
             continue
         selected.append(_template_from_menu_token(item, available))
     return selected
@@ -118,10 +121,12 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
     while True:
         print("")
         print("Choose photoset template(s):")
-        for index, template_id in enumerate(available, start=1):
+        for template_id in available:
             description = template_description(template_id)
-            print(f"  {index}: {description} [{_display_template_id(template_id)}]")
-        print("Enter one number, comma-separated numbers, a range like 1-4, exact ids like 001, all, or random.")
+            display_id = _display_template_id(template_id)
+            selector = str(int(display_id)) if display_id.isdigit() else display_id
+            print(f"  {selector}: {description} [{display_id}]")
+        print("Enter template ids without leading zeros, comma-separated ids, a range like 1-5, all, or random.")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         try:
             selections = _split_template_selection(choice, available)

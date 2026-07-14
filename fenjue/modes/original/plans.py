@@ -153,24 +153,24 @@ ANTI_SAFE_COMPOSITION = []
 
 CHARACTER_PROFILES = {
     "南宫": {
-        "official_core": "short black twin tails with pink gradient tips, straight blunt bangs, pink eyes, cat hairpin, playful but clean expression.",
-        "identity_tokens": ["short black twin tails with pink gradient tips", "straight blunt bangs", "pink eyes", "cat hairpin"],
+        "official_core": "short black bob with two high curled twin tails whose lower lengths are vivid pink, straight blunt bangs, warm pink-red eyes with orange-gold inner color, and a small gray cat-face hairpin.",
+        "identity_tokens": ["short black bob with two high curled twin tails", "vivid pink lower twin-tail lengths", "straight blunt bangs", "warm pink-red eyes with orange-gold inner color", "small gray cat-face hairpin"],
         "viewer_relationship": "clever presence, slightly playful, never exaggerated; gaze can meet the lens or drift away naturally.",
         "thumbnail_strategy": "black-pink hair color and the small cat accessory must stay readable at thumbnail size.",
         "interaction_rule": "side glance, eyes-away moment, natural eye contact, or a small smile are fine; avoid always forcing a camera-facing pose or pointing fingers toward the camera.",
         "color_anchor": "black, pink, clean white",
     },
     "爱芮": {
-        "official_core": "vivid pink twin tails, black streak in bangs, bright pink-blue eyes, idol-like accessories, energetic stage presence.",
-        "identity_tokens": ["vivid pink twin tails", "black streak in bangs", "pink-blue bright eyes", "idol-like hair accessories"],
+        "official_core": "vivid pink curled twin tails, one black forelock streak with small teal accent streaks, bright cyan-blue eyes with pink star-like inner highlights, dark ribbon-like twin-tail fittings, and an energetic idol expression.",
+        "identity_tokens": ["vivid pink curled twin tails", "black forelock streak with small teal accents", "cyan-blue eyes with pink star-like inner highlights", "dark ribbon-like twin-tail fittings"],
         "viewer_relationship": "bright and friendly, like a clean idol-stage interaction.",
         "thumbnail_strategy": "pink twin tails and bright eyes are the first recognition points.",
         "interaction_rule": "waving, smiling, or moving through the scene are fine; avoid selfie props, deliberate lens-facing poses, and hands reaching into the lens.",
         "color_anchor": "hot pink, cyan, clean black",
     },
     "千夏": {
-        "official_core": "mint gray-green short layered hair, large mint bow, soft asymmetrical bangs, pink-gold eyes, cute youthful facial features, bright approachable atmosphere.",
-        "identity_tokens": ["mint gray-green short layered hair", "large mint bow", "soft asymmetrical bangs", "pink-gold eyes"],
+        "official_core": "mint gray-green layered bob with a high side ponytail, a large dark-mint geometric bow at the ponytail base, soft asymmetrical bangs, multicolored amber-gold and cyan eyes, and compact youthful facial features.",
+        "identity_tokens": ["mint gray-green layered bob with high side ponytail", "large dark-mint geometric ponytail bow", "soft asymmetrical bangs", "multicolored amber-gold and cyan eyes"],
         "viewer_relationship": "warm friendly eye contact, soft cheerful smile, approachable and slightly playful expression.",
         "thumbnail_strategy": "mint hair, large bow, and clear eyes must stay stable; do not turn her into a generic long-haired character.",
         "interaction_rule": "small daily gestures, hands relaxed near the sides or sleeves, subtle cute reactions, and relaxed seated poses.",
@@ -209,8 +209,8 @@ CHARACTER_PROFILES = {
         "color_anchor": "warm brown, red, ivory, black gold",
     },
     "席德": {
-        "official_core": "short light cyan-blue hair, large blue back braid, green or teal-green eyes, mechanical arm parts, orange-yellow cable accents.",
-        "identity_tokens": ["short light cyan-blue hair", "large blue back braid", "green or teal-green eyes", "mechanical arm parts", "orange-yellow cable accents"],
+        "official_core": "short light cyan-blue layered hair, one large dark-blue braided ponytail at the back, luminous green and cyan eyes, clearly visible white-gray mechanical forearm parts, and orange-yellow cable accents.",
+        "identity_tokens": ["short light cyan-blue layered hair", "one large dark-blue braided back ponytail", "luminous green and cyan eyes", "visible white-gray mechanical forearm parts", "orange-yellow cable accents"],
         "viewer_relationship": "mechanical parts stay close to the body, eyes open and clear, expression light.",
         "thumbnail_strategy": "cyan-blue short hair, blue back braid, teal-green eyes, mechanical arm, and orange-yellow cable accents must stay clear; do not turn her into a generic blue-haired girl.",
         "interaction_rule": "mechanical arm and cables are identity anchors; scooter, hammer weapon, extra fixed design details, and hand-held items are not fixed identity and should be absent by default; avoid generic garden girl or full robot transformation.",
@@ -225,11 +225,11 @@ CHARACTER_PROFILES = {
         "color_anchor": "golden orange, yellow green, warm white, red",
     },
     "柚叶": {
-        "official_core": "vivid coral-red hair, straight bangs, long thick red side braid or large side ponytail mass, green-yellow eyes, round brown ear-like hair accessories, small fang.",
-        "identity_tokens": ["vivid coral-red hair", "straight bangs", "long thick red side braid or large side ponytail mass", "green-yellow eyes", "round brown ear-like hair accessories", "small fang"],
+        "official_core": "vivid coral-red bob with straight bangs and two extremely long thick segmented low braids tied near the ends, green-yellow eyes, round brown mechanical hair ornaments, a small fang, and one large fluffy brown striped tanuki tail.",
+        "identity_tokens": ["vivid coral-red bob with straight bangs", "two extremely long thick segmented low braids", "green-yellow eyes", "round brown mechanical hair ornaments", "small fang", "one large fluffy brown striped tanuki tail"],
         "viewer_relationship": "lively expression and natural motion; gaze may meet the lens or drift aside.",
-        "thumbnail_strategy": "coral-red hair mass, green-yellow eyes, round brown hair accessories, and small fang must stay readable.",
-        "interaction_rule": "a subtle tanuki-like motif may appear as a tiny accessory or mood cue; do not animalize her, add animal face details, or force large props.",
+        "thumbnail_strategy": "coral-red twin-braid silhouette, green-yellow eyes, round brown hair ornaments, small fang, and the single striped tanuki tail must stay readable.",
+        "interaction_rule": "the single fluffy striped tanuki tail is a fixed identity trait, but she otherwise keeps a human face, human hands, and human legs. Do not add animal muzzle, paws, extra tails, biological animal ears, or force large props.",
         "color_anchor": "coral red, green yellow, dark brown, soft pink",
     },
     "爱丽丝": {
@@ -273,10 +273,10 @@ CHARACTER_PROFILES = {
         "color_anchor": "mint green, purple, black, soft gray",
     },
     "艾莲": {
-        "official_core": "short dark navy-black hair with red-pink underside, red eyes, silver hair clips, shark tail or shark-fin silhouette.",
-        "identity_tokens": ["short dark navy-black hair", "red-pink underside hair", "red eyes", "silver hair clips", "shark tail or shark-fin silhouette"],
+        "official_core": "short dark navy-black layered bob with a vivid red-pink underside, red eyes, two silver hair clips, and one large continuous dark shark tail with a pale underside and clear tail fin.",
+        "identity_tokens": ["short dark navy-black layered bob", "vivid red-pink underside hair", "red eyes", "two silver hair clips", "one large continuous dark shark tail with pale underside and tail fin"],
         "viewer_relationship": "natural gaze and relaxed expression, with clear hair silhouette.",
-        "thumbnail_strategy": "dark navy short hair, red-pink underside, red eyes, silver clips, and shark-tail silhouette must stay readable.",
+        "thumbnail_strategy": "dark navy short hair, red-pink underside, red eyes, two silver clips, and the large continuous shark-tail silhouette must stay readable; never omit or reduce the tail to a small decorative fin.",
         "interaction_rule": "side glance, casual pose, or restrained motion are fine; expression may vary naturally, and hand-held objects, fixed role details, or leg-focused framing should not be forced.",
         "color_anchor": "dark navy, red pink, red, white",
     },
@@ -1291,6 +1291,7 @@ KNOWN_CHARACTER_NAMES = [
     "伊芙琳",
     "朱鸢",
     "卢西娅",
+    "维琳娜",
     "铃",
 ]
 
