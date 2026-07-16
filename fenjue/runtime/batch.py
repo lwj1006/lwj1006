@@ -106,6 +106,7 @@ CHARACTER_REFERENCES = {
     "席德": [
         str(PROJECT_DIR / "assets" / "席德1.png"),
         str(PROJECT_DIR / "assets" / "席德2.png"),
+        str(PROJECT_DIR / "assets" / "席德3.jpg"),
     ],
     "橘福福": [
         str(PROJECT_DIR / "assets" / "橘福福1.png"),
@@ -199,12 +200,28 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "铃2.jpg"),
         str(PROJECT_DIR / "assets" / "铃3.jpg"),
     ],
+    "扳机": [
+        str(PROJECT_DIR / "assets" / "扳机1.png"),
+        str(PROJECT_DIR / "assets" / "扳机2.png"),
+        str(PROJECT_DIR / "assets" / "扳机3.jpg"),
+    ],
+    "诺姆": [
+        str(PROJECT_DIR / "assets" / "诺姆1.png"),
+        str(PROJECT_DIR / "assets" / "诺姆2.png"),
+        str(PROJECT_DIR / "assets" / "诺姆3.jpg"),
+    ],
+    "银狼": [
+        str(PROJECT_DIR / "assets" / "银狼1.png"),
+        str(PROJECT_DIR / "assets" / "银狼2.png"),
+        str(PROJECT_DIR / "assets" / "银狼Lv999 1.png"),
+        str(PROJECT_DIR / "assets" / "银狼Lv999 2.png"),
+    ],
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
-CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可", "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅", "维琳娜", "铃"]
+CHARACTER_SEQUENCE = ["南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶", "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可", "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅", "维琳娜", "铃", "扳机", "诺姆", "银狼"]
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
@@ -1370,14 +1387,6 @@ def refresh_chatgpt_web_page(reason: str, settle_seconds: int, settle_label: str
     wait_with_echo(settle_seconds, settle_label)
 
 
-def refresh_chatgpt_web_after_upload_cooldown() -> None:
-    refresh_chatgpt_web_page(
-        "Upload cooldown",
-        WEB_REFRESH_SETTLE_SECONDS,
-        "Web refresh settle",
-    )
-
-
 def startup_refresh_before_button_work() -> None:
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
@@ -1484,17 +1493,15 @@ def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
         return
 
     cooldown_end = dt.datetime.now() + dt.timedelta(seconds=UPLOAD_COOLDOWN_SECONDS)
-    generation_resume = cooldown_end + dt.timedelta(seconds=WEB_REFRESH_SETTLE_SECONDS)
     print(
         "Upload cooldown: "
         f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
         f"next upload has {next_upload_count} images and would reach {projected_total}. "
-        f"Image generation will resume at {generation_resume.strftime('%Y-%m-%d %H:%M')} local time "
-        "after refreshing the web page.",
+        f"The next upload round will start directly at {cooldown_end.strftime('%Y-%m-%d %H:%M')} local time "
+        "without refreshing the web page.",
         flush=True,
     )
     wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown", end_time=cooldown_end)
-    refresh_chatgpt_web_after_upload_cooldown()
     _reset_upload_counter_state("cooldown completed")
 
 

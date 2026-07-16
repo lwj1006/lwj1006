@@ -33,6 +33,21 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "compact bright silhouette; do not copy the photoset model's long hair, mature body type, heavy glamour face, or unrelated hair accessories. "
         "Music-shop props, a portable CD player, student cap, or academy uniform are optional reference motifs only, not mandatory outfit locks."
     ),
+    "扳机": (
+        "Trigger adaptation: preserve her creamy-blonde high ponytail, opaque glossy black eye visor, paired red triangular mechanical hair clips, "
+        "black rear hair fixtures, and thin yellow cable. The visor must stay opaque and cover both eyes in every camera angle. "
+        "Do not copy the photoset model's eyes, eyewear, hairstyle, weapons, or mature glamour identity."
+    ),
+    "诺姆": (
+        "Nome adaptation: preserve compact youthful proportions, golden-blonde blunt bangs, long low braided tails, violet-blue eyes, and the oversized "
+        "silver-gray cylindrical mechanical helmet with two dark antennae and circular side plates. The antennae are machine parts, not animal ears. "
+        "Scale furniture and poses to the small silhouette; never copy a mature model body, remove the helmet, or add the reference companion."
+    ),
+    "银狼": (
+        "Honkai: Star Rail Silver Wolf adaptation: preserve the silver-lilac face-framing bob and high side ponytail, pale gray-violet eyes, "
+        "blue-purple gradient goggles on the head, and black-purple rabbit-ear-shaped hair ribbon. Keep her compact cool gamer-like presence. "
+        "Do not reinterpret her as a Zenless Zone Zero character, copy the photoset model's hair, or lock in Lv999 fan-art armor and weapons."
+    ),
 }
 
 

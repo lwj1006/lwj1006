@@ -390,6 +390,30 @@ CHARACTER_PROFILES = {
         "thumbnail_strategy": "deep blue-violet short hair, side-swept bang, teal eyes, orange N hair clip, and small teal earrings must remain readable; do not turn her into a long-haired mature model or generic blue-haired girl.",
         "interaction_rule": "music-shop gestures, holding a record case, listening pose, small finger-to-lips wink, or light academy pose are compatible; the portable CD player, student cap, academy uniform, and Yunki-style outfit are reference outfits or props only, not mandatory identity anchors for every photoset.",
         "color_anchor": "deep blue violet, teal blue, orange, black, warm gold",
+    },
+    "扳机": {
+        "official_core": "long creamy-blonde hair with a high ponytail and short face-framing layers, an opaque glossy black visor covering both eyes, paired red triangular hair clips with round gray mechanical centers, angular black rear hair fixtures, and a thin yellow cable accent.",
+        "identity_tokens": ["long creamy-blonde high ponytail", "short blonde face-framing layers", "opaque glossy black eye visor", "paired red triangular hair clips with round gray centers", "angular black rear hair fixtures", "thin yellow cable accent"],
+        "viewer_relationship": "quiet, precise, and self-possessed; use head angle and mouth shape for expression because the opaque visor remains in place.",
+        "thumbnail_strategy": "creamy-blonde ponytail, black visor, paired red triangular clips, black rear fixtures, and yellow cable must remain immediately readable.",
+        "interaction_rule": "the visor always covers both eyes and must never become transparent glasses, a blindfold made of fabric, or exposed eyes. Keep hands simple and do not force a firearm, oversized weapon, or tactical action.",
+        "color_anchor": "creamy blonde, glossy black, signal red, industrial gray, yellow",
+    },
+    "诺姆": {
+        "official_core": "compact youthful proportions, golden-blonde hair with blunt short bangs and very long low braided tails, violet-blue eyes, and an oversized cylindrical silver-gray mechanical helmet with two dark rabbit-ear-shaped antennae and circular A-mark side plates.",
+        "identity_tokens": ["compact youthful proportions", "golden-blonde blunt bangs", "very long low braided blonde tails", "violet-blue eyes", "oversized cylindrical silver-gray mechanical helmet", "two dark mechanical rabbit-ear-shaped antennae", "circular A-mark side plates"],
+        "viewer_relationship": "bright, curious, and slightly earnest; preserve a small youthful silhouette and clear open eyes.",
+        "thumbnail_strategy": "golden hair, violet-blue eyes, the large silver cylindrical helmet, dark twin antennae, and circular side plates must stay readable without enlarging the body into mature proportions.",
+        "interaction_rule": "the two tall shapes are mechanical helmet antennae, never biological animal ears. Keep the helmet wearable and structurally coherent; do not add the reference companion, heavy gauntlets, or unrelated machinery unless a template explicitly needs a small background prop.",
+        "color_anchor": "golden blonde, silver gray, charcoal black, violet blue, warm yellow",
+    },
+    "银狼": {
+        "official_core": "Silver Wolf from Honkai: Star Rail, with silver-lilac hair in a short face-framing bob plus a high side ponytail, pale gray-violet eyes, blue-purple gradient goggles resting on her head, and a black-purple rabbit-ear-shaped hair ribbon.",
+        "identity_tokens": ["Honkai: Star Rail Silver Wolf", "silver-lilac short face-framing bob", "high side ponytail", "pale gray-violet eyes", "blue-purple gradient head goggles", "black-purple rabbit-ear-shaped hair ribbon"],
+        "viewer_relationship": "cool, playful, and confidently detached, with a small knowing smile or focused gamer-like gaze.",
+        "thumbnail_strategy": "silver-lilac side-ponytail silhouette, pale violet eyes, gradient goggles, and black-purple ribbon must remain clear; never substitute another game's similarly named character.",
+        "interaction_rule": "preserve the canonical Honkai: Star Rail identity. The Lv999 armor, weapons, sci-fi gloves, and upgraded effects in some references are optional fan-art styling only, not permanent identity; keep hands simple and object-free by default.",
+        "color_anchor": "silver lilac, violet, electric blue, black, restrained cyan",
     }
 }
 
@@ -1293,6 +1317,9 @@ KNOWN_CHARACTER_NAMES = [
     "卢西娅",
     "维琳娜",
     "铃",
+    "扳机",
+    "诺姆",
+    "银狼",
 ]
 
 
