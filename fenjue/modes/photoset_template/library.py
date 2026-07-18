@@ -43,10 +43,21 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "silver-gray cylindrical mechanical helmet with two dark antennae and circular side plates. The antennae are machine parts, not animal ears. "
         "Scale furniture and poses to the small silhouette; never copy a mature model body, remove the helmet, or add the reference companion."
     ),
-    "银狼": (
-        "Honkai: Star Rail Silver Wolf adaptation: preserve the silver-lilac face-framing bob and high side ponytail, pale gray-violet eyes, "
-        "blue-purple gradient goggles on the head, and black-purple rabbit-ear-shaped hair ribbon. Keep her compact cool gamer-like presence. "
-        "Do not reinterpret her as a Zenless Zone Zero character, copy the photoset model's hair, or lock in Lv999 fan-art armor and weapons."
+    "卡提希娅": (
+        "Cartethyia adaptation: keep her very long golden-blonde hair, clear blue eyes, long pointed elf ears, blue-silver branching crown ornament, "
+        "and blue teardrop earrings visible. Never hide or round off the elf ears, and do not copy the photoset model's hairstyle."
+    ),
+    "莫宁": (
+        "Morning adaptation: keep her pale silver-blue one-eye fringe, visible red eye, extremely long rear hair, triangular clips and earrings, "
+        "and the floating dark crystal halo. The halo must remain a separate hovering structure, never a hat or solid headband."
+    ),
+    "菲比": (
+        "Phoebe adaptation: preserve her very long wavy blonde hair, violet eyes, blue cross hair clip, and oversized white wide-brim hat with its blue feather. "
+        "Do not replace the broad hat or blonde side curls with the photoset model's headwear or hairstyle."
+    ),
+    "西格莉卡": (
+        "Sigrika adaptation: preserve the extremely voluminous vivid-orange hair divided into multiple coherent segmented bubble-braid tails, bright green eyes, "
+        "and white hood-like headpiece. Do not simplify the hair into one ponytail or copy the photoset model's hair volume."
     ),
 }
 
