@@ -266,6 +266,10 @@ TEMPLATE_DESCRIPTIONS: dict[str, str] = {
     "266": "Blue floral water garden",
     "267": "Floral resort swim cabin",
     "268": "Black lace evening lounge",
+    "269": "Black lace bunny studio",
+    "270": "Blue birthday ballroom",
+    "271": "Candlelit piano bridal chamber",
+    "272": "Minimal white draped portraits",
 }
 
 
