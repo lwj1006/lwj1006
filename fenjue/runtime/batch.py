@@ -57,6 +57,17 @@ REFERENCE_FILES = [
 
 TOTAL_RUNS = 99
 
+LOG_LEVEL = os.getenv("FENJUE_LOG_LEVEL", "INFO").strip().upper()
+
+
+def debug_log(message: str) -> None:
+    if LOG_LEVEL == "DEBUG":
+        print(f"[DEBUG] {message}", flush=True)
+
+
+def info_log(message: str) -> None:
+    print(f"[INFO] {message}", flush=True)
+
 
 def resolve_run_character(character_name: str, run_number: int) -> str:
     return character_name
@@ -235,6 +246,8 @@ TOTAL_RUNS = 999
 
 CHECK_INTERVAL_SECONDS = 400
 UPLOAD_SETTLE_SECONDS = 15
+UPLOAD_SETTLE_AFTER_40_SECONDS = 20
+UPLOAD_SETTLE_AFTER_60_SECONDS = 25
 UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
 UPLOAD_COOLDOWN_SECONDS = 90 * 60
 UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
@@ -243,6 +256,7 @@ STARTUP_REFRESH_SETTLE_SECONDS = 20
 _uploaded_images_since_cooldown = 0
 _last_upload_counter_at = 0.0
 _upload_counter_loaded = False
+_completed_runs_this_process = 0
 TEXT_BEFORE_SEND_SECONDS = 20
 ECHO_COUNTDOWN_LAST_SECONDS = 20
 SINGLE_CLICK_HOLD_SECONDS = 0.06
@@ -971,7 +985,11 @@ UPLOAD_COUNTER_STATE_FILE = PROJECT_DIR / "config" / "upload_cooldown_state.json
 
 
 def upload_settle_seconds(_reference_count: int) -> int:
-    """Use one fixed wait after every upload, regardless of reference count."""
+    """Increase attachment processing time after long same-page sessions."""
+    if _completed_runs_this_process >= 60:
+        return UPLOAD_SETTLE_AFTER_60_SECONDS
+    if _completed_runs_this_process >= 40:
+        return UPLOAD_SETTLE_AFTER_40_SECONDS
     return UPLOAD_SETTLE_SECONDS
 
 
@@ -1367,25 +1385,27 @@ def paste_text(text: str) -> None:
 
 
 def wait_with_echo(seconds: int, label: str, *, end_time: dt.datetime | None = None) -> None:
-    """Wait with a quiet countdown that only prints during the final seconds."""
+    """Wait quietly at INFO level; retain the old countdown at DEBUG level."""
     seconds = max(0, int(seconds))
     if seconds == 0:
         return
 
     if end_time is None:
-        print(f"{label}: waiting {seconds}s", flush=True)
+        info_log(f"{label}: waiting {seconds}s")
     else:
-        print(
-            f"{label}: waiting until {end_time.strftime('%Y-%m-%d %H:%M')} local time.",
-            flush=True,
-        )
+        info_log(f"{label}: waiting until {end_time.strftime('%Y-%m-%d %H:%M')} local time")
+    if LOG_LEVEL != "DEBUG":
+        time.sleep(seconds)
+        info_log(f"{label}: complete")
+        return
     quiet_seconds = max(0, seconds - ECHO_COUNTDOWN_LAST_SECONDS)
     if quiet_seconds:
         time.sleep(quiet_seconds)
 
     for remaining in range(min(seconds, ECHO_COUNTDOWN_LAST_SECONDS), 0, -1):
-        print(f"{label}: {remaining}s remaining", flush=True)
+        debug_log(f"{label}: {remaining}s remaining")
         time.sleep(1)
+    info_log(f"{label}: complete")
 
 
 def refresh_chatgpt_web_page(reason: str, settle_seconds: int, settle_label: str) -> None:
@@ -1533,38 +1553,40 @@ def upload_reference_images(reference_files: list[str]) -> list[str]:
     upload_files = prepare_upload_files(reference_files)
     apply_upload_cooldown_if_needed(len(upload_files))
 
-    print("Upload: opening plus menu", flush=True)
+    info_log(f"Upload: starting {len(upload_files)} reference image(s)")
+    debug_log("Upload: opening plus menu")
     # Use the ChatGPT input plus menu instead of Ctrl+U.
     click_slow(*COORDS["plus_button"], after=1.0)
-    print("Upload: choosing add photo/file menu item", flush=True)
+    debug_log("Upload: choosing add photo/file menu item")
     click_slow(*COORDS["add_photo_file_menu"], after=2.0)
 
     file_list = " ".join(f'"{p}"' for p in upload_files)
     time.sleep(0.25)
 
-    print("Upload: focusing file-name input", flush=True)
+    debug_log("Upload: focusing file-name input")
     click_slow(*COORDS["file_name_input"], after=0.3)
     pyautogui.hotkey("ctrl", "a")
     time.sleep(0.15)
-    print(f"Upload: selecting reference files: {file_list}", flush=True)
+    debug_log(f"Upload: selecting reference files: {file_list}")
     paste_text(file_list)
     pyautogui.press("enter")
 
     # Wait for ChatGPT to attach/process thumbnails before typing text.
     wait_with_echo(upload_settle_seconds(len(upload_files)), "Upload settle")
     record_uploaded_image_count(len(upload_files))
+    info_log(f"Upload: complete ({len(upload_files)} image(s))")
     return upload_files
 
 
 def send_prompt(prompt: str) -> None:
-    print("Prompt: focusing ChatGPT input", flush=True)
+    debug_log("Prompt: focusing ChatGPT input")
     focus_chatgpt_input()
-    print("Prompt: pasting text", flush=True)
+    debug_log("Prompt: pasting text")
     paste_text(prompt)
 
     # Upload completion can leave the send button inactive briefly.
     wait_with_echo(TEXT_BEFORE_SEND_SECONDS, "Before send")
-    print("Prompt: clicking send button", flush=True)
+    debug_log("Prompt: clicking send button")
     click_send_button()
 
 
@@ -2582,6 +2604,8 @@ def shutdown_now() -> None:
 
 
 def main() -> None:
+    global _completed_runs_this_process
+    _completed_runs_this_process = 0
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE = 0.15
 
@@ -2727,29 +2751,30 @@ def main() -> None:
             prompt = with_image_prompt_prefix(prompt)
 
             print("=" * 72, flush=True)
-            print(f"[{run_number:02d}/{total_runs}] Starting run", flush=True)
-            print(f"[{run_number:02d}] batch character: {character_name}", flush=True)
-            print(f"[{run_number:02d}] character: {character_name}", flush=True)
-            print(f"[{run_number:02d}] references: {reference_files}", flush=True)
-            print(f"[{run_number:02d}] clothing theme: {theme}", flush=True)
-            print(f"[{run_number:02d}] black hosiery accent: {'yes' if black_hosiery_applied else 'no'}", flush=True)
-            print(f"[{run_number:02d}] scene: {scene}", flush=True)
-            print(f"[{run_number:02d}] pose: {pose}", flush=True)
-            print(f"[{run_number:02d}] lighting: {lighting}", flush=True)
-            print(f"[{run_number:02d}] mood: {mood}", flush=True)
-            print(f"[{run_number:02d}] art plan: {plan_name}", flush=True)
-            print(f"[{run_number:02d}] config revision: {config_revision}", flush=True)
-            print(f"[{run_number:02d}] action style: {action_style['name']}", flush=True)
-            print(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}", flush=True)
-            print(f"[{run_number:02d}] viewer distance: {viewer_distance}", flush=True)
-            print(f"[{run_number:02d}] shot scale: {shot_scale['name']} -> {shot_scale['description']}", flush=True)
-            print(f"[{run_number:02d}] composition plan: {composition_plan['name']}", flush=True)
-            print(f"[{run_number:02d}] required identity tokens: {required_identity_tokens}", flush=True)
-            print(f"[{run_number:02d}] graphic concept: {concept}", flush=True)
-            print(f"[{run_number:02d}] visual device: {art_plan['visual_device']}", flush=True)
-            print(f"[{run_number:02d}] material language: {art_plan['material_language']}", flush=True)
-            print(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}", flush=True)
-            print(f"[{run_number:02d}] prompt template: {prompt_name}", flush=True)
+            info_log(
+                f"Run {run_number}/{total_runs} started: character={character_name}, "
+                f"template={prompt_name}, references={len(reference_files)}, "
+                f"upload_wait={upload_settle_seconds(len(reference_files))}s"
+            )
+            debug_log(f"[{run_number:02d}] references: {reference_files}")
+            debug_log(f"[{run_number:02d}] clothing theme: {theme}")
+            debug_log(f"[{run_number:02d}] black hosiery accent: {'yes' if black_hosiery_applied else 'no'}")
+            debug_log(f"[{run_number:02d}] scene: {scene}")
+            debug_log(f"[{run_number:02d}] pose: {pose}")
+            debug_log(f"[{run_number:02d}] lighting: {lighting}")
+            debug_log(f"[{run_number:02d}] mood: {mood}")
+            debug_log(f"[{run_number:02d}] art plan: {plan_name}")
+            debug_log(f"[{run_number:02d}] config revision: {config_revision}")
+            debug_log(f"[{run_number:02d}] action style: {action_style['name']}")
+            debug_log(f"[{run_number:02d}] propagation: {propagation_profile['propagation_translation']}")
+            debug_log(f"[{run_number:02d}] viewer distance: {viewer_distance}")
+            debug_log(f"[{run_number:02d}] shot scale: {shot_scale['name']} -> {shot_scale['description']}")
+            debug_log(f"[{run_number:02d}] composition plan: {composition_plan['name']}")
+            debug_log(f"[{run_number:02d}] required identity tokens: {required_identity_tokens}")
+            debug_log(f"[{run_number:02d}] graphic concept: {concept}")
+            debug_log(f"[{run_number:02d}] visual device: {art_plan['visual_device']}")
+            debug_log(f"[{run_number:02d}] material language: {art_plan['material_language']}")
+            debug_log(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}")
             # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
 
             uploaded_files = upload_reference_images(reference_files)
@@ -2779,6 +2804,8 @@ def main() -> None:
             screenshot_path = wait_for_generation(run_number)
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             record_completed_run(character_name, run_number)
+            _completed_runs_this_process += 1
+            info_log(f"Run {run_number}/{total_runs} completed")
             mark_character_clothing_theme_used(character_name, theme, used_by_character)
             mark_character_art_plan_used(character_name, plan_name, used_plans_by_character)
             batch_completed_characters.append(character_name)

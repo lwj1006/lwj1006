@@ -3,6 +3,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
 cd /d "%~dp0"
 title Fenjue Prompt Mode Router
+if not defined FENJUE_LOG_LEVEL set "FENJUE_LOG_LEVEL=INFO"
 
 set "RUNTIME_UPLOAD_DIR=%~d0\_fu"
 if not exist "%RUNTIME_UPLOAD_DIR%" mkdir "%RUNTIME_UPLOAD_DIR%"
@@ -10,15 +11,16 @@ echo Clearing temporary upload files: %RUNTIME_UPLOAD_DIR%
 del /f /q /a "%RUNTIME_UPLOAD_DIR%\*" >nul 2>&1
 for /d %%D in ("%RUNTIME_UPLOAD_DIR%\*") do rd /s /q "%%~fD"
 
-echo Fenjue prompt-mode router
-echo A = original scene-character-outfit
-echo B = photographer mode
-echo C = master artist composition
-echo D = target fixed prompt batch
-echo E = photoset template mode
-echo E2 = refined photoset template mode
-echo R = reset/recalibrate ChatGPT coordinates
-echo U = clear upload cooldown counter
+echo ================================================================
+echo   FENJUE IMAGE AUTOMATION
+echo ================================================================
+echo   IMAGE MODES
+echo   [A] Original    [B] Photographer    [C] Composition
+echo   [D] Fixed batch [E] Photoset         [E2] Refined photoset
+echo.
+echo   TOOLS
+echo   [R] Recalibrate coordinates          [U] Clear upload cooldown
+echo   Log level: %FENJUE_LOG_LEVEL% ^(set FENJUE_LOG_LEVEL=DEBUG for details^)
 
 set "LAUNCH_ARGS=%*"
 if "%~1"=="" (
@@ -34,7 +36,17 @@ if "%~1"=="" (
     ) else if /I "!CHOICE!"=="UPLOAD_RESET" (
         set "LAUNCH_ARGS=--clear-upload-counter"
     ) else (
+        echo.
+        echo Automation control
+        echo   [V] OpenCV test ^(recommended^)  [S] OpenCV unattended + shutdown
+        echo   [L] Legacy calibrated coordinates
+        set /p "AUTOMATION_CHOICE=Choose [V/S/L, default V]: "
+        if "!AUTOMATION_CHOICE!"=="" set "AUTOMATION_CHOICE=V"
         set "LAUNCH_ARGS=!CHOICE!"
+        if /I "!AUTOMATION_CHOICE!"=="V" set "LAUNCH_ARGS=!LAUNCH_ARGS! --vision"
+        if /I "!AUTOMATION_CHOICE!"=="OPENCV" set "LAUNCH_ARGS=!LAUNCH_ARGS! --vision"
+        if /I "!AUTOMATION_CHOICE!"=="S" set "LAUNCH_ARGS=!LAUNCH_ARGS! --vision --shutdown-on-error"
+        if /I "!AUTOMATION_CHOICE!"=="FORMAL" set "LAUNCH_ARGS=!LAUNCH_ARGS! --vision --shutdown-on-error"
     )
 )
 

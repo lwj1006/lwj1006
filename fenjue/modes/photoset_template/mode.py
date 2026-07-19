@@ -94,18 +94,52 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
         item = part.strip()
         if not item:
             continue
-        if "-" in item and all(piece.strip().isdigit() for piece in item.split("-", 1)):
-            start_text, end_text = item.split("-", 1)
+        randomize_range = item.lower().endswith("r")
+        range_item = item[:-1] if randomize_range else item
+        if "-" in range_item and all(piece.strip().isdigit() for piece in range_item.split("-", 1)):
+            start_text, end_text = range_item.split("-", 1)
             start, end = int(start_text), int(end_text)
             step = 1 if start <= end else -1
+            range_selection: list[str] = []
             for number in range(start, end + step, step):
                 try:
-                    selected.append(_template_from_menu_token(str(number), available))
+                    range_selection.append(_template_from_menu_token(str(number), available))
                 except ValueError:
                     continue
+            if randomize_range:
+                random.shuffle(range_selection)
+            selected.extend(range_selection)
             continue
         selected.append(_template_from_menu_token(item, available))
     return selected
+
+
+def _print_template_browser(available: list[str], query: str = "") -> None:
+    query = query.strip()
+    visible = available
+    if query:
+        if "-" in query and all(piece.strip().isdigit() for piece in query.split("-", 1)):
+            start_text, end_text = query.split("-", 1)
+            low, high = sorted((int(start_text), int(end_text)))
+            visible = [
+                template_id for template_id in available
+                if _display_template_id(template_id).isdigit()
+                and low <= int(_display_template_id(template_id)) <= high
+            ]
+        else:
+            lowered = query.lower()
+            visible = [
+                template_id for template_id in available
+                if lowered in _display_template_id(template_id).lower()
+                or lowered in template_description(template_id).lower()
+            ]
+
+    if not visible:
+        print(f"No templates matched {query!r}.")
+        return
+    for template_id in visible:
+        display_id = _display_template_id(template_id)
+        print(f"  {int(display_id) if display_id.isdigit() else display_id}: {template_description(template_id)}")
 
 
 def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
@@ -120,14 +154,24 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
 
     while True:
         print("")
-        print("Choose photoset template(s):")
-        for template_id in available:
-            description = template_description(template_id)
-            display_id = _display_template_id(template_id)
-            selector = str(int(display_id)) if display_id.isdigit() else display_id
-            print(f"  {selector}: {description} [{display_id}]")
-        print("Enter template ids without leading zeros, comma-separated ids, a range like 1-5, all, or random.")
+        first_id = _display_template_id(available[0])
+        last_id = _display_template_id(available[-1])
+        print(f"Choose photoset template(s): {len(available)} available, {first_id} through {last_id}.")
+        print("Recent templates:")
+        _print_template_browser(available[-12:])
+        print("Selection: 225 | 225-280 | 225-280r (shuffled, no repeats) | all | random")
+        print("Browse: L = all descriptions | L 225-280 = one range | S beach = search descriptions")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
+        lowered_choice = choice.lower()
+        if lowered_choice == "l":
+            _print_template_browser(available)
+            continue
+        if lowered_choice.startswith("l "):
+            _print_template_browser(available, choice[2:])
+            continue
+        if lowered_choice.startswith("s "):
+            _print_template_browser(available, choice[2:])
+            continue
         try:
             selections = _split_template_selection(choice, available)
             if not selections:
@@ -154,9 +198,11 @@ def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
 
     while True:
         print("")
-        print("Choose character(s) for photoset mode:")
-        for index, character_name in enumerate(batch.CHARACTER_SEQUENCE, start=1):
-            print(f"  {index} = {character_name}")
+        print(f"Choose character(s) for photoset mode ({len(batch.CHARACTER_SEQUENCE)} total):")
+        entries = [f"{index:>2}={name}" for index, name in enumerate(batch.CHARACTER_SEQUENCE, start=1)]
+        column_width = max(len(entry) for entry in entries) + 3
+        for start in range(0, len(entries), 3):
+            print("  " + "".join(entry.ljust(column_width) for entry in entries[start:start + 3]).rstrip())
         print("Input examples: 1 = one character; 1 2 = rotate two characters; 1-3 = rotate a range; names are also OK.")
         choice = input(f"Character(s) [default 1]: ").strip() or "1"
         try:
@@ -168,6 +214,32 @@ def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
             print("No characters selected. Please try again.")
             continue
         return tuple(selected)
+
+
+def _parse_shots_per_template(raw: str) -> int | None:
+    choice = raw.strip().lower()
+    if choice in {"a", "all", "*", "全部"}:
+        return None
+    if not choice.isdigit() or int(choice) < 1:
+        raise ValueError("Enter a positive number, or A for every image")
+    return int(choice)
+
+
+def _choose_shots_per_template(argv: list[str], batch) -> int | None:
+    raw = _option_value(argv, "--SHOTS-PER-TEMPLATE", "--E-SHOTS", "--PHOTOSET-SHOTS")
+    if raw is not None:
+        return _parse_shots_per_template(raw)
+    if batch.noninteractive_selection_enabled():
+        return None
+
+    while True:
+        print("")
+        print("Images per template: a number randomly selects up to that many images without repeats.")
+        raw = input("Images per template [A = all]: ").strip() or "a"
+        try:
+            return _parse_shots_per_template(raw)
+        except ValueError as exc:
+            print(f"{exc}. Please try again.")
 
 
 def _load_completed_templates(available: list[str]) -> dict[str, list[str]]:
@@ -278,12 +350,15 @@ def _build_photoset_schedule(
 
 def _build_assigned_photoset_schedule(
     assignments: tuple[tuple[str, PhotosetTemplate], ...],
+    shots_per_template: int | None = None,
 ) -> tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...]:
-    return tuple(
-        (character_name, template, shot)
-        for character_name, template in assignments
-        for shot in template.shots
-    )
+    schedule: list[tuple[str, PhotosetTemplate, PhotosetShot]] = []
+    for character_name, template in assignments:
+        shots = list(template.shots)
+        if shots_per_template is not None and len(shots) > shots_per_template:
+            shots = random.sample(shots, shots_per_template)
+        schedule.extend((character_name, template, shot) for shot in shots)
+    return tuple(schedule)
 
 
 def _active_template_and_shot() -> tuple[PhotosetTemplate, PhotosetShot]:
@@ -316,12 +391,26 @@ def _total_shots() -> int:
     return len(_active_shot_schedule)
 
 
+def _scheduled_template_finishes(
+    schedule: tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...],
+    schedule_index: int,
+) -> bool:
+    if not 0 <= schedule_index < len(schedule):
+        return False
+    current_character, current_template, _ = schedule[schedule_index]
+    if schedule_index + 1 >= len(schedule):
+        return True
+    next_character, next_template, _ = schedule[schedule_index + 1]
+    return next_character != current_character or next_template is not current_template
+
+
 def activate(batch, args=None) -> None:
     global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule
     global _current_shot_index, _completed_templates_by_character
     argv = list(args or [])
     requested_templates = _choose_templates(argv, batch)
     _active_characters = _choose_characters(argv, batch)
+    shots_per_template = _choose_shots_per_template(argv, batch)
     available_ids = list_template_ids()
     _completed_templates_by_character = _load_completed_templates(available_ids)
     for character_name in _active_characters:
@@ -340,7 +429,7 @@ def activate(batch, args=None) -> None:
     if not assignments:
         raise RuntimeError("No unfinished photoset templates are available for the selected characters.")
     _active_templates = tuple(template for _, template in assignments)
-    photoset_schedule = _build_assigned_photoset_schedule(assignments)
+    photoset_schedule = _build_assigned_photoset_schedule(assignments, shots_per_template)
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
     _active_shot_schedule = tuple((template, shot) for _, template, shot in photoset_schedule)
     _current_shot_index = 0
@@ -360,8 +449,8 @@ def activate(batch, args=None) -> None:
         schedule_index = run_number - 1
         if not 0 <= schedule_index < len(photoset_schedule):
             return
-        scheduled_character, template, shot = photoset_schedule[schedule_index]
-        if character_name != scheduled_character or shot is not template.shots[-1]:
+        scheduled_character, template, _shot = photoset_schedule[schedule_index]
+        if character_name != scheduled_character or not _scheduled_template_finishes(photoset_schedule, schedule_index):
             return
 
         _mark_template_completed(
@@ -479,6 +568,7 @@ def activate(batch, args=None) -> None:
         f"Characters: {' / '.join(_active_characters)}. "
         "Rotation: one character completes one full template, then the next character takes the next template. "
         f"Total templates: {len(_active_templates)}. "
+        f"Images per template: {'all' if shots_per_template is None else f'up to {shots_per_template} random unique images'}. "
         f"Total shots: {_total_shots()}.",
         flush=True,
     )
