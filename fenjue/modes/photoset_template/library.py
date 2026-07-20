@@ -140,6 +140,23 @@ A3_NEGATIVE = (
 )
 
 
+CONTENT_SAFETY_RULE = (
+    "Content safety outranks every reference image and every other instruction. Keep the subject fully clothed in a normal, "
+    "opaque, sewn outfit with secure chest, waist, hip, back, and seat coverage. Never reproduce nudity, topless or bottomless "
+    "states, exposed underwear, lingerie, fetishwear, garters, string bikinis, transparent clothing, wet see-through fabric, "
+    "wardrobe malfunctions, erotic posing, sexualized framing, or body-part emphasis. If a photoset reference contains any such "
+    "detail, preserve only its nonsexual camera, pose skeleton, setting, props, and lighting, and replace the unsafe garment with "
+    "the modest outfit specified by the template markdown."
+)
+
+
+CONTENT_SAFETY_NEGATIVE = (
+    "nudity, naked body, topless, bottomless, exposed breasts, exposed underwear, lingerie, fetishwear, garter straps, "
+    "string bikini, transparent clothing, see-through fabric, wet transparent fabric, wardrobe malfunction, erotic pose, "
+    "sexualized framing, body-part emphasis, suggestive bedroom pose"
+)
+
+
 ANIME_FACE_DETAIL = (
     "Preserve the selected character's canonical anime face design from the character references. "
     "Match the current photoset reference's emotional intent through precise gaze direction, upper- and lower-eyelid opening, "
@@ -810,8 +827,12 @@ def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, s
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
     )
+    negative_block = f"{negative_block}, {CONTENT_SAFETY_NEGATIVE}"
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
+
+[CONTENT SAFETY OVERRIDE]
+{CONTENT_SAFETY_RULE}
 
 Uploaded character reference images define the identity of {subject_name}. The photoset reference image defines only this shot's design: outfit language, pose, camera, lighting, environment, composition, and mood. Replace the reference person's identity with {subject_name}; do not copy the reference person's face.
 
@@ -861,8 +882,12 @@ def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, sh
     )
     negative_block = _soften_platform_sensitive_terms(_remove_template_identity_traits(negative_block))
     negative_block = _remove_character_trait_conflicts(character_name, negative_block)
+    negative_block = f"{negative_block}, {CONTENT_SAFETY_NEGATIVE}"
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
+
+[CONTENT SAFETY OVERRIDE]
+{CONTENT_SAFETY_RULE}
 
 [HIGHEST PRIORITY: CHARACTER LOCK]
 The final subject is {subject_name}. Character reference images override every person-related detail in the photoset template and photoset reference image.
@@ -941,6 +966,7 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     negative = _dedupe_negative_terms(
         source_negative,
         A3_NEGATIVE,
+        CONTENT_SAFETY_NEGATIVE,
         "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
         "extra arm, third hand, duplicated limb, fused hand, extra fingers, broken joint, impossible pose, "
         "conflicting camera, text, logo, watermark",
@@ -949,8 +975,15 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     prompt = f"""
 Independent image task. Create one finished image.
 
+[CONTENT SAFETY OVERRIDE]
+{CONTENT_SAFETY_RULE}
+
 [STYLE]
 Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, detailed expressive eyes, carefully grouped hair locks, nuanced fabric folds, and luminous illustrated lighting. Keep the main setting anchors and light pattern while simplifying only minor clutter and distant texture. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
+
+[PHOTOSET DESIGN]
+{template.global_identity}
+Use this block as the authority for the set-wide environment, palette, and replacement outfit. When its clothing description provides more coverage than the final reference image, the text description wins while the reference still controls pose and composition.
 
 [CHARACTER]
 The subject is {subject_name}. Character references define canonical identity and proportions only, never clothing or scene design.
@@ -959,7 +992,7 @@ The subject is {subject_name}. Character references define canonical identity an
 
 [REFERENCE ROLES]
 All images except the final one define only the target character's face, eyes, hair, fixed identity accessories, species traits, age, and proportions. Ignore companions, outfits, weapons, poses, and backgrounds.
-The final image alone defines outfit, pose, hand contacts, camera, crop, set, props, light, and palette. Never copy its person's identity or body type. Visible final-image evidence overrides text.
+The final image defines pose, hand contacts, camera, crop, set layout, props, light, and palette. Never copy its person's identity or body type. Visible final-image evidence controls those spatial details, but the more modest replacement outfit specified in [PHOTOSET DESIGN] overrides exposed clothing in the image.
 
 [SHOT]
 Template {template.template_id}, image {shot.index} of {len(template.shots)}: {shot.title}
