@@ -245,6 +245,16 @@ CHARACTER_SEQUENCE = [
     "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
     "诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗",
 ]
+ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:30]
+WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[30:46]
+ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[46:]
+CHARACTER_RANDOM_POOLS = {
+    "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
+    "鸣潮": WUTHERING_WAVES_CHARACTERS,
+    "终末地": ENDFIELD_CHARACTERS,
+    "全部": CHARACTER_SEQUENCE,
+}
+_active_character_random_pool_name = "全部"
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
@@ -1980,24 +1990,42 @@ def save_used_character_batch(used_characters: list[str]) -> None:
     )
 
 
+def active_character_random_pool() -> list[str]:
+    return CHARACTER_RANDOM_POOLS[_active_character_random_pool_name][:]
+
+
+def active_character_random_pool_name() -> str:
+    return _active_character_random_pool_name
+
+
+def _select_character_random_pool(pool_name: str) -> None:
+    global _active_character_random_pool_name
+    _active_character_random_pool_name = pool_name
+
+
 def choose_character_batch(used_characters: list[str]) -> list[str]:
     valid_used = [name for name in used_characters if name in CHARACTER_SEQUENCE]
     used_characters[:] = valid_used
 
-    available = [name for name in CHARACTER_SEQUENCE if name not in used_characters]
+    pool = active_character_random_pool()
+    used_in_pool = [name for name in used_characters if name in pool]
+    available = [name for name in pool if name not in used_in_pool]
     if not available:
         print(
-            "All characters have appeared in the current character cycle. Clearing character-cycle history.",
+            f"All {_active_character_random_pool_name} characters have appeared in the current cycle. "
+            "Clearing this pool's character-cycle history.",
             flush=True,
         )
-        used_characters.clear()
+        used_characters[:] = [name for name in used_characters if name not in pool]
         save_used_character_batch(used_characters)
-        available = CHARACTER_SEQUENCE[:]
+        used_in_pool = []
+        available = pool[:]
 
     batch_size = min(CHARACTERS_PER_BATCH, len(available))
     selected = random.sample(available, k=batch_size)
     print(
-        f"Character cycle: {len(used_characters)}/{len(CHARACTER_SEQUENCE)} used before this batch -> "
+        f"Character cycle ({_active_character_random_pool_name} random): "
+        f"{len(used_in_pool)}/{len(pool)} used before this batch -> "
         f"{USED_CHARACTER_BATCH_FILE}",
         flush=True,
     )
@@ -2006,7 +2034,35 @@ def choose_character_batch(used_characters: list[str]) -> list[str]:
 
 def _parse_character_selection(raw_choice: str) -> list[str] | None:
     choice = raw_choice.strip()
-    if not choice or choice.lower() in {"r", "random", "all", "all-random", "全随机", "随机"}:
+    lowered = choice.lower()
+    random_pool_aliases = {
+        "": "全部",
+        "r": "全部",
+        "random": "全部",
+        "all": "全部",
+        "all-random": "全部",
+        "全随机": "全部",
+        "全部随机": "全部",
+        "随机": "全部",
+        "z": "绝区零",
+        "zzz": "绝区零",
+        "zenless": "绝区零",
+        "绝区零": "绝区零",
+        "绝区零随机": "绝区零",
+        "w": "鸣潮",
+        "ww": "鸣潮",
+        "wuthering-waves": "鸣潮",
+        "鸣潮": "鸣潮",
+        "鸣潮随机": "鸣潮",
+        "e": "终末地",
+        "endfield": "终末地",
+        "终末地": "终末地",
+        "终末地随机": "终末地",
+        "明日方舟终末地": "终末地",
+        "明日方舟终末地随机": "终末地",
+    }
+    if lowered in random_pool_aliases:
+        _select_character_random_pool(random_pool_aliases[lowered])
         return None
 
     selected: list[str] = []
@@ -2055,7 +2111,8 @@ def prompt_character_selection() -> list[str] | None:
     print("Choose characters for this run:", flush=True)
     for index, character_name in enumerate(CHARACTER_SEQUENCE, start=1):
         print(f"  {index}. {character_name}", flush=True)
-    print("Input examples: Enter/r/random = full random cycle; 1 2 3 = characters 1,2,3; 10-15 = characters 10 through 15; 16 17 18 = characters 16,17,18; names are also OK.", flush=True)
+    print("Random pools: Z = 绝区零随机; W = 鸣潮随机; E = 终末地随机; R/Enter = 全部随机.", flush=True)
+    print("Fixed examples: 1 2 3; 10-15; or character names.", flush=True)
 
     while True:
         raw_choice = input("Character selection: ")
@@ -2066,7 +2123,7 @@ def prompt_character_selection() -> list[str] | None:
             continue
 
         if selected is None:
-            print("Character mode: full random cycle.", flush=True)
+            print(f"Character mode: {active_character_random_pool_name()} random cycle.", flush=True)
         else:
             print(f"Character mode: fixed selection -> {'、'.join(selected)}", flush=True)
         return selected
@@ -2275,12 +2332,16 @@ def startup_character_selection() -> list[str] | None:
     raw_choice = _cli_option_value("--characters") or _env_option_value("AUTO_CREATE_CHARACTERS")
     if raw_choice is None:
         if noninteractive_selection_enabled():
+            _select_character_random_pool("全部")
             print("Character mode: full random cycle (--auto-start).", flush=True)
             return None
         return prompt_character_selection()
     selected = _parse_character_selection(raw_choice)
     if selected is None:
-        print("Character mode: full random cycle (startup option).", flush=True)
+        print(
+            f"Character mode: {active_character_random_pool_name()} random cycle (startup option).",
+            flush=True,
+        )
     else:
         print(f"Character mode: fixed selection from startup option -> {'、'.join(selected)}", flush=True)
     return selected
@@ -2450,8 +2511,11 @@ def mark_character_batch_used(selected_characters: list[str], used_characters: l
         if character_name in CHARACTER_SEQUENCE and character_name not in used_characters:
             used_characters.append(character_name)
     save_used_character_batch(used_characters)
+    pool = active_character_random_pool()
+    used_in_pool = [name for name in used_characters if name in pool]
     print(
-        f"Character cycle after batch: {len(used_characters)}/{len(CHARACTER_SEQUENCE)} used -> "
+        f"Character cycle after batch ({active_character_random_pool_name()} random): "
+        f"{len(used_in_pool)}/{len(pool)} used -> "
         f"{USED_CHARACTER_BATCH_FILE}",
         flush=True,
     )
