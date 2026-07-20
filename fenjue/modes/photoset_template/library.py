@@ -43,6 +43,29 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "silver-gray cylindrical mechanical helmet with two dark antennae and circular side plates. The antennae are machine parts, not animal ears. "
         "Scale furniture and poses to the small silhouette; never copy a mature model body, remove the helmet, or add the reference companion."
     ),
+    "今汐": (
+        "Jinhsi adaptation: preserve exactly two extremely long low side tails of pearl-white hair with pale aqua feather-like ends, bronze openwork side anchors, "
+        "translucent aqua bows, clear aqua eyes, and a small red forehead mark. Never convert the hairstyle into loose hair, one ponytail, or short twin tails. "
+        "Dragons, weapons, and ceremonial clothing in the references are optional scene elements, not identity requirements."
+    ),
+    "坎特蕾拉": (
+        "Cantarella adaptation: preserve the long wavy violet hair with indigo ends, violet-pink eyes with cyan inner highlights, narrow white ruffled headband, "
+        "and blue-violet side flower ornament. The parasol visible in the references is a removable handheld prop, never a hat or part of her silhouette. "
+        "Do not include an umbrella or parasol unless the selected photoset explicitly requires one."
+    ),
+    "秧秧": (
+        "Yangyang adaptation: preserve the short dark crown hair, broad white-to-cyan feather-shaped side and rear locks, blue-gray eyes, slim vertical forehead mark, "
+        "and small gold bird ornaments with a red tassel. Do not flatten the feather-shaped hair layers into ordinary long blue hair. "
+        "The bird companion, loose feathers, weapons, and reference clothing are optional and must not be copied by default."
+    ),
+    "绯雪": (
+        "Feixue adaptation: preserve one high rounded white topknot above very long loose silver-white rear hair, red eyes, the small black-red forehead ornament, "
+        "and compact youthful proportions. The long rear hair remains loose and must never become a high ponytail."
+    ),
+    "长离": (
+        "Changli adaptation: preserve the short coral-pink crown and side fringe over one extremely long pearl-white rear ponytail, two slim white braided face locks, "
+        "amber-gold eyes, and bronze flower-shaped side ornaments. Keep the two-tone hair structure distinct; never make all of the hair uniformly white or red."
+    ),
     "卡提希娅": (
         "Cartethyia adaptation: keep her very long golden-blonde hair, clear blue eyes, long pointed elf ears, blue-silver branching crown ornament, "
         "and blue teardrop earrings visible. Never hide or round off the elf ears, and do not copy the photoset model's hairstyle."
@@ -60,24 +83,28 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "and white hood-like headpiece. Do not simplify the hair into one ponytail or copy the photoset model's hair volume."
     ),
     "诀": (
-        "Jue adaptation: preserve the silver-white and pale mint hair, short face-framing bob with very long high-tied rear locks, violet-cyan eyes, "
-        "vertical red forehead mark, and black-white feather crests at both crown and sides. The crests are Liberi feathers, never mammal ears or a hat."
+        "Jue adaptation: preserve the short silver-white and pale-mint face-framing bob plus very long high-back locks, violet-cyan eyes, red outer-eye markings, "
+        "and the vertical red forehead mark. Keep two distinct feather structures: tall upright black crown tufts with white inner blades and broad horizontal "
+        "white-gray side crests. Never merge them into one headdress or reinterpret them as mammal ears or a hat."
     ),
     "洛茜": (
         "Rossi adaptation: preserve the warm blonde curls, amber-gold eyes, two tall fox ears, and one enormous fluffy golden fox tail. "
         "Keep a human face and limbs; never omit the tail, add extra tails, or force the red hood and combat outfit."
     ),
     "庄方宜": (
-        "Zhuang Fangyi adaptation: preserve the very long dark green hair, crimson branching qilin horns, pointed ears, green-gold eyes, and one long scaled teal tail. "
-        "Never replace the horns with mammal ears, omit the tail, or copy the reference uniform and weapons."
+        "Zhuang Fangyi adaptation: preserve the very long dark green hair with red and teal face-framing layers, green-gold eyes, paired silver temple clips, "
+        "two very large high angular black-crimson branching horns, pointed ears, and one long scaled teal tail. Never shrink the horns into hair ornaments, "
+        "replace them with mammal ears, omit the tail, or copy the reference uniform and weapons."
     ),
     "艾尔黛拉": (
-        "Ardelia adaptation: keep compact youthful proportions, chestnut layered hair with one long high side ponytail, rose-magenta eyes, small gray goat horns, "
-        "dark pointed Caprinae ears, and red-blue hair clips. Never copy the pink companion or force medical clothing."
+        "Ardelia adaptation: keep compact youthful proportions, a short chestnut crown bob, and one enormous high rear-side ponytail formed by a thick loop, "
+        "a slim braid, and a long hanging length. Preserve the rose-magenta eyes, medium gray ridged outward-curving horns, dark pointed Caprinae ears, "
+        "and red-blue hair clips. Never shrink the horns, copy the pink companion, or force medical clothing."
     ),
     "佩丽卡": (
-        "Perlica adaptation: preserve the long silver-white high ponytail, ice-blue eyes, softly separated bangs, and paired white feathered Liberi side crests. "
-        "The side crests are feathers, not cat ears; never replace them with the photoset model's hairstyle."
+        "Perlica adaptation: preserve the enormous high fountain ponytail of silver-white hair, ice-blue eyes, softly separated bangs, and the large sharp "
+        "horizontal gray-white Liberi side crests with darker tips. The side crests are feathers, not small clips or cat ears; never reduce their scale or "
+        "replace them with the photoset model's hairstyle."
     ),
     "陈千语": (
         "Chen Qianyu adaptation: keep compact youthful proportions, short tousled black crown hair with two very long rear twin tails, red-orange eyes, "
