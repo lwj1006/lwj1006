@@ -535,6 +535,62 @@ CHARACTER_PROFILES = {
         "interaction_rule": "use restrained elegant gestures; flame effects, weapons, and the exact black-red costume are optional.",
         "color_anchor": "pearl white, coral red, charcoal black, warm gold",
     },
+    "诀": {
+        "official_core": "silver-white hair with pale mint-cyan underlayers, a short rounded face-framing bob and very long high-tied streaming rear locks, large black-and-white feather crests at the crown and sides, vivid violet-cyan eyes, sharp red outer-eye markings, and one vertical red forehead mark.",
+        "identity_tokens": ["silver-white hair with pale mint-cyan underlayers", "short rounded face-framing bob with very long high-tied rear locks", "large black-and-white feather crests at crown and sides", "vivid violet-cyan eyes", "sharp red outer-eye markings", "vertical red forehead mark"],
+        "viewer_relationship": "focused and self-possessed, with a direct clear gaze and controlled expression.",
+        "thumbnail_strategy": "the silver-mint hair, black-white feather crests, violet-cyan eyes, and central red forehead mark must remain unmistakable.",
+        "interaction_rule": "the feather crests are fixed Liberi traits, not mammal ears. Clothing, tactical equipment, bow, and energy effects from the references are optional and must not be forced.",
+        "color_anchor": "silver white, pale mint cyan, black, violet blue, restrained red",
+    },
+    "洛茜": {
+        "official_core": "thick warm golden-blonde hair with soft layered bangs and large curled side locks, bright amber-gold eyes, two tall blonde fox ears with pale inner fur, and one enormous fluffy golden fox tail.",
+        "identity_tokens": ["thick warm golden-blonde hair", "soft layered bangs and large curled side locks", "bright amber-gold eyes", "two tall blonde fox ears with pale inner fur", "one enormous fluffy golden fox tail"],
+        "viewer_relationship": "bright, curious, and energetic, with an alert friendly gaze.",
+        "thumbnail_strategy": "the blonde curls, tall fox ears, amber eyes, and single huge fluffy tail must stay readable.",
+        "interaction_rule": "keep a human anime face, hands, and legs. The red hood, white dress, weapons, and drawing props are reference-only styling, not fixed identity.",
+        "color_anchor": "golden blonde, amber, warm cream, restrained red",
+    },
+    "庄方宜": {
+        "official_core": "extremely long dark forest-green hair with blunt bangs and subtle teal-red inner streaks, luminous green-gold eyes with red eye accents, pointed ears, two short upward crimson branching qilin horns, and one long dark teal scaled tail with red fin-like tips.",
+        "identity_tokens": ["extremely long dark forest-green hair", "blunt bangs with subtle teal-red inner streaks", "luminous green-gold eyes", "pointed ears", "two short upward crimson branching qilin horns", "long dark teal scaled tail with red fin-like tips"],
+        "viewer_relationship": "calm, warm, and quietly confident, with a composed natural smile.",
+        "thumbnail_strategy": "the green-black hair mass, crimson branching horns, green-gold eyes, pointed ears, and scaled tail must remain distinct.",
+        "interaction_rule": "preserve the qilin horns, pointed ears, and one continuous scaled tail. The green uniform, mechanical sleeves, sword, and digital effects are optional reference styling.",
+        "color_anchor": "forest green, deep teal, crimson red, green gold, soft white",
+    },
+    "艾尔黛拉": {
+        "official_core": "warm chestnut-brown layered bob with curled cheek locks, a long high side ponytail with a small braided section, vivid rose-magenta eyes, small swept-back gray goat horns, dark pointed Caprinae ears, and paired red-blue triangular hair clips.",
+        "identity_tokens": ["warm chestnut-brown layered bob", "long high side ponytail with a small braid", "vivid rose-magenta eyes", "small swept-back gray goat horns", "dark pointed Caprinae ears", "paired red-blue triangular hair clips"],
+        "viewer_relationship": "gentle, upbeat, and approachable, with a soft lively smile.",
+        "thumbnail_strategy": "the chestnut side ponytail, rose eyes, small gray horns, dark ears, and red-blue clips must remain readable.",
+        "interaction_rule": "keep compact youthful proportions and the small horn-and-ear silhouette. The purple dress, white coat, stockings, medical styling, and pink companion are not fixed identity.",
+        "color_anchor": "warm chestnut, rose magenta, soft gray, small red and blue accents",
+    },
+    "佩丽卡": {
+        "official_core": "long silver-white hair gathered into a very high flowing ponytail, thick softly separated bangs, long curled face-framing locks, clear ice-blue eyes, and small white feathered Liberi ear-crests at both sides of the head.",
+        "identity_tokens": ["long silver-white high flowing ponytail", "thick softly separated bangs", "long curled face-framing locks", "clear ice-blue eyes", "small white feathered Liberi ear-crests on both sides"],
+        "viewer_relationship": "intelligent, attentive, and quietly friendly, with clear open eyes.",
+        "thumbnail_strategy": "the high silver ponytail, ice-blue eyes, long side locks, and paired white feather crests must stay stable.",
+        "interaction_rule": "the side crests are feathered Liberi traits, not cat ears. The white technical dress, jacket, gloves, tools, and machinery are optional reference styling.",
+        "color_anchor": "silver white, ice blue, soft gray, small yellow accents",
+    },
+    "陈千语": {
+        "official_core": "short tousled black layered hair with two very long high-back twin tails, warm red-orange eyes, two narrow black dragon horns edged in red and teal, and one long dark dragon tail ending in a red-teal fin tip.",
+        "identity_tokens": ["short tousled black layered hair", "two very long high-back black twin tails", "warm red-orange eyes", "two narrow black dragon horns edged in red and teal", "one long dark dragon tail with red-teal fin tip"],
+        "viewer_relationship": "open, cheerful, and energetic, with a bright confident smile.",
+        "thumbnail_strategy": "the short black crown hair, long twin tails, narrow colored dragon horns, red-orange eyes, and dragon tail must remain visible.",
+        "interaction_rule": "keep compact youthful proportions, exactly two horns, and one continuous dragon tail. The blue uniform, sword, pistol, and combat equipment are optional.",
+        "color_anchor": "black, deep blue, red orange, teal, clean white",
+    },
+    "弭弗": {
+        "official_core": "long voluminous pale pink-white wavy hair with curled ends and a heavy side fringe covering one eye, luminous cyan-to-rose multicolored eyes, long pointed ears, and two large dark navy horns with bright cyan edges branching outward from the temples.",
+        "identity_tokens": ["long voluminous pale pink-white wavy hair", "heavy side fringe covering one eye", "luminous cyan-to-rose multicolored eyes", "long pointed ears", "two large dark navy branching horns with bright cyan edges"],
+        "viewer_relationship": "bold, amused, and self-assured, with a relaxed direct presence.",
+        "thumbnail_strategy": "the pale pink hair mass, one-eye fringe, pointed ears, and huge blue-edged branching horns must dominate the silhouette.",
+        "interaction_rule": "preserve both horns and both pointed ears without turning them into a crown or antlers detached from the head. Her magenta combat outfit, gauntlets, cans, and energy trails are optional reference styling.",
+        "color_anchor": "pale pink white, dark navy, electric cyan, magenta, small gold accents",
+    },
 }
 
 
@@ -1455,6 +1511,13 @@ KNOWN_CHARACTER_NAMES = [
     "西格莉卡",
     "达妮娅",
     "长离",
+    "诀",
+    "洛茜",
+    "庄方宜",
+    "艾尔黛拉",
+    "佩丽卡",
+    "陈千语",
+    "弭弗",
 ]
 
 

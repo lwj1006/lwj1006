@@ -228,6 +228,10 @@ CHARACTER_REFERENCES = {
             "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
         )
     },
+    **{
+        name: [str(PROJECT_DIR / "assets" / "明日方舟终末地" / f"{name}{index}.png") for index in range(1, 4)]
+        for name in ("诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗")
+    },
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
@@ -239,6 +243,7 @@ CHARACTER_SEQUENCE = [
     "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅", "维琳娜", "铃", "扳机", "诺姆",
     "今汐", "千咲", "卡提希娅", "坎特蕾拉", "守岸人", "尤诺", "洛瑟菈", "爱弥斯",
     "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
+    "诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗",
 ]
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
