@@ -1429,6 +1429,14 @@ def refresh_chatgpt_web_page(reason: str, settle_seconds: int, settle_label: str
     wait_with_echo(settle_seconds, settle_label)
 
 
+def refresh_chatgpt_web_after_upload_cooldown() -> None:
+    refresh_chatgpt_web_page(
+        "Upload cooldown",
+        WEB_REFRESH_SETTLE_SECONDS,
+        "Web refresh settle",
+    )
+
+
 def startup_refresh_before_button_work() -> None:
     print(
         f"Starting in {POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; keep the mouse clear of the target area.",
@@ -1535,15 +1543,17 @@ def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
         return
 
     cooldown_end = dt.datetime.now() + dt.timedelta(seconds=UPLOAD_COOLDOWN_SECONDS)
+    upload_resume = cooldown_end + dt.timedelta(seconds=WEB_REFRESH_SETTLE_SECONDS)
     print(
         "Upload cooldown: "
         f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
         f"next upload has {next_upload_count} images and would reach {projected_total}. "
-        f"The next upload round will start directly at {cooldown_end.strftime('%Y-%m-%d %H:%M')} local time "
-        "without refreshing the web page.",
+        f"The next upload round will resume at {upload_resume.strftime('%Y-%m-%d %H:%M')} local time "
+        "after refreshing the web page.",
         flush=True,
     )
     wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown", end_time=cooldown_end)
+    refresh_chatgpt_web_after_upload_cooldown()
     _reset_upload_counter_state("cooldown completed")
 
 
