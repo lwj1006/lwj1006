@@ -34,85 +34,58 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Music-shop props, a portable CD player, student cap, or academy uniform are optional reference motifs only, not mandatory outfit locks."
     ),
     "扳机": (
-        "Trigger adaptation: preserve her creamy-blonde high ponytail, opaque glossy black eye visor, paired red triangular mechanical hair clips, "
-        "black rear hair fixtures, and thin yellow cable. The visor must stay opaque and cover both eyes in every camera angle. "
-        "Do not copy the photoset model's eyes, eyewear, hairstyle, weapons, or mature glamour identity."
+        "Trigger adaptation: keep the opaque black visor over both eyes, the creamy-blonde high ponytail, paired red mechanical clips, black rear fixtures, and yellow cable. Never reveal the eyes or copy photoset hair, eyewear, weapons, or body type."
     ),
     "诺姆": (
-        "Nome adaptation: preserve compact youthful proportions, golden-blonde blunt bangs, long low braided tails, violet-blue eyes, and the oversized "
-        "silver-gray cylindrical mechanical helmet with two dark antennae and circular side plates. The antennae are machine parts, not animal ears. "
-        "Scale furniture and poses to the small silhouette; never copy a mature model body, remove the helmet, or add the reference companion."
+        "Nome adaptation: keep compact youthful proportions, the oversized cylindrical mechanical helmet, twin dark antennae, blonde blunt fringe, two long low braids, and violet-blue eyes. Scale furniture to the small silhouette and never turn the antennae into biological ears."
     ),
     "今汐": (
-        "Jinhsi adaptation: preserve exactly two extremely long low side tails of pearl-white hair with pale aqua feather-like ends, bronze openwork side anchors, "
-        "translucent aqua bows, clear aqua eyes, and a small red forehead mark. Never convert the hairstyle into loose hair, one ponytail, or short twin tails. "
-        "Dragons, weapons, and ceremonial clothing in the references are optional scene elements, not identity requirements."
+        "Jinhsi adaptation: keep exactly two extremely long low pearl-silver side tails with pale aqua tips, paired bronze anchors and aqua bows, rounded short front locks, blunt bangs, and pale gray-rose eyes. Never merge the tails into loose hair or one ponytail."
     ),
     "坎特蕾拉": (
-        "Cantarella adaptation: preserve the long wavy violet hair with indigo ends, violet-pink eyes with cyan inner highlights, narrow white ruffled headband, "
-        "and blue-violet side flower ornament. The parasol visible in the references is a removable handheld prop, never a hat or part of her silhouette. "
-        "Do not include an umbrella or parasol unless the selected photoset explicitly requires one."
+        "Cantarella adaptation: keep long lavender-violet hair, the heavy curved fringe, curled cheek locks, cool multitone eyes, narrow white headband, and blue-violet side flower. The reference parasol is removable and must appear only when the template calls for it."
     ),
     "秧秧": (
-        "Yangyang adaptation: preserve the short dark crown hair, broad white-to-cyan feather-shaped side and rear locks, blue-gray eyes, slim vertical forehead mark, "
-        "and small gold bird ornaments with a red tassel. Do not flatten the feather-shaped hair layers into ordinary long blue hair. "
-        "The bird companion, loose feathers, weapons, and reference clothing are optional and must not be copied by default."
+        "Yangyang adaptation: keep the dark rounded crown, broad white-to-cyan feather-shaped hair locks, cobalt tips, cyan eyes, slim forehead mark, gold bird ornament, and red tassel. The feather shapes are hair, not detached wings."
     ),
     "绯雪": (
-        "Feixue adaptation: preserve one high rounded white topknot above very long loose silver-white rear hair, red eyes, the small black-red forehead ornament, "
-        "and compact youthful proportions. The long rear hair remains loose and must never become a high ponytail."
+        "Feixue adaptation: keep one high rounded white topknot above very long loose silver-white rear hair, blunt bangs, curled face locks, red eyes, and paired red ribbons. Never turn the rear hair into a ponytail."
     ),
     "长离": (
-        "Changli adaptation: preserve the short coral-pink crown and side fringe over one extremely long pearl-white rear ponytail, two slim white braided face locks, "
-        "amber-gold eyes, and bronze flower-shaped side ornaments. Keep the two-tone hair structure distinct; never make all of the hair uniformly white or red."
+        "Changli adaptation: keep the short coral-pink crown and fringe over one extremely long pearl-white rear ponytail, two slim white braids, amber eyes, and bronze flower ornaments. Never make all hair one color."
     ),
     "卡提希娅": (
-        "Cartethyia adaptation: keep her very long golden-blonde hair, clear blue eyes, long pointed elf ears, blue-silver branching crown ornament, "
-        "and blue teardrop earrings visible. Never hide or round off the elf ears, and do not copy the photoset model's hairstyle."
+        "Cartethyia adaptation: keep the very long golden-blonde hair, clear blue eyes, long pointed elf ears, blue-silver branching crown, and blue teardrop earrings. Never round off or hide the ears."
     ),
     "莫宁": (
-        "Morning adaptation: keep her pale silver-blue one-eye fringe, visible red eye, extremely long rear hair, triangular clips and earrings, "
-        "and the floating dark crystal halo. The halo must remain a separate hovering structure, never a hat or solid headband."
+        "Morning adaptation: keep the pale silver-blue one-eye fringe, visible red eye, extremely long hair, triangular details, and separate floating dark crystal halo. The halo is never a hat."
     ),
     "菲比": (
-        "Phoebe adaptation: preserve her very long wavy blonde hair, violet eyes, blue cross hair clip, and oversized white wide-brim hat with its blue feather. "
-        "Do not replace the broad hat or blonde side curls with the photoset model's headwear or hairstyle."
+        "Phoebe adaptation: keep very long wavy blonde hair, violet eyes, blue cross clip, and the oversized white wide-brim hat with blue feather whenever compatible with the crop."
     ),
     "西格莉卡": (
-        "Sigrika adaptation: preserve the extremely voluminous vivid-orange hair divided into multiple coherent segmented bubble-braid tails, bright green eyes, "
-        "and white hood-like headpiece. Do not simplify the hair into one ponytail or copy the photoset model's hair volume."
+        "Sigrika adaptation: keep the extremely voluminous vivid-orange segmented bubble-braid tails, green eyes, and white hood-like headpiece. Never simplify the hair into one ponytail."
     ),
     "诀": (
-        "Jue adaptation: preserve the short silver-white and pale-mint face-framing bob plus very long high-back locks, violet-cyan eyes, red outer-eye markings, "
-        "and the vertical red forehead mark. Keep two distinct feather structures: tall upright black crown tufts with white inner blades and broad horizontal "
-        "white-gray side crests. Never merge them into one headdress or reinterpret them as mammal ears or a hat."
+        "Jue adaptation: keep the short silver-mint bob, long high-back locks, two tall black crown feather tufts, separate horizontal white-gray side crests, violet-cyan eyes, and red facial marks. The feather structures are never mammal ears or a hat."
     ),
     "洛茜": (
-        "Rossi adaptation: preserve the warm blonde curls, amber-gold eyes, two tall fox ears, and one enormous fluffy golden fox tail. "
-        "Keep a human face and limbs; never omit the tail, add extra tails, or force the red hood and combat outfit."
+        "Rossi adaptation: keep two tall blonde fox ears, exactly one enormous golden fox tail, warm blonde curls, and amber eyes. Preserve a human face and limbs; never add extra tails."
     ),
     "庄方宜": (
-        "Zhuang Fangyi adaptation: preserve the very long dark green hair with red and teal face-framing layers, green-gold eyes, paired silver temple clips, "
-        "two very large high angular black-crimson branching horns, pointed ears, and one long scaled teal tail. Never shrink the horns into hair ornaments, "
-        "replace them with mammal ears, omit the tail, or copy the reference uniform and weapons."
+        "Zhuang Fangyi adaptation: keep the black-green hair with red-teal face layers, yellow-green eyes, pointed ears, two huge black-crimson branching horns, and one scaled teal tail. Never shrink horns or duplicate the tail."
     ),
     "艾尔黛拉": (
-        "Ardelia adaptation: keep compact youthful proportions, a short chestnut crown bob, and one enormous high rear-side ponytail formed by a thick loop, "
-        "a slim braid, and a long hanging length. Preserve the rose-magenta eyes, medium gray ridged outward-curving horns, dark pointed Caprinae ears, "
-        "and red-blue hair clips. Never shrink the horns, copy the pink companion, or force medical clothing."
+        "Ardelia adaptation: keep compact youthful proportions, the short chestnut crown bob, enormous looped rear-side ponytail, rose eyes, two gray ridged horns, dark pointed ears, and red-blue clips. Keep every structure separate and readable."
     ),
     "佩丽卡": (
-        "Perlica adaptation: preserve the enormous high fountain ponytail of silver-white hair, ice-blue eyes, softly separated bangs, and the large sharp "
-        "horizontal gray-white Liberi side crests with darker tips. The side crests are feathers, not small clips or cat ears; never reduce their scale or "
-        "replace them with the photoset model's hairstyle."
+        "Perlica adaptation: keep the towering silver-white fountain ponytail, ice-blue eyes, curled face locks, and large horizontal dark-tipped feather crests. The crests are never clips or cat ears."
     ),
     "陈千语": (
-        "Chen Qianyu adaptation: keep compact youthful proportions, short tousled black crown hair with two very long rear twin tails, red-orange eyes, "
-        "two narrow red-teal-edged dragon horns, and one continuous dark dragon tail with a colored fin tip. Never omit or duplicate the tail."
+        "Chen Qianyu adaptation: keep compact youthful proportions, short black crown hair, two long rear twin tails, red-orange eyes, exactly two narrow colored dragon horns, and one continuous fin-tipped tail."
     ),
     "弭弗": (
-        "Mi Fu adaptation: preserve the voluminous pale pink-white wavy hair, heavy one-eye fringe, multicolored cyan-rose eyes, long pointed ears, "
-        "and two huge dark navy branching horns with cyan edges. Keep both horns attached at the temples; never shrink them into hair clips or copy the photoset hair."
+        "Mi Fu adaptation: keep the voluminous pale pink-white hair, one-eye fringe, multitone eyes, pointed ears, and two huge navy cyan-edged branching horns attached at the temples. Never shrink the horns into clips."
     ),
 }
 
@@ -667,11 +640,17 @@ def _profile_identity_block(character_name: str) -> str:
 
 
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
-    cleaned = _remove_template_person_clauses(_current_shot_only(text))
+    current = _current_shot_only(text)
+    trusted_role_separation = (
+        "Character references control identity and proportions only" in current
+        and "The final photoset image alone controls" in current
+    )
+    cleaned = current if trusted_role_separation else _remove_template_person_clauses(current)
     cleaned = _remove_template_identity_traits(cleaned)
     cleaned = _remove_character_trait_conflicts(character_name, cleaned)
     cleaned = _soften_platform_sensitive_terms(cleaned)
-    cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned)
+    if not trusted_role_separation:
+        cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned)
     subject_name = _prompt_subject_name(character_name)
     cleaned = _english_only_text(cleaned)
     cleaned = _anime_only_positive_text(cleaned)
@@ -679,6 +658,22 @@ def _adapt_shot_prompt(character_name: str, text: str) -> str:
     cleaned = re.sub(r"\bthe selected character\b", subject_name, cleaned, flags=re.IGNORECASE)
     cleaned = re.sub(r"\bthe model\b", subject_name, cleaned, flags=re.IGNORECASE)
     return cleaned.strip()
+
+
+def _compact_rewritten_shot_prompt(text: str) -> str:
+    """Keep the shot-specific evidence from the standardized 221+ prompt format."""
+    sentences = [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
+    prefixes = (
+        "Reproduce this single shot:",
+        "Use the ",
+        "Match the exact reference camera",
+        "Preserve the reference camera",
+        "Keep the set-wide outfit",
+        "Match the reference gaze",
+        "Keep both visible eyes",
+    )
+    kept = [sentence for sentence in sentences if sentence.startswith(prefixes)]
+    return " ".join(kept).strip()
 
 
 def _global_identity(markdown: str) -> str:
@@ -948,58 +943,50 @@ Third hand, more than two arms, duplicated hand, floating hand, hand emerging fr
 
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
-    shot_prompt = _adapt_shot_prompt(character_name, shot.ready_prompt or shot.section_text)
+    source_prompt = shot.ready_prompt or shot.section_text
+    rewritten_prompt = (
+        "Character references control identity and proportions only" in source_prompt
+        and "The final photoset image alone controls" in source_prompt
+    )
+    shot_prompt = _adapt_shot_prompt(character_name, source_prompt)
+    if rewritten_prompt:
+        shot_prompt = _compact_rewritten_shot_prompt(shot_prompt)
     if not shot_prompt:
         shot_prompt = (
             f"Follow the visible final photoset reference exactly for this shot: {shot.title}. "
             "Preserve its outfit construction, pose, hand contacts, framing, main setting anchors, light direction, and palette."
         )
-    source_negative = _compact(
-        _english_only_text(
-            _remove_character_trait_conflicts(
-                character_name,
-                _remove_template_identity_traits(shot.negative_prompt),
-            )
-        ),
-        350,
-    )
     negative = _dedupe_negative_terms(
-        source_negative,
         A3_NEGATIVE,
         CONTENT_SAFETY_NEGATIVE,
         "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
-        "extra arm, third hand, duplicated limb, fused hand, extra fingers, broken joint, impossible pose, "
-        "conflicting camera, text, logo, watermark",
+        "wrong hair, wrong eyes, missing fixed accessory, extra arm, third hand, duplicated limb, fused hand, "
+        "extra fingers, broken joint, impossible pose, conflicting camera, wrong crop, wrong outfit, text, logo, watermark",
     )
 
     prompt = f"""
-Independent image task. Create one finished image.
+Independent image task. Create exactly one finished image.
 
-[CONTENT SAFETY OVERRIDE]
-{CONTENT_SAFETY_RULE}
-
-[STYLE]
-Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, detailed expressive eyes, carefully grouped hair locks, nuanced fabric folds, and luminous illustrated lighting. Keep the main setting anchors and light pattern while simplifying only minor clutter and distant texture. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
-
-[PHOTOSET DESIGN]
-{template.global_identity}
-Use this block as the authority for the set-wide environment, palette, and replacement outfit. When its clothing description provides more coverage than the final reference image, the text description wins while the reference still controls pose and composition.
-
-[CHARACTER]
-The subject is {subject_name}. Character references define canonical identity and proportions only, never clothing or scene design.
+[PRIORITY 1: CHARACTER]
+The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
 {_profile_identity_block(character_name)}
 {_character_adaptation(character_name)}
 
-[REFERENCE ROLES]
-All images except the final one define only the target character's face, eyes, hair, fixed identity accessories, species traits, age, and proportions. Ignore companions, outfits, weapons, poses, and backgrounds.
-The final image defines pose, hand contacts, camera, crop, set layout, props, light, and palette. Never copy its person's identity or body type. Visible final-image evidence controls those spatial details, but the more modest replacement outfit specified in [PHOTOSET DESIGN] overrides exposed clothing in the image.
+[PRIORITY 2: CURRENT PHOTOSET IMAGE]
+The final uploaded image alone defines this shot's pose, visible hand contacts, camera distance and angle, crop, outfit construction, props, set layout, light direction, and palette. Replace its person completely. Never copy that person's face, hair, body type, makeup, or personal accessories. Preserve one coherent pose and exactly two continuous arms; cropped or occluded limbs stay hidden.
 
-[SHOT]
+[PHOTOSET DESIGN]
+{template.global_identity}
+
+[CURRENT SHOT]
 Template {template.template_id}, image {shot.index} of {len(template.shots)}: {shot.title}
 {shot_prompt}
 
-[FACE AND ANATOMY]
-Keep the canonical anime face. Match the final reference's gaze, eyelids, brows, head tilt, and mouth expression. Use aligned detailed eyes, a tiny anime nose mark, and a small mouth line. Preserve exactly two continuous arms and reproduce only visible hand contacts; never invent hidden hands. Adapt the pose to canonical proportions without changing camera or outfit.
+[RENDERING]
+Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart, refined layered cel shading, grouped hair locks, aligned detailed eyes, coherent fabric folds, and luminous illustrated light. Translate the current reference's palette and shadows into graphic anime color regions. Simplify only minor distant clutter. Never use photographic skin, realistic strands, lens blur, 3D, cosplay, live action, or semi-realistic painting.
+
+[SAFETY]
+Keep one complete opaque sewn outfit with secure chest, waist, hip, back, and seat coverage. Preserve safe pose geometry and replace any exposed or transparent reference garment with the more modest template outfit.
 
 [NEGATIVE]
 {negative}
