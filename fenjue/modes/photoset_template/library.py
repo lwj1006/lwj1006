@@ -281,7 +281,7 @@ PLATFORM_SENSITIVE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bslipped\s+off\s+one\s+shoulder\b", re.IGNORECASE), "softly draped with secure shoulder coverage"),
     (re.compile(r"\boff\s+one\s+shoulder\b", re.IGNORECASE), "softly draped with secure shoulder coverage"),
     (re.compile(r"\boff[- ]shoulder\b", re.IGNORECASE), "soft draped neckline"),
-    (re.compile(r"\bstrapless\b", re.IGNORECASE), "structured evening neckline"),
+    (re.compile(r"\bstrapless\b", re.IGNORECASE), "bare-shoulder neckline without straps or sleeves"),
     (re.compile(r"\bthin\s+straps?\b", re.IGNORECASE), "delicate shoulder straps"),
     (re.compile(r"\bfloral\s+organza\s+dress\b", re.IGNORECASE), "floral chiffon dress with opaque lining"),
     (re.compile(r"\bpale\s+floral\s+organza\s+fabric\b", re.IGNORECASE), "pale floral chiffon fabric with opaque lining"),
@@ -663,16 +663,15 @@ def _adapt_shot_prompt(character_name: str, text: str) -> str:
 def _compact_rewritten_shot_prompt(text: str) -> str:
     """Keep the shot-specific evidence from the standardized 221+ prompt format."""
     sentences = [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
-    prefixes = (
-        "Reproduce this single shot:",
-        "Use the ",
-        "Match the exact reference camera",
-        "Preserve the reference camera",
-        "Keep the set-wide outfit",
-        "Match the reference gaze",
-        "Keep both visible eyes",
+    repeated_runtime_prefixes = (
+        "The final photoset image alone controls",
+        "Character references control identity and proportions only",
     )
-    kept = [sentence for sentence in sentences if sentence.startswith(prefixes)]
+    kept = [
+        sentence
+        for sentence in sentences
+        if not sentence.startswith(repeated_runtime_prefixes)
+    ]
     return " ".join(kept).strip()
 
 
