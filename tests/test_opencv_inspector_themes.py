@@ -39,6 +39,17 @@ def synthetic_chatgpt_frame(theme: str) -> np.ndarray:
     return frame
 
 
+def synthetic_narrow_centered_frame() -> np.ndarray:
+    frame = np.full((758, 782, 3), 255, dtype=np.uint8)
+    left, top, right, bottom = 95, 316, 738, 438
+    cv2.rectangle(frame, (left, top), (right, bottom), (250, 250, 250), -1)
+    cv2.rectangle(frame, (left, top), (right, bottom), (220, 220, 220), 2)
+    cv2.line(frame, (114, 414), (132, 414), (35, 35, 35), 3)
+    cv2.line(frame, (123, 405), (123, 423), (35, 35, 35), 3)
+    cv2.circle(frame, (710, 414), 19, (10, 10, 10), -1)
+    return frame
+
+
 class OpenCVInspectorThemeTests(unittest.TestCase):
     def test_light_theme_composer_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -58,6 +69,15 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
         self.assertEqual(state.layout, ComposerLayout.ACTIVE_CHAT_BOTTOM)
         self.assertIsNotNone(state.plus_button)
         self.assertIsNotNone(state.input_box)
+        self.assertIsNotNone(state.action_button)
+
+    def test_narrow_centered_composer_can_fill_most_of_window(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            state = inspector.inspect_frame(synthetic_narrow_centered_frame())
+
+        self.assertEqual(state.layout, ComposerLayout.NEW_CHAT_CENTERED)
+        self.assertIsNotNone(state.plus_button)
         self.assertIsNotNone(state.action_button)
 
     def test_theme_change_refreshes_learned_plus_template(self) -> None:

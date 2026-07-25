@@ -152,7 +152,9 @@ class OpenCVScreenInspector:
         diagnostics: list[str] = []
         for contour in self._contours(gray):
             x, y, width, height = cv2.boundingRect(contour)
-            if not (max(280, int(screen_width * 0.14)) <= width <= int(screen_width * 0.70)):
+            # The centered new-chat composer occupies roughly 82% of narrow
+            # windows, while the bottom composer is much narrower on desktop.
+            if not (max(280, int(screen_width * 0.14)) <= width <= int(screen_width * 0.92)):
                 continue
             if not (34 <= height <= 240 and width / max(1, height) >= 2.0):
                 continue
