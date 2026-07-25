@@ -94,6 +94,17 @@ def synthetic_four_attachment_row() -> tuple[np.ndarray, Rect]:
     return frame, composer
 
 
+def synthetic_tall_four_attachment_row() -> tuple[np.ndarray, Rect]:
+    frame = np.full((768, 1024, 3), 255, dtype=np.uint8)
+    composer = Rect(216, 570, 645, 122)
+    for index in range(4):
+        left = 226 + index * 64
+        cv2.rectangle(frame, (left, 575), (left + 56, 633), (210, 210, 210), -1)
+        cv2.rectangle(frame, (left, 575), (left + 56, 633), (145, 145, 145), 1)
+        cv2.rectangle(frame, (left + 2, 579), (left + 30, 627), (185, 185, 185), 1)
+    return frame, composer
+
+
 class OpenCVInspectorThemeTests(unittest.TestCase):
     def test_light_theme_composer_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -174,6 +185,17 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
 
     def test_four_attachment_row_wins_over_single_card_fallback(self) -> None:
         frame, composer = synthetic_four_attachment_row()
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            boxes = inspector._attachment_boxes(
+                cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
+                composer,
+            )
+
+        self.assertEqual(len(boxes), 4)
+
+    def test_tall_composer_deduplicates_nested_attachment_contours(self) -> None:
+        frame, composer = synthetic_tall_four_attachment_row()
         with tempfile.TemporaryDirectory() as directory:
             inspector = OpenCVScreenInspector(Path(directory))
             boxes = inspector._attachment_boxes(

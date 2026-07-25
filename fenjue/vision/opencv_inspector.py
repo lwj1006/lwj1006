@@ -589,18 +589,6 @@ class OpenCVScreenInspector:
     def _attachment_boxes(self, gray, composer: Rect | None) -> tuple[Rect, ...]:
         if composer is None:
             return ()
-        if composer.height >= 130:
-            # ChatGPT expands the last remaining card into a roughly 115 px
-            # preview.  Counting its internal artwork contours reports two or
-            # more fake cards, so model the single outer card directly.
-            return (
-                Rect(
-                    composer.x + 8,
-                    composer.y + 6,
-                    min(115, composer.width - 20),
-                    max(70, composer.height - 55),
-                ),
-            )
         if composer.height < 72:
             # A long prompt internally scrolls the composer and leaves only
             # the 42-46 px bottom control contour.  Recover the attachment row
@@ -841,7 +829,10 @@ class OpenCVScreenInspector:
         groups: list[list[Rect]] = []
         for rect in sorted(candidates, key=lambda item: item.center[0]):
             for group in groups:
-                if abs(rect.center[0] - group[0].center[0]) <= 10:
+                # One thumbnail can expose both its outer card contour and an
+                # inner artwork contour. Their centers can differ by 10-20 px,
+                # while neighboring cards are normally about 50-65 px apart.
+                if abs(rect.center[0] - group[0].center[0]) <= 22:
                     group.append(rect)
                     break
             else:

@@ -86,6 +86,8 @@ class FakeInspector:
     def __init__(self) -> None:
         self.last_frame = np.zeros((1080, 1920, 3), dtype=np.uint8)
         self.attachments_ready = 0
+        self.post_settle_attachment_count: int | None = None
+        self.exact_attachment_verified = False
         self.wait_labels: list[str] = []
         self.focus_calls = 0
 
@@ -114,7 +116,14 @@ class FakeInspector:
             state = ScreenState(**{**state.__dict__, "file_name_input": Rect(500, 800, 600, 30)})
         elif label.startswith("all "):
             self.attachments_ready = int(label.split()[1])
+            self.exact_attachment_verified = True
             state = active_state(attachments=self.attachments_ready)
+        elif (
+            label == "composer active_chat_bottom"
+            and self.exact_attachment_verified
+            and self.post_settle_attachment_count is not None
+        ):
+            state = active_state(attachments=self.post_settle_attachment_count)
         else:
             state = active_state(attachments=self.attachments_ready)
         if not predicate(state):
@@ -188,6 +197,30 @@ class VisionControllerTests(unittest.TestCase):
                 for x, y, _after in batch.clicks
             )
         )
+
+    def test_post_settle_visual_reflow_cannot_overturn_exact_upload_count(self) -> None:
+        batch = FakeBatch()
+        inspector = FakeInspector()
+        inspector.post_settle_attachment_count = 1
+        controller = VisionAutomationController(batch, inspector)
+        files = [
+            r"C:\refs\character_1.png",
+            r"C:\refs\character_2.png",
+            r"C:\refs\character_3.png",
+            r"C:\refs\template.jpg",
+        ]
+
+        with (
+            patch("fenjue.vision.controller.time.sleep"),
+            patch("fenjue.vision.controller.pyautogui.hotkey"),
+            patch("fenjue.vision.controller.pyautogui.press"),
+        ):
+            uploaded = controller._upload_reference_images_cycle(files)
+
+        self.assertEqual(uploaded, files)
+        self.assertIn("all 4 reference attachments", inspector.wait_labels)
+        self.assertEqual(batch.recorded_uploads, [4])
+        self.assertEqual(controller.expected_attachment_count, 4)
 
     def test_upload_recovery_refreshes_without_clicking_attachment_cards(self) -> None:
         batch = FakeBatch()
