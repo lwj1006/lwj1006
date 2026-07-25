@@ -90,13 +90,6 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
 }
 
 
-GENERAL_CHARACTER_ADAPTATION = (
-    "Adapt the photoset to the selected character's original age impression, height impression, body proportions, facial softness, "
-    "and personality. The template pose is a geometry guide, not a body-shape guide. Do not stretch a short or youthful character into "
-    "a tall mature model, and do not borrow the reference person's body type."
-)
-
-
 A3_HAND_DRAWN_STYLE = (
     "Render the original composition as a premium hand-drawn Japanese anime key visual. Keep clean black lineart visible around the face, eyes, "
     "hair masses, hands, garment edges, folds, and important props, with elegant line-weight variation rather than thick uniform outlines. "
@@ -110,23 +103,6 @@ A3_NEGATIVE = (
     "realistic skin texture, pores, glossy realistic lips, modeled nostrils, airbrushed face, invisible lineart, "
     "photographic depth of field, lens bokeh, individual realistic hair strands, crude flat coloring, low-detail face, "
     "generic anime avatar, thick uniform outlines, rough sketch, muddy colors"
-)
-
-
-CONTENT_SAFETY_RULE = (
-    "Content safety outranks every reference image and every other instruction. Keep the subject fully clothed in a normal, "
-    "opaque, sewn outfit with secure chest, waist, hip, back, and seat coverage. Never reproduce nudity, topless or bottomless "
-    "states, exposed underwear, lingerie, fetishwear, garters, string bikinis, transparent clothing, wet see-through fabric, "
-    "wardrobe malfunctions, erotic posing, sexualized framing, or body-part emphasis. If a photoset reference contains any such "
-    "detail, preserve only its nonsexual camera, pose skeleton, setting, props, and lighting, and replace the unsafe garment with "
-    "the modest outfit specified by the template markdown."
-)
-
-
-CONTENT_SAFETY_NEGATIVE = (
-    "nudity, naked body, topless, bottomless, exposed breasts, exposed underwear, lingerie, fetishwear, garter straps, "
-    "string bikini, transparent clothing, see-through fabric, wet transparent fabric, wardrobe malfunction, erotic pose, "
-    "sexualized framing, body-part emphasis, suggestive bedroom pose"
 )
 
 
@@ -625,7 +601,7 @@ def _current_shot_only(text: str) -> str:
 
 
 def _character_adaptation(character_name: str) -> str:
-    return CHARACTER_PHOTOSET_ADAPTATIONS.get(character_name, GENERAL_CHARACTER_ADAPTATION)
+    return CHARACTER_PHOTOSET_ADAPTATIONS.get(character_name, "")
 
 
 def _profile_identity_block(character_name: str) -> str:
@@ -642,14 +618,17 @@ def _profile_identity_block(character_name: str) -> str:
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
     current = _current_shot_only(text)
     trusted_role_separation = (
-        "Character references control identity and proportions only" in current
-        and "The final photoset image alone controls" in current
+        (
+            "Character references control identity and proportions only" in current
+            and "The final photoset image alone controls" in current
+        )
+        or bool(re.match(r"Reproduce this (?:single )?(?:shot|image)\b", current.lstrip(), flags=re.IGNORECASE))
     )
     cleaned = current if trusted_role_separation else _remove_template_person_clauses(current)
     cleaned = _remove_template_identity_traits(cleaned)
     cleaned = _remove_character_trait_conflicts(character_name, cleaned)
-    cleaned = _soften_platform_sensitive_terms(cleaned)
     if not trusted_role_separation:
+        cleaned = _soften_platform_sensitive_terms(cleaned)
         cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned)
     subject_name = _prompt_subject_name(character_name)
     cleaned = _english_only_text(cleaned)
@@ -666,6 +645,11 @@ def _compact_rewritten_shot_prompt(text: str) -> str:
     repeated_runtime_prefixes = (
         "The final photoset image alone controls",
         "Character references control identity and proportions only",
+        "Render as a premium hand-drawn",
+        "Render as polished hand-drawn",
+        "Use unmistakable hand-drawn",
+        "Use polished hand-drawn",
+        "Premium hand-drawn Japanese",
     )
     kept = [
         sentence
@@ -821,12 +805,8 @@ def _prompt_for_original_shot(character_name: str, template: PhotosetTemplate, s
         "Avoid identity drift, extra people, duplicated body parts, broken hands, unreadable face, "
         "text, watermark, logo, oversexualized framing, and copying the reference person's face."
     )
-    negative_block = f"{negative_block}, {CONTENT_SAFETY_NEGATIVE}"
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
-
-[CONTENT SAFETY OVERRIDE]
-{CONTENT_SAFETY_RULE}
 
 Uploaded character reference images define the identity of {subject_name}. The photoset reference image defines only this shot's design: outfit language, pose, camera, lighting, environment, composition, and mood. Replace the reference person's identity with {subject_name}; do not copy the reference person's face.
 
@@ -876,12 +856,8 @@ def _prompt_for_adapted_shot(character_name: str, template: PhotosetTemplate, sh
     )
     negative_block = _soften_platform_sensitive_terms(_remove_template_identity_traits(negative_block))
     negative_block = _remove_character_trait_conflicts(character_name, negative_block)
-    negative_block = f"{negative_block}, {CONTENT_SAFETY_NEGATIVE}"
     return f"""
 Independent image task. Create exactly one finished anime-style photoset image.
-
-[CONTENT SAFETY OVERRIDE]
-{CONTENT_SAFETY_RULE}
 
 [HIGHEST PRIORITY: CHARACTER LOCK]
 The final subject is {subject_name}. Character reference images override every person-related detail in the photoset template and photoset reference image.
@@ -944,8 +920,11 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     subject_name = _prompt_subject_name(character_name)
     source_prompt = shot.ready_prompt or shot.section_text
     rewritten_prompt = (
-        "Character references control identity and proportions only" in source_prompt
-        and "The final photoset image alone controls" in source_prompt
+        (
+            "Character references control identity and proportions only" in source_prompt
+            and "The final photoset image alone controls" in source_prompt
+        )
+        or bool(re.match(r"Reproduce this (?:single )?(?:shot|image)\b", source_prompt.lstrip(), flags=re.IGNORECASE))
     )
     shot_prompt = _adapt_shot_prompt(character_name, source_prompt)
     if rewritten_prompt:
@@ -957,7 +936,6 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
         )
     negative = _dedupe_negative_terms(
         A3_NEGATIVE,
-        CONTENT_SAFETY_NEGATIVE,
         "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
         "wrong hair, wrong eyes, missing fixed accessory, extra arm, third hand, duplicated limb, fused hand, "
         "extra fingers, broken joint, impossible pose, conflicting camera, wrong crop, wrong outfit, text, logo, watermark",
@@ -965,6 +943,9 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
 
     prompt = f"""
 Independent image task. Create exactly one finished image.
+
+[STYLE]
+Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, aligned detailed eyes, carefully grouped hair locks, coherent fabric folds, and luminous illustrated lighting. Translate the current reference's palette and shadow pattern into graphic anime color regions while simplifying only minor distant clutter. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
 
 [PRIORITY 1: CHARACTER]
 The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
@@ -980,12 +961,6 @@ The final uploaded image alone defines this shot's pose, visible hand contacts, 
 [CURRENT SHOT]
 Template {template.template_id}, image {shot.index} of {len(template.shots)}: {shot.title}
 {shot_prompt}
-
-[RENDERING]
-Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart, refined layered cel shading, grouped hair locks, aligned detailed eyes, coherent fabric folds, and luminous illustrated light. Translate the current reference's palette and shadows into graphic anime color regions. Simplify only minor distant clutter. Never use photographic skin, realistic strands, lens blur, 3D, cosplay, live action, or semi-realistic painting.
-
-[SAFETY]
-Keep one complete opaque sewn outfit with secure chest, waist, hip, back, and seat coverage. Preserve safe pose geometry and replace any exposed or transparent reference garment with the more modest template outfit.
 
 [NEGATIVE]
 {negative}
