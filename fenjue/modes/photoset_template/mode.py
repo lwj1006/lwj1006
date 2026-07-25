@@ -7,7 +7,11 @@ import sys
 from pathlib import Path
 
 from .library import PhotosetShot, PhotosetTemplate, list_template_ids, load_template, prompt_for_shot
-from .descriptions import template_description
+from .descriptions import (
+    TEMPLATE_THEME_DEFINITIONS,
+    template_description,
+    template_ids_for_theme,
+)
 
 
 LABEL = "photoset template mode"
@@ -94,6 +98,14 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
         item = part.strip()
         if not item:
             continue
+        theme_code = item.upper()
+        if theme_code in TEMPLATE_THEME_DEFINITIONS:
+            theme_selection = template_ids_for_theme(theme_code, available)
+            random.shuffle(theme_selection)
+            for template_id in theme_selection:
+                if template_id not in selected:
+                    selected.append(template_id)
+            continue
         randomize_range = item.lower().endswith("r")
         range_item = item[:-1] if randomize_range else item
         if "-" in range_item and all(piece.strip().isdigit() for piece in range_item.split("-", 1)):
@@ -108,10 +120,21 @@ def _split_template_selection(raw: str, available: list[str]) -> list[str]:
                     continue
             if randomize_range:
                 random.shuffle(range_selection)
-            selected.extend(range_selection)
+            for template_id in range_selection:
+                if template_id not in selected:
+                    selected.append(template_id)
             continue
-        selected.append(_template_from_menu_token(item, available))
+        template_id = _template_from_menu_token(item, available)
+        if template_id not in selected:
+            selected.append(template_id)
     return selected
+
+
+def _print_theme_browser(available: list[str]) -> None:
+    print("Theme random pools (shuffled, no repeats):")
+    for code, (label, _keywords) in TEMPLATE_THEME_DEFINITIONS.items():
+        count = len(template_ids_for_theme(code, available))
+        print(f"  {code} = {label} ({count} templates)")
 
 
 def _print_template_browser(available: list[str], query: str = "") -> None:
@@ -159,7 +182,8 @@ def _choose_templates(argv: list[str], batch) -> tuple[PhotosetTemplate, ...]:
         print(f"Choose photoset template(s): {len(available)} available, {first_id} through {last_id}.")
         print("Recent templates:")
         _print_template_browser(available[-12:])
-        print("Selection: 225 | 225-280 | 225-280r (shuffled, no repeats) | all | random")
+        _print_theme_browser(available)
+        print("Selection: 225 | 225-280 | 225-280r | A | A,B | all | random")
         print("Browse: L = all descriptions | L 225-280 = one range | S beach = search descriptions")
         choice = input(f"Photoset template(s) [default {available[0]}]: ").strip() or available[0]
         lowered_choice = choice.lower()

@@ -313,6 +313,117 @@ TEMPLATE_DESCRIPTIONS: dict[str, str] = {
 }
 
 
+# Theme codes expand to shuffled pools of existing templates. A template may
+# belong to more than one pool when its setting genuinely spans themes.
+TEMPLATE_THEME_DEFINITIONS: dict[str, tuple[str, tuple[str, ...]]] = {
+    "A": (
+        "国风 / 东方古典",
+        (
+            "国风", "旗袍", "汉服", "中式", "古风", "东方", "青瓷", "团扇",
+            "荷塘", "宫苑", "仙鹤屏风", "织锦", "雕花木茶室",
+        ),
+    ),
+    "B": (
+        "沙滩 / 泳池 / 水景",
+        (
+            "海滩", "海岸", "港口", "泳池", "泳装", "冲浪", "岩泉",
+            "水庭", "水面", "水景", "湖畔", "水畔", "喷泉",
+        ),
+    ),
+    "C": (
+        "居家 / 卧室",
+        (
+            "居家", "家居", "卧室", "客厅", "房间", "沙发", "厨房",
+            "浴室", "洗衣", "阳台", "休息室", "壁炉", "睡衣", "睡袍",
+            "室内", "猫咪房",
+        ),
+    ),
+    "D": (
+        "花园 / 花卉 / 森林",
+        (
+            "花园", "花房", "庭院", "庭园", "森林", "雨林", "草地", "花田",
+            "公园", "果园", "竹园", "花境", "花墙", "花厅", "温室",
+            "木屋", "藤椅", "葡萄", "樱花步道", "花卉", "花艺", "花枝",
+            "花影", "百合", "雏菊", "常春藤", "热带", "植物", "银杏",
+        ),
+    ),
+    "E": (
+        "都市 / 街拍 / 咖啡",
+        (
+            "都市", "城市", "街拍", "咖啡馆", "咖啡店", "精品店",
+            "楼梯", "天桥", "港口", "涂鸦", "机车", "摄像机",
+        ),
+    ),
+    "F": (
+        "礼服 / 婚纱 / 宴会",
+        (
+            "礼服", "婚纱", "新娘", "晚宴", "派对", "生日宴", "宴会",
+            "高定", "舞台", "花宴", "宴会厅", "钢琴厅", "头纱",
+        ),
+    ),
+    "G": (
+        "校园 / 制服 / 运动",
+        (
+            "学院", "制服", "运动", "足球", "网球", "水手", "球衣",
+            "冲浪板", "艺术生",
+        ),
+    ),
+    "H": (
+        "和风 / 日式",
+        ("和风", "浴衣", "日式", "和室", "岩泉", "夜樱"),
+    ),
+    "I": (
+        "奇幻 / 梦境",
+        (
+            "梦幻", "梦境", "精灵", "水晶", "羽翼", "星光", "洛丽塔",
+            "圣光", "仙气", "童话", "月球", "纸花园", "蝴蝶", "蝶影",
+        ),
+    ),
+    "J": (
+        "秋冬 / 雪景 / 节庆",
+        ("冬", "雪", "圣诞", "节庆", "秋日"),
+    ),
+    "K": (
+        "棚拍 / 极简 / 时尚",
+        (
+            "影棚", "棚拍", "极简", "高调", "灰棚", "白棚", "画廊",
+            "时装", "静物", "头像", "灰墙", "灯箱", "拱门",
+        ),
+    ),
+    "M": (
+        "暗调 / 夜景 / 烛光",
+        (
+            "暗调", "暗色", "暗室", "暗门", "夜景", "夜室", "夜窗", "夜樱",
+            "烛光", "壁炉", "黑色舞台",
+        ),
+    ),
+    "N": (
+        "甜点 / 茶会 / 果香",
+        (
+            "甜点", "咖啡", "茶会", "茶室", "蛋糕", "糖果", "水果",
+            "果篮", "果盘", "生日", "饮品", "橙子", "苹果", "葡萄",
+            "草莓", "无花果", "橘子",
+        ),
+    ),
+    "O": (
+        "复古 / 文艺 / 艺术空间",
+        (
+            "复古", "古董", "书房", "阅读", "画室", "工作室", "档案室",
+            "钢琴房", "钢琴", "艺术", "画廊", "涂鸦", "摄像机", "装置",
+            "古董柜",
+        ),
+    ),
+    "P": (
+        "窗边 / 日光 / 清新",
+        (
+            "窗边", "窗光", "雨窗", "玻璃窗", "百叶窗", "日照", "日光",
+            "阳光", "晨光", "暖光", "逆光", "清透", "清凉", "清新",
+            "薄荷日光房",
+        ),
+    ),
+}
+
+
 def template_description(template_id: str) -> str:
     base_id = template_id.strip().upper()
     if base_id.endswith("_A_3"):
@@ -320,3 +431,16 @@ def template_description(template_id: str) -> str:
     elif base_id.endswith("_ADAPTED"):
         base_id = base_id[:-8]
     return TEMPLATE_DESCRIPTIONS.get(base_id, f"模板 {base_id}")
+
+
+def template_ids_for_theme(theme_code: str, available: list[str]) -> list[str]:
+    code = theme_code.strip().upper()
+    definition = TEMPLATE_THEME_DEFINITIONS.get(code)
+    if definition is None:
+        raise ValueError(f"Unknown photoset theme code: {theme_code}")
+    _, keywords = definition
+    return [
+        template_id
+        for template_id in available
+        if any(keyword in template_description(template_id) for keyword in keywords)
+    ]
