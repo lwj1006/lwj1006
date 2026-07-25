@@ -189,6 +189,32 @@ class VisionControllerTests(unittest.TestCase):
             )
         )
 
+    def test_upload_recovery_refreshes_without_clicking_attachment_cards(self) -> None:
+        batch = FakeBatch()
+        inspector = FakeInspector()
+        inspector.attachments_ready = 2
+        controller = VisionAutomationController(batch, inspector)
+        controller.draft_attachments_pending = True
+        controller.expected_attachment_count = 2
+
+        with (
+            patch("fenjue.vision.controller.time.sleep"),
+            patch("fenjue.vision.controller.pyautogui.press"),
+        ):
+            controller._recover_failed_upload_cycle()
+
+        self.assertFalse(hasattr(controller, "_clear_visible_attachments"))
+        self.assertIn(
+            (
+                "Vision upload recovery refresh",
+                20,
+                "Vision upload recovery refresh settle",
+            ),
+            batch.refreshes,
+        )
+        self.assertFalse(controller.draft_attachments_pending)
+        self.assertEqual(controller.expected_attachment_count, 0)
+
     def test_generation_never_finishes_before_legacy_wait(self) -> None:
         batch = FakeBatch()
         inspector = FakeInspector()

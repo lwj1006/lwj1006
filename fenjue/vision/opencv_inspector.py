@@ -933,6 +933,13 @@ class OpenCVScreenInspector:
         if composer is not None:
             if composer.center[1] < int(height * 0.74):
                 layout = ComposerLayout.NEW_CHAT_CENTERED
+            elif (
+                composer.width >= int(width * 0.68)
+                and composer.x <= int(width * 0.20)
+            ):
+                # The generated-image editor uses a distinctly wider bottom
+                # "Describe edits" composer than an ordinary active chat.
+                layout = ComposerLayout.IMAGE_VIEWER
             else:
                 layout = ComposerLayout.ACTIVE_CHAT_BOTTOM
 

@@ -61,6 +61,17 @@ def synthetic_fullscreen_active_frame() -> np.ndarray:
     return frame
 
 
+def synthetic_image_editor_frame() -> np.ndarray:
+    frame = np.full((768, 1024, 3), 255, dtype=np.uint8)
+    left, top, right, bottom = 166, 626, 912, 680
+    cv2.rectangle(frame, (left, top), (right, bottom), (250, 250, 250), -1)
+    cv2.rectangle(frame, (left, top), (right, bottom), (220, 220, 220), 2)
+    cv2.line(frame, (173, 642), (191, 642), (35, 35, 35), 3)
+    cv2.line(frame, (182, 633), (182, 651), (35, 35, 35), 3)
+    cv2.circle(frame, (895, 651), 19, (10, 10, 10), -1)
+    return frame
+
+
 def synthetic_compact_file_dialog() -> tuple[np.ndarray, Rect]:
     frame = np.full((768, 1024, 3), 245, dtype=np.uint8)
     dialog = Rect(7, 1, 611, 471)
@@ -120,6 +131,14 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
         self.assertEqual(state.layout, ComposerLayout.ACTIVE_CHAT_BOTTOM)
         self.assertIsNone(state.viewer_close_button)
         self.assertIsNotNone(state.action_button)
+
+    def test_generated_image_editor_is_distinguished_from_active_chat(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            state = inspector.inspect_frame(synthetic_image_editor_frame())
+
+        self.assertEqual(state.layout, ComposerLayout.IMAGE_VIEWER)
+        self.assertIsNone(state.viewer_close_button)
 
     def test_compact_windows_file_name_input_is_detected(self) -> None:
         frame, dialog = synthetic_compact_file_dialog()

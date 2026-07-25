@@ -55,71 +55,6 @@ class VisionAutomationController:
             time.sleep(0.8)
         return self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=timeout)
 
-    def _clear_visible_attachments(self, timeout: float = 15.0) -> None:
-        deadline = time.monotonic() + timeout
-        while time.monotonic() < deadline:
-            state = self.inspector.inspect()
-            if state.layout == ComposerLayout.IMAGE_VIEWER:
-                print("Vision recovery: attachment cleanup entered image viewer; closing it.", flush=True)
-                self.restore_chat_from_image_viewer(timeout=30)
-                continue
-            if state.attachment_count <= 0:
-                time.sleep(1.0)
-                confirmed = self.inspector.inspect()
-                if confirmed.attachment_count <= 0:
-                    return
-                state = confirmed
-            previous_count = state.attachment_count
-            previous_composer_height = state.composer.height if state.composer is not None else 0
-            box = state.attachment_boxes[-1]
-            visual_close = self.inspector.attachment_close_button(box)
-            if visual_close is not None:
-                close = visual_close
-            elif box.width > 65 or box.height > 65:
-                if state.composer is not None and box.y - state.composer.y < 20:
-                    # Directly modelled outer single-card rectangle.
-                    close = Rect(box.right - 26, box.y + 2, 24, 24)
-                else:
-                    # Inner image contour: the X sits just above its top-right.
-                    close = Rect(box.right - 26, max(0, box.y - 30), 24, 24)
-            else:
-                close = Rect(box.right - 18, box.y + 2, 16, 16)
-            self._click(close, "attachment remove X")
-            candidate = self.inspector.wait_for(
-                lambda current: (
-                    current.layout == ComposerLayout.IMAGE_VIEWER
-                    or current.attachment_count < previous_count
-                    or (
-                        previous_count == 1
-                        and previous_composer_height >= 130
-                        and current.composer is not None
-                        and current.composer.height < 100
-                    )
-                ),
-                timeout=3.0,
-                poll_seconds=0.25,
-                label="attachment removal progress",
-            )
-            if candidate.layout == ComposerLayout.IMAGE_VIEWER:
-                print("Vision recovery: removal click opened image viewer; closing it.", flush=True)
-                self.restore_chat_from_image_viewer(timeout=30)
-                continue
-            if (
-                previous_count == 1
-                and previous_composer_height >= 130
-                and candidate.composer is not None
-                and candidate.composer.height < 100
-            ):
-                return
-            if candidate.attachment_count >= previous_count:
-                path = self.inspector.save_diagnostic("attachment_cleanup_no_progress")
-                raise VisionTimeoutError(
-                    "Attachment cleanup made no visual progress; "
-                    f"count remained {candidate.attachment_count}; diagnostic={path}"
-                )
-            time.sleep(0.8)
-        raise VisionTimeoutError("Could not clear partial attachments before upload retry.")
-
     def _clear_input_text(self) -> None:
         state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=15)
         if state.input_box is None:
@@ -238,18 +173,30 @@ class VisionAutomationController:
 
     def _recover_failed_upload_cycle(self) -> None:
         """Return a failed upload/menu/dialog transaction to a clean composer."""
-        pyautogui.press("esc")
-        time.sleep(0.8)
         state = self.inspector.inspect()
+        if state.file_name_input is not None:
+            print("Vision recovery: closing a stale Windows file dialog.", flush=True)
+            pyautogui.press("esc")
+            state = self.inspector.wait_for(
+                lambda candidate: candidate.file_name_input is None and candidate.page_ready,
+                timeout=10,
+                poll_seconds=0.25,
+                label="stale Windows file dialog closing",
+            )
         if state.layout == ComposerLayout.IMAGE_VIEWER:
             state = self.restore_chat_from_image_viewer(timeout=30)
-        elif state.layout != ComposerLayout.ACTIVE_CHAT_BOTTOM:
-            pyautogui.press("esc")
-            state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-        if self.draft_attachments_pending and state.attachment_count > 0:
-            self._clear_visible_attachments(timeout=30)
+
+        pyautogui.press("esc")
+        time.sleep(0.4)
+        self.batch.refresh_chatgpt_web_page(
+            "Vision upload recovery refresh",
+            self.batch.STARTUP_REFRESH_SETTLE_SECONDS,
+            "Vision upload recovery refresh settle",
+        )
+        state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=45)
         self._clear_input_text()
         self.draft_attachments_pending = False
+        self.expected_attachment_count = 0
 
     def upload_reference_images(self, reference_files: list[str]) -> list[str]:
         last_error: VisionTimeoutError | None = None
@@ -279,12 +226,27 @@ class VisionAutomationController:
             raise VisionTimeoutError("Vision upload received no reference files.")
 
         state = self.inspector.inspect()
+        if state.file_name_input is not None:
+            pyautogui.press("esc")
+            state = self.inspector.wait_for(
+                lambda candidate: candidate.file_name_input is None and candidate.page_ready,
+                timeout=10,
+                poll_seconds=0.25,
+                label="pre-upload Windows file dialog closing",
+            )
         if state.layout == ComposerLayout.IMAGE_VIEWER:
             state = self.restore_chat_from_image_viewer(timeout=45)
         else:
             state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=45)
-        if self.draft_attachments_pending and state.attachment_count:
-            self._clear_visible_attachments()
+        if self.draft_attachments_pending:
+            self.batch.refresh_chatgpt_web_page(
+                "Vision stale draft refresh",
+                self.batch.STARTUP_REFRESH_SETTLE_SECONDS,
+                "Vision stale draft refresh settle",
+            )
+            state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=45)
+            self.draft_attachments_pending = False
+            self.expected_attachment_count = 0
         self._clear_input_text()
 
         self.ensure_high_image_model()
