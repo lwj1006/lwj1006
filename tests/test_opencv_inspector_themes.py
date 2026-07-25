@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 from unittest.mock import patch
 
-from fenjue.vision.contracts import ComposerLayout
+from fenjue.vision.contracts import ComposerLayout, Rect
 from fenjue.vision.opencv_inspector import OpenCVScreenInspector
 
 
@@ -61,6 +61,16 @@ def synthetic_fullscreen_active_frame() -> np.ndarray:
     return frame
 
 
+def synthetic_compact_file_dialog() -> tuple[np.ndarray, Rect]:
+    frame = np.full((768, 1024, 3), 245, dtype=np.uint8)
+    dialog = Rect(7, 1, 611, 471)
+    cv2.rectangle(frame, (200, 398), (400, 425), (255, 255, 255), -1)
+    cv2.rectangle(frame, (200, 398), (400, 425), (160, 160, 160), 1)
+    cv2.rectangle(frame, (412, 398), (600, 425), (255, 255, 255), -1)
+    cv2.rectangle(frame, (412, 398), (600, 425), (160, 160, 160), 1)
+    return frame, dialog
+
+
 class OpenCVInspectorThemeTests(unittest.TestCase):
     def test_light_theme_composer_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -98,6 +108,20 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
         self.assertEqual(state.layout, ComposerLayout.ACTIVE_CHAT_BOTTOM)
         self.assertIsNone(state.viewer_close_button)
         self.assertIsNotNone(state.action_button)
+
+    def test_compact_windows_file_name_input_is_detected(self) -> None:
+        frame, dialog = synthetic_compact_file_dialog()
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            field = inspector._file_name_input(
+                cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
+                dialog,
+            )
+
+        self.assertIsNotNone(field)
+        assert field is not None
+        self.assertLess(field.center[0], dialog.x + dialog.width // 2 + 100)
+        self.assertGreaterEqual(field.width, 190)
 
     def test_theme_change_refreshes_learned_plus_template(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

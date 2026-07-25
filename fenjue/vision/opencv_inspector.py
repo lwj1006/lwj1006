@@ -562,7 +562,9 @@ class OpenCVScreenInspector:
         candidates: list[Rect] = []
         for contour in self._contours(gray):
             x, y, width, height = cv2.boundingRect(contour)
-            if width < max(260, int(dialog.width * 0.35)):
+            # Compact Windows 11 file dialogs can render the file-name field
+            # at only ~200 px wide beside the file-type dropdown.
+            if width < max(160, int(dialog.width * 0.28)):
                 continue
             if not (20 <= height <= 46):
                 continue
@@ -574,7 +576,15 @@ class OpenCVScreenInspector:
                 continue
             candidates.append(Rect(x, y, width, height))
         candidates = self._dedupe_rectangles(candidates)
-        return max(candidates, key=lambda rect: (rect.y, rect.width), default=None)
+        return max(
+            candidates,
+            key=lambda rect: (
+                rect.y,
+                rect.width,
+                -abs(rect.center[0] - dialog.x - int(dialog.width * 0.48)),
+            ),
+            default=None,
+        )
 
     def _attachment_boxes(self, gray, composer: Rect | None) -> tuple[Rect, ...]:
         if composer is None:
