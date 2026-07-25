@@ -22,6 +22,7 @@ def active_state(*, attachments: int = 0) -> ScreenState:
         action_button=Rect(1210, 840, 34, 34),
         model_selector=Rect(1110, 840, 60, 34),
         model_menu=Rect(1060, 650, 160, 180),
+        model_high_row=Rect(1068, 730, 144, 42),
         attachment_boxes=boxes,
         attachment_count=attachments,
         action_kind="send",
@@ -104,8 +105,7 @@ class FakeInspector:
             state = ScreenState(**{**state.__dict__, "create_image_row": Rect(700, 610, 300, 40)})
         elif label == "image model menu opening":
             self.last_frame.fill(255)
-            state = active_state()
-            state = ScreenState(**{**state.__dict__, "model_high_row": Rect(1080, 700, 120, 40)})
+            state = ScreenState(screen_width=1920, screen_height=1080)
         elif label == "attachment menu for batch upload":
             state = active_state()
             state = ScreenState(**{**state.__dict__, "add_file_row": Rect(700, 560, 300, 40)})
@@ -180,7 +180,14 @@ class VisionControllerTests(unittest.TestCase):
             inspector.wait_labels.count("attachment menu for batch upload"),
             1,
         )
+        self.assertNotIn("attachment menu for create image", inspector.wait_labels)
         self.assertEqual(inspector.wait_labels.count("Windows file-name input"), 1)
+        self.assertTrue(
+            any(
+                x == 1140 and y == 751
+                for x, y, _after in batch.clicks
+            )
+        )
 
     def test_generation_never_finishes_before_legacy_wait(self) -> None:
         batch = FakeBatch()

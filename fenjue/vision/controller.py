@@ -208,15 +208,19 @@ class VisionAutomationController:
     def ensure_high_image_model(self) -> None:
         """Open the image-model popup and idempotently choose ``High``."""
         state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-        if state.model_selector is None or state.model_menu is None:
+        if (
+            state.model_selector is None
+            or state.model_menu is None
+            or state.model_high_row is None
+        ):
             raise VisionTimeoutError("Image model selector geometry is unavailable.")
         before = self.inspector.last_frame.copy()
         menu_region = state.model_menu
+        high_row = state.model_high_row
         self._click(state.model_selector, "image model selector")
-        opened = self.inspector.wait_for(
-            lambda candidate: (
-                candidate.model_high_row is not None
-                and self.inspector.frame_change_ratio(
+        self.inspector.wait_for(
+            lambda _candidate: (
+                self.inspector.frame_change_ratio(
                     before[menu_region.y:menu_region.bottom, menu_region.x:menu_region.right],
                     self.inspector.last_frame[
                         menu_region.y:menu_region.bottom,
@@ -228,9 +232,8 @@ class VisionAutomationController:
             poll_seconds=0.25,
             label="image model menu opening",
         )
-        assert opened.model_high_row is not None
-        self._click(opened.model_high_row, "High image model")
-        time.sleep(0.7)
+        self._click(high_row, "High image model")
+        self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=8)
         self.batch.debug_log("Vision: image model set to High")
 
     def _recover_failed_upload_cycle(self) -> None:
@@ -284,25 +287,12 @@ class VisionAutomationController:
             self._clear_visible_attachments()
         self._clear_input_text()
 
-        state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=15)
-        if state.plus_button is None:
-            raise VisionTimeoutError("Active composer found without a plus button.")
-        self._click(state.plus_button, "attachment plus for create image", after=1.0)
-        menu_state = self.inspector.wait_for(
-            lambda candidate: candidate.create_image_row is not None,
-            timeout=12,
-            label="attachment menu for create image",
-        )
-        assert menu_state.create_image_row is not None
-        self._click(menu_state.create_image_row, "create image", after=1.0)
-
-        self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
         self.ensure_high_image_model()
-        image_mode_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-        if image_mode_state.plus_button is None:
-            raise VisionTimeoutError("Image mode activated without a visible attachment plus button.")
+        upload_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
+        if upload_state.plus_button is None:
+            raise VisionTimeoutError("Active composer found without a visible attachment plus button.")
 
-        self._click(image_mode_state.plus_button, "attachment plus for batch upload", after=1.0)
+        self._click(upload_state.plus_button, "attachment plus for batch upload", after=1.0)
         menu_state = self.inspector.wait_for(
             lambda candidate: candidate.add_file_row is not None,
             timeout=12,

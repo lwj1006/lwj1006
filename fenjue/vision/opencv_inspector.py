@@ -427,8 +427,8 @@ class OpenCVScreenInspector:
         """Infer the image-model selector and its ``High`` popup row.
 
         ChatGPT anchors this compact selector immediately left of the voice /
-        send control.  The popup itself is laid out in five fixed-height rows;
-        ``High`` is the fourth row.  Returning geometry from the detected
+        send control. The current popup is about 200 px tall and ``High`` is
+        the fourth option row. Returning geometry from the detected
         composer keeps this independent from absolute screen coordinates.
         The controller additionally requires a visual frame change before it
         treats the inferred popup row as clickable.
@@ -442,16 +442,16 @@ class OpenCVScreenInspector:
             36,
         ).clipped(gray.shape[1], gray.shape[0])
         menu = Rect(
-            max(0, action.x - 174),
-            max(0, plus.center[1] - 177),
-            138,
-            160,
+            max(0, action.x - 192),
+            max(0, plus.center[1] - 224),
+            150,
+            202,
         ).clipped(gray.shape[1], gray.shape[0])
         high = Rect(
             menu.x + 8,
-            max(menu.y, plus.center[1] - 87),
+            max(menu.y, plus.center[1] - 115),
             max(30, menu.width - 16),
-            30,
+            42,
         ).clipped(gray.shape[1], gray.shape[0])
         return selector, menu, high
 
@@ -605,38 +605,6 @@ class OpenCVScreenInspector:
             # A long prompt internally scrolls the composer and leaves only
             # the 42-46 px bottom control contour.  Recover the attachment row
             # from the same regular remove-X chain up to 360 px above it.
-            # A single attachment also expands into a ~115 px card immediately
-            # above that control row while geometry still reports only the
-            # 46 px control contour.  Detect that tightly anchored card before
-            # scanning older conversation thumbnails farther up the page.
-            single_top = max(0, composer.y - 170)
-            single_left = composer.x
-            single_right = min(gray.shape[1], composer.x + 180)
-            single_region = gray[single_top:composer.y, single_left:single_right]
-            single_edges = cv2.Canny(single_region, 25, 90)
-            single_contours, _ = cv2.findContours(
-                single_edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
-            )
-            single_candidates: list[Rect] = []
-            for contour in single_contours:
-                x, y, item_width, item_height = cv2.boundingRect(contour)
-                if not (55 <= item_width <= 140 and 55 <= item_height <= 145):
-                    continue
-                if not (0.68 <= item_width / max(1, item_height) <= 1.45):
-                    continue
-                rect = Rect(single_left + x, single_top + y, item_width, item_height)
-                if rect.x <= composer.x + 80 and 0 <= composer.y - rect.bottom <= 40:
-                    single_candidates.append(rect)
-            if single_candidates:
-                return (
-                    Rect(
-                        composer.x + 8,
-                        max(0, composer.y - 123),
-                        min(115, composer.width - 20),
-                        115,
-                    ),
-                )
-
             top = max(0, composer.y - 360)
             bottom = composer.y
             left = composer.x
@@ -718,6 +686,36 @@ class OpenCVScreenInspector:
                 return tuple(
                     Rect(center_x - 37, center_y - 10, 47, 47)
                     for center_x, center_y in best_chain
+                )
+
+            # Only use the expanded single-card model after proving that no
+            # regular row of two or more attachment close buttons is present.
+            single_top = max(0, composer.y - 170)
+            single_left = composer.x
+            single_right = min(gray.shape[1], composer.x + 180)
+            single_region = gray[single_top:composer.y, single_left:single_right]
+            single_edges = cv2.Canny(single_region, 25, 90)
+            single_contours, _ = cv2.findContours(
+                single_edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
+            )
+            single_candidates: list[Rect] = []
+            for contour in single_contours:
+                x, y, item_width, item_height = cv2.boundingRect(contour)
+                if not (55 <= item_width <= 140 and 55 <= item_height <= 145):
+                    continue
+                if not (0.68 <= item_width / max(1, item_height) <= 1.45):
+                    continue
+                rect = Rect(single_left + x, single_top + y, item_width, item_height)
+                if rect.x <= composer.x + 80 and 0 <= composer.y - rect.bottom <= 40:
+                    single_candidates.append(rect)
+            if single_candidates:
+                return (
+                    Rect(
+                        composer.x + 8,
+                        max(0, composer.y - 123),
+                        min(115, composer.width - 20),
+                        115,
+                    ),
                 )
         if 72 <= composer.height < 130:
             # Compact attachment cards expose a dark remove-X overlay at a

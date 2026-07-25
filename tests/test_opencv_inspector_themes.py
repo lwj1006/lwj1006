@@ -71,6 +71,18 @@ def synthetic_compact_file_dialog() -> tuple[np.ndarray, Rect]:
     return frame, dialog
 
 
+def synthetic_four_attachment_row() -> tuple[np.ndarray, Rect]:
+    frame = np.full((768, 1024, 3), 255, dtype=np.uint8)
+    composer = Rect(216, 649, 639, 46)
+    for index in range(4):
+        left = 225 + index * 64
+        cv2.rectangle(frame, (left, 576), (left + 55, 632), (220, 220, 220), -1)
+        cv2.rectangle(frame, (left, 576), (left + 55, 632), (170, 170, 170), 1)
+        cv2.circle(frame, (left + 44, 584), 8, (255, 255, 255), -1)
+        cv2.circle(frame, (left + 44, 584), 6, (15, 15, 15), -1)
+    return frame, composer
+
+
 class OpenCVInspectorThemeTests(unittest.TestCase):
     def test_light_theme_composer_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -122,6 +134,35 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
         assert field is not None
         self.assertLess(field.center[0], dialog.x + dialog.width // 2 + 100)
         self.assertGreaterEqual(field.width, 190)
+
+    def test_model_high_row_matches_current_popup_geometry(self) -> None:
+        frame = np.full((720, 1024, 3), 255, dtype=np.uint8)
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            selector, menu, high = inspector._model_controls(
+                cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
+                Rect(217, 638, 639, 54),
+                Rect(224, 654, 34, 34),
+                Rect(807, 644, 43, 41),
+            )
+
+        self.assertIsNotNone(selector)
+        self.assertIsNotNone(menu)
+        self.assertIsNotNone(high)
+        assert menu is not None and high is not None
+        self.assertLessEqual(menu.y, 447)
+        self.assertTrue(556 <= high.center[1] <= 598)
+
+    def test_four_attachment_row_wins_over_single_card_fallback(self) -> None:
+        frame, composer = synthetic_four_attachment_row()
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            boxes = inspector._attachment_boxes(
+                cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY),
+                composer,
+            )
+
+        self.assertEqual(len(boxes), 4)
 
     def test_theme_change_refreshes_learned_plus_template(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
