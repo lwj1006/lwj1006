@@ -104,17 +104,9 @@ class VisionAutomationController:
             flush=True,
         )
         time.sleep(0.8)
-        print("Vision startup refresh: locating ChatGPT focus target.", flush=True)
-        state = self.wait_for_composer(timeout=30)
-        if state.layout == ComposerLayout.IMAGE_VIEWER:
-            print("Vision automation: image viewer detected at startup; restoring chat.", flush=True)
-            state = self.restore_chat_from_image_viewer(timeout=45)
-        # Clicking inside the composer focuses ChatGPT without risking an
-        # accidental send/stop action left over from an interrupted run.
-        focus_target = state.input_box or state.action_button
-        if focus_target is None:
-            raise VisionTimeoutError("ChatGPT composer found without a safe focus target.")
-        self._click(focus_target, "ChatGPT focus target", after=0.5)
+        print("Vision startup refresh: dismissing any residual image editor.", flush=True)
+        pyautogui.press("esc")
+        time.sleep(0.3)
         self.batch.refresh_chatgpt_web_page(
             "Vision startup refresh",
             self.batch.STARTUP_REFRESH_SETTLE_SECONDS,

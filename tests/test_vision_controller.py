@@ -153,7 +153,7 @@ class VisionControllerTests(unittest.TestCase):
             [("Vision startup refresh", 20, "Vision startup refresh settle")],
         )
         self.assertEqual(inspector.focus_calls, 1)
-        self.assertTrue(any(after == 0.5 for _, _, after in batch.clicks))
+        self.assertEqual(batch.clicks, [])
 
     def test_upload_selects_all_files_in_one_dialog(self) -> None:
         batch = FakeBatch()
