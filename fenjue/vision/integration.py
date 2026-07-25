@@ -39,6 +39,7 @@ def activate_visual_runtime(batch_module, args: list[str]) -> VisionAutomationCo
     batch_module.upload_reference_images = controller.upload_reference_images
     batch_module.send_prompt = controller.send_prompt
     batch_module.wait_for_generation = controller.wait_for_generation
+    batch_module.recover_after_generation_limit = controller.recover_after_generation_limit
     print(
         "OpenCV visual automation active. Legacy coordinate automation remains available by launching without --vision.",
         flush=True,

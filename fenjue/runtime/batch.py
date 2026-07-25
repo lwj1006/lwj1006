@@ -39,6 +39,10 @@ from fenjue.modes.original.templates import (
 from fenjue.data.outfits.yang_mi import YANG_MI_COLOR_FREE_THEMES, YANG_MI_ORIGINAL_COLOR_THEMES
 from fenjue.data.outfits.zhang_wonyoung import ZHANG_WONYOUNG_COLOR_FREE_THEMES, ZHANG_WONYOUNG_ORIGINAL_COLOR_THEMES
 from fenjue.data.outfits.zhang_ruonan import ZHANG_RUONAN_COLOR_FREE_THEMES, ZHANG_RUONAN_ORIGINAL_COLOR_THEMES
+from fenjue.vision.generation_limit import (
+    GenerationLimitReached,
+    detect_generation_limit,
+)
 # ChatGPT desktop batch automation.
 # Adjust these coordinates if the ChatGPT window position/size changes.
 
@@ -1636,7 +1640,43 @@ def wait_for_generation(run_number: int) -> Path:
     wait_with_echo(CHECK_INTERVAL_SECONDS, f"[{run_number:02d}] generation check")
     path = take_screenshot(f"run_{run_number:02d}_check")
     print(f"[{run_number:02d}] check screenshot: {path}")
+    limit = detect_generation_limit(path)
+    if limit is not None:
+        raise GenerationLimitReached(limit)
     return path
+
+
+def recover_after_generation_limit(error: GenerationLimitReached) -> None:
+    detection = error.detection
+    print(
+        "Image generation limit confirmed "
+        f"from {detection.source}: {detection.text.strip()}",
+        flush=True,
+    )
+    if detection.resume_at is None:
+        raise RuntimeError(
+            "Image generation is limited, but the reset time could not be parsed. "
+            f"The current run was not marked complete. Screenshot: {detection.screenshot_path}"
+        ) from error
+
+    remaining = max(0, int((detection.resume_at - dt.datetime.now()).total_seconds()))
+    print(
+        "Image generation limit: current run is paused and will be retried at "
+        f"{detection.resume_at:%Y-%m-%d %H:%M:%S} local time.",
+        flush=True,
+    )
+    wait_with_echo(
+        remaining,
+        "Image generation limit",
+        end_time=detection.resume_at,
+    )
+    print("Image generation limit: focusing ChatGPT before refresh.", flush=True)
+    click_slow(*COORDS["send_button"], after=0.5)
+    refresh_chatgpt_web_page(
+        "Image generation limit reset",
+        WEB_REFRESH_SETTLE_SECONDS,
+        "Image generation reset refresh settle",
+    )
 
 
 def open_images_page_for_review() -> None:
@@ -2856,31 +2896,46 @@ def main() -> None:
             debug_log(f"[{run_number:02d}] recent cooldown tags: {recent_visual_tags}")
             # print(f"[{run_number:02d}] prompt: {prompt}", flush=True)
 
-            uploaded_files = upload_reference_images(reference_files)
-            run_id = log_prompt(
-                run_number,
-                character_name,
-                reference_files,
-                uploaded_files,
-                theme,
-                scene,
-                pose,
-                lighting,
-                mood,
-                prompt_name,
-                prompt,
-                propagation_profile,
-                required_identity_tokens,
-                viewer_distance,
-                shot_scale,
-                outfit_prompt,
-                black_hosiery_applied,
-                config_revision,
-                composition_plan,
-            )
-            send_prompt(prompt)
-            take_screenshot(f"run_{run_number:02d}_sent")
-            screenshot_path = wait_for_generation(run_number)
+            generation_attempt = 1
+            while True:
+                try:
+                    uploaded_files = upload_reference_images(reference_files)
+                    run_id = log_prompt(
+                        run_number,
+                        character_name,
+                        reference_files,
+                        uploaded_files,
+                        theme,
+                        scene,
+                        pose,
+                        lighting,
+                        mood,
+                        prompt_name,
+                        prompt,
+                        propagation_profile,
+                        required_identity_tokens,
+                        viewer_distance,
+                        shot_scale,
+                        outfit_prompt,
+                        black_hosiery_applied,
+                        config_revision,
+                        composition_plan,
+                    )
+                    send_prompt(prompt)
+                    take_screenshot(f"run_{run_number:02d}_sent")
+                    screenshot_path = wait_for_generation(run_number)
+                    break
+                except GenerationLimitReached as error:
+                    info_log(
+                        f"Run {run_number}/{total_runs} hit the image generation limit "
+                        f"on attempt {generation_attempt}; preserving the current run."
+                    )
+                    recover_after_generation_limit(error)
+                    generation_attempt += 1
+                    info_log(
+                        f"Run {run_number}/{total_runs} retrying the same image "
+                        f"(attempt {generation_attempt})."
+                    )
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             record_completed_run(character_name, run_number)
             _completed_runs_this_process += 1

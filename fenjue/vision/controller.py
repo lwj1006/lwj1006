@@ -6,6 +6,7 @@ from pathlib import Path
 import pyautogui
 
 from .contracts import ComposerLayout, Rect, ScreenState
+from .generation_limit import GenerationLimitReached, detect_generation_limit
 from .opencv_inspector import OpenCVScreenInspector, VisionTimeoutError
 
 
@@ -406,6 +407,9 @@ class VisionAutomationController:
             if stable_cycles >= 3:
                 path = self.batch.take_screenshot(f"run_{run_number:02d}_vision_complete")
                 print(f"[{run_number:02d}] vision completion screenshot: {path}", flush=True)
+                limit = detect_generation_limit(path)
+                if limit is not None:
+                    raise GenerationLimitReached(limit)
                 if state.layout == ComposerLayout.IMAGE_VIEWER:
                     self.restore_chat_from_image_viewer(timeout=30)
                 return path
@@ -415,3 +419,43 @@ class VisionAutomationController:
         raise VisionTimeoutError(
             f"Generation did not reach a visually stable completed state; diagnostic={path}"
         )
+
+    def recover_after_generation_limit(self, error: GenerationLimitReached) -> None:
+        detection = error.detection
+        print(
+            "Image generation limit confirmed "
+            f"from {detection.source}: {detection.text.strip()}",
+            flush=True,
+        )
+        if detection.resume_at is None:
+            raise RuntimeError(
+                "Image generation is limited, but the reset time could not be parsed. "
+                f"The current run was not marked complete. Screenshot: {detection.screenshot_path}"
+            ) from error
+
+        remaining = max(
+            0,
+            int((detection.resume_at - self.batch.dt.datetime.now()).total_seconds()),
+        )
+        print(
+            "Image generation limit: current run is paused and will be retried at "
+            f"{detection.resume_at:%Y-%m-%d %H:%M:%S} local time.",
+            flush=True,
+        )
+        self.batch.wait_with_echo(
+            remaining,
+            "Image generation limit",
+            end_time=detection.resume_at,
+        )
+        browser_context = self.inspector.focus_chatgpt_window()
+        if browser_context is None:
+            raise VisionTimeoutError(
+                "The image limit expired, but the ChatGPT browser window could not be focused."
+            )
+        pyautogui.press("esc")
+        self.batch.refresh_chatgpt_web_page(
+            "Image generation limit reset",
+            self.batch.WEB_REFRESH_SETTLE_SECONDS,
+            "Image generation reset refresh settle",
+        )
+        self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=60)
