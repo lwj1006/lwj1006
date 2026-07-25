@@ -124,9 +124,11 @@ class OpenCVScreenInspector:
 
     @classmethod
     def focus_chatgpt_window(cls) -> tuple[str, str, str] | None:
-        """Restore and focus the best visible browser window before inspection."""
+        """Restore and verify the best visible ChatGPT browser as foreground."""
         try:
             user32 = ctypes.windll.user32
+            kernel32 = ctypes.windll.kernel32
+            user32.GetForegroundWindow.restype = ctypes.c_void_p
 
             class WinRect(ctypes.Structure):
                 _fields_ = [
@@ -136,7 +138,9 @@ class OpenCVScreenInspector:
                     ("bottom", ctypes.c_long),
                 ]
 
-            candidates: list[tuple[int, int, int, tuple[str, str, str]]] = []
+            candidates: list[
+                tuple[int, int, int, tuple[str, str, str], tuple[int, int, int, int]]
+            ] = []
             callback_type = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
 
             def collect(hwnd, _lparam) -> bool:
@@ -156,7 +160,15 @@ class OpenCVScreenInspector:
                 hwnd_value = hwnd if isinstance(hwnd, int) else hwnd.value
                 if not hwnd_value:
                     return True
-                candidates.append((title_score, area, int(hwnd_value), (class_name, title, process_name)))
+                candidates.append(
+                    (
+                        title_score,
+                        area,
+                        int(hwnd_value),
+                        (class_name, title, process_name),
+                        (bounds.left, bounds.top, bounds.right, bounds.bottom),
+                    )
+                )
                 return True
 
             callback = callback_type(collect)
@@ -164,14 +176,62 @@ class OpenCVScreenInspector:
             if not candidates:
                 return None
 
-            _, _, hwnd, context = max(candidates, key=lambda item: (item[0], item[1]))
-            user32.ShowWindow(hwnd, 9)  # SW_RESTORE
-            user32.BringWindowToTop(hwnd)
-            # Windows may report SetForegroundWindow=False while it is still
-            # completing the restore. The inspector's foreground gate verifies
-            # the result before any coordinates are used.
-            user32.SetForegroundWindow(hwnd)
-            return context
+            _, _, hwnd, context, bounds = max(candidates, key=lambda item: (item[0], item[1]))
+            target = ctypes.c_void_p(hwnd)
+
+            def foreground_matches() -> bool:
+                return int(user32.GetForegroundWindow() or 0) == hwnd
+
+            def wait_for_foreground(seconds: float = 1.2) -> bool:
+                deadline = time.monotonic() + seconds
+                while time.monotonic() < deadline:
+                    if foreground_matches():
+                        return True
+                    time.sleep(0.05)
+                return foreground_matches()
+
+            user32.ShowWindow(target, 9)  # SW_RESTORE
+            foreground = user32.GetForegroundWindow()
+            current_thread = kernel32.GetCurrentThreadId()
+            foreground_thread = user32.GetWindowThreadProcessId(
+                ctypes.c_void_p(foreground) if foreground else None,
+                None,
+            )
+            target_thread = user32.GetWindowThreadProcessId(target, None)
+            attached_threads: list[int] = []
+            try:
+                for thread_id in {foreground_thread, target_thread}:
+                    if (
+                        thread_id
+                        and thread_id != current_thread
+                        and user32.AttachThreadInput(current_thread, thread_id, True)
+                    ):
+                        attached_threads.append(thread_id)
+                user32.BringWindowToTop(target)
+                user32.SetForegroundWindow(target)
+                user32.SetFocus(target)
+            finally:
+                for thread_id in reversed(attached_threads):
+                    user32.AttachThreadInput(current_thread, thread_id, False)
+            if wait_for_foreground():
+                return context
+
+            # SwitchToThisWindow is a useful fallback when Windows' foreground
+            # lock rejects a direct SetForegroundWindow call from the terminal.
+            switch_window = getattr(user32, "SwitchToThisWindow", None)
+            if switch_window is not None:
+                switch_window(target, True)
+                if wait_for_foreground():
+                    return context
+
+            # A real click on the non-client left border is the final fallback.
+            # It activates the window without clicking a ChatGPT page control.
+            left, top, right, bottom = bounds
+            if right > left and bottom > top:
+                pyautogui.click(left + 1, top + (bottom - top) // 2)
+                if wait_for_foreground():
+                    return context
+            return None
         except (AttributeError, OSError, ValueError):
             return None
 
