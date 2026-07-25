@@ -86,12 +86,19 @@ class FakeInspector:
         self.last_frame = np.zeros((1080, 1920, 3), dtype=np.uint8)
         self.attachments_ready = 0
         self.wait_labels: list[str] = []
+        self.focus_calls = 0
+
+    def focus_chatgpt_window(self) -> tuple[str, str, str]:
+        self.focus_calls += 1
+        return ("Chrome_WidgetWin_1", "ChatGPT", "msedge.exe")
 
     def inspect(self) -> ScreenState:
         return active_state(attachments=self.attachments_ready)
 
     def wait_for(self, predicate, *, label: str, **_kwargs) -> ScreenState:
         self.wait_labels.append(label)
+        if label == "composer (any layout)" and self.focus_calls == 0:
+            raise AssertionError("Composer inspection started before the browser was focused.")
         if label == "attachment menu for create image":
             state = active_state()
             state = ScreenState(**{**state.__dict__, "create_image_row": Rect(700, 610, 300, 40)})
@@ -145,6 +152,7 @@ class VisionControllerTests(unittest.TestCase):
             batch.refreshes,
             [("Vision startup refresh", 20, "Vision startup refresh settle")],
         )
+        self.assertEqual(inspector.focus_calls, 1)
         self.assertTrue(any(after == 0.5 for _, _, after in batch.clicks))
 
     def test_upload_selects_all_files_in_one_dialog(self) -> None:

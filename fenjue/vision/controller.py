@@ -156,6 +156,19 @@ class VisionAutomationController:
             flush=True,
         )
         time.sleep(self.batch.POST_CHARACTER_SELECTION_DELAY_SECONDS)
+        print("Vision startup: bringing the ChatGPT browser window to the foreground.", flush=True)
+        browser_context = self.inspector.focus_chatgpt_window()
+        if browser_context is None:
+            raise VisionTimeoutError(
+                "Could not find and focus a visible Edge/Chrome/ChatGPT browser window. "
+                "Open ChatGPT in a browser window before starting OpenCV mode."
+            )
+        _, browser_title, browser_process = browser_context
+        print(
+            f"Vision startup: focused {browser_process} ({browser_title or 'untitled window'}).",
+            flush=True,
+        )
+        time.sleep(0.8)
         print("Vision startup refresh: locating ChatGPT focus target.", flush=True)
         state = self.wait_for_composer(timeout=30)
         if state.layout == ComposerLayout.IMAGE_VIEWER:

@@ -79,12 +79,11 @@ class OpenCVScreenInspector:
         return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     @staticmethod
-    def _foreground_window_context() -> tuple[str, str, str]:
-        """Return foreground window class, title, and executable name."""
+    def _window_context(hwnd: int) -> tuple[str, str, str]:
+        """Return window class, title, and executable name for one HWND."""
         try:
             user32 = ctypes.windll.user32
             kernel32 = ctypes.windll.kernel32
-            hwnd = user32.GetForegroundWindow()
             if not hwnd:
                 return "", "", ""
 
@@ -113,6 +112,68 @@ class OpenCVScreenInspector:
             return class_name.value, title.value, process_name
         except (AttributeError, OSError):
             return "", "", ""
+
+    @classmethod
+    def _foreground_window_context(cls) -> tuple[str, str, str]:
+        """Return foreground window class, title, and executable name."""
+        try:
+            hwnd = ctypes.windll.user32.GetForegroundWindow()
+        except (AttributeError, OSError):
+            return "", "", ""
+        return cls._window_context(hwnd)
+
+    @classmethod
+    def focus_chatgpt_window(cls) -> tuple[str, str, str] | None:
+        """Restore and focus the best visible browser window before inspection."""
+        try:
+            user32 = ctypes.windll.user32
+
+            class WinRect(ctypes.Structure):
+                _fields_ = [
+                    ("left", ctypes.c_long),
+                    ("top", ctypes.c_long),
+                    ("right", ctypes.c_long),
+                    ("bottom", ctypes.c_long),
+                ]
+
+            candidates: list[tuple[int, int, int, tuple[str, str, str]]] = []
+            callback_type = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+
+            def collect(hwnd, _lparam) -> bool:
+                if not user32.IsWindowVisible(hwnd):
+                    return True
+                context = cls._window_context(hwnd)
+                class_name, title, process_name = context
+                if process_name not in cls._SUPPORTED_FOREGROUND_PROCESSES:
+                    return True
+                bounds = WinRect()
+                if not user32.GetWindowRect(hwnd, ctypes.byref(bounds)):
+                    return True
+                area = max(0, bounds.right - bounds.left) * max(0, bounds.bottom - bounds.top)
+                if area <= 0:
+                    return True
+                title_score = 1 if "chatgpt" in title.casefold() else 0
+                hwnd_value = hwnd if isinstance(hwnd, int) else hwnd.value
+                if not hwnd_value:
+                    return True
+                candidates.append((title_score, area, int(hwnd_value), (class_name, title, process_name)))
+                return True
+
+            callback = callback_type(collect)
+            user32.EnumWindows(callback, 0)
+            if not candidates:
+                return None
+
+            _, _, hwnd, context = max(candidates, key=lambda item: (item[0], item[1]))
+            user32.ShowWindow(hwnd, 9)  # SW_RESTORE
+            user32.BringWindowToTop(hwnd)
+            # Windows may report SetForegroundWindow=False while it is still
+            # completing the restore. The inspector's foreground gate verifies
+            # the result before any coordinates are used.
+            user32.SetForegroundWindow(hwnd)
+            return context
+        except (AttributeError, OSError, ValueError):
+            return None
 
     @staticmethod
     def _contrast_mask(region, minimum_delta: int = 20):
