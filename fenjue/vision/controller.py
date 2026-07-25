@@ -156,7 +156,7 @@ class VisionAutomationController:
             flush=True,
         )
         time.sleep(self.batch.POST_CHARACTER_SELECTION_DELAY_SECONDS)
-        print("Vision startup: bringing the ChatGPT browser window to the foreground.", flush=True)
+        print("Vision startup: maximizing and focusing the ChatGPT browser window.", flush=True)
         browser_context = self.inspector.focus_chatgpt_window()
         if browser_context is None:
             raise VisionTimeoutError(

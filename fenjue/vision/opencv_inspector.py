@@ -190,7 +190,16 @@ class OpenCVScreenInspector:
                     time.sleep(0.05)
                 return foreground_matches()
 
-            user32.ShowWindow(target, 9)  # SW_RESTORE
+            user32.ShowWindow(target, 3)  # SW_MAXIMIZE
+            time.sleep(0.2)
+            maximized_bounds = WinRect()
+            if user32.GetWindowRect(target, ctypes.byref(maximized_bounds)):
+                bounds = (
+                    maximized_bounds.left,
+                    maximized_bounds.top,
+                    maximized_bounds.right,
+                    maximized_bounds.bottom,
+                )
             foreground = user32.GetForegroundWindow()
             current_thread = kernel32.GetCurrentThreadId()
             foreground_thread = user32.GetWindowThreadProcessId(
