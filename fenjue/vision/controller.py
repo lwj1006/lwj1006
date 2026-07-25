@@ -4,7 +4,6 @@ import time
 from pathlib import Path
 
 import pyautogui
-import pyperclip
 
 from .contracts import ComposerLayout, Rect, ScreenState
 from .opencv_inspector import OpenCVScreenInspector, VisionTimeoutError
@@ -25,17 +24,14 @@ class VisionAutomationController:
         # allowed to trigger destructive attachment cleanup.
         self.draft_attachments_pending = False
 
-    def _click(self, rect: Rect, label: str) -> None:
+    def _click(self, rect: Rect, label: str, *, after: float = 0.35) -> None:
         x, y = rect.center
         self.batch.debug_log(f"Vision: clicking {label} at ({x}, {y})")
-        self.batch.click_slow(x, y, after=0.35)
+        self.batch.click_slow(x, y, after=after)
 
-    @staticmethod
-    def _paste(text: str) -> None:
-        pyperclip.copy(text)
-        time.sleep(0.15)
-        pyautogui.hotkey("ctrl", "v")
-        time.sleep(0.45)
+    def _paste(self, text: str) -> None:
+        # Keep clipboard timing identical to the legacy coordinate workflow.
+        self.batch.paste_text(text)
 
     def wait_for_composer(
         self,
@@ -149,14 +145,38 @@ class VisionAutomationController:
         )
         if changed.action_button is None:
             raise VisionTimeoutError("Prompt changed the screen, but no action button was found.")
-        self._click(changed.action_button, "send button")
+        self.batch.wait_with_echo(self.batch.TEXT_BEFORE_SEND_SECONDS, "Vision prime before send")
+        self._click(changed.action_button, "send button", after=1.0)
 
     def prepare_session(self) -> None:
-        """Prime only a genuinely new centered chat; otherwise reuse the active chat."""
-        print("Vision automation: locating ChatGPT composer without DOM access.", flush=True)
+        """Run the legacy startup cadence, then use vision to verify the composer."""
+        print(
+            f"Starting in {self.batch.POST_CHARACTER_SELECTION_DELAY_SECONDS} seconds; "
+            "keep the mouse clear of the target area.",
+            flush=True,
+        )
+        time.sleep(self.batch.POST_CHARACTER_SELECTION_DELAY_SECONDS)
+        print("Vision startup refresh: locating ChatGPT focus target.", flush=True)
         state = self.wait_for_composer(timeout=30)
         if state.layout == ComposerLayout.IMAGE_VIEWER:
             print("Vision automation: image viewer detected at startup; restoring chat.", flush=True)
+            state = self.restore_chat_from_image_viewer(timeout=45)
+        # Clicking inside the composer focuses ChatGPT without risking an
+        # accidental send/stop action left over from an interrupted run.
+        focus_target = state.input_box or state.action_button
+        if focus_target is None:
+            raise VisionTimeoutError("ChatGPT composer found without a safe focus target.")
+        self._click(focus_target, "ChatGPT focus target", after=0.5)
+        self.batch.refresh_chatgpt_web_page(
+            "Vision startup refresh",
+            self.batch.STARTUP_REFRESH_SETTLE_SECONDS,
+            "Vision startup refresh settle",
+        )
+
+        print("Vision automation: locating refreshed ChatGPT composer.", flush=True)
+        state = self.wait_for_composer(timeout=45)
+        if state.layout == ComposerLayout.IMAGE_VIEWER:
+            print("Vision automation: image viewer detected after refresh; restoring chat.", flush=True)
             state = self.restore_chat_from_image_viewer(timeout=45)
         if state.layout == ComposerLayout.NEW_CHAT_CENTERED:
             print("Vision automation: new centered chat detected; sending the prime message.", flush=True)
@@ -239,128 +259,99 @@ class VisionAutomationController:
         self.batch.apply_upload_cooldown_if_needed(len(upload_files))
         expected_count = len(upload_files)
         self.batch.info_log(f"Vision upload: starting {expected_count} attachment(s)")
-        for attempt in range(1, 4):
-            self.batch.debug_log(f"Vision upload attempt {attempt}/3: expecting {expected_count} attachments")
-            state = self.inspector.inspect()
-            if state.layout == ComposerLayout.IMAGE_VIEWER:
-                state = self.restore_chat_from_image_viewer(timeout=45)
-            else:
-                state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=45)
-            if self.draft_attachments_pending and state.attachment_count:
-                self._clear_visible_attachments()
-                state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=15)
-            self._clear_input_text()
-            state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=15)
-            if state.plus_button is None:
-                raise VisionTimeoutError("Active composer found without a plus button.")
+        if expected_count <= 0:
+            raise VisionTimeoutError("Vision upload received no reference files.")
 
-            self._click(state.plus_button, "attachment plus")
-            menu_state = self.inspector.wait_for(
-                lambda candidate: candidate.create_image_row is not None,
-                timeout=12,
-                label="attachment menu for create image",
-            )
-            assert menu_state.create_image_row is not None
-            self._click(menu_state.create_image_row, "create image")
+        state = self.inspector.inspect()
+        if state.layout == ComposerLayout.IMAGE_VIEWER:
+            state = self.restore_chat_from_image_viewer(timeout=45)
+        else:
+            state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=45)
+        if self.draft_attachments_pending and state.attachment_count:
+            self._clear_visible_attachments()
+        self._clear_input_text()
 
-            image_mode_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-            self.ensure_high_image_model()
-            image_mode_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-            if image_mode_state.plus_button is None:
-                raise VisionTimeoutError("Image mode activated without a visible attachment plus button.")
-
-            sequence_failed = False
-            for ordinal, path in enumerate(upload_files, start=1):
-                attachment_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-                if attachment_state.plus_button is None:
-                    raise VisionTimeoutError("Attachment plus button disappeared during ordered upload.")
-                self._click(
-                    attachment_state.plus_button,
-                    f"attachment plus for ordered file {ordinal}/{expected_count}",
-                )
-                menu_state = self.inspector.wait_for(
-                    lambda candidate: candidate.add_file_row is not None,
-                    timeout=12,
-                    label=f"attachment menu for ordered file {ordinal}",
-                )
-                assert menu_state.add_file_row is not None
-                self._click(menu_state.add_file_row, f"add ordered file {ordinal}/{expected_count}")
-
-                dialog_state = self.inspector.wait_for(
-                    lambda candidate: candidate.file_name_input is not None,
-                    timeout=15,
-                    label="Windows file-name input",
-                )
-                assert dialog_state.file_name_input is not None
-                self._click(dialog_state.file_name_input, "Windows file-name input")
-                pyautogui.hotkey("ctrl", "a")
-                self._paste(f'"{path}"')
-                self.draft_attachments_pending = True
-                pyautogui.press("enter")
-
-                dialog_closed = False
-                for _ in range(12):
-                    time.sleep(0.5)
-                    candidate = self.inspector.inspect()
-                    if candidate.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM:
-                        dialog_closed = True
-                        break
-                if not dialog_closed:
-                    print(
-                        f"Vision ordered upload: file {ordinal}/{expected_count} did not return to chat; retrying batch.",
-                        flush=True,
-                    )
-                    pyautogui.press("esc")
-                    time.sleep(0.8)
-                    sequence_failed = True
-                    break
-
-                ordered_state = self.inspector.wait_for(
-                    lambda candidate: (
-                        candidate.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM
-                        and candidate.attachment_count == ordinal
-                    ),
-                    timeout=25,
-                    poll_seconds=0.5,
-                    label=f"ordered attachment {ordinal} of {expected_count}",
-                )
-                self.batch.debug_log(
-                    f"Vision ordered upload: file {ordinal}/{expected_count} attached; "
-                    f"visual count {ordered_state.attachment_count}/{expected_count}"
-                )
-
-            if sequence_failed:
-                recovery = self.inspector.inspect()
-                if recovery.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM and recovery.attachment_count:
-                    self._clear_visible_attachments(timeout=25)
-                self.draft_attachments_pending = False
-                continue
-
-            self.batch.wait_with_echo(
-                self.batch.upload_settle_seconds(expected_count),
-                "Vision upload settle",
-            )
-            after_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
-            self.batch.debug_log(
-                f"Vision upload: attachment count {after_state.attachment_count}/{expected_count}"
-            )
-            if after_state.attachment_count == expected_count:
-                self.expected_attachment_count = expected_count
-                self.batch.record_uploaded_image_count(expected_count)
-                self.batch.info_log(f"Vision upload: complete ({expected_count} attachment(s))")
-                return upload_files
-            if after_state.attachment_count:
-                print(
-                    f"Vision upload mismatch diagnostic: {self.inspector.save_diagnostic('upload_count_mismatch')}",
-                    flush=True,
-                )
-                self._clear_visible_attachments()
-            self._clear_input_text()
-            self.draft_attachments_pending = False
-        path = self.inspector.save_diagnostic("upload_failed_after_retries")
-        raise VisionTimeoutError(
-            f"Upload failed to produce {expected_count} attachments after 3 attempts; diagnostic={path}"
+        state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=15)
+        if state.plus_button is None:
+            raise VisionTimeoutError("Active composer found without a plus button.")
+        self._click(state.plus_button, "attachment plus for create image", after=1.0)
+        menu_state = self.inspector.wait_for(
+            lambda candidate: candidate.create_image_row is not None,
+            timeout=12,
+            label="attachment menu for create image",
         )
+        assert menu_state.create_image_row is not None
+        self._click(menu_state.create_image_row, "create image", after=1.0)
+
+        self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
+        self.ensure_high_image_model()
+        image_mode_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
+        if image_mode_state.plus_button is None:
+            raise VisionTimeoutError("Image mode activated without a visible attachment plus button.")
+
+        self._click(image_mode_state.plus_button, "attachment plus for batch upload", after=1.0)
+        menu_state = self.inspector.wait_for(
+            lambda candidate: candidate.add_file_row is not None,
+            timeout=12,
+            label="attachment menu for batch upload",
+        )
+        assert menu_state.add_file_row is not None
+        self._click(menu_state.add_file_row, "add all reference files", after=2.0)
+
+        dialog_state = self.inspector.wait_for(
+            lambda candidate: candidate.file_name_input is not None,
+            timeout=15,
+            label="Windows file-name input",
+        )
+        assert dialog_state.file_name_input is not None
+        self._click(dialog_state.file_name_input, "Windows file-name input", after=0.3)
+        pyautogui.hotkey("ctrl", "a")
+        time.sleep(0.15)
+        file_list = " ".join(f'"{path}"' for path in upload_files)
+        self.batch.debug_log(f"Vision upload: selecting all reference files in one dialog: {file_list}")
+        self._paste(file_list)
+        self.draft_attachments_pending = True
+        pyautogui.press("enter")
+
+        self.inspector.wait_for(
+            lambda candidate: (
+                candidate.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM
+                and candidate.file_name_input is None
+            ),
+            timeout=30,
+            poll_seconds=0.5,
+            label="batch file dialog closing",
+        )
+        attached_state = self.inspector.wait_for(
+            lambda candidate: (
+                candidate.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM
+                and candidate.attachment_count == expected_count
+            ),
+            timeout=max(45, expected_count * 10),
+            poll_seconds=0.5,
+            label=f"all {expected_count} reference attachments",
+        )
+        self.batch.debug_log(
+            f"Vision upload: all files attached; visual count "
+            f"{attached_state.attachment_count}/{expected_count}"
+        )
+
+        self.batch.wait_with_echo(
+            self.batch.upload_settle_seconds(expected_count),
+            "Vision upload settle",
+        )
+        after_state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)
+        if after_state.attachment_count != expected_count:
+            path = self.inspector.save_diagnostic("upload_count_mismatch")
+            raise VisionTimeoutError(
+                f"Batch upload expected {expected_count} attachments but saw "
+                f"{after_state.attachment_count}; diagnostic={path}"
+            )
+
+        self.expected_attachment_count = expected_count
+        self.batch.record_uploaded_image_count(expected_count)
+        self.batch.info_log(f"Vision upload: complete ({expected_count} attachment(s))")
+        return upload_files
 
     def send_prompt(self, prompt: str) -> None:
         last_error: VisionTimeoutError | None = None
@@ -402,7 +393,7 @@ class VisionAutomationController:
             label="pasted prompt and send button",
         )
         assert ready.action_button is not None
-        self._click(ready.action_button, "send button")
+        self._click(ready.action_button, "send button", after=1.0)
         self.inspector.wait_for(
             lambda candidate: (
                 candidate.layout == ComposerLayout.ACTIVE_CHAT_BOTTOM
@@ -416,16 +407,21 @@ class VisionAutomationController:
 
     def wait_for_generation(self, run_number: int) -> Path:
         poll_seconds = 5.0
-        timeout = max(180, int(self.batch.CHECK_INTERVAL_SECONDS) * 2)
-        minimum_wait = min(45, max(15, int(self.batch.CHECK_INTERVAL_SECONDS) // 4))
+        baseline_wait = max(0, int(self.batch.CHECK_INTERVAL_SECONDS))
+        extension_timeout = max(120, baseline_wait)
+        self.batch.wait_with_echo(
+            baseline_wait,
+            f"[{run_number:02d}] vision generation baseline",
+        )
+
         started_at = time.monotonic()
-        deadline = started_at + timeout
-        observed_activity = False
+        deadline = started_at + extension_timeout
         stable_cycles = 0
         previous_fingerprint = 0
 
         print(
-            f"[{run_number:02d}] vision generation monitor: min={minimum_wait}s timeout={timeout}s",
+            f"[{run_number:02d}] vision generation monitor: "
+            f"legacy wait complete; visual extension timeout={extension_timeout}s",
             flush=True,
         )
         while time.monotonic() < deadline:
@@ -442,20 +438,17 @@ class VisionAutomationController:
             )
             fingerprint = self.inspector.region_fingerprint(self.inspector.last_frame, conversation)
             distance = self.inspector.fingerprint_distance(previous_fingerprint, fingerprint) if previous_fingerprint else 0
-            if state.layout == ComposerLayout.IMAGE_VIEWER or state.action_kind == "stop" or distance >= 3:
-                observed_activity = True
-            if observed_activity and state.action_kind != "stop" and distance <= 1:
+            if state.action_kind != "stop" and distance <= 1:
                 stable_cycles += 1
             else:
                 stable_cycles = 0
             previous_fingerprint = fingerprint
-            elapsed = time.monotonic() - started_at
             print(
                 f"[{run_number:02d}] vision monitor: layout={state.layout.value} "
                 f"action={state.action_kind} delta={distance} stable={stable_cycles}/3",
                 flush=True,
             )
-            if elapsed >= minimum_wait and observed_activity and stable_cycles >= 3:
+            if stable_cycles >= 3:
                 path = self.batch.take_screenshot(f"run_{run_number:02d}_vision_complete")
                 print(f"[{run_number:02d}] vision completion screenshot: {path}", flush=True)
                 if state.layout == ComposerLayout.IMAGE_VIEWER:

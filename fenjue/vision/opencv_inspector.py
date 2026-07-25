@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime as dt
 import ctypes
 import time
+from dataclasses import replace
 from pathlib import Path
 from typing import Callable
 
@@ -37,6 +38,17 @@ class OpenCVScreenInspector:
     after attachment cards change the composer's outer height.
     """
 
+    _SUPPORTED_FOREGROUND_PROCESSES = {
+        "brave.exe",
+        "chatgpt.exe",
+        "chrome.exe",
+        "firefox.exe",
+        "msedge.exe",
+        "msedgewebview2.exe",
+        "opera.exe",
+        "vivaldi.exe",
+    }
+
     def __init__(
         self,
         diagnostic_dir: Path,
@@ -67,8 +79,55 @@ class OpenCVScreenInspector:
         return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     @staticmethod
+    def _foreground_window_context() -> tuple[str, str, str]:
+        """Return foreground window class, title, and executable name."""
+        try:
+            user32 = ctypes.windll.user32
+            kernel32 = ctypes.windll.kernel32
+            hwnd = user32.GetForegroundWindow()
+            if not hwnd:
+                return "", "", ""
+
+            class_name = ctypes.create_unicode_buffer(256)
+            user32.GetClassNameW(hwnd, class_name, len(class_name))
+            title = ctypes.create_unicode_buffer(1024)
+            user32.GetWindowTextW(hwnd, title, len(title))
+
+            process_id = ctypes.c_ulong()
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(process_id))
+            process_name = ""
+            process_handle = kernel32.OpenProcess(0x1000, False, process_id.value)
+            if process_handle:
+                try:
+                    buffer = ctypes.create_unicode_buffer(32768)
+                    size = ctypes.c_ulong(len(buffer))
+                    if kernel32.QueryFullProcessImageNameW(
+                        process_handle,
+                        0,
+                        buffer,
+                        ctypes.byref(size),
+                    ):
+                        process_name = Path(buffer.value).name.lower()
+                finally:
+                    kernel32.CloseHandle(process_handle)
+            return class_name.value, title.value, process_name
+        except (AttributeError, OSError):
+            return "", "", ""
+
+    @staticmethod
+    def _contrast_mask(region, minimum_delta: int = 20):
+        """Return UI ink relative to its local background, for either theme."""
+        if region.size == 0:
+            return np.zeros(region.shape, dtype="uint8")
+        background = float(np.median(region))
+        delta = np.abs(region.astype("int16") - int(round(background)))
+        return (delta >= max(1, int(minimum_delta))).astype("uint8") * 255
+
+    @staticmethod
     def _contours(gray):
-        edges = cv2.Canny(gray, 15, 70)
+        # Low-contrast rounded borders in ChatGPT's dark theme are only about
+        # 25-40 luminance levels away from the page background.
+        edges = cv2.Canny(gray, 10, 45)
         contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         return contours
 
@@ -101,19 +160,23 @@ class OpenCVScreenInspector:
                 continue
             control_top = y + max(0, height - 58)
             left_patch = gray[control_top:y + height, x:x + min(64, width)]
-            dark = left_patch < 170
-            dark_count = int(dark.sum())
-            if not (20 <= dark_count <= 450):
+            ink = self._contrast_mask(left_patch, minimum_delta=18) > 0
+            ink_count = int(ink.sum())
+            if not (12 <= ink_count <= 700):
                 continue
-            row_peak = int(dark.sum(axis=1).max(initial=0))
-            col_peak = int(dark.sum(axis=0).max(initial=0))
+            row_peak = int(ink.sum(axis=1).max(initial=0))
+            col_peak = int(ink.sum(axis=0).max(initial=0))
             if row_peak < 6 or col_peak < 6:
                 continue
             right_patch = gray[control_top:y + height, max(x, x + width - 60):x + width]
-            right_dark_ratio = float((right_patch < 80).mean()) if right_patch.size else 0.0
+            right_action_ratio = (
+                float((self._contrast_mask(right_patch, minimum_delta=18) > 0).mean())
+                if right_patch.size
+                else 0.0
+            )
             aspect_score = min(width / max(1.0, height) / 10.0, 1.0)
             cross_score = min(row_peak, col_peak) / max(row_peak, col_peak, 1)
-            action_score = min(right_dark_ratio * 4.0, 1.0)
+            action_score = min(right_action_ratio * 4.0, 1.0)
             score = 0.42 * aspect_score + 0.33 * cross_score + 0.25 * action_score
             candidates.append((score, Rect(x, y, width, height)))
         if not candidates:
@@ -132,8 +195,17 @@ class OpenCVScreenInspector:
             size,
         ).clipped(gray.shape[1], gray.shape[0])
         crop = gray[plus.y:plus.bottom, plus.x:plus.right]
-        if crop.size and self._plus_template is None:
-            self._plus_template = crop.copy()
+        if crop.size:
+            replace_template = self._plus_template is None
+            if not replace_template and self._plus_template.shape != crop.shape:
+                replace_template = True
+            elif not replace_template:
+                score = float(
+                    cv2.matchTemplate(crop, self._plus_template, cv2.TM_CCOEFF_NORMED)[0, 0]
+                )
+                replace_template = score < 0.55
+            if replace_template:
+                self._plus_template = crop.copy()
         return plus
 
     def _plus_from_template(self, gray) -> tuple[Rect | None, float]:
@@ -156,8 +228,8 @@ class OpenCVScreenInspector:
         right = int(screen_width * 0.48)
         top = int(screen_height * 0.84)
         region = gray[top:screen_height, left:right]
-        mask = (region < 85).astype("uint8") * 255
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        edges = cv2.Canny(region, 10, 45)
+        contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         actions: list[Rect] = []
         for contour in contours:
             x, y, width, height = cv2.boundingRect(contour)
@@ -185,8 +257,8 @@ class OpenCVScreenInspector:
         region = gray[top:bottom, left:right]
         if region.size == 0:
             return None
-        mask = (region < 85).astype("uint8") * 255
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        edges = cv2.Canny(region, 10, 45)
+        contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         candidates: list[Rect] = []
         for contour in contours:
             x, y, width, height = cv2.boundingRect(contour)
@@ -204,8 +276,8 @@ class OpenCVScreenInspector:
         margin_y = max(1, crop.shape[0] // 3)
         margin_x = max(1, crop.shape[1] // 3)
         center = crop[margin_y:crop.shape[0] - margin_y, margin_x:crop.shape[1] - margin_x]
-        bright = (center > 220).astype("uint8") * 255
-        contours, _ = cv2.findContours(bright, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        icon = OpenCVScreenInspector._contrast_mask(center, minimum_delta=24)
+        contours, _ = cv2.findContours(icon, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for contour in contours:
             x, y, width, height = cv2.boundingRect(contour)
             area = cv2.contourArea(contour)
@@ -259,17 +331,23 @@ class OpenCVScreenInspector:
     ) -> tuple[Rect | None, Rect | None, Rect | None]:
         if composer is None:
             return None, None, None
-        # The first menu row has a persistent light-gray full-width highlight.
-        # Detect that 24-36 px horizontal band directly.  Same-width message
-        # bubbles are much taller, which avoids the failure mode where a
-        # conversation card is mistaken for the popup outer contour.
+        # The first row is highlighted in both themes, but its absolute color
+        # changes. Detect its luminance relative to neighboring rows instead
+        # of assuming a light-gray RGB value.
         band_left = max(0, composer.x + 9)
         band_right = min(gray.shape[1], composer.right - 7)
         scan_top = max(0, composer.y - 550)
         scan_bottom = min(gray.shape[0], composer.bottom + 550)
         if band_right > band_left and scan_bottom > scan_top:
-            coverage = (gray[scan_top:scan_bottom, band_left:band_right] < 250).mean(axis=1)
-            indices = np.where(coverage >= 0.90)[0]
+            band = gray[scan_top:scan_bottom, band_left:band_right]
+            row_levels = np.median(band, axis=1)
+            local_levels = np.empty_like(row_levels)
+            radius = 50
+            for row_index in range(len(row_levels)):
+                start = max(0, row_index - radius)
+                end = min(len(row_levels), row_index + radius + 1)
+                local_levels[row_index] = np.median(row_levels[start:end])
+            indices = np.where(np.abs(row_levels - local_levels) >= 6.0)[0]
             groups: list[list[int]] = []
             for relative_y in indices:
                 absolute_y = scan_top + int(relative_y)
@@ -277,7 +355,7 @@ class OpenCVScreenInspector:
                     groups.append([absolute_y])
                 else:
                     groups[-1].append(absolute_y)
-            bands = [group for group in groups if 24 <= len(group) <= 36]
+            bands = [group for group in groups if 22 <= len(group) <= 44]
             if bands:
                 if composer.center[1] >= int(gray.shape[0] * 0.74):
                     eligible = [
@@ -290,7 +368,7 @@ class OpenCVScreenInspector:
                     eligible = [group for group in bands if group[0] >= composer.bottom]
                     selected = min(eligible, key=lambda group: group[0], default=None)
                 if selected is not None:
-                    row_height = max(28, min(36, len(selected)))
+                    row_height = max(28, min(42, len(selected)))
                     row_y = selected[0]
                     add_file = Rect(band_left, row_y, band_right - band_left, row_height)
                     create_image = Rect(
@@ -509,7 +587,7 @@ class OpenCVScreenInspector:
             left = composer.x
             right = min(gray.shape[1], composer.x + 300)
             strip = gray[top:bottom, left:right]
-            mask = (strip < 45).astype("uint8") * 255
+            mask = self._contrast_mask(strip, minimum_delta=18)
             contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             centers: list[tuple[int, int]] = []
             for contour in contours:
@@ -706,7 +784,11 @@ class OpenCVScreenInspector:
                 36,
             ).clipped(width, height)
             crop = gray[input_box.y:input_box.bottom, input_box.x:input_box.right]
-            input_ink_ratio = float((crop < 150).mean()) if crop.size else 0.0
+            input_ink_ratio = (
+                float((self._contrast_mask(crop, minimum_delta=18) > 0).mean())
+                if crop.size
+                else 0.0
+            )
 
         layout = ComposerLayout.MISSING
         if composer is not None:
@@ -753,7 +835,34 @@ class OpenCVScreenInspector:
         return state
 
     def inspect(self) -> ScreenState:
-        return self.inspect_frame(self.capture())
+        state = self.inspect_frame(self.capture())
+        class_name, title, process_name = self._foreground_window_context()
+        native_file_dialog = class_name == "#32770"
+        supported_browser = process_name in self._SUPPORTED_FOREGROUND_PROCESSES
+        if not native_file_dialog and not supported_browser:
+            diagnostic = (
+                "foreground rejected: "
+                f"process={process_name or 'unknown'}, "
+                f"class={class_name or 'unknown'}, "
+                f"title={title or 'unknown'}"
+            )
+            state = ScreenState(
+                screen_width=state.screen_width,
+                screen_height=state.screen_height,
+                diagnostics=tuple(state.diagnostics) + (diagnostic,),
+            )
+            self.last_state = state
+            return state
+
+        context = (
+            "foreground accepted: "
+            f"process={process_name or 'native-dialog'}, "
+            f"class={class_name or 'unknown'}, "
+            f"title={title or 'unknown'}"
+        )
+        state = replace(state, diagnostics=tuple(state.diagnostics) + (context,))
+        self.last_state = state
+        return state
 
     def attachment_close_button(self, box: Rect) -> Rect | None:
         """Locate the dark remove-X overlay inside an attachment's top-right."""
@@ -768,7 +877,7 @@ class OpenCVScreenInspector:
         region = gray[top:bottom, left:right]
         if region.size == 0:
             return None
-        mask = (region < 65).astype("uint8") * 255
+        mask = self._contrast_mask(region, minimum_delta=18)
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         candidates: list[tuple[float, Rect]] = []
         expected_x = box.right - 10
