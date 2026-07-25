@@ -50,6 +50,17 @@ def synthetic_narrow_centered_frame() -> np.ndarray:
     return frame
 
 
+def synthetic_fullscreen_active_frame() -> np.ndarray:
+    frame = np.full((768, 1024, 3), 255, dtype=np.uint8)
+    left, top, right, bottom = 217, 638, 856, 692
+    cv2.rectangle(frame, (left, top), (right, bottom), (250, 250, 250), -1)
+    cv2.rectangle(frame, (left, top), (right, bottom), (220, 220, 220), 2)
+    cv2.line(frame, (224, 654), (242, 654), (35, 35, 35), 3)
+    cv2.line(frame, (233, 645), (233, 663), (35, 35, 35), 3)
+    cv2.circle(frame, (828, 665), 19, (10, 10, 10), -1)
+    return frame
+
+
 class OpenCVInspectorThemeTests(unittest.TestCase):
     def test_light_theme_composer_is_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -78,6 +89,14 @@ class OpenCVInspectorThemeTests(unittest.TestCase):
 
         self.assertEqual(state.layout, ComposerLayout.NEW_CHAT_CENTERED)
         self.assertIsNotNone(state.plus_button)
+
+    def test_fullscreen_bottom_composer_is_not_misclassified_as_image_viewer(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            inspector = OpenCVScreenInspector(Path(directory))
+            state = inspector.inspect_frame(synthetic_fullscreen_active_frame())
+
+        self.assertEqual(state.layout, ComposerLayout.ACTIVE_CHAT_BOTTOM)
+        self.assertIsNone(state.viewer_close_button)
         self.assertIsNotNone(state.action_button)
 
     def test_theme_change_refreshes_learned_plus_template(self) -> None:

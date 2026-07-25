@@ -48,7 +48,6 @@ class OpenCVScreenInspector:
         "opera.exe",
         "vivaldi.exe",
     }
-
     def __init__(
         self,
         diagnostic_dir: Path,
@@ -924,9 +923,7 @@ class OpenCVScreenInspector:
 
         layout = ComposerLayout.MISSING
         if composer is not None:
-            if composer.center[1] >= int(height * 0.74) and composer.width > composer.x * 2.5:
-                layout = ComposerLayout.IMAGE_VIEWER
-            elif composer.center[1] < int(height * 0.74):
+            if composer.center[1] < int(height * 0.74):
                 layout = ComposerLayout.NEW_CHAT_CENTERED
             else:
                 layout = ComposerLayout.ACTIVE_CHAT_BOTTOM
@@ -936,9 +933,6 @@ class OpenCVScreenInspector:
         native_dialog = self._foreground_native_dialog()
         file_name_input = self._file_name_input(gray, native_dialog)
         attachment_boxes = self._attachment_boxes(gray, composer)
-        viewer_close = None
-        if layout == ComposerLayout.IMAGE_VIEWER:
-            viewer_close = Rect(max(8, composer.x - 140), 120, 30, 30).clipped(width, height)
         state = ScreenState(
             screen_width=width,
             screen_height=height,
@@ -954,7 +948,7 @@ class OpenCVScreenInspector:
             model_menu=model_menu,
             model_high_row=model_high,
             file_name_input=file_name_input,
-            viewer_close_button=viewer_close,
+            viewer_close_button=None,
             attachment_boxes=attachment_boxes,
             attachment_count=len(attachment_boxes),
             action_kind=self._classify_action(gray, action),
