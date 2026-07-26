@@ -615,15 +615,33 @@ def _profile_identity_block(character_name: str) -> str:
     )
 
 
+def _has_explicit_reference_role_lock(text: str) -> bool:
+    """Recognize prompts that already separate character identity from shot design."""
+    legacy_role_lock = (
+        "Character references control identity and proportions only" in text
+        and "The final photoset image alone controls" in text
+    )
+    standardized_shot = (
+        bool(
+            re.match(
+                r"Create one finished image for Template \d+, shot \d+\.",
+                text.lstrip(),
+                flags=re.IGNORECASE,
+            )
+        )
+        and "Treat this as one exact arrangement:" in text
+        and "Character references control canonical" in text
+        and "never copy the photoset person's identity or hairstyle" in text.lower()
+    )
+    direct_reproduction = bool(
+        re.match(r"Reproduce this (?:single )?(?:shot|image)\b", text.lstrip(), flags=re.IGNORECASE)
+    )
+    return legacy_role_lock or standardized_shot or direct_reproduction
+
+
 def _adapt_shot_prompt(character_name: str, text: str) -> str:
     current = _current_shot_only(text)
-    trusted_role_separation = (
-        (
-            "Character references control identity and proportions only" in current
-            and "The final photoset image alone controls" in current
-        )
-        or bool(re.match(r"Reproduce this (?:single )?(?:shot|image)\b", current.lstrip(), flags=re.IGNORECASE))
-    )
+    trusted_role_separation = _has_explicit_reference_role_lock(current)
     cleaned = current if trusted_role_separation else _remove_template_person_clauses(current)
     cleaned = _remove_template_identity_traits(cleaned)
     cleaned = _remove_character_trait_conflicts(character_name, cleaned)
@@ -643,8 +661,10 @@ def _compact_rewritten_shot_prompt(text: str) -> str:
     """Keep the shot-specific evidence from the standardized 221+ prompt format."""
     sentences = [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
     repeated_runtime_prefixes = (
+        "Create one finished image for Template",
         "The final photoset image alone controls",
         "Character references control identity and proportions only",
+        "Character references control canonical",
         "Render as a premium hand-drawn",
         "Render as polished hand-drawn",
         "Use unmistakable hand-drawn",
@@ -919,13 +939,7 @@ Third hand, more than two arms, duplicated hand, floating hand, hand emerging fr
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     source_prompt = shot.ready_prompt or shot.section_text
-    rewritten_prompt = (
-        (
-            "Character references control identity and proportions only" in source_prompt
-            and "The final photoset image alone controls" in source_prompt
-        )
-        or bool(re.match(r"Reproduce this (?:single )?(?:shot|image)\b", source_prompt.lstrip(), flags=re.IGNORECASE))
-    )
+    rewritten_prompt = _has_explicit_reference_role_lock(source_prompt)
     shot_prompt = _adapt_shot_prompt(character_name, source_prompt)
     if rewritten_prompt:
         shot_prompt = _compact_rewritten_shot_prompt(shot_prompt)
