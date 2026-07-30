@@ -131,18 +131,6 @@ REFINED_SHOT_TITLES: dict[str, tuple[str, ...]] = {
         "Wide seated portrait surrounded by flower pots and mint fabric",
         "Waist-up portrait holding a small green vessel above the head",
     ),
-    "046": (
-        "Side-seated garden portrait surrounded by pink flowers beside the white bathtub",
-        "Close portrait resting against the bathtub rim with one flower at the cheek",
-        "Indoor sparkle portrait leaning back with one hand at the collarbone",
-        "High-angle seated portrait among pink flowers with the tub behind",
-        "Close flower portrait holding two pink blooms at different depths",
-        "Wide reclining garden portrait with crossed ankles and the bathtub behind",
-        "Front seated portrait with pearl bubbles floating near the face",
-        "Tight front portrait holding one pink flower below the chin",
-        "Three-quarter seated portrait smelling a flower with palms and tub framing the scene",
-        "Vertical side portrait beside the tub with the floral skirt spread downward",
-    ),
     "047": (
         "Front seated portrait in red floral dress against warm wood and tropical leaves",
         "Back-turn window portrait with sunlight outlining the red dress and shoulder",

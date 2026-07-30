@@ -39,7 +39,6 @@ class PhotosetThemeSelectionTests(unittest.TestCase):
             selected = _split_template_selection("A,H,182,180-184", self.available)
 
         self.assertEqual(len(selected), len(set(selected)))
-        self.assertIn("207_A_3", selected)
         self.assertEqual(selected.count("182_A_3"), 1)
 
     def test_deleted_templates_never_reenter_through_a_theme(self) -> None:
@@ -48,6 +47,8 @@ class PhotosetThemeSelectionTests(unittest.TestCase):
             self.assertNotIn("023_A_3", selected)
             self.assertNotIn("024_A_3", selected)
             self.assertNotIn("043_A_3", selected)
+            self.assertNotIn("046_A_3", selected)
+            self.assertNotIn("207_A_3", selected)
 
     def test_every_theme_has_a_useful_pool(self) -> None:
         for code, (label, _keywords) in TEMPLATE_THEME_DEFINITIONS.items():

@@ -100,8 +100,9 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "绝区零" / "千夏3.png"),
     ],
     "丹": [
-        str(PROJECT_DIR / "assets" / "绝区零" / "dan.png"),
-        str(PROJECT_DIR / "assets" / "绝区零" / "dan2.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "丹1.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "丹2.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "丹3.png"),
     ],
     "星见雅": [
         str(PROJECT_DIR / "assets" / "绝区零" / "星见雅1.png"),

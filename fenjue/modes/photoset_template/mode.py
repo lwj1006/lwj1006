@@ -16,7 +16,7 @@ from .descriptions import (
 
 LABEL = "photoset template mode"
 PROJECT_DIR = Path(__file__).resolve().parents[3]
-COMPLETED_TEMPLATE_FILE = PROJECT_DIR / "config" / "used_character_photoset_templates.json"
+USED_TEMPLATE_FILE = PROJECT_DIR / "config" / "used_character_photoset_templates.json"
 
 _active_templates: tuple[PhotosetTemplate, ...] = ()
 _active_characters: tuple[str, ...] = ()
@@ -24,7 +24,7 @@ _active_character_schedule: tuple[str, ...] = ()
 _active_shot_schedule: tuple[tuple[PhotosetTemplate, PhotosetShot], ...] = ()
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
-_completed_templates_by_character: dict[str, list[str]] = {}
+_used_templates_by_character: dict[str, list[str]] = {}
 
 
 def _option_value(argv: list[str], *names: str) -> str | None:
@@ -269,13 +269,13 @@ def _choose_shots_per_template(argv: list[str], batch) -> int | None:
             print(f"{exc}. Please try again.")
 
 
-def _load_completed_templates(available: list[str]) -> dict[str, list[str]]:
-    if not COMPLETED_TEMPLATE_FILE.exists():
+def _load_used_templates(available: list[str]) -> dict[str, list[str]]:
+    if not USED_TEMPLATE_FILE.exists():
         return {}
     try:
-        data = json.loads(COMPLETED_TEMPLATE_FILE.read_text(encoding="utf-8"))
+        data = json.loads(USED_TEMPLATE_FILE.read_text(encoding="utf-8"))
     except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
-        print(f"Photoset history is invalid; starting fresh: {exc}", flush=True)
+        print(f"E 模式历史文件无效，本次将从空历史开始：{exc}", flush=True)
         return {}
     if not isinstance(data, dict):
         return {}
@@ -292,30 +292,30 @@ def _load_completed_templates(available: list[str]) -> dict[str, list[str]]:
     return cleaned
 
 
-def _save_completed_templates(history: dict[str, list[str]]) -> None:
-    COMPLETED_TEMPLATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    temporary = COMPLETED_TEMPLATE_FILE.with_suffix(".tmp")
+def _save_used_templates(history: dict[str, list[str]]) -> None:
+    USED_TEMPLATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    temporary = USED_TEMPLATE_FILE.with_suffix(".tmp")
     temporary.write_text(
         json.dumps(history, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    temporary.replace(COMPLETED_TEMPLATE_FILE)
+    temporary.replace(USED_TEMPLATE_FILE)
 
 
-def _mark_template_completed(
+def _mark_template_used(
     character_name: str,
     template: PhotosetTemplate,
-    completed: dict[str, list[str]],
+    used_by_character: dict[str, list[str]],
     available_count: int,
 ) -> bool:
-    completed_ids = completed.setdefault(character_name, [])
-    if template.template_id in completed_ids:
+    used_ids = used_by_character.setdefault(character_name, [])
+    if template.template_id in used_ids:
         return False
-    completed_ids.append(template.template_id)
-    _save_completed_templates(completed)
+    used_ids.append(template.template_id)
+    _save_used_templates(used_by_character)
     print(
-        f"Photoset history: {character_name} completed {_display_template_id(template.template_id)}; "
-        f"progress {len(completed_ids)}/{available_count} -> {COMPLETED_TEMPLATE_FILE}",
+        f"E 模式历史：{character_name} 的模板 {_display_template_id(template.template_id)} "
+        f"第一张已成功，整套已标记为使用；全库进度 {len(used_ids)}/{available_count}。历史文件：{USED_TEMPLATE_FILE}",
         flush=True,
     )
     return True
@@ -324,7 +324,7 @@ def _mark_template_completed(
 def _resolve_template_assignments(
     requested_templates: tuple[PhotosetTemplate, ...],
     characters: tuple[str, ...],
-    completed: dict[str, list[str]],
+    used_by_character: dict[str, list[str]],
     available_ids: list[str],
 ) -> tuple[tuple[str, PhotosetTemplate], ...]:
     assignments: list[tuple[str, PhotosetTemplate]] = []
@@ -333,24 +333,24 @@ def _resolve_template_assignments(
 
     for slot_index, requested_template in enumerate(requested_templates):
         character_name = characters[slot_index % len(characters)]
-        used_list = completed.setdefault(character_name, [])
+        used_list = used_by_character.setdefault(character_name, [])
         used = set(used_list)
         if len(used) >= len(available_ids):
             used_list.clear()
             used.clear()
             history_changed = True
             print(
-                f"Photoset cycle complete for {character_name}: starting a new {len(available_ids)}-template cycle.",
+                f"E 模式历史：{character_name} 已用完全部 {len(available_ids)} 个模板，现已开始新一轮。",
                 flush=True,
             )
 
         scheduled = scheduled_by_character[character_name]
         selected_id = requested_template.template_id
         if selected_id in used or selected_id in scheduled:
-            reason = "already completed" if selected_id in used else "already scheduled"
+            reason = "历史中已使用" if selected_id in used else "本批次已经安排"
             print(
-                f"Photoset history: {character_name} {_display_template_id(selected_id)} is {reason}; "
-                "skipping it without selecting a template outside the requested set.",
+                f"E 模式历史：跳过 {character_name} 的模板 {_display_template_id(selected_id)}，原因：{reason}。"
+                "不会从当前选择池之外补充模板。",
                 flush=True,
             )
             continue
@@ -359,7 +359,7 @@ def _resolve_template_assignments(
         assignments.append((character_name, requested_template))
 
     if history_changed:
-        _save_completed_templates(completed)
+        _save_used_templates(used_by_character)
     return tuple(assignments)
 
 
@@ -418,43 +418,56 @@ def _total_shots() -> int:
     return len(_active_shot_schedule)
 
 
-def _scheduled_template_finishes(
+def _scheduled_template_starts(
     schedule: tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...],
     schedule_index: int,
 ) -> bool:
     if not 0 <= schedule_index < len(schedule):
         return False
     current_character, current_template, _ = schedule[schedule_index]
-    if schedule_index + 1 >= len(schedule):
+    if schedule_index == 0:
         return True
-    next_character, next_template, _ = schedule[schedule_index + 1]
-    return next_character != current_character or next_template is not current_template
+    previous_character, previous_template, _ = schedule[schedule_index - 1]
+    return previous_character != current_character or previous_template is not current_template
 
 
 def activate(batch, args=None) -> None:
     global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule
-    global _current_shot_index, _completed_templates_by_character
+    global _current_shot_index, _used_templates_by_character
     argv = list(args or [])
     requested_templates = _choose_templates(argv, batch)
     _active_characters = _choose_characters(argv, batch)
     shots_per_template = _choose_shots_per_template(argv, batch)
     available_ids = list_template_ids()
-    _completed_templates_by_character = _load_completed_templates(available_ids)
+    _used_templates_by_character = _load_used_templates(available_ids)
+    requested_ids = {template.template_id for template in requested_templates}
     for character_name in _active_characters:
-        completed_count = len(_completed_templates_by_character.get(character_name, []))
+        used_ids = set(_used_templates_by_character.get(character_name, []))
+        used_count = len(used_ids)
+        remaining_in_selection = len(requested_ids - used_ids)
         print(
-            f"Photoset history: {character_name} completed {completed_count}/{len(available_ids)}; "
-            f"{len(available_ids) - completed_count} remaining in the current cycle.",
+            f"E 模式历史：{character_name} 全库已使用 {used_count}/{len(available_ids)}，"
+            f"当前轮次还剩 {len(available_ids) - used_count} 个未使用模板。",
+            flush=True,
+        )
+        print(
+            f"E 模式当前选择池：{character_name} 在本次选择的 {len(requested_ids)} 个现存模板中，"
+            f"还有 {remaining_in_selection} 个未使用。",
             flush=True,
         )
     assignments = _resolve_template_assignments(
         requested_templates,
         _active_characters,
-        _completed_templates_by_character,
+        _used_templates_by_character,
         available_ids,
     )
     if not assignments:
-        raise RuntimeError("No unfinished photoset templates are available for the selected characters.")
+        print(
+            "E 模式：当前选择池中已没有可供所选人物使用的模板，本次任务正常结束。"
+            "不会清空全库历史，也不会从选择池之外补充模板。",
+            flush=True,
+        )
+        raise SystemExit(0)
     _active_templates = tuple(template for _, template in assignments)
     photoset_schedule = _build_assigned_photoset_schedule(assignments, shots_per_template)
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
@@ -464,7 +477,7 @@ def activate(batch, args=None) -> None:
     original_reference_files_for_character = batch.reference_files_for_character
 
     def fixed_character_selection():
-        print(f"Photoset mode characters: {' / '.join(_active_characters)}", flush=True)
+        print(f"E 模式人物：{' / '.join(_active_characters)}", flush=True)
         return list(_active_characters)
 
     def resolve_photoset_run_character(character_name: str, run_number: int) -> str:
@@ -472,27 +485,27 @@ def activate(batch, args=None) -> None:
         _current_shot_index = max(0, min(run_number - 1, _total_shots() - 1))
         return _active_character_for_shot()
 
-    def record_completed_photoset_run(character_name: str, run_number: int) -> None:
+    def record_started_photoset_template(character_name: str, run_number: int) -> None:
         schedule_index = run_number - 1
         if not 0 <= schedule_index < len(photoset_schedule):
             return
         scheduled_character, template, _shot = photoset_schedule[schedule_index]
-        if character_name != scheduled_character or not _scheduled_template_finishes(photoset_schedule, schedule_index):
+        if character_name != scheduled_character or not _scheduled_template_starts(photoset_schedule, schedule_index):
             return
 
-        _mark_template_completed(
+        _mark_template_used(
             character_name,
             template,
-            _completed_templates_by_character,
+            _used_templates_by_character,
             len(available_ids),
         )
 
     def skip_scene_selection():
-        print("Original scene menu skipped: photoset mode uses the selected template shots.", flush=True)
+        print("E 模式使用所选模板的场景，已跳过原始场景菜单。", flush=True)
         return None
 
     def skip_clothing_selection():
-        print("Original clothing menu skipped: photoset mode uses the selected template outfit system.", flush=True)
+        print("E 模式使用所选模板的服装，已跳过原始服装菜单。", flush=True)
         return None
 
     def reference_files_for_photoset(character_name: str) -> list[str]:
@@ -569,7 +582,10 @@ def activate(batch, args=None) -> None:
         return ["photoset_template", art_plan.get("name", "photoset_unknown")]
 
     batch.resolve_run_character = resolve_photoset_run_character
-    batch.record_completed_run = record_completed_photoset_run
+    # The runtime invokes this only after an image finishes successfully. Mark
+    # the template on its first successful image so interrupted sets do not
+    # dominate future random selections.
+    batch.record_completed_run = record_started_photoset_template
     batch.startup_character_selection = fixed_character_selection
     batch.startup_scene_selection = skip_scene_selection
     batch.startup_clothing_selection = skip_clothing_selection
@@ -590,12 +606,12 @@ def activate(batch, args=None) -> None:
         del sys.argv[option_index:option_index + 2]
 
     print(
-        "Prompt mode E active: photoset template mode. "
-        f"Templates: {', '.join(_display_template_id(template.template_id) for template in _active_templates)}. "
-        f"Characters: {' / '.join(_active_characters)}. "
-        "Rotation: one character completes one full template, then the next character takes the next template. "
-        f"Total templates: {len(_active_templates)}. "
-        f"Images per template: {'all' if shots_per_template is None else f'up to {shots_per_template} random unique images'}. "
-        f"Total shots: {_total_shots()}.",
+        "E 模式已启动。"
+        f"模板：{', '.join(_display_template_id(template.template_id) for template in _active_templates)}；"
+        f"人物：{' / '.join(_active_characters)}；"
+        "轮换规则：一名人物完整拍完一套，再由下一名人物拍下一套；"
+        f"本次模板数：{len(_active_templates)}；"
+        f"每套图片：{'全部' if shots_per_template is None else f'最多随机 {shots_per_template} 张且不重复'}；"
+        f"总出图数：{_total_shots()}。",
         flush=True,
     )
