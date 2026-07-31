@@ -16,7 +16,6 @@ ZHANG_RUONAN_ORIGINAL_COLOR_THEMES = [
     "oversized white graphic-free T-shirt layered over a light-gray fitted long-sleeve shirt, paired with chocolate-brown cargo pants and cream sneakers, street casual styling",
     "mint-green cropped knit cardigan with a white Peter Pan collar, paired with ivory high-waist wide-leg trousers, elegant gentle styling",
     "dusty-blue floral-jacquard one-shoulder blouse with a soft shoulder bow, paired with charcoal-gray high-waist slim jeans, feminine summer styling",
-    "deep forest-green sleeveless knit vest over a crisp white button-up shirt with a small red necktie accent, paired with a black pleated midi skirt, Korean academy styling",
     "taupe cropped short-sleeve knit sweater with charcoal athletic shorts, cream slouch socks, and patterned high-top canvas sneakers, casual sporty styling",
     "bright-red cropped knit cardigan over a red-and-white gingham camisole, paired with oversized black wide-leg jeans and a red leather belt, retro Korean styling",
     "olive-green utility overshirt over a white fitted T-shirt, paired with light-wash high-waist wide-leg jeans and cream retro sneakers, effortless city casual styling",
@@ -49,7 +48,6 @@ ZHANG_RUONAN_ORIGINAL_COLOR_THEMES = [
     "ice-blue lightweight opaque sun hoodie over a charcoal-gray fitted sleeveless tank top, paired with soft-beige lounge trousers, minimal leisure styling",
     "light-sky-blue oversized short-sleeve polo with espresso-brown contrast collar, paired with dark-chocolate fitted sport shorts and silver running shoes, retro tennis casual styling",
     "dark-indigo cropped short-sleeve denim jacket with white contrast stitching, layered over a plain white crew-neck T-shirt, minimal studio styling",
-    "soft-powder-blue fitted short-sleeve polo with cream contrast collar and cuffs, paired with casual denim or a pleated skirt, fresh campus preppy styling",
     "ivory ribbed sleeveless tank top with a light-wash denim mini skirt and a soft-blush oversized lightweight windbreaker as a relaxed outer layer, summer vacation styling",
     "clean-white ribbed sleeveless knit tank with light-blue vintage-wash denim bottoms and a single pearl necklace, effortless everyday styling",
 ]
