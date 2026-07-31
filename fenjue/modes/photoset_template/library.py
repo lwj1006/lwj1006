@@ -20,6 +20,11 @@ IMAGE_EXTENSIONS = (".jpeg", ".jpg", ".png", ".webp")
 
 
 CHARACTER_PHOTOSET_ADAPTATIONS = {
+    "丹": (
+        "Dan adaptation: keep exactly one permanent pair of low-set wings attached symmetrically to the left and right rear waist at upper-hip level, never to the shoulders, shoulder blades, spine, or upper back. "
+        "Keep the two waist roots horizontally separated with a clear center-back gap. Each wing first projects laterally and slightly backward from the waist, fans across the outer hip, then sweeps downward beside the outer thigh; a relaxed compact wing reaches roughly knee level. "
+        "Use one coherent canonical state: either pale white-lilac layered feather wings or dark indigo feather-mechanical wings. Never combine both states, create extra wings, move the roots upward, attach wings to the arms, or let photoset clothing replace or hide the waist-level attachment when the waist is visible."
+    ),
     "千夏": (
         "Chinatsu adaptation: keep compact youthful proportions, a cute soft face, and a petite-to-average height impression. "
         "Keep the jaw-to-nape short-bob foundation, thick asymmetrical clipped fringe, and only one mid-high half-up side ponytail. "
