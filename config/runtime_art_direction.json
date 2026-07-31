@@ -3,7 +3,6 @@
     "outfit_directions": [
         "character-signature outfit with a small fashionable variation",
         "clean light-novel casual outfit, character palette stays recognizable",
-        "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
         "clean Adidas-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, classic stripe accents",
         "clean Yonex-inspired sporty date outfit: sleeveless cropped athletic tank, short pleated sport skirt, tiny sporty stripe accent",
         "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
@@ -11,7 +10,6 @@
         "romantic flower bridal dress, elegant veil or bouquet, clean and elegant",
         "elegant flower-field fantasy outfit, simplified layers, no weapon requirement",
         "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
-        "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
         "soft casual outfit with warm simple styling",
         "minimal sunny studio outfit, face and hair identity as the main focus",
         "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -154,7 +152,6 @@
         "light-aqua cropped military jacket over a white fitted tank top and white high-waist jeans, clean modern heroine styling",
         "white cropped ribbed zip hoodie over a light-blue athletic top with matching white lounge pants, healthy athleisure styling",
         "olive-green fitted long-sleeve top with dark-blue tailored denim shorts, clean autumn casual styling",
-        "soft-blush strapless evening gown with floral appliques and a satin ribbon waist, romantic gala styling",
         "short-sleeve white utility shirt with khaki tailored balloon shorts and a matching belt, clean summer safari styling",
         "light-butter-yellow windbreaker over a white collared shirt and navy pleated mini skirt, fresh preppy styling",
         "beige fitted tank dress under a white oversized open sun-protection shirt with taupe buckle sandals, minimal vacation styling",
@@ -192,7 +189,6 @@
         "cropped military jacket over a fitted tank top and high-waist jeans, clean modern heroine styling",
         "cropped ribbed zip hoodie over an athletic top with matching lounge pants, healthy athleisure styling",
         "fitted long-sleeve top with tailored denim shorts, clean autumn casual styling",
-        "strapless evening gown with floral appliques and a satin ribbon waist, romantic gala styling",
         "short-sleeve utility shirt with tailored balloon shorts and a matching belt, clean summer safari styling",
         "lightweight windbreaker shirt layered over a collared shirt with a pleated mini skirt, fresh preppy styling",
         "fitted tank dress under an oversized open sun-protection shirt with buckle sandals, minimal vacation styling",
@@ -772,7 +768,7 @@
             "spatial_structure": "camera near floor, tabletop, stair, chair, or garden path level, looking upward through a foreground edge; midground character remains medium-readable and off-center; background rises behind the character",
             "visual_device": "low foreground object, middle character, and rising window, door, wall, tree, or ceiling line form a readable upward three-depth stack",
             "body_silhouette": "medium readable figure seen from a low upward perspective, front three-quarter or clean side angle preferred, simple hands",
-            "outfit_direction": "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
+            "outfit_direction": "clean light-novel casual outfit, character palette stays recognizable",
             "material_language": "large blurred foreground edge, polished floor or stone path, glass, curtain, plant leaves, fabric",
             "color_strategy": "foreground shadow mass plus bright background plane; character color sits between them as the second read",
             "lighting_behavior": "low camera catches floor reflection and rim light; strong light direction clarifies depth",
@@ -847,7 +843,6 @@
     },
     "plan_compatible_clothing_themes": {
         "trend_mirror_studio": [
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean light-novel casual outfit, character palette stays recognizable",
@@ -868,7 +863,6 @@
         ],
         "capsule_toy_corner": [
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
@@ -877,7 +871,6 @@
         ],
         "graphic_poster_studio": [
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "thin off-shoulder long T-shirt, camisole inner layer visible at neckline, shorts",
             "short one-piece dress, youthful clean date styling",
@@ -888,7 +881,6 @@
         ],
         "balcony_breeze_half_out_frame": [
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "fresh sundress with a straw hat, summer date mood",
@@ -953,10 +945,8 @@
         "white_room_floor_window": [
             "character-signature outfit with a small fashionable variation",
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
-            "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
             "soft casual outfit with warm simple styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -1012,10 +1002,8 @@
         "pure_white_character_focus": [
             "character-signature outfit with a small fashionable variation",
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
-            "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
             "soft casual outfit with warm simple styling",
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
@@ -1100,9 +1088,7 @@
             "elbow-length sleeve light-sport T-shirt with tailored denim shorts"
         ],
         "low_angle_foreground_depth": [
-            "fresh picnic outfit, short jacket or light cardigan, clear layered pieces",
             "clean light-novel casual outfit, character palette stays recognizable",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis",
             "medium-short gingham shirt over a tank top, denim shorts; shirt tied into a small front-bottom bow",
             "soft windbreaker jacket, modest crew-neck tank top, athletic shorts, round-frame glasses",
@@ -1251,7 +1237,6 @@
         "mirror_fragment_corner": [
             "minimal sunny studio outfit, face and hair identity as the main focus",
             "clean minimal studio outfit, simple silhouette, palette selected to support character identity",
-            "young casual top: sleeveless tank with cropped casual layering, clean youthful styling",
             "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful",
             "short one-piece dress, youthful clean date styling",
             "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",

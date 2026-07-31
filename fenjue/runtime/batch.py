@@ -383,13 +383,11 @@ REGULAR_CLOTHING_THEMES = [
 ]
 REFERENCE_OUTFIT = "character-signature outfit with a small fashionable variation"
 LIGHT_NOVEL_OUTFIT = "clean light-novel casual outfit, character palette stays recognizable"
-YOUNG_CASUAL_OUTFIT = "young casual top: sleeveless tank with cropped casual layering, clean youthful styling"
 SOFT_DATE_OUTFIT = "soft date outfit: cardigan, camisole or blouse, A-line skirt, small shoulder bag, clean and youthful"
 CAFE_MAID_OUTFIT = "cafe maid remix outfit, neat apron, ribbons, cute and clean"
 BRIDAL_OUTFIT = "romantic flower bridal dress, elegant veil or bouquet, clean and elegant"
 FLOWER_FANTASY_OUTFIT = "elegant flower-field fantasy outfit, simplified layers, no weapon requirement"
 YOUTHFUL_CASUAL_OUTFIT = "clean youthful casual outfit, blouse or light cardigan, no stocking emphasis"
-PICNIC_OUTFIT = "fresh picnic outfit, short jacket or light cardigan, clear layered pieces"
 SUNNY_STUDIO_OUTFIT = "minimal sunny studio outfit, face and hair identity as the main focus"
 PURE_WHITE_OUTFIT = "clean minimal studio outfit, simple silhouette, palette selected to support character identity"
 FAIRY_FLOATING_OUTFIT = "light fairy-tale floating outfit, airy fabric, ribbons, soft fantasy feeling"
@@ -403,13 +401,11 @@ FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT = "elbow-length sleeve light-sport T-shirt with
 CLOTHING_DISPLAY_LABELS = {
     REFERENCE_OUTFIT: "参考图服装微调",
     LIGHT_NOVEL_OUTFIT: "轻小说日常",
-    YOUNG_CASUAL_OUTFIT: "年轻休闲上衣",
     SOFT_DATE_OUTFIT: "柔和约会装",
     CAFE_MAID_OUTFIT: "咖啡女仆改良",
     BRIDAL_OUTFIT: "花园婚纱",
     FLOWER_FANTASY_OUTFIT: "花田幻想礼服",
     YOUTHFUL_CASUAL_OUTFIT: "清爽少女日常",
-    PICNIC_OUTFIT: "野餐层次穿搭",
     "soft casual outfit with warm simple styling": "温柔简洁日常",
     SUNNY_STUDIO_OUTFIT: "晴光棚拍简装",
     PURE_WHITE_OUTFIT: "极简棚拍造型",
@@ -674,10 +670,8 @@ CLOTHING_CATEGORY_OPTIONS = [
 
 SAFE_DAILY_CLOTHING_POOL = [
     LIGHT_NOVEL_OUTFIT,
-    YOUNG_CASUAL_OUTFIT,
     SOFT_DATE_OUTFIT,
     YOUTHFUL_CASUAL_OUTFIT,
-    PICNIC_OUTFIT,
     SUNNY_STUDIO_OUTFIT,
     PURE_WHITE_OUTFIT,
     WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
@@ -689,7 +683,6 @@ SAFE_DAILY_CLOTHING_POOL = [
 ]
 PLAN_COMPATIBLE_CLOTHING_THEMES = {
     "trend_mirror_studio": [
-        YOUNG_CASUAL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SUNNY_STUDIO_OUTFIT,
         LIGHT_NOVEL_OUTFIT,
@@ -709,7 +702,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
     ],
     "capsule_toy_corner": [
         LIGHT_NOVEL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
@@ -718,7 +710,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
     ],
     "graphic_poster_studio": [
         LIGHT_NOVEL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
         SUNNY_STUDIO_OUTFIT,
         ASYMMETRIC_WHITE_T_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
@@ -729,7 +720,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
     ],
     "balcony_breeze_half_out_frame": [
         LIGHT_NOVEL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
         WHITE_SUNDRESS_STRAW_HAT_OUTFIT,
@@ -815,9 +805,7 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
         FIVE_SLEEVE_WHITE_SPORT_T_OUTFIT,
     ],
     "low_angle_foreground_depth": [
-        PICNIC_OUTFIT,
         LIGHT_NOVEL_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
         YOUTHFUL_CASUAL_OUTFIT,
         BLUE_GINGHAM_DENIM_OUTFIT,
         LIGHT_BLUE_WINDBREAKER_OUTFIT,
@@ -882,7 +870,6 @@ PLAN_COMPATIBLE_CLOTHING_THEMES = {
     "mirror_fragment_corner": [
         SUNNY_STUDIO_OUTFIT,
         PURE_WHITE_OUTFIT,
-        YOUNG_CASUAL_OUTFIT,
         SOFT_DATE_OUTFIT,
         BRIGHT_RED_SHORT_DRESS_OUTFIT,
         "spaghetti-strap lightly fitted mini dress, clean silhouette, minimalist cocktail eveningwear",
