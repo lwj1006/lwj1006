@@ -106,14 +106,21 @@ A3_NEGATIVE = (
 )
 
 
+NATURAL_EXPRESSION_CONTROL = (
+    "Keep the current photoset reference's gaze direction, head tilt, and broad mood, but render an understated natural expression compatible "
+    "with the selected character; never copy the reference model's facial identity or expression intensity. Use eyelids, brows, cheeks, and "
+    "mouth only as directional guides: soften broad grins, open mouths, strong pouts, and over-wide eyes. Keep a wink only when one eye is "
+    "clearly closed in the current shot, with relaxed cheek and mouth tension."
+)
+
+
 ANIME_FACE_DETAIL = (
-    "Preserve the selected character's canonical anime face design from the character references. "
-    "Match the current photoset reference's emotional intent through precise gaze direction, upper- and lower-eyelid opening, "
-    "eyebrow angle, cheek tension, head tilt, and mouth shape, but never copy the reference model's facial identity. "
-    "Draw crisp upper lash lines, readable lower lashes, layered iris color, centered pupils, and two controlled catchlights. "
-    "Use only a tiny graphic anime nose mark and a small simplified anime mouth line, never modeled nostrils or volumetric glossy lips. "
-    "Use restrained illustrated blush with a controlled soft transition. Keep both eyes aligned and equally finished. "
-    "Avoid a blank stare, generic smile, frozen doll face, asymmetrical eyes, muddy pupils, photographic lips, or an unfinished face."
+    "Preserve the selected character's canonical anime face design. "
+    f"{NATURAL_EXPRESSION_CONTROL} "
+    "Draw crisp lashes, layered irises, centered pupils, two controlled "
+    "catchlights, a tiny anime nose mark, a simple mouth line, and restrained illustrated blush. Keep both eyes aligned and equally finished. "
+    "Avoid a blank stare, generic smile, frozen doll face, forced grin, exaggerated pout, simultaneous wide eyes and wide-open mouth, "
+    "photographic lips, modeled nostrils, asymmetrical eyes, muddy pupils, or an unfinished face."
 )
 
 
@@ -960,6 +967,9 @@ Independent image task. Create exactly one finished image.
 
 [STYLE]
 Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, aligned detailed eyes, carefully grouped hair locks, coherent fabric folds, and luminous illustrated lighting. Translate the current reference's palette and shadow pattern into graphic anime color regions while simplifying only minor distant clutter. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
+
+[NATURAL EXPRESSION CONTROL]
+{NATURAL_EXPRESSION_CONTROL}
 
 [PRIORITY 1: CHARACTER]
 The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
