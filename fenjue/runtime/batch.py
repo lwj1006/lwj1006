@@ -269,11 +269,12 @@ UPLOAD_SETTLE_SECONDS = 15
 UPLOAD_SETTLE_AFTER_40_SECONDS = 20
 UPLOAD_SETTLE_AFTER_60_SECONDS = 25
 UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
-UPLOAD_COOLDOWN_SECONDS = 90 * 60
 UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
+UPLOAD_COOLDOWN_MINIMUM_SECONDS = 30 * 60
 WEB_REFRESH_SETTLE_SECONDS = 20
 STARTUP_REFRESH_SETTLE_SECONDS = 20
 _uploaded_images_since_cooldown = 0
+_upload_window_started_at = 0.0
 _last_upload_counter_at = 0.0
 _upload_counter_loaded = False
 _completed_runs_this_process = 0
@@ -1450,6 +1451,8 @@ def _save_upload_counter_state() -> None:
         json.dumps(
             {
                 "uploaded_images_since_cooldown": _uploaded_images_since_cooldown,
+                "window_started_at": _upload_window_started_at,
+                "window_started_at_iso": dt.datetime.fromtimestamp(_upload_window_started_at).isoformat(timespec="seconds") if _upload_window_started_at else "",
                 "last_upload_at": _last_upload_counter_at,
                 "last_upload_at_iso": dt.datetime.fromtimestamp(_last_upload_counter_at).isoformat(timespec="seconds") if _last_upload_counter_at else "",
             },
@@ -1461,21 +1464,22 @@ def _save_upload_counter_state() -> None:
 
 
 def _reset_upload_counter_state(reason: str) -> None:
-    global _uploaded_images_since_cooldown, _last_upload_counter_at
-    if _uploaded_images_since_cooldown or _last_upload_counter_at:
+    global _uploaded_images_since_cooldown, _upload_window_started_at, _last_upload_counter_at
+    if _uploaded_images_since_cooldown or _upload_window_started_at or _last_upload_counter_at:
         print(f"Upload cooldown: resetting persisted upload counter ({reason}).", flush=True)
     _uploaded_images_since_cooldown = 0
+    _upload_window_started_at = 0.0
     _last_upload_counter_at = 0.0
     _save_upload_counter_state()
 
 
 def _reset_upload_counter_if_window_expired() -> bool:
-    if _last_upload_counter_at <= 0:
+    if _upload_window_started_at <= 0:
         return False
 
-    elapsed = time.time() - _last_upload_counter_at
+    elapsed = time.time() - _upload_window_started_at
     if elapsed >= UPLOAD_COUNTER_WINDOW_SECONDS:
-        _reset_upload_counter_state(f"last upload was {int(elapsed // 60)} minutes ago")
+        _reset_upload_counter_state(f"3-hour window began {int(elapsed // 60)} minutes ago")
         return True
     return False
 
@@ -1487,7 +1491,7 @@ def clear_upload_counter_state(reason: str = "manual reset") -> None:
 
 
 def _load_upload_counter_state() -> None:
-    global _upload_counter_loaded, _uploaded_images_since_cooldown, _last_upload_counter_at
+    global _upload_counter_loaded, _uploaded_images_since_cooldown, _upload_window_started_at, _last_upload_counter_at
     if _upload_counter_loaded:
         _reset_upload_counter_if_window_expired()
         return
@@ -1495,31 +1499,50 @@ def _load_upload_counter_state() -> None:
 
     if not UPLOAD_COUNTER_STATE_FILE.exists():
         _uploaded_images_since_cooldown = 0
+        _upload_window_started_at = 0.0
         _last_upload_counter_at = 0.0
         return
 
     try:
         state = json.loads(UPLOAD_COUNTER_STATE_FILE.read_text(encoding="utf-8"))
         _uploaded_images_since_cooldown = max(0, int(state.get("uploaded_images_since_cooldown", 0)))
+        _upload_window_started_at = max(0.0, float(state.get("window_started_at", 0.0)))
         _last_upload_counter_at = max(0.0, float(state.get("last_upload_at", 0.0)))
     except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
         print(f"Upload cooldown: could not read persisted counter, starting from 0: {exc}", flush=True)
         _uploaded_images_since_cooldown = 0
+        _upload_window_started_at = 0.0
         _last_upload_counter_at = 0.0
         return
 
-    if _last_upload_counter_at <= 0:
+    if _uploaded_images_since_cooldown <= 0 or _last_upload_counter_at <= 0:
         _uploaded_images_since_cooldown = 0
+        _upload_window_started_at = 0.0
+        _last_upload_counter_at = 0.0
         return
+
+    if _upload_window_started_at <= 0:
+        # Legacy state did not preserve the first upload time. Use its last upload
+        # once as a conservative window start rather than under-waiting.
+        _upload_window_started_at = _last_upload_counter_at
+        _save_upload_counter_state()
+        print(
+            "Upload cooldown: migrated legacy counter state; using the last upload "
+            "time as this window's conservative start.",
+            flush=True,
+        )
 
     if _reset_upload_counter_if_window_expired():
         return
 
-    elapsed = time.time() - _last_upload_counter_at
+    now = time.time()
+    elapsed = max(0.0, now - _upload_window_started_at)
+    remaining = max(0.0, UPLOAD_COUNTER_WINDOW_SECONDS - elapsed)
     print(
         "Upload cooldown: loaded persisted counter "
         f"{_uploaded_images_since_cooldown}/{UPLOAD_COOLDOWN_IMAGE_LIMIT}; "
-        f"last upload was {int(elapsed // 60)} minutes ago.",
+        f"current 3-hour window has run for {int(elapsed // 60)} minutes and "
+        f"has {int((remaining + 59) // 60)} minutes remaining.",
         flush=True,
     )
 
@@ -1534,29 +1557,40 @@ def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
     if _uploaded_images_since_cooldown < UPLOAD_COOLDOWN_IMAGE_LIMIT and projected_total <= UPLOAD_COOLDOWN_IMAGE_LIMIT:
         return
 
-    cooldown_end = dt.datetime.now() + dt.timedelta(seconds=UPLOAD_COOLDOWN_SECONDS)
+    now = time.time()
+    window_end_at = _upload_window_started_at + UPLOAD_COUNTER_WINDOW_SECONDS
+    remaining_window_seconds = max(0.0, window_end_at - now)
+    wait_seconds = max(
+        UPLOAD_COOLDOWN_MINIMUM_SECONDS,
+        int(remaining_window_seconds + 0.999),
+    )
+    cooldown_end = dt.datetime.fromtimestamp(now + wait_seconds)
     upload_resume = cooldown_end + dt.timedelta(seconds=WEB_REFRESH_SETTLE_SECONDS)
     print(
         "Upload cooldown: "
         f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
         f"next upload has {next_upload_count} images and would reach {projected_total}. "
+        f"Waiting {wait_seconds // 60} minutes (30-minute safety minimum). "
         f"The next upload round will resume at {upload_resume.strftime('%Y-%m-%d %H:%M')} local time "
         "after refreshing the web page.",
         flush=True,
     )
-    wait_with_echo(UPLOAD_COOLDOWN_SECONDS, "Upload cooldown", end_time=cooldown_end)
+    wait_with_echo(wait_seconds, "Upload cooldown", end_time=cooldown_end)
     refresh_chatgpt_web_after_upload_cooldown()
     _reset_upload_counter_state("cooldown completed")
 
 
 def record_uploaded_image_count(uploaded_count: int) -> None:
-    global _uploaded_images_since_cooldown, _last_upload_counter_at
+    global _uploaded_images_since_cooldown, _upload_window_started_at, _last_upload_counter_at
     uploaded_count = max(0, int(uploaded_count))
     if uploaded_count <= 0:
         return
     _load_upload_counter_state()
+    now = time.time()
+    if _uploaded_images_since_cooldown <= 0 or _upload_window_started_at <= 0:
+        _upload_window_started_at = now
     _uploaded_images_since_cooldown += uploaded_count
-    _last_upload_counter_at = time.time()
+    _last_upload_counter_at = now
     _save_upload_counter_state()
     print(
         "Upload cooldown: "
