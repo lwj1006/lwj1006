@@ -63,7 +63,7 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Cartethyia adaptation: keep the very long golden-blonde hair, clear blue eyes, long pointed elf ears, blue-silver branching crown, and blue teardrop earrings. Never round off or hide the ears."
     ),
     "莫宁": (
-        "Morning adaptation: keep the pale silver-blue one-eye fringe, visible red eye, extremely long hair, triangular details, and separate floating dark crystal halo. The halo is never a hat."
+        "Morning adaptation: keep the pale silver-blue one-eye fringe, visible red eye, extremely long hair, triangular details, and separate floating dark crystal halo. Keep both legs as permanent non-flesh translucent silver-white crystalline synthetic anatomy with internal cyan-blue diamond facets and tiny star-like specks whenever visible; never render exposed leg areas as ordinary skin or flesh legs. Template clothing, hosiery, and footwear may cover them normally. The halo is never a hat."
     ),
     "菲比": (
         "Phoebe adaptation: keep very long wavy blonde hair, violet eyes, blue cross clip, and the oversized white wide-brim hat with blue feather whenever compatible with the crop."
@@ -91,6 +91,9 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
     ),
     "弭弗": (
         "Mi Fu adaptation: keep the voluminous pale pink-white hair, one-eye fringe, multitone eyes, pointed ears, and two huge navy cyan-edged branching horns attached at the temples. Never shrink the horns into clips."
+    ),
+    "丝柯克": (
+        "Skirk adaptation: keep mature athletic proportions, one large high rear ponytail within the very long silver-white hair, crimson eyes, and the black-and-cyan crystalline butterfly-fin head ornament. Keep exactly one continuous dark indigo crystalline right arm with blue-violet facets from upper arm through hand; the left arm remains ordinary. Never duplicate the arm, convert it into a weapon, or let a visible short-sleeve photoset outfit rewrite it as ordinary skin."
     ),
 }
 

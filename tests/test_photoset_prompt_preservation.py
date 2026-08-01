@@ -6,6 +6,8 @@ from fenjue.modes.photoset_template.library import (
     _adapt_shot_prompt,
     _compact_rewritten_shot_prompt,
     _has_explicit_reference_role_lock,
+    load_template,
+    prompt_for_shot,
 )
 
 
@@ -38,6 +40,44 @@ class PhotosetPromptPreservationTests(unittest.TestCase):
         self.assertIn("relaxed small smile", adapted)
         self.assertIn("short-sleeve henley shirt", adapted)
         self.assertNotIn("Create one finished image for Template", adapted)
+
+    def test_morning_crystalline_legs_survive_a3_prompt_assembly(self) -> None:
+        template = load_template("002_A_3")
+        prompt = prompt_for_shot("莫宁", template, template.shots[0])
+
+        self.assertIn(
+            "two non-flesh translucent silver-white crystalline synthetic legs",
+            prompt,
+        )
+        self.assertIn(
+            "internal cyan-blue diamond facets and tiny star-like specks",
+            prompt,
+        )
+        self.assertIn(
+            "never render exposed leg areas as ordinary skin or flesh legs",
+            prompt,
+        )
+        self.assertIn(
+            "Template clothing, hosiery, and footwear may cover them normally",
+            prompt,
+        )
+
+    def test_dan_low_waist_wings_survive_a3_prompt_assembly(self) -> None:
+        template = load_template("002_A_3")
+        prompt = prompt_for_shot("丹", template, template.shots[0])
+
+        self.assertIn(
+            "exactly one pair of low-set wings rooted at the left and right rear waist",
+            prompt,
+        )
+        self.assertIn("wing roots at upper-hip level", prompt)
+        self.assertIn("never shoulder-blade or upper-back wings", prompt)
+        self.assertIn(
+            "wings extending outward from the waist and sweeping downward beside the outer thighs",
+            prompt,
+        )
+        self.assertIn("clear center-back gap", prompt)
+        self.assertIn("never to the shoulders, shoulder blades, spine, or upper back", prompt)
 
 
 if __name__ == "__main__":

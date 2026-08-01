@@ -589,6 +589,38 @@ CHARACTER_PROFILES = {
         "interaction_rule": "Keep both horns attached at the temples and both pointed ears visible; never reduce the horns into clips or detach them as a crown. Combat outfit, gauntlets, cans, and effects are optional.",
         "color_anchor": "pale pink white, dark navy, electric cyan, magenta, small gold accents",
     },
+    "茜特菈莉": {
+        "official_core": "very long voluminous pastel pink hair fading through pale lavender into cool violet at the lower lengths, thick layered separated bangs, paired slim front braids, clear blue eyes with pink-violet lower iris accents, and two large black circular ring ornaments mounted high at the left and right sides of the head with luminous cyan centers, small gold fittings, and purple-pink ribbon tassels.",
+        "identity_tokens": ["very long pastel pink hair", "pale lavender-to-cool-violet lower hair gradient", "thick layered separated bangs", "paired slim front braids", "clear blue eyes with pink-violet lower iris accents", "two large black circular side-ring head ornaments", "luminous cyan ornament centers with gold fittings", "purple-pink ribbon tassels"],
+        "viewer_relationship": "youthful, composed, and slightly reserved, with a small thoughtful or faintly pouty expression rather than an exaggerated grin.",
+        "thumbnail_strategy": "the pastel pink-to-violet hair mass, paired front braids, blue multitone eyes, and two black cyan-centered ring ornaments must remain immediately readable.",
+        "interaction_rule": "Keep compact youthful proportions and preserve the two ring ornaments as symmetrical mechanical head accessories, never animal ears, horns, hair buns, or headphones. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
+        "color_anchor": "pastel pink, pale lavender, cool violet, luminous cyan, black, small gold accents",
+    },
+    "桑多涅": {
+        "official_core": "soft ash-taupe hair built from a rounded jaw-to-nape curled bob with layered inward-turning cheek locks plus several very long thin trailing curled strands behind it, vivid sapphire-blue eyes, and one large ornate white-and-gold mechanical ruffled headpiece around the crown and rear-right side with a black bow, small crimson details, and long red ribbon streamers.",
+        "identity_tokens": ["soft ash-taupe hair", "rounded jaw-to-nape curled bob", "layered inward-turning cheek locks", "very long thin trailing curled rear strands", "vivid sapphire-blue eyes", "large white-and-gold mechanical ruffled headpiece", "black bow and small crimson headpiece details", "long red ribbon streamers"],
+        "viewer_relationship": "quietly elegant, observant, and controlled, with a restrained expression and calm direct or slightly averted gaze.",
+        "thumbnail_strategy": "the ash-taupe curled bob, sapphire eyes, white-gold mechanical ruffles, black bow, and red streamers must remain distinct from one another.",
+        "interaction_rule": "Preserve the short rounded bob and separate trailing curled strands rather than turning all hair into one long hairstyle. The headpiece is mechanical and ruffled, never animal ears or an ordinary soft fabric cap. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
+        "color_anchor": "ash taupe, sapphire blue, pearl white, antique gold, black, restrained crimson",
+    },
+    "哥伦比娅": {
+        "official_core": "extremely long black hair transitioning into deep violet and muted magenta at the lower lengths, a smooth dark crown with thick straight blunt bangs, pale lavender-violet half-lidded eyes, and one fixed white feathered wing-like halo ornament rising and spreading behind the crown with small white side fittings near the temples.",
+        "identity_tokens": ["extremely long black hair", "deep violet-to-muted-magenta lower hair gradient", "smooth dark crown", "thick straight blunt bangs", "pale lavender-violet half-lidded eyes", "white feathered wing-like halo ornament behind the crown", "small white temple fittings"],
+        "viewer_relationship": "serene, distant, and dreamlike, with relaxed eyelids and a subtle neutral expression rather than theatrical sadness or a broad smile.",
+        "thumbnail_strategy": "the black-to-violet long hair, blunt fringe, pale sleepy eyes, and white feathered crown halo must remain the dominant recognition points.",
+        "interaction_rule": "Keep the white feather structure attached as a crown-level halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
+        "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white",
+    },
+    "丝柯克": {
+        "official_core": "very long silver-white hair with cool ice-blue shadows, layered separated bangs and face-framing locks, one large high rear ponytail that sweeps outward into a broad flowing mass, vivid crimson-red eyes, one angular black-and-cyan crystalline butterfly-fin ornament at the side of the crown, and one continuous dark indigo crystalline right arm with translucent blue-violet facets from the upper arm through the hand.",
+        "identity_tokens": ["very long silver-white hair with cool ice-blue shadows", "layered separated bangs and face-framing locks", "one large high flowing rear ponytail", "vivid crimson-red eyes", "angular black-and-cyan crystalline butterfly-fin head ornament", "one continuous dark indigo crystalline right arm", "translucent blue-violet facets through the right hand"],
+        "viewer_relationship": "mature, focused, and self-possessed, with an athletic poised presence and a controlled direct or side gaze.",
+        "thumbnail_strategy": "the silver high-ponytail silhouette, crimson eyes, cyan-edged black head crystal, and asymmetrical indigo right arm must remain clearly readable whenever included by the crop.",
+        "interaction_rule": "Keep exactly one high rear ponytail and exactly one crystalline right arm; the left arm remains ordinary. The right-arm crystal anatomy is continuous and body-fitted, never a second arm, loose sleeve, oversized weapon, or duplicated gauntlet. Swords, floating shards, combat effects, and the white-blue reference battle dress are optional and must not replace the selected photoset outfit or scene.",
+        "color_anchor": "silver white, ice blue, dark indigo, electric cyan, vivid crimson",
+    },
 }
 
 
@@ -1516,6 +1548,10 @@ KNOWN_CHARACTER_NAMES = [
     "佩丽卡",
     "陈千语",
     "弭弗",
+    "茜特菈莉",
+    "桑多涅",
+    "哥伦比娅",
+    "丝柯克",
 ]
 
 

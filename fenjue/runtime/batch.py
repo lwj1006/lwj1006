@@ -237,6 +237,26 @@ CHARACTER_REFERENCES = {
         name: [str(PROJECT_DIR / "assets" / "明日方舟终末地" / f"{name}{index}.png") for index in range(1, 4)]
         for name in ("诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗")
     },
+    "茜特菈莉": [
+        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉1.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉2.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉3.png"),
+    ],
+    "桑多涅": [
+        str(PROJECT_DIR / "assets" / "原神" / "桑多涅1.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "桑多涅2.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "桑多涅3.png"),
+    ],
+    "哥伦比娅": [
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅1.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅2.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅3.jpg"),
+    ],
+    "丝柯克": [
+        str(PROJECT_DIR / "assets" / "原神" / "丝柯克1.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "丝柯克2.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "丝柯克3.png"),
+    ],
 }
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
@@ -249,14 +269,17 @@ CHARACTER_SEQUENCE = [
     "今汐", "千咲", "卡提希娅", "坎特蕾拉", "守岸人", "尤诺", "洛瑟菈", "爱弥斯",
     "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
     "诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗",
+    "茜特菈莉", "桑多涅", "哥伦比娅", "丝柯克",
 ]
 ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:30]
 WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[30:46]
-ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[46:]
+ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[46:53]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[53:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,
     "终末地": ENDFIELD_CHARACTERS,
+    "原神": GENSHIN_IMPACT_CHARACTERS,
     "全部": CHARACTER_SEQUENCE,
 }
 _active_character_random_pool_name = "全部"
