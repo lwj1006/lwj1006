@@ -6,6 +6,11 @@ import traceback
 
 from fenjue.modes.registry import activate_prompt_mode
 from fenjue.modes.selection import choose_prompt_mode
+from fenjue.modes.photoset_template.session import (
+    PhotosetSessionError,
+    resumable_mode,
+    resume_requested,
+)
 from fenjue.runtime import batch
 from fenjue.vision.integration import activate_visual_runtime, visual_dry_run_requested
 
@@ -52,7 +57,15 @@ def main() -> None:
         batch.main()
         return
 
-    selected_mode = choose_prompt_mode(args)
+    if resume_requested(args):
+        try:
+            selected_mode = resumable_mode()
+        except PhotosetSessionError as exc:
+            print(f"无法继续上次任务：{exc}", flush=True)
+            raise SystemExit(2) from exc
+    else:
+        selected_mode = choose_prompt_mode(args)
+    batch.ACTIVE_PROMPT_MODE = selected_mode
     activate_prompt_mode(selected_mode, batch, args=args)
     activate_visual_runtime(batch, args=args)
     if visual_dry_run_requested(args):

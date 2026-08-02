@@ -17,15 +17,17 @@ echo ================================================================
 echo   IMAGE MODES
 echo   [A] Original    [B] Photographer    [C] Composition
 echo   [D] Fixed batch [E] Photoset         [E2] Refined photoset
+echo   [F] Local ComfyUI photoset ^(prompt + character ref + template ref^)
 echo.
 echo   TOOLS
 echo   [R] Recalibrate coordinates          [U] Clear upload cooldown
+echo   [L] Continue last E/E2 progress ^(progress is saved automatically^)
 echo   Log level: %FENJUE_LOG_LEVEL% ^(set FENJUE_LOG_LEVEL=DEBUG for details^)
 
 set "LAUNCH_ARGS=%*"
 if "%~1"=="" (
     echo.
-    set /p "CHOICE=Choose [A/B/C/D/E/E2/R/U, default A]: "
+    set /p "CHOICE=Choose [A/B/C/D/E/E2/F/L/R/U, default A]: "
     if "!CHOICE!"=="" set "CHOICE=A"
     if /I "!CHOICE!"=="R" (
         set "LAUNCH_ARGS=--calibrate"
@@ -35,6 +37,9 @@ if "%~1"=="" (
         set "LAUNCH_ARGS=--clear-upload-counter"
     ) else if /I "!CHOICE!"=="UPLOAD_RESET" (
         set "LAUNCH_ARGS=--clear-upload-counter"
+    ) else if /I "!CHOICE!"=="F" (
+        call "%~dp0start_fenjue_local_comfy.bat"
+        goto :done
     ) else (
         echo.
         echo Automation control

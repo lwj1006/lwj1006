@@ -133,6 +133,41 @@ class VisionAutomationController:
             print("Vision automation: active bottom composer detected; prime message skipped.", flush=True)
         print(f"Vision automation ready: layout={state.layout.value}, confidence={state.confidence:.3f}", flush=True)
 
+    def open_new_chat_and_send_prime_after_upload_cooldown(self) -> None:
+        print("Vision cooldown: focusing the ChatGPT browser before opening a new conversation.", flush=True)
+        browser_context = self.inspector.focus_chatgpt_window()
+        if browser_context is None:
+            raise VisionTimeoutError(
+                "Upload cooldown ended, but the ChatGPT browser window could not be focused."
+            )
+        pyautogui.press("esc")
+        pyautogui.hotkey("ctrl", "l")
+        self._paste(self.batch.CHATGPT_HOME_URL)
+        pyautogui.press("enter")
+
+        state = self.wait_for_composer(timeout=60)
+        if state.layout not in {
+            ComposerLayout.NEW_CHAT_CENTERED,
+            ComposerLayout.ACTIVE_CHAT_BOTTOM,
+        }:
+            raise VisionTimeoutError(
+                f"The new ChatGPT conversation opened with an unexpected layout: {state.layout.value}."
+            )
+        if state.attachment_count != 0:
+            raise VisionTimeoutError(
+                "A new ChatGPT conversation opened with unexpected image attachments."
+            )
+        print(
+            "Vision cooldown: new empty conversation detected; sending the text-only prime message.",
+            flush=True,
+        )
+        self._enter_text_and_send(
+            self.batch.UPLOAD_COOLDOWN_PRIME_PROMPT,
+            state.layout,
+        )
+        self.draft_attachments_pending = False
+        self.expected_attachment_count = 0
+
     def ensure_high_image_model(self) -> None:
         """Open the image-model popup and idempotently choose ``High``."""
         state = self.wait_for_composer(ComposerLayout.ACTIVE_CHAT_BOTTOM, timeout=20)

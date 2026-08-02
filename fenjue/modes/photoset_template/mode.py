@@ -12,6 +12,14 @@ from .descriptions import (
     template_description,
     template_ids_for_theme,
 )
+from .session import (
+    PhotosetSessionError,
+    advance_session,
+    load_session,
+    mark_resume_started,
+    resume_requested,
+    save_new_session,
+)
 
 
 LABEL = "photoset template mode"
@@ -431,45 +439,126 @@ def _scheduled_template_starts(
     return previous_character != current_character or previous_template is not current_template
 
 
+def _serialize_schedule(
+    schedule: tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...],
+) -> list[dict[str, str | int]]:
+    return [
+        {
+            "character": character_name,
+            "template_id": template.template_id,
+            "shot_index": shot.index,
+        }
+        for character_name, template, shot in schedule
+    ]
+
+
+def _restore_saved_schedule(
+    state: dict,
+) -> tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...]:
+    templates: dict[str, PhotosetTemplate] = {}
+    restored: list[tuple[str, PhotosetTemplate, PhotosetShot]] = []
+    for item in state["schedule"]:
+        template_id = item["template_id"]
+        try:
+            if template_id not in templates:
+                templates[template_id] = load_template(template_id)
+            template = templates[template_id]
+        except (FileNotFoundError, ValueError) as exc:
+            raise PhotosetSessionError(
+                f"存档需要模板 {_display_template_id(template_id)}，但该模板已不存在或无法读取。"
+            ) from exc
+        shot = next((candidate for candidate in template.shots if candidate.index == item["shot_index"]), None)
+        if shot is None:
+            raise PhotosetSessionError(
+                f"存档需要模板 {_display_template_id(template_id)} 的第 {item['shot_index']} 张图，"
+                "但该图片已不存在。"
+            )
+        restored.append((item["character"], template, shot))
+    return tuple(restored)
+
+
+def _unique_characters(
+    schedule: tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...],
+) -> tuple[str, ...]:
+    return tuple(dict.fromkeys(character_name for character_name, _, _ in schedule))
+
+
+def _unique_templates(
+    schedule: tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...],
+) -> tuple[PhotosetTemplate, ...]:
+    return tuple(
+        {template.template_id: template for _, template, _ in schedule}.values()
+    )
+
+
 def activate(batch, args=None) -> None:
     global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule
     global _current_shot_index, _used_templates_by_character
     argv = list(args or [])
-    requested_templates = _choose_templates(argv, batch)
-    _active_characters = _choose_characters(argv, batch)
-    shots_per_template = _choose_shots_per_template(argv, batch)
     available_ids = list_template_ids()
     _used_templates_by_character = _load_used_templates(available_ids)
-    requested_ids = {template.template_id for template in requested_templates}
-    for character_name in _active_characters:
-        used_ids = set(_used_templates_by_character.get(character_name, []))
-        used_count = len(used_ids)
-        remaining_in_selection = len(requested_ids - used_ids)
+    is_resume = resume_requested(argv)
+    resume_offset = 0
+
+    if is_resume:
+        state = load_session()
+        active_mode = str(getattr(batch, "ACTIVE_PROMPT_MODE", "E")).upper()
+        if state["mode"] != active_mode:
+            raise PhotosetSessionError(
+                f"存档属于 {state['mode']} 模式，但当前启动的是 {active_mode} 模式。"
+            )
+        full_photoset_schedule = _restore_saved_schedule(state)
+        resume_offset = state["next_index"]
+        photoset_schedule = full_photoset_schedule[resume_offset:]
+        if not photoset_schedule:
+            print("上一次 E/E2 任务已经全部完成，没有需要继续的图片。", flush=True)
+            raise SystemExit(0)
+        _active_characters = _unique_characters(photoset_schedule)
+        _active_templates = _unique_templates(photoset_schedule)
+        shots_per_template = None
+        next_character, next_template, next_shot = photoset_schedule[0]
         print(
-            f"E 模式历史：{character_name} 全库已使用 {used_count}/{len(available_ids)}，"
-            f"当前轮次还剩 {len(available_ids) - used_count} 个未使用模板。",
+            f"继续上次 {state['mode']} 任务：已完成 {resume_offset}/{len(full_photoset_schedule)} 张；"
+            f"将从 {next_character}、模板 {_display_template_id(next_template.template_id)}、"
+            f"第 {next_shot.index} 张继续；剩余 {len(photoset_schedule)} 张。",
             flush=True,
         )
-        print(
-            f"E 模式当前选择池：{character_name} 在本次选择的 {len(requested_ids)} 个现存模板中，"
-            f"还有 {remaining_in_selection} 个未使用。",
-            flush=True,
+    else:
+        requested_templates = _choose_templates(argv, batch)
+        _active_characters = _choose_characters(argv, batch)
+        shots_per_template = _choose_shots_per_template(argv, batch)
+        requested_ids = {template.template_id for template in requested_templates}
+        for character_name in _active_characters:
+            used_ids = set(_used_templates_by_character.get(character_name, []))
+            used_count = len(used_ids)
+            remaining_in_selection = len(requested_ids - used_ids)
+            print(
+                f"E 模式历史：{character_name} 全库已使用 {used_count}/{len(available_ids)}，"
+                f"当前轮次还剩 {len(available_ids) - used_count} 个未使用模板。",
+                flush=True,
+            )
+            print(
+                f"E 模式当前选择池：{character_name} 在本次选择的 {len(requested_ids)} 个现存模板中，"
+                f"还有 {remaining_in_selection} 个未使用。",
+                flush=True,
+            )
+        assignments = _resolve_template_assignments(
+            requested_templates,
+            _active_characters,
+            _used_templates_by_character,
+            available_ids,
         )
-    assignments = _resolve_template_assignments(
-        requested_templates,
-        _active_characters,
-        _used_templates_by_character,
-        available_ids,
-    )
-    if not assignments:
-        print(
-            "E 模式：当前选择池中已没有可供所选人物使用的模板，本次任务正常结束。"
-            "不会清空全库历史，也不会从选择池之外补充模板。",
-            flush=True,
-        )
-        raise SystemExit(0)
-    _active_templates = tuple(template for _, template in assignments)
-    photoset_schedule = _build_assigned_photoset_schedule(assignments, shots_per_template)
+        if not assignments:
+            print(
+                "E 模式：当前选择池中已没有可供所选人物使用的模板，本次任务正常结束。"
+                "不会清空全库历史，也不会从选择池之外补充模板。",
+                flush=True,
+            )
+            raise SystemExit(0)
+        _active_templates = tuple(template for _, template in assignments)
+        photoset_schedule = _build_assigned_photoset_schedule(assignments, shots_per_template)
+        full_photoset_schedule = photoset_schedule
+
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
     _active_shot_schedule = tuple((template, shot) for _, template, shot in photoset_schedule)
     _current_shot_index = 0
@@ -499,6 +588,21 @@ def activate(batch, args=None) -> None:
             _used_templates_by_character,
             len(available_ids),
         )
+
+    def confirm_photoset_session(scheduled_start) -> None:
+        if is_resume:
+            session_path = mark_resume_started(scheduled_start)
+            print(f"已确认继续任务，进度存档保持在：{session_path}", flush=True)
+            return
+        session_path = save_new_session(
+            str(getattr(batch, "ACTIVE_PROMPT_MODE", "E")),
+            _serialize_schedule(full_photoset_schedule),
+            scheduled_start,
+        )
+        print(f"已建立新的 E/E2 进度存档（旧存档已覆盖）：{session_path}", flush=True)
+
+    def record_photoset_session_progress(run_number: int) -> None:
+        advance_session(resume_offset + run_number)
 
     def skip_scene_selection():
         print("E 模式使用所选模板的场景，已跳过原始场景菜单。", flush=True)
@@ -586,6 +690,8 @@ def activate(batch, args=None) -> None:
     # the template on its first successful image so interrupted sets do not
     # dominate future random selections.
     batch.record_completed_run = record_started_photoset_template
+    batch.confirm_run_session = confirm_photoset_session
+    batch.record_run_session_progress = record_photoset_session_progress
     batch.startup_character_selection = fixed_character_selection
     batch.startup_scene_selection = skip_scene_selection
     batch.startup_clothing_selection = skip_clothing_selection

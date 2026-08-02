@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 import numpy as np
 
@@ -30,11 +30,29 @@ def active_state(*, attachments: int = 0) -> ScreenState:
     )
 
 
+def new_chat_state() -> ScreenState:
+    return ScreenState(
+        screen_width=1920,
+        screen_height=1080,
+        layout=ComposerLayout.NEW_CHAT_CENTERED,
+        composer=Rect(300, 500, 1200, 80),
+        plus_button=Rect(315, 520, 30, 30),
+        input_box=Rect(360, 510, 1030, 50),
+        action_button=Rect(1430, 520, 34, 34),
+        attachment_boxes=(),
+        attachment_count=0,
+        action_kind="send",
+        confidence=0.95,
+    )
+
+
 class FakeBatch:
     POST_CHARACTER_SELECTION_DELAY_SECONDS = 3
     STARTUP_REFRESH_SETTLE_SECONDS = 20
     TEXT_BEFORE_SEND_SECONDS = 20
     CHECK_INTERVAL_SECONDS = 400
+    CHATGPT_HOME_URL = "https://chatgpt.com/"
+    UPLOAD_COOLDOWN_PRIME_PROMPT = "给你提示词你来画"
 
     def __init__(self) -> None:
         self.clicks: list[tuple[int, int, float]] = []
@@ -147,6 +165,20 @@ class FakeInspector:
         return f"{label}.png"
 
 
+class NewChatInspector(FakeInspector):
+    def inspect(self) -> ScreenState:
+        return new_chat_state()
+
+    def wait_for(self, predicate, *, label: str, **_kwargs) -> ScreenState:
+        self.wait_labels.append(label)
+        state = new_chat_state()
+        if label == "prompt text appearance":
+            self.last_frame.fill(255)
+        if not predicate(state):
+            raise AssertionError(f"New-chat state did not satisfy wait label: {label}")
+        return state
+
+
 class VisionControllerTests(unittest.TestCase):
     def test_startup_uses_legacy_refresh_cadence(self) -> None:
         batch = FakeBatch()
@@ -163,6 +195,43 @@ class VisionControllerTests(unittest.TestCase):
         )
         self.assertEqual(inspector.focus_calls, 1)
         self.assertEqual(batch.clicks, [])
+
+    def test_cooldown_opens_new_empty_chat_and_sends_prime_without_images(self) -> None:
+        batch = FakeBatch()
+        inspector = NewChatInspector()
+        controller = VisionAutomationController(batch, inspector)
+
+        with (
+            patch("fenjue.vision.controller.pyautogui.hotkey") as hotkey,
+            patch("fenjue.vision.controller.pyautogui.press") as press,
+        ):
+            controller.open_new_chat_and_send_prime_after_upload_cooldown()
+
+        hotkey.assert_called_once_with("ctrl", "l")
+        self.assertEqual(press.call_args_list, [call("esc"), call("enter")])
+        self.assertEqual(batch.pastes, ["https://chatgpt.com/", "给你提示词你来画"])
+        self.assertEqual(batch.waits, [(20, "Vision prime before send")])
+        self.assertEqual(inspector.wait_labels.count("composer any"), 1)
+        self.assertEqual(inspector.wait_labels.count("composer new_chat_centered"), 1)
+        self.assertIn("prompt text appearance", inspector.wait_labels)
+        self.assertEqual(new_chat_state().attachment_count, 0)
+        self.assertEqual(batch.clicks[-1][:2], new_chat_state().action_button.center)
+
+    def test_cooldown_accepts_empty_chat_with_bottom_composer_layout(self) -> None:
+        batch = FakeBatch()
+        inspector = FakeInspector()
+        controller = VisionAutomationController(batch, inspector)
+
+        with (
+            patch("fenjue.vision.controller.pyautogui.hotkey"),
+            patch("fenjue.vision.controller.pyautogui.press"),
+        ):
+            controller.open_new_chat_and_send_prime_after_upload_cooldown()
+
+        self.assertEqual(batch.pastes, ["https://chatgpt.com/", "给你提示词你来画"])
+        self.assertEqual(inspector.wait_labels.count("composer any"), 1)
+        self.assertEqual(inspector.wait_labels.count("composer active_chat_bottom"), 1)
+        self.assertEqual(active_state().attachment_count, 0)
 
     def test_upload_selects_all_files_in_one_dialog(self) -> None:
         batch = FakeBatch()

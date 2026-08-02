@@ -82,6 +82,16 @@ def record_completed_run(character_name: str, run_number: int) -> None:
     return None
 
 
+def confirm_run_session(scheduled_start: dt.datetime | None) -> None:
+    """Mode hook called only after the user confirms immediate or scheduled start."""
+    return None
+
+
+def record_run_session_progress(run_number: int) -> None:
+    """Mode hook called after a successfully completed image."""
+    return None
+
+
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
     "南宫": [
@@ -293,7 +303,10 @@ UPLOAD_SETTLE_AFTER_40_SECONDS = 20
 UPLOAD_SETTLE_AFTER_60_SECONDS = 25
 UPLOAD_COOLDOWN_IMAGE_LIMIT = 80
 UPLOAD_COUNTER_WINDOW_SECONDS = 3 * 60 * 60
-UPLOAD_COOLDOWN_MINIMUM_SECONDS = 30 * 60
+UPLOAD_COOLDOWN_MINIMUM_SECONDS = 32 * 60
+UPLOAD_COOLDOWN_NEW_CHAT_LOAD_SECONDS = 20
+UPLOAD_COOLDOWN_POST_PRIME_SECONDS = 60
+UPLOAD_COOLDOWN_PRIME_PROMPT = "给你提示词你来画"
 WEB_REFRESH_SETTLE_SECONDS = 20
 STARTUP_REFRESH_SETTLE_SECONDS = 20
 _uploaded_images_since_cooldown = 0
@@ -995,6 +1008,7 @@ SCENE_CATEGORY_OPTIONS = [
 LAST_RUNTIME_CONFIG_REVISION = art_options.RUNTIME_CONFIG_REVISION
 PROMPT_LOG_FILE = FEEDBACK_DIR / "prompt_log.jsonl"
 FEEDBACK_LOG_FILE = FEEDBACK_DIR / "feedback_log.jsonl"
+CHATGPT_HOME_URL = "https://chatgpt.com/"
 CHATGPT_IMAGES_URL = "https://chatgpt.com/images/"
 
 
@@ -1445,12 +1459,18 @@ def refresh_chatgpt_web_page(reason: str, settle_seconds: int, settle_label: str
     wait_with_echo(settle_seconds, settle_label)
 
 
-def refresh_chatgpt_web_after_upload_cooldown() -> None:
-    refresh_chatgpt_web_page(
-        "Upload cooldown",
-        WEB_REFRESH_SETTLE_SECONDS,
-        "Web refresh settle",
-    )
+def open_new_chat_and_send_prime_after_upload_cooldown() -> None:
+    print(f"Upload cooldown: opening a new ChatGPT conversation at {CHATGPT_HOME_URL}", flush=True)
+    pyautogui.hotkey("ctrl", "l")
+    paste_text(CHATGPT_HOME_URL)
+    pyautogui.press("enter")
+    wait_with_echo(UPLOAD_COOLDOWN_NEW_CHAT_LOAD_SECONDS, "New ChatGPT conversation load")
+
+    print("Upload cooldown: sending a text-only prime message with no image attachments.", flush=True)
+    focus_chatgpt_input()
+    paste_text(UPLOAD_COOLDOWN_PRIME_PROMPT)
+    wait_with_echo(TEXT_BEFORE_SEND_SECONDS, "Cooldown prime before send")
+    pyautogui.press("enter")
 
 
 def startup_refresh_before_button_work() -> None:
@@ -1588,18 +1608,32 @@ def apply_upload_cooldown_if_needed(next_upload_count: int) -> None:
         int(remaining_window_seconds + 0.999),
     )
     cooldown_end = dt.datetime.fromtimestamp(now + wait_seconds)
-    upload_resume = cooldown_end + dt.timedelta(seconds=WEB_REFRESH_SETTLE_SECONDS)
+    upload_resume = cooldown_end + dt.timedelta(
+        seconds=(
+            UPLOAD_COOLDOWN_NEW_CHAT_LOAD_SECONDS
+            + TEXT_BEFORE_SEND_SECONDS
+            + UPLOAD_COOLDOWN_POST_PRIME_SECONDS
+        )
+    )
     print(
         "Upload cooldown: "
         f"{_uploaded_images_since_cooldown} images uploaded in the current 3-hour window; "
         f"next upload has {next_upload_count} images and would reach {projected_total}. "
-        f"Waiting {wait_seconds // 60} minutes (30-minute safety minimum). "
-        f"The next upload round will resume at {upload_resume.strftime('%Y-%m-%d %H:%M')} local time "
-        "after refreshing the web page.",
+        f"Waiting {wait_seconds // 60} minutes (32-minute safety minimum). "
+        f"A new ChatGPT conversation will open at {cooldown_end.strftime('%Y-%m-%d %H:%M')} local time. "
+        f"It will receive one text-only prime message, then wait 1 additional minute. "
+        f"The next upload round will resume at approximately "
+        f"{upload_resume.strftime('%Y-%m-%d %H:%M')} local time.",
         flush=True,
     )
     wait_with_echo(wait_seconds, "Upload cooldown", end_time=cooldown_end)
-    refresh_chatgpt_web_after_upload_cooldown()
+    open_new_chat_and_send_prime_after_upload_cooldown()
+    post_prime_end = dt.datetime.now() + dt.timedelta(seconds=UPLOAD_COOLDOWN_POST_PRIME_SECONDS)
+    wait_with_echo(
+        UPLOAD_COOLDOWN_POST_PRIME_SECONDS,
+        "Post-prime cooldown settle",
+        end_time=post_prime_end,
+    )
     _reset_upload_counter_state("cooldown completed")
 
 
@@ -2812,6 +2846,7 @@ def main() -> None:
     fixed_clothing_themes = startup_clothing_selection()
     fixed_clothing_cycle_used: set[str] = set()
     scheduled_start = startup_start_time_selection()
+    confirm_run_session(scheduled_start)
     wait_until_start_time(scheduled_start)
     if safety_shutdown_enabled:
         schedule_safety_shutdown()
@@ -2983,6 +3018,7 @@ def main() -> None:
                     )
             log_feedback_placeholder(run_id, run_number, character_name, screenshot_path)
             record_completed_run(character_name, run_number)
+            record_run_session_progress(run_number)
             _completed_runs_this_process += 1
             info_log(f"Run {run_number}/{total_runs} completed")
             mark_character_clothing_theme_used(character_name, theme, used_by_character)

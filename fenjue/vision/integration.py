@@ -36,6 +36,9 @@ def activate_visual_runtime(batch_module, args: list[str]) -> VisionAutomationCo
         return controller
 
     batch_module.startup_refresh_before_button_work = controller.prepare_session
+    batch_module.open_new_chat_and_send_prime_after_upload_cooldown = (
+        controller.open_new_chat_and_send_prime_after_upload_cooldown
+    )
     batch_module.upload_reference_images = controller.upload_reference_images
     batch_module.send_prompt = controller.send_prompt
     batch_module.wait_for_generation = controller.wait_for_generation
