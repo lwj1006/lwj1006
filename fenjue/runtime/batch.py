@@ -29,6 +29,7 @@ from fenjue.modes.original.plans import (
     collect_cooldown_tags,
     propagation_profile_for,
     required_identity_tokens_for,
+    set_character_profile_variant,
     viewer_distance_for,
 )
 
@@ -268,6 +269,24 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "原神" / "丝柯克3.png"),
     ],
 }
+
+
+CHARACTER_VARIANT_OPTIONS = {
+    "哥伦比娅": {
+        "blindfold": {
+            "label": "有眼罩",
+            "references": [CHARACTER_REFERENCES["哥伦比娅"][0]],
+            "profile_variant": None,
+        },
+        "unmasked": {
+            "label": "无眼罩",
+            "references": CHARACTER_REFERENCES["哥伦比娅"][1:],
+            "profile_variant": "unmasked",
+        },
+    },
+}
+
+ACTIVE_CHARACTER_VARIANTS: dict[str, str] = {}
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # Art direction mode is single-character-first. Multi-character prompt logic is kept
 # in the legacy templates, but the production batch does not use it by default.
@@ -1195,12 +1214,16 @@ def choose_character_group() -> tuple[str, list[str]]:
     reference_files = [
         file_path
         for name in selected_names
-        for file_path in CHARACTER_REFERENCES[name]
+        for file_path in reference_files_for_character(name)
     ]
     return character_label, reference_files
 
 
 def reference_files_for_character(character_name: str) -> list[str]:
+    variant_options = CHARACTER_VARIANT_OPTIONS.get(character_name)
+    if variant_options is not None:
+        variant = ACTIVE_CHARACTER_VARIANTS.get(character_name, "blindfold")
+        return list(CHARACTER_VARIANT_OPTIONS[character_name][variant]["references"])
     return CHARACTER_REFERENCES[character_name][:]
 
 
@@ -1208,7 +1231,7 @@ def validate_reference_files_for_characters(character_names: list[str]) -> None:
     reference_files = [
         path
         for character_name in character_names
-        for path in CHARACTER_REFERENCES[character_name]
+        for path in reference_files_for_character(character_name)
     ]
     missing = [path for path in reference_files if not Path(path).exists()]
     if missing:
@@ -2457,22 +2480,130 @@ def noninteractive_selection_enabled() -> bool:
     )
 
 
+def _argument_option_value(arguments: list[str], *option_names: str) -> str | None:
+    normalized_names = {name.upper() for name in option_names}
+    for index, argument in enumerate(arguments):
+        stripped = str(argument).strip()
+        upper = stripped.upper()
+        if upper in normalized_names and index + 1 < len(arguments):
+            return str(arguments[index + 1]).strip()
+        for name in normalized_names:
+            if upper.startswith(name + "="):
+                return stripped.split("=", 1)[1].strip()
+    return None
+
+
+def _normalize_character_variant(character_name: str, raw_value: str) -> str:
+    value = str(raw_value).strip().lower().replace("_", "-")
+    aliases = {
+        "哥伦比娅": {
+            "1": "blindfold",
+            "blindfold": "blindfold",
+            "masked": "blindfold",
+            "mask": "blindfold",
+            "with-blindfold": "blindfold",
+            "有眼罩": "blindfold",
+            "眼罩": "blindfold",
+            "2": "unmasked",
+            "unmasked": "unmasked",
+            "no-mask": "unmasked",
+            "without-blindfold": "unmasked",
+            "无眼罩": "unmasked",
+            "裸眼": "unmasked",
+        },
+    }
+    variant = aliases.get(character_name, {}).get(value)
+    if variant is None or variant not in CHARACTER_VARIANT_OPTIONS.get(character_name, {}):
+        raise ValueError(f"Unknown appearance variant for {character_name}: {raw_value!r}")
+    return variant
+
+
+def set_character_variant(character_name: str, variant: str) -> None:
+    normalized = _normalize_character_variant(character_name, variant)
+    option = CHARACTER_VARIANT_OPTIONS[character_name][normalized]
+    ACTIVE_CHARACTER_VARIANTS[character_name] = normalized
+    set_character_profile_variant(character_name, option["profile_variant"])
+
+
+def active_character_variants() -> dict[str, str]:
+    return dict(ACTIVE_CHARACTER_VARIANTS)
+
+
+def configure_character_variants(
+    character_names: list[str] | tuple[str, ...],
+    arguments: list[str] | None = None,
+    saved_variants: dict[str, str] | None = None,
+) -> dict[str, str]:
+    selected = set(character_names)
+    arguments = list(sys.argv if arguments is None else arguments)
+    saved_variants = saved_variants or {}
+
+    for character_name, options in CHARACTER_VARIANT_OPTIONS.items():
+        if character_name not in selected:
+            continue
+
+        raw_value = saved_variants.get(character_name)
+        if raw_value is None and character_name == "哥伦比娅":
+            raw_value = _argument_option_value(
+                arguments,
+                "--COLUMBINA-VARIANT",
+                "--COLUMBINA-LOOK",
+                "--哥伦比娅版本",
+            ) or _env_option_value("AUTO_CREATE_COLUMBINA_VARIANT")
+
+        if raw_value is None and noninteractive_selection_enabled():
+            raw_value = "blindfold"
+
+        while True:
+            prompted = raw_value is None
+            if prompted:
+                print("", flush=True)
+                print("哥伦比娅外观版本：", flush=True)
+                print("  1. 有眼罩（珍珠白半透明几何眼罩，完全覆盖双眼）", flush=True)
+                print("  2. 无眼罩（露出淡紫色半垂眼睛）", flush=True)
+                raw_value = input("哥伦比娅版本 [默认 1]: ").strip() or "1"
+            try:
+                variant = _normalize_character_variant(character_name, raw_value)
+            except ValueError as exc:
+                if prompted:
+                    print(f"{exc}. 请重新输入。", flush=True)
+                    raw_value = None
+                    continue
+                raise
+            break
+
+        set_character_variant(character_name, variant)
+        option = options[variant]
+        print(
+            f"人物版本：{character_name} = {option['label']}；"
+            f"使用 {len(option['references'])} 张对应参考图。",
+            flush=True,
+        )
+
+    return active_character_variants()
+
+
 def startup_character_selection() -> list[str] | None:
     raw_choice = _cli_option_value("--characters") or _env_option_value("AUTO_CREATE_CHARACTERS")
     if raw_choice is None:
         if noninteractive_selection_enabled():
             _select_character_random_pool("全部")
             print("Character mode: full random cycle (--auto-start).", flush=True)
-            return None
-        return prompt_character_selection()
-    selected = _parse_character_selection(raw_choice)
-    if selected is None:
-        print(
-            f"Character mode: {active_character_random_pool_name()} random cycle (startup option).",
-            flush=True,
-        )
+            selected = None
+        else:
+            selected = prompt_character_selection()
     else:
-        print(f"Character mode: fixed selection from startup option -> {'、'.join(selected)}", flush=True)
+        selected = _parse_character_selection(raw_choice)
+        if selected is None:
+            print(
+                f"Character mode: {active_character_random_pool_name()} random cycle (startup option).",
+                flush=True,
+            )
+        else:
+            print(f"Character mode: fixed selection from startup option -> {'、'.join(selected)}", flush=True)
+
+    variant_candidates = selected if selected is not None else active_character_random_pool()
+    configure_character_variants(variant_candidates, sys.argv)
     return selected
 
 

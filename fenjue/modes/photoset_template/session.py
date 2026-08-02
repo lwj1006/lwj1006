@@ -72,6 +72,14 @@ def load_session(path: Path | None = None) -> dict[str, Any]:
     data["mode"] = mode
     data["schedule"] = schedule
     data["next_index"] = next_index
+    raw_variants = data.get("character_variants", {})
+    if not isinstance(raw_variants, dict):
+        raise PhotosetSessionError("E/E2 进度存档中的人物版本格式无效。")
+    data["character_variants"] = {
+        str(character).strip(): str(variant).strip()
+        for character, variant in raw_variants.items()
+        if str(character).strip() and str(variant).strip()
+    }
     return data
 
 
@@ -92,6 +100,7 @@ def save_new_session(
     schedule: Iterable[dict[str, Any]],
     scheduled_start: dt.datetime | None,
     path: Path | None = None,
+    character_variants: dict[str, str] | None = None,
 ) -> Path:
     normalized_mode = str(mode).upper()
     if normalized_mode not in {"E", "E2"}:
@@ -112,6 +121,7 @@ def save_new_session(
             "updated_at": now,
             "scheduled_start": scheduled_start.isoformat(timespec="minutes") if scheduled_start else None,
             "next_index": 0,
+            "character_variants": dict(character_variants or {}),
             "schedule": normalized_schedule,
         },
         path,

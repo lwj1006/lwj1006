@@ -515,6 +515,13 @@ def activate(batch, args=None) -> None:
             raise SystemExit(0)
         _active_characters = _unique_characters(photoset_schedule)
         _active_templates = _unique_templates(photoset_schedule)
+        configure_variants = getattr(batch, "configure_character_variants", None)
+        if callable(configure_variants):
+            configure_variants(
+                _active_characters,
+                argv,
+                saved_variants=state.get("character_variants", {}),
+            )
         shots_per_template = None
         next_character, next_template, next_shot = photoset_schedule[0]
         print(
@@ -526,6 +533,9 @@ def activate(batch, args=None) -> None:
     else:
         requested_templates = _choose_templates(argv, batch)
         _active_characters = _choose_characters(argv, batch)
+        configure_variants = getattr(batch, "configure_character_variants", None)
+        if callable(configure_variants):
+            configure_variants(_active_characters, argv)
         shots_per_template = _choose_shots_per_template(argv, batch)
         requested_ids = {template.template_id for template in requested_templates}
         for character_name in _active_characters:
@@ -598,6 +608,11 @@ def activate(batch, args=None) -> None:
             str(getattr(batch, "ACTIVE_PROMPT_MODE", "E")),
             _serialize_schedule(full_photoset_schedule),
             scheduled_start,
+            character_variants=(
+                batch.active_character_variants()
+                if callable(getattr(batch, "active_character_variants", None))
+                else {}
+            ),
         )
         print(f"已建立新的 E/E2 进度存档（旧存档已覆盖）：{session_path}", flush=True)
 

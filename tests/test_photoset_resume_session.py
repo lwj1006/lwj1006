@@ -59,6 +59,19 @@ class PhotosetResumeSessionTests(unittest.TestCase):
         self.assertEqual(state["next_index"], 3)
         self.assertEqual(state["schedule"][state["next_index"]], self.schedule[3])
 
+    def test_session_preserves_character_appearance_variants(self) -> None:
+        save_new_session(
+            "E",
+            self.schedule,
+            None,
+            self.session_path,
+            character_variants={"哥伦比娅": "unmasked"},
+        )
+
+        state = load_session(self.session_path)
+
+        self.assertEqual(state["character_variants"], {"哥伦比娅": "unmasked"})
+
     def test_progress_never_moves_backwards_after_retry(self) -> None:
         save_new_session("E", self.schedule, None, self.session_path)
         advance_session(3, self.session_path)

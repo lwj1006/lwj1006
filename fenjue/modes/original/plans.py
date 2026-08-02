@@ -624,6 +624,36 @@ CHARACTER_PROFILES = {
 }
 
 
+CHARACTER_PROFILE_VARIANTS = {
+    "哥伦比娅": {
+        "unmasked": {
+            "official_core": "extremely long black hair transitioning into deep violet and muted magenta at the lower lengths, a smooth dark crown with thick straight blunt bangs, fully visible pale lavender-violet half-lidded eyes, and one fixed white feathered wing-like halo ornament rising and spreading behind the crown with small white side fittings near the temples. Her face is unobstructed: both eyes, both upper lash lines, the nose bridge, and the area between the bangs and cheekbones remain visible.",
+            "identity_tokens": ["extremely long black hair", "deep violet-to-muted-magenta lower hair gradient", "smooth dark crown", "thick straight blunt bangs", "fully visible pale lavender-violet half-lidded eyes", "unobstructed eye area and nose bridge", "white feathered wing-like halo ornament behind the crown", "small white temple fittings"],
+            "viewer_relationship": "serene, distant, and dreamlike, with relaxed half-lidded eyes and a subtle neutral expression rather than theatrical sadness or a broad smile.",
+            "thumbnail_strategy": "the fully visible pale lavender eyes, black-to-violet long hair, blunt fringe, and separate white feathered crown halo must remain the dominant recognition points.",
+            "interaction_rule": "This is the unmasked version. Keep both pale lavender-violet eyes fully visible and unobstructed in every outfit and scene. Never add the geometric blindfold, an eye patch, cloth band, sleep mask, glasses, sunglasses, visor, lace veil, opaque bar, face seal, or painted markings across the eyes. Keep the feather structure separate and attached behind the crown as a wing-like halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
+            "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white",
+        },
+    },
+}
+
+_ACTIVE_CHARACTER_PROFILE_VARIANTS: dict[str, str] = {}
+
+
+def set_character_profile_variant(character_name: str, variant: str | None) -> None:
+    if variant is None:
+        _ACTIVE_CHARACTER_PROFILE_VARIANTS.pop(character_name, None)
+        return
+    available = CHARACTER_PROFILE_VARIANTS.get(character_name, {})
+    if variant not in available:
+        raise ValueError(f"Unknown profile variant for {character_name}: {variant}")
+    _ACTIVE_CHARACTER_PROFILE_VARIANTS[character_name] = variant
+
+
+def active_character_profile_variant(character_name: str) -> str | None:
+    return _ACTIVE_CHARACTER_PROFILE_VARIANTS.get(character_name)
+
+
 GENERIC_PROFILE = {
     "official_core": "strictly preserve the uploaded reference hairstyle, hair color, eyes, core accessories, face shape, and expression distance.",
     "identity_tokens": ["reference hairstyle", "reference hair color", "reference eyes", "reference accessories"],
@@ -1776,6 +1806,9 @@ PLAN_ACTION_COMPATIBILITY = [
 
 
 def _profile_for(character_name):
+    active_variant = _ACTIVE_CHARACTER_PROFILE_VARIANTS.get(character_name)
+    if active_variant is not None:
+        return CHARACTER_PROFILE_VARIANTS[character_name][active_variant]
     return CHARACTER_PROFILES.get(character_name, GENERIC_PROFILE)
 
 
