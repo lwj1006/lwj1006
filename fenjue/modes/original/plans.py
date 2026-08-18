@@ -191,10 +191,10 @@ CHARACTER_PROFILES = {
         "color_anchor": "black, red, white",
     },
     "仪玄": {
-        "official_core": "long silver-white hair, soft ahoge, black wave or lightning-shaped hair ornament, golden eyes.",
-        "identity_tokens": ["long silver-white hair", "small ahoge", "black wave or lightning-shaped hair ornament", "golden eyes"],
+        "official_core": "a tall adult woman with elegant elongated proportions, a relatively small head, long neck, balanced long torso, high waist, long well-shaped legs, long silver-white hair, soft ahoge, black wave or lightning-shaped hair ornament, and golden eyes.",
+        "identity_tokens": ["tall adult woman with elegant elongated proportions", "relatively small head, long neck, balanced long torso, high waist, and long well-shaped legs", "long silver-white hair", "small ahoge", "black wave or lightning-shaped hair ornament", "golden eyes"],
         "viewer_relationship": "front or side gaze, slow calm movement, hands relaxed near the body or chest.",
-        "thumbnail_strategy": "silver-white hair and golden eyes must remain clear; background should not overpower identity.",
+        "thumbnail_strategy": "her mature graceful silhouette, relatively small head, high waist, long legs, silver-white hair, and golden eyes must remain clear; never compress her into petite, compact, chibi-like, short-torsoed, or short-legged proportions.",
         "interaction_rule": "hands near chest, relaxed posture, or side gaze are fine; avoid complex gestures.",
         "color_anchor": "silver white, black, gold",
     },

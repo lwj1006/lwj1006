@@ -32,6 +32,12 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Scale the pose and furniture to her body; do not create a tall mature silhouette, elongated legs, enlarged proportions, "
         "a sharp mature face, or the photoset model's hair."
     ),
+    "仪玄": (
+        "Yixuan adaptation: keep a tall adult silhouette with elegant elongated proportions, a relatively small head, long neck, "
+        "balanced long torso, high waist, long well-shaped legs, and mature feminine shoulder-to-hip balance. Preserve this canonical "
+        "body even when the photoset person is petite or the reference crop hides the lower legs. Scale the pose, garment, furniture, "
+        "and framing to Yixuan; never shorten her torso or legs, enlarge her head, or make her petite, compact, chibi-like, or child-proportioned."
+    ),
     "铃": (
         "Belle adaptation: keep a lively youthful academy-girl impression, short deep blue-violet bob hair, a large side-swept bang, "
         "teal-blue eyes, the orange N-shaped hair clip, and small teal earrings clear in every shot. Adapt the photoset pose to her "
