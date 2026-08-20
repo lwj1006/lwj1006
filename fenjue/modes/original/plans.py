@@ -271,10 +271,10 @@ CHARACTER_PROFILES = {
         "color_anchor": "mint green, purple, black, soft gray",
     },
     "艾莲": {
-        "official_core": "short dark navy-black layered bob with a vivid red-pink underside, red eyes, two silver hair clips, and one large continuous dark shark tail with a pale underside and clear tail fin.",
-        "identity_tokens": ["short dark navy-black layered bob", "vivid red-pink underside hair", "red eyes", "two silver hair clips", "one large continuous dark shark tail with pale underside and tail fin"],
+        "official_core": "short dark navy-black layered bob with a vivid red-pink underside, red eyes, and two silver hair clips.",
+        "identity_tokens": ["short dark navy-black layered bob", "vivid red-pink underside hair", "red eyes", "two silver hair clips"],
         "viewer_relationship": "natural gaze and relaxed expression, with clear hair silhouette.",
-        "thumbnail_strategy": "dark navy short hair, red-pink underside, red eyes, two silver clips, and the large continuous shark-tail silhouette must stay readable; never omit or reduce the tail to a small decorative fin.",
+        "thumbnail_strategy": "dark navy short hair, red-pink underside, red eyes, and two silver clips must stay readable.",
         "interaction_rule": "side glance, casual pose, or restrained motion are fine; expression may vary naturally, and hand-held objects, fixed role details, or leg-focused framing should not be forced.",
         "color_anchor": "dark navy, red pink, red, white",
     },
