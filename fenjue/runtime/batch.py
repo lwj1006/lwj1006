@@ -1502,8 +1502,8 @@ def startup_refresh_before_button_work() -> None:
         flush=True,
     )
     time.sleep(POST_CHARACTER_SELECTION_DELAY_SECONDS)
-    print("Startup refresh: focusing ChatGPT window via send-button coordinate", flush=True)
-    click_slow(*COORDS["send_button"], after=0.5)
+    print("Startup refresh: focusing ChatGPT through the composer without sending", flush=True)
+    focus_chatgpt_input()
     refresh_chatgpt_web_page(
         "Startup refresh",
         STARTUP_REFRESH_SETTLE_SECONDS,
@@ -1772,8 +1772,8 @@ def recover_after_generation_limit(error: GenerationLimitReached) -> None:
         "Image generation limit",
         end_time=detection.resume_at,
     )
-    print("Image generation limit: focusing ChatGPT before refresh.", flush=True)
-    click_slow(*COORDS["send_button"], after=0.5)
+    print("Image generation limit: focusing ChatGPT safely before refresh.", flush=True)
+    focus_chatgpt_input()
     refresh_chatgpt_web_page(
         "Image generation limit reset",
         WEB_REFRESH_SETTLE_SECONDS,

@@ -22,6 +22,7 @@ from fenjue.runtime.batch import (
     paste_text,
     apply_upload_cooldown_if_needed,
     record_uploaded_image_count,
+    recover_after_generation_limit,
     send_prompt,
     startup_refresh_before_button_work,
     take_screenshot,
@@ -31,6 +32,7 @@ from fenjue.runtime.batch import (
     with_image_prompt_prefix,
 )
 from fenjue.runtime.target_batch_prompts import PROMPT_SETS
+from fenjue.vision.generation_limit import GenerationLimitReached
 
 WORKSPACE_DIR = PROJECT_DIR.parent
 TARGET_DIR = WORKSPACE_DIR / "target"
@@ -164,17 +166,29 @@ def process_target_file(
 
     for prompt_set_number in selected_prompt_sets:
         generation_number += 1
-        print(
-            f"[Image {image_number:02d}] prompt set {prompt_set_number} "
-            f"({generation_number:02d} total)",
-            flush=True,
-        )
-        upload_target_file(path)
-        send_prompt(with_image_prompt_prefix(PROMPT_SETS[prompt_set_number - 1]))
-        take_screenshot(
-            f"target_{image_number:02d}_prompt_{prompt_set_number}_sent"
-        )
-        wait_for_generation(generation_number)
+        attempt = 1
+        while True:
+            print(
+                f"[Image {image_number:02d}] prompt set {prompt_set_number} "
+                f"({generation_number:02d} total), attempt {attempt}",
+                flush=True,
+            )
+            upload_target_file(path)
+            send_prompt(with_image_prompt_prefix(PROMPT_SETS[prompt_set_number - 1]))
+            take_screenshot(
+                f"target_{image_number:02d}_prompt_{prompt_set_number}_attempt_{attempt}_sent"
+            )
+            try:
+                wait_for_generation(generation_number)
+                break
+            except GenerationLimitReached as error:
+                print(
+                    f"[Image {image_number:02d}] prompt set {prompt_set_number} hit the "
+                    "generation limit; preserving this image and prompt position.",
+                    flush=True,
+                )
+                recover_after_generation_limit(error)
+                attempt += 1
 
     moved_to = move_to_complete(path)
     print(f"[Image {image_number:02d}] moved to complete: {moved_to}", flush=True)
