@@ -40,6 +40,10 @@ if "%~1"=="" (
     ) else if /I "!CHOICE!"=="F" (
         call "%~dp0start_fenjue_local_comfy.bat"
         goto :done
+    ) else if /I "!CHOICE!"=="D" (
+        echo.
+        echo Automation control: [L] Legacy calibrated coordinates ^(D mode^)
+        set "LAUNCH_ARGS=D"
     ) else (
         echo.
         echo Automation control

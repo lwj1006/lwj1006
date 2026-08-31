@@ -1,7 +1,7 @@
-"""Batch-send one dynamic target image at a time to ChatGPT.
+"""Batch-send one dynamic target image through selected fixed prompts.
 
-Put images into ./target. The script uploads exactly one target file per run item,
-sends the fixed prompt, then moves that file into ./complete after the prompt is sent.
+Put images into ../target. The script runs every selected prompt against the same
+target file, then moves that file into ../complete only after all selected runs finish.
 """
 
 from __future__ import annotations
@@ -30,6 +30,7 @@ from fenjue.runtime.batch import (
     wait_with_echo,
     with_image_prompt_prefix,
 )
+from fenjue.runtime.target_batch_prompts import PROMPT_SETS
 
 WORKSPACE_DIR = PROJECT_DIR.parent
 TARGET_DIR = WORKSPACE_DIR / "target"
@@ -37,94 +38,58 @@ COMPLETE_DIR = WORKSPACE_DIR / "complete"
 TARGET_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 MAX_TARGET_RUNS: int | None = None
 
-FIXED_PROMPT = """
-根据以下提示词画图。 masterpiece, best quality, ultra detailed, anime cinematic portrait composition, use the reference image only as character appearance reference, extreme close-up composition, three-quarter side profile framing, character positioned slightly off-center, camera placed slightly below eye level, soft upward viewing angle, focus on elegant neck line and shoulder silhouette, large empty negative space around the face, clean bright background with soft blur, strong facial focal point, intimate portrait atmosphere, eyes looking toward viewer from the corner of the frame, subtle smile, hair partially covering one eye, foreground hair strands creating depth, soft natural lighting, high contrast between shadow and skin highlights, gentle rim light around hair, cinematic depth of field, background heavily blurred, delicate skin reflections, high detail eyelashes and eyes, smooth composition flow from eyes → lips → neck → shoulder, minimalist framing, modern anime illustration style, vertical mobile wallpaper composition, high-end character illustration aesthetic
-""".strip()
+PROMPT_SET_LABELS = (
+    "Extreme close-up / low-angle negative space",
+    "Extreme close-up / flowing-hair frame",
+    "Knee-up / standing cinematic portrait",
+    "Waist-up / intimate cinematic portrait",
+)
 
-# FIXED_PROMPT = """
-# 杰作级，最高画质，
 
-# 仅将上传图片作为角色身份参考，
-# 保留原角色的人物特征、发型、服装、姿势与整体构图，
+def parse_prompt_selection(raw: str) -> tuple[int, ...]:
+    normalized = raw.strip().lower()
+    if normalized in {"all", "a", "全部", "全选"}:
+        return tuple(range(1, len(PROMPT_SETS) + 1))
+    if not normalized:
+        raise ValueError("Prompt selection cannot be empty.")
 
-# 如果参考图中出现爱芮：必须保留她的高饱和粉色偏高双马尾，双马尾长度为短到中短，集中在头部两侧，呈明显外翘、蓬松、卷曲短束结构；不要画成普通长卷双马尾，不要让双马尾垂到胸口或腰部。额前必须保留清楚的黑色挑染刘海；保留黑色蝴蝶结、耳机式头戴发饰、爱心头饰、粉色机械小翅膀和小恶魔偶像气质。
+    selected: list[int] = []
+    tokens = normalized.replace("，", ",").replace("+", ",").replace(" ", ",").split(",")
+    for token in (item for item in tokens if item):
+        if "-" in token:
+            parts = token.split("-", 1)
+            if len(parts) != 2 or not all(part.isdigit() for part in parts):
+                raise ValueError(f"Invalid prompt range: {token}")
+            start, end = (int(part) for part in parts)
+            if start > end:
+                start, end = end, start
+            values = range(start, end + 1)
+        elif token.isdigit():
+            values = (int(token),)
+        else:
+            raise ValueError(f"Invalid prompt selection: {token}")
 
-# 重新诠释为轻量手绘感二次元插画风格，
+        for value in values:
+            if not 1 <= value <= len(PROMPT_SETS):
+                raise ValueError(f"Prompt set must be between 1 and {len(PROMPT_SETS)}: {value}")
+            if value not in selected:
+                selected.append(value)
+    if not selected:
+        raise ValueError("Select at least one prompt set.")
+    return tuple(selected)
 
-# 柔和淡彩二次元插画，
-# 轻小说插画美术风格，
-# 可爱萌系 anime 风格，
 
-# 干净的动漫线稿，
-# 纤细草稿感轮廓线，
-# 细腻手绘线条，
-# 以线稿为核心的插画表现，
-# 轻盈线条感，
-# 空气感线稿氛围，
-
-# 简化版二次元渲染，
-# 降低细节复杂度，
-# 减少材质纹理表现，
-# 柔和二维动画感，
-# 插画化完成效果，
-
-# 简单赛璐璐上色，
-# 柔和扁平化配色，但不要过淡，
-# 简化阴影结构，
-
-# 柔和但鲜明的二次元色彩，
-# 清晰颜色分区，
-# 保留角色原本的人物固有色识别度，例如发色、眼睛颜色、发饰、翅膀与代表性小元素，
-# 服装主色不必固定沿用原角色配色，可以根据画面主题与整体色彩关系重新分配，
-# 三位角色可以穿适合当前画面的统一系列服装配色，而不是爱芮只能全粉、南宫羽只能全黑、千夏只能薄荷绿，
-# 角色代表色只需要作为局部点缀或识别线索保留，例如饰边、领结、腰带、小挂饰、图案或发饰，
-# 保留视觉重点颜色，但不要让角色代表色完全支配整套服装，
-# 服装设计保持简洁清爽，不要堆叠过多配饰、复杂花纹、碎小挂件、徽章、文字、蕾丝层、飘带或多层结构，
-# 明亮清新的 anime 配色方案，
-
-# 使用手绘感的低到中等饱和度颜色，
-# 像水彩、彩铅和淡马克笔混合出的柔和颜色，
-# 保持淡彩氛围，但避免整体低饱和、发白、灰雾化或过度粉彩化，
-# 角色主色要清楚但不刺眼，
-# 服装颜色要比背景更明确，但允许与角色固有色不同；不要高饱和霓虹感，
-# 轻微粉嫩感只用于局部点缀，
-# 温暖奶油肌肤色，
-
-# 大而柔和的动漫眼睛，
-# 轻微脸红，
-# 温柔自然的表情，
-# 年轻可爱的氛围，
-
-# 高画面洁净度，
-# 极低渲染噪点，
-# 干净清爽构图，
-
-# 如果原图存在明显作画 bug，例如多余的手、三只手、手指数量错误、手部明显畸形或肢体穿插，可以顺手修正为自然合理的手部与肢体结构；不强制大幅修改原图姿势与构图。
-
-# 避免半写实动漫风，
-# 避免游戏宣传图风格，
-# 避免高厚涂渲染，
-# 避免油画感，
-# 避免厚重笔触，
-# 避免油亮皮肤，
-# 避免电影级光影，
-# 避免戏剧化阴影，
-# 避免真实渲染，
-# 避免3D感，
-# 避免厚重材质，
-# 避免过度细节，
-# 避免杂乱画面，
-# 避免整体颜色太淡，
-# 避免画面发白，
-# 避免低饱和雾化，
-# 避免服装主色被冲淡，
-# 避免三人服装配色被固定成各自代表色的大面积套用，
-# 避免爱芮整套服装总是粉色、南宫羽整套服装总是黑色、千夏整套服装总是薄荷绿，
-# 避免服装过于花哨导致画面杂乱，
-# 避免复杂图案、过多小饰品、过多挂件和过密装饰线，
-# 避免AI感高饱和糖果色，
-# 避免过强对比和霓虹配色
-# """.strip()
+def choose_prompt_sets() -> tuple[int, ...]:
+    print("Available D-mode prompt sets:", flush=True)
+    for index, label in enumerate(PROMPT_SET_LABELS, start=1):
+        print(f"  [{index}] {label}", flush=True)
+    print("Choose one set (2), a combination (1,3,4), a range (1-3), or all.", flush=True)
+    while True:
+        raw = input("Prompt sets: ")
+        try:
+            return parse_prompt_selection(raw)
+        except ValueError as exc:
+            print(f"Invalid selection: {exc}", flush=True)
 
 
 def ensure_target_dirs() -> None:
@@ -188,19 +153,32 @@ def upload_target_file(path: Path) -> None:
     record_uploaded_image_count(1)
 
 
-def process_target_file(path: Path, run_number: int) -> None:
+def process_target_file(
+    path: Path,
+    image_number: int,
+    selected_prompt_sets: tuple[int, ...],
+    generation_number: int,
+) -> int:
     print("=" * 72, flush=True)
-    print(f"[{run_number:02d}] Starting target file", flush=True)
-    print(f"[{run_number:02d}] file: {path.name}", flush=True)
+    print(f"[Image {image_number:02d}] Starting target file: {path.name}", flush=True)
 
-    upload_target_file(path)
-    send_prompt(with_image_prompt_prefix(FIXED_PROMPT))
-    take_screenshot(f"target_{run_number:02d}_sent")
+    for prompt_set_number in selected_prompt_sets:
+        generation_number += 1
+        print(
+            f"[Image {image_number:02d}] prompt set {prompt_set_number} "
+            f"({generation_number:02d} total)",
+            flush=True,
+        )
+        upload_target_file(path)
+        send_prompt(with_image_prompt_prefix(PROMPT_SETS[prompt_set_number - 1]))
+        take_screenshot(
+            f"target_{image_number:02d}_prompt_{prompt_set_number}_sent"
+        )
+        wait_for_generation(generation_number)
 
     moved_to = move_to_complete(path)
-    print(f"[{run_number:02d}] moved to complete: {moved_to}", flush=True)
-
-    wait_for_generation(run_number)
+    print(f"[Image {image_number:02d}] moved to complete: {moved_to}", flush=True)
+    return generation_number
 
 
 def main() -> None:
@@ -208,6 +186,7 @@ def main() -> None:
     pyautogui.PAUSE = 0.15
 
     ensure_target_dirs()
+    selected_prompt_sets = choose_prompt_sets()
 
     if "--calibrate" in sys.argv:
         calibrate_coords()
@@ -216,12 +195,14 @@ def main() -> None:
 
     print(f"Target dir: {TARGET_DIR}", flush=True)
     print(f"Complete dir: {COMPLETE_DIR}", flush=True)
-    print("This script uploads exactly one target file per prompt.", flush=True)
+    print(f"Selected prompt sets: {', '.join(map(str, selected_prompt_sets))}", flush=True)
+    print("Each target file runs through every selected prompt before it is moved.", flush=True)
     startup_refresh_before_button_work()
 
-    run_number = 1
+    image_number = 1
+    generation_number = 0
     while True:
-        if MAX_TARGET_RUNS is not None and run_number > MAX_TARGET_RUNS:
+        if MAX_TARGET_RUNS is not None and image_number > MAX_TARGET_RUNS:
             print(f"Reached MAX_TARGET_RUNS={MAX_TARGET_RUNS}.", flush=True)
             return
 
@@ -230,8 +211,13 @@ def main() -> None:
             print("No target files left. Done.", flush=True)
             return
 
-        process_target_file(target_file, run_number)
-        run_number += 1
+        generation_number = process_target_file(
+            target_file,
+            image_number,
+            selected_prompt_sets,
+            generation_number,
+        )
+        image_number += 1
 
 
 if __name__ == "__main__":
