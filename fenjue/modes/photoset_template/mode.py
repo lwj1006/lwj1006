@@ -25,6 +25,7 @@ from .session import (
 LABEL = "photoset template mode"
 PROJECT_DIR = Path(__file__).resolve().parents[3]
 USED_TEMPLATE_FILE = PROJECT_DIR / "config" / "used_character_photoset_templates.json"
+USED_SHOT_FILE = PROJECT_DIR / "config" / "used_photoset_shots.json"
 
 _active_templates: tuple[PhotosetTemplate, ...] = ()
 _active_characters: tuple[str, ...] = ()
@@ -33,6 +34,7 @@ _active_shot_schedule: tuple[tuple[PhotosetTemplate, PhotosetShot], ...] = ()
 _current_shot_index = 0
 _last_reference_files_for_shot: list[str] | None = None
 _used_templates_by_character: dict[str, list[str]] = {}
+_used_shots_by_template: dict[str, list[int]] = {}
 
 
 def _option_value(argv: list[str], *names: str) -> str | None:
@@ -310,6 +312,97 @@ def _save_used_templates(history: dict[str, list[str]]) -> None:
     temporary.replace(USED_TEMPLATE_FILE)
 
 
+def _load_used_shots(templates: tuple[PhotosetTemplate, ...]) -> dict[str, list[int]]:
+    if not USED_SHOT_FILE.exists():
+        return {}
+    try:
+        data = json.loads(USED_SHOT_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        print(f"E/E2 单图历史文件无效，本次将从空历史开始：{exc}", flush=True)
+        return {}
+    if not isinstance(data, dict):
+        return {}
+
+    valid_indices = {
+        template.template_id: {shot.index for shot in template.shots}
+        for template in templates
+    }
+    cleaned: dict[str, list[int]] = {}
+    for template_id, shot_indices in data.items():
+        if not isinstance(template_id, str) or not isinstance(shot_indices, list):
+            continue
+        allowed_indices = valid_indices.get(template_id)
+        cleaned[template_id] = list(dict.fromkeys(
+            index for index in shot_indices
+            if isinstance(index, int)
+            and index > 0
+            and (allowed_indices is None or index in allowed_indices)
+        ))
+    return cleaned
+
+
+def _save_used_shots(history: dict[str, list[int]]) -> None:
+    USED_SHOT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    temporary = USED_SHOT_FILE.with_suffix(".tmp")
+    temporary.write_text(
+        json.dumps(history, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    temporary.replace(USED_SHOT_FILE)
+
+
+def _mark_shot_used(
+    template: PhotosetTemplate,
+    shot: PhotosetShot,
+    used_by_template: dict[str, list[int]],
+) -> bool:
+    used_indices = used_by_template.setdefault(template.template_id, [])
+    if shot.index in used_indices:
+        return False
+    used_indices.append(shot.index)
+    _save_used_shots(used_by_template)
+    print(
+        f"E/E2 单图轮次：模板 {_display_template_id(template.template_id)} 第 {shot.index} 张已成功；"
+        f"当前轮次 {len(used_indices)}/{len(template.shots)}。历史文件：{USED_SHOT_FILE}",
+        flush=True,
+    )
+    return True
+
+
+def _select_random_unused_shots(
+    template: PhotosetTemplate,
+    count: int,
+    used_by_template: dict[str, list[int]],
+) -> list[PhotosetShot]:
+    valid_indices = {shot.index for shot in template.shots}
+    used_indices = used_by_template.setdefault(template.template_id, [])
+    used_indices[:] = list(dict.fromkeys(
+        index for index in used_indices if index in valid_indices
+    ))
+    used = set(used_indices)
+
+    if len(used) >= len(template.shots):
+        used_indices.clear()
+        used.clear()
+        _save_used_shots(used_by_template)
+        print(
+            f"E/E2 单图轮次：模板 {_display_template_id(template.template_id)} 的 "
+            f"{len(template.shots)} 张已全部跑通，现开始下一轮。",
+            flush=True,
+        )
+
+    available = [shot for shot in template.shots if shot.index not in used]
+    selection_count = min(count, len(available))
+    selected = random.sample(available, selection_count)
+    if selection_count < count:
+        print(
+            f"E/E2 单图轮次：模板 {_display_template_id(template.template_id)} 本轮只剩 "
+            f"{selection_count} 张未使用图，本次只安排这些图；不会提前重复凑满 {count} 张。",
+            flush=True,
+        )
+    return selected
+
+
 def _mark_template_used(
     character_name: str,
     template: PhotosetTemplate,
@@ -386,12 +479,17 @@ def _build_photoset_schedule(
 def _build_assigned_photoset_schedule(
     assignments: tuple[tuple[str, PhotosetTemplate], ...],
     shots_per_template: int | None = None,
+    used_shots_by_template: dict[str, list[int]] | None = None,
 ) -> tuple[tuple[str, PhotosetTemplate, PhotosetShot], ...]:
     schedule: list[tuple[str, PhotosetTemplate, PhotosetShot]] = []
     for character_name, template in assignments:
         shots = list(template.shots)
-        if shots_per_template is not None and len(shots) > shots_per_template:
-            shots = random.sample(shots, shots_per_template)
+        if shots_per_template is not None:
+            shots = _select_random_unused_shots(
+                template,
+                shots_per_template,
+                used_shots_by_template if used_shots_by_template is not None else {},
+            )
         schedule.extend((character_name, template, shot) for shot in shots)
     return tuple(schedule)
 
@@ -493,7 +591,7 @@ def _unique_templates(
 
 def activate(batch, args=None) -> None:
     global _active_templates, _active_characters, _active_character_schedule, _active_shot_schedule
-    global _current_shot_index, _used_templates_by_character
+    global _current_shot_index, _used_templates_by_character, _used_shots_by_template
     argv = list(args or [])
     available_ids = list_template_ids()
     _used_templates_by_character = _load_used_templates(available_ids)
@@ -515,6 +613,7 @@ def activate(batch, args=None) -> None:
             raise SystemExit(0)
         _active_characters = _unique_characters(photoset_schedule)
         _active_templates = _unique_templates(photoset_schedule)
+        _used_shots_by_template = _load_used_shots(_active_templates)
         configure_variants = getattr(batch, "configure_character_variants", None)
         if callable(configure_variants):
             configure_variants(
@@ -566,7 +665,12 @@ def activate(batch, args=None) -> None:
             )
             raise SystemExit(0)
         _active_templates = tuple(template for _, template in assignments)
-        photoset_schedule = _build_assigned_photoset_schedule(assignments, shots_per_template)
+        _used_shots_by_template = _load_used_shots(_active_templates)
+        photoset_schedule = _build_assigned_photoset_schedule(
+            assignments,
+            shots_per_template,
+            _used_shots_by_template,
+        )
         full_photoset_schedule = photoset_schedule
 
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
@@ -588,8 +692,12 @@ def activate(batch, args=None) -> None:
         schedule_index = run_number - 1
         if not 0 <= schedule_index < len(photoset_schedule):
             return
-        scheduled_character, template, _shot = photoset_schedule[schedule_index]
-        if character_name != scheduled_character or not _scheduled_template_starts(photoset_schedule, schedule_index):
+        scheduled_character, template, shot = photoset_schedule[schedule_index]
+        if character_name != scheduled_character:
+            return
+
+        _mark_shot_used(template, shot, _used_shots_by_template)
+        if not _scheduled_template_starts(photoset_schedule, schedule_index):
             return
 
         _mark_template_used(

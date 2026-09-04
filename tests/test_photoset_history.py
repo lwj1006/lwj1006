@@ -1,17 +1,84 @@
 from __future__ import annotations
 
 import unittest
+import json
+import tempfile
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from fenjue.modes.photoset_template.mode import (
+    _build_assigned_photoset_schedule,
+    _load_used_shots,
+    _mark_shot_used,
     _resolve_template_assignments,
+    _select_random_unused_shots,
     _scheduled_template_starts,
     activate,
 )
 
 
 class PhotosetHistoryTests(unittest.TestCase):
+    def test_random_shots_do_not_repeat_until_the_template_cycle_finishes(self) -> None:
+        shots = tuple(SimpleNamespace(index=index) for index in range(1, 5))
+        template = SimpleNamespace(template_id="900_A_3", shots=shots)
+        history = {"900_A_3": [1, 2]}
+
+        with (
+            patch("fenjue.modes.photoset_template.mode.random.sample", side_effect=lambda pool, count: pool[:count]),
+            patch("fenjue.modes.photoset_template.mode._save_used_shots"),
+        ):
+            remaining = _select_random_unused_shots(template, 4, history)
+            self.assertEqual([shot.index for shot in remaining], [3, 4])
+            _mark_shot_used(template, remaining[0], history)
+            _mark_shot_used(template, remaining[1], history)
+            next_cycle = _select_random_unused_shots(template, 2, history)
+
+        self.assertEqual([shot.index for shot in next_cycle], [1, 2])
+        self.assertEqual(history["900_A_3"], [])
+
+    def test_shot_history_is_global_across_characters(self) -> None:
+        shots = tuple(SimpleNamespace(index=index) for index in range(1, 4))
+        template = SimpleNamespace(template_id="901_A_3", shots=shots)
+        history = {"901_A_3": [1]}
+
+        with patch("fenjue.modes.photoset_template.mode.random.sample", side_effect=lambda pool, count: pool[:count]):
+            selected_for_another_character = _select_random_unused_shots(template, 2, history)
+
+        self.assertEqual([shot.index for shot in selected_for_another_character], [2, 3])
+
+    def test_numeric_count_equal_to_template_size_still_honors_history(self) -> None:
+        shots = tuple(SimpleNamespace(index=index) for index in range(1, 4))
+        template = SimpleNamespace(template_id="904_A_3", shots=shots)
+        history = {"904_A_3": [1]}
+
+        with patch("fenjue.modes.photoset_template.mode.random.sample", side_effect=lambda pool, count: pool[:count]):
+            schedule = _build_assigned_photoset_schedule(
+                (("千夏", template),),
+                shots_per_template=3,
+                used_shots_by_template=history,
+            )
+
+        self.assertEqual([shot.index for _, _, shot in schedule], [2, 3])
+
+    def test_loading_one_template_preserves_other_template_history(self) -> None:
+        template = SimpleNamespace(
+            template_id="902_A_3",
+            shots=(SimpleNamespace(index=1), SimpleNamespace(index=2)),
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            history_file = Path(temporary_directory) / "used_photoset_shots.json"
+            history_file.write_text(
+                json.dumps({"902_A_3": [1, 99], "903_A_3": [2]}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            with patch("fenjue.modes.photoset_template.mode.USED_SHOT_FILE", history_file):
+                history = _load_used_shots((template,))
+                _mark_shot_used(template, template.shots[1], history)
+                saved = json.loads(history_file.read_text(encoding="utf-8"))
+
+        self.assertEqual(saved, {"902_A_3": [1, 2], "903_A_3": [2]})
+
     def test_only_first_scheduled_shot_marks_template_used(self) -> None:
         template_a = object()
         template_b = object()
@@ -102,7 +169,12 @@ class PhotosetHistoryTests(unittest.TestCase):
                 "fenjue.modes.photoset_template.mode._load_used_templates",
                 return_value={},
             ),
+            patch(
+                "fenjue.modes.photoset_template.mode._load_used_shots",
+                return_value={},
+            ),
             patch("fenjue.modes.photoset_template.mode._mark_template_used") as mark_used,
+            patch("fenjue.modes.photoset_template.mode._mark_shot_used") as mark_shot,
         ):
             activate(batch)
             batch.record_completed_run("千夏", 1)
@@ -111,6 +183,7 @@ class PhotosetHistoryTests(unittest.TestCase):
             batch.record_completed_run("爱芮", 4)
 
         self.assertEqual(mark_used.call_count, 2)
+        self.assertEqual(mark_shot.call_count, 4)
         self.assertEqual(mark_used.call_args_list[0].args[:2], ("千夏", template_a))
         self.assertEqual(mark_used.call_args_list[1].args[:2], ("爱芮", template_b))
 
