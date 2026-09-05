@@ -239,7 +239,7 @@ def _choose_characters(argv: list[str], batch) -> tuple[str, ...]:
         column_width = max(len(entry) for entry in entries) + 3
         for start in range(0, len(entries), 3):
             print("  " + "".join(entry.ljust(column_width) for entry in entries[start:start + 3]).rstrip())
-        print("Random pools: Z = 绝区零随机; W = 鸣潮随机; E = 终末地随机; R = 全部随机.")
+        print("Random pools: Z = 绝区零随机; W = 鸣潮随机; E = 终末地随机; H = 星铁随机; R = 全部随机.")
         print("Fixed examples: 1 = one character; 1 2 = rotate two characters; 1-3 = rotate a range; names are also OK.")
         choice = input(f"Character(s) [default 1]: ").strip() or "1"
         try:
