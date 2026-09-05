@@ -95,6 +95,56 @@ def record_run_session_progress(run_number: int) -> None:
 
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
+    "希希芙": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "希希芙1.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "希希芙2.png"),
+    ],
+    "德蕾琪娜·挽昼": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼1.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼2.jpeg"),
+    ],
+    "奥古斯塔": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "奥古斯塔1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "奥古斯塔2.png"),
+    ],
+    "清宵": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "清宵1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "清宵2.png"),
+    ],
+    "折枝": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "折枝1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "折枝2.jpg"),
+    ],
+    "千咲": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "千咲1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "千咲2.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "千咲3.jpg"),
+    ],
+    "漂泊者": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "漂泊者2.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "漂泊者1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "漂泊者3.jpg"),
+    ],
+    "弗洛洛": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "弗洛洛1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "弗洛洛2.png"),
+    ],
+    "林德薇恩": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "林德薇恩1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "林德薇恩2.png"),
+    ],
+    "琳奈": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "琳奈1.jpg"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "琳奈2.jpg"),
+    ],
+    "穗穗": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "穗穗1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "穗穗2.png"),
+    ],
+    "绯雪": [
+        str(PROJECT_DIR / "assets" / "鸣潮" / "绯雪1.png"),
+        str(PROJECT_DIR / "assets" / "鸣潮" / "绯雪2.png"),
+    ],
     "南宫": [
         str(PROJECT_DIR / "assets" / "绝区零" / "南宫.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "南宫2.png"),
@@ -240,8 +290,8 @@ CHARACTER_REFERENCES = {
     **{
         name: [str(PROJECT_DIR / "assets" / "鸣潮" / f"{name}{index}.png") for index in range(1, 4)]
         for name in (
-            "今汐", "千咲", "卡提希娅", "坎特蕾拉", "守岸人", "尤诺", "洛瑟菈", "爱弥斯",
-            "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
+            "今汐", "卡提希娅", "坎特蕾拉", "守岸人", "尤诺", "洛瑟菈", "爱弥斯",
+            "秧秧", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
         )
     },
     **{
@@ -292,18 +342,77 @@ MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
 # in the legacy templates, but the production batch does not use it by default.
 GROUP_SIZE_WEIGHTS = [1]
 CHARACTER_SEQUENCE = [
-    "南宫", "爱芮", "千夏", "丹", "星见雅", "仪玄", "叶瞬光", "席德", "橘福福", "柚叶",
-    "爱丽丝", "普罗米娅", "薇薇安", "安比", "可琳", "艾莲", "琉音", "耀嘉音", "柏妮思", "妮可",
-    "简", "月城柳", "青衣", "伊芙琳", "朱鸢", "卢西娅", "维琳娜", "铃", "扳机", "诺姆",
-    "今汐", "千咲", "卡提希娅", "坎特蕾拉", "守岸人", "尤诺", "洛瑟菈", "爱弥斯",
-    "琳奈", "秧秧", "绯雪", "莫宁", "菲比", "西格莉卡", "达妮娅", "长离",
-    "诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗",
-    "茜特菈莉", "桑多涅", "哥伦比娅", "丝柯克",
+    "南宫",
+    "爱芮",
+    "千夏",
+    "丹",
+    "星见雅",
+    "仪玄",
+    "叶瞬光",
+    "席德",
+    "橘福福",
+    "柚叶",
+    "爱丽丝",
+    "普罗米娅",
+    "薇薇安",
+    "安比",
+    "可琳",
+    "艾莲",
+    "琉音",
+    "耀嘉音",
+    "柏妮思",
+    "妮可",
+    "简",
+    "月城柳",
+    "青衣",
+    "伊芙琳",
+    "朱鸢",
+    "卢西娅",
+    "维琳娜",
+    "铃",
+    "扳机",
+    "诺姆",
+    "希希芙",
+    "德蕾琪娜·挽昼",
+    "今汐",
+    "千咲",
+    "卡提希娅",
+    "坎特蕾拉",
+    "守岸人",
+    "尤诺",
+    "洛瑟菈",
+    "爱弥斯",
+    "琳奈",
+    "秧秧",
+    "绯雪",
+    "莫宁",
+    "菲比",
+    "西格莉卡",
+    "达妮娅",
+    "长离",
+    "奥古斯塔",
+    "清宵",
+    "折枝",
+    "漂泊者",
+    "弗洛洛",
+    "林德薇恩",
+    "穗穗",
+    "诀",
+    "洛茜",
+    "庄方宜",
+    "艾尔黛拉",
+    "佩丽卡",
+    "陈千语",
+    "弭弗",
+    "茜特菈莉",
+    "桑多涅",
+    "哥伦比娅",
+    "丝柯克",
 ]
-ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:30]
-WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[30:46]
-ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[46:53]
-GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[53:]
+ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:32]
+WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[32:55]
+ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[55:62]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[62:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,

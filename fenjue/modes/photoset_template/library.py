@@ -971,6 +971,9 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
         )
     negative = _dedupe_negative_terms(
         A3_NEGATIVE,
+        "waxy plastic skin, porcelain doll face, glassy mirror-like hair, excessive airbrush gradients, "
+        "uniform glossy surfaces, indiscriminate microdetail, repetitive decorative clutter, oversharpened edges, "
+        "unmotivated bloom, generic beauty-filter expression, "
         "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
         "wrong hair, wrong eyes, missing fixed accessory, extra arm, third hand, duplicated limb, fused hand, "
         "extra fingers, broken joint, impossible pose, conflicting camera, wrong crop, wrong outfit, text, logo, watermark",
@@ -981,6 +984,9 @@ Independent image task. Create exactly one finished image.
 
 [STYLE]
 Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, aligned detailed eyes, carefully grouped hair locks, coherent fabric folds, and luminous illustrated lighting. Translate the current reference's palette and shadow pattern into graphic anime color regions while simplifying only minor distant clutter. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
+
+[JAPANESE ANIME DRAWING DIRECTION]
+Keep a strong Japanese animation and manga illustration language: expressive canonical anime faces, economical nose and mouth marks, purposeful tapered strokes, clear hair-lock silhouettes, and cel-shadow shapes that describe form. Prioritize readable drawing and composition over surface polish. Vary line weight with overlap and depth; concentrate detail around the face, hands, and important garment construction, and simplify secondary surfaces without losing reference evidence. Allow subtle organic variation in strokes and cloth folds while keeping eyes, anatomy, perspective, and repeated patterns consistent. Keep highlights selective and material-specific. Preserve the reference's lighting direction and palette without adding unmotivated glow, rim lights, particles, or glossy reflections. Keep expression understated and specific to the shot. Achieve a deliberate hand-drawn finish without adding random grain, distressed lines, or sketch defects.
 
 [NATURAL EXPRESSION CONTROL]
 {NATURAL_EXPRESSION_CONTROL}
