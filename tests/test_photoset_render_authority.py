@@ -12,6 +12,18 @@ class RenderAuthorityTests(unittest.TestCase):
                 self.assertTrue(output.startswith(PHOTOSET_STYLE_PREFIX + '\n\n'))
                 self.assertEqual(output.count(PHOTOSET_STYLE_PREFIX),1)
 
+    def test_final_send_wrapper_preserves_style_and_other_modes(self):
+        from fenjue.runtime.batch import with_image_prompt_prefix, IMAGE_PROMPT_PREFIX
+        template=load_template('607_A_3')
+        for fn in (prompt_for_shot,prompt_for_refined_shot):
+            output=fn('扳机',template,template.shots[0])
+            self.assertEqual(with_image_prompt_prefix(output),output)
+            self.assertIn('Keep eyes hidden by a canonical visor',output)
+            self.assertNotIn('Must keep visible:',output)
+        ordinary='Create one image.'
+        self.assertEqual(with_image_prompt_prefix(ordinary),IMAGE_PROMPT_PREFIX+'\n'+ordinary)
+        self.assertEqual(with_image_prompt_prefix(IMAGE_PROMPT_PREFIX+'\n'+ordinary),IMAGE_PROMPT_PREFIX+'\n'+ordinary)
+
     def test_a3_and_e2_include_face_rules_after_final_assembly(self):
         for tid in (139,599,607,622,626,632):
             t=load_template(f'{tid}_A_3')

@@ -1967,6 +1967,11 @@ def send_prompt(prompt: str) -> None:
 
 def with_image_prompt_prefix(prompt: str) -> str:
     prompt = str(prompt).strip()
+    # Photoset prompts already contain an explicit generation request and must
+    # retain their style priority as the first text actually sent to ChatGPT.
+    from fenjue.modes.photoset_template.library import PHOTOSET_STYLE_PREFIX
+    if prompt.startswith(PHOTOSET_STYLE_PREFIX):
+        return prompt
     if prompt.startswith(IMAGE_PROMPT_PREFIX):
         return prompt
     return f"{IMAGE_PROMPT_PREFIX}\n{prompt}"

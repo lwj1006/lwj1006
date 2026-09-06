@@ -131,8 +131,9 @@ NATURAL_EXPRESSION_CONTROL = (
 ANIME_FACE_DETAIL = (
     "Preserve the selected character's canonical anime face design. "
     f"{NATURAL_EXPRESSION_CONTROL} "
-    "Draw crisp lashes, layered irises, centered pupils, two controlled "
-    "catchlights, a tiny anime nose mark, a simple mouth line, and restrained illustrated blush. Keep both eyes aligned and equally finished. "
+    "For each eye visible in the current pose, draw crisp lashes, layered irises, centered pupils and restrained catchlights. "
+    "Use a tiny anime nose mark, a simple mouth line, and restrained illustrated blush. When both eyes are visible, keep them aligned and equally finished. "
+    "Keep eyes hidden by a canonical visor, eye covering, fringe, profile angle or crop hidden; never reveal or duplicate them to satisfy a face-detail rule. "
     "Avoid a blank stare, generic smile, frozen doll face, forced grin, exaggerated pout, simultaneous wide eyes and wide-open mouth, "
     "photographic lips, modeled nostrils, asymmetrical eyes, muddy pupils, or an unfinished face."
 )
@@ -657,7 +658,7 @@ def _profile_identity_block(character_name: str) -> str:
     tokens = "; ".join(required_identity_tokens_for(character_name))
     return (
         f"Official identity: {profile['official_core']}\n"
-        f"Must keep visible: {tokens}.\n"
+        f"Canonical identity features (preserve wherever visible; do not reveal features hidden by the current pose, crop or fixed covering): {tokens}.\n"
         f"Character behavior: {profile['interaction_rule']}\n"
         f"Color identity anchor: {profile['color_anchor']}"
     )
