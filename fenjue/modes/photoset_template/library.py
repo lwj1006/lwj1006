@@ -138,6 +138,19 @@ ANIME_FACE_DETAIL = (
 )
 
 
+PHOTOSET_STYLE_PREFIX = (
+    "[HIGHEST PRIORITY: STRONG JAPANESE HAND-DRAWN ANIME; NO GENERIC AI FINISH]\n"
+    "Create an unmistakably Japanese hand-drawn 2D anime illustration, including the face and the entire scene. "
+    "Use expressive canonical anime eyes, a simply drawn nose and mouth, purposeful tapered lineart, "
+    "controlled cel-shadow shapes, grouped hair locks and selective material highlights. "
+    "Keep a natural specific expression, coherent anatomy and deliberate variation in line weight and fabric folds. "
+    "Avoid generic AI-looking polish: waxy or plastic skin, a 3D doll face, photorealistic facial modeling, "
+    "glossy volumetric lips, airbrushed gradients, excessive bloom, uniform shine and indiscriminate microdetail. "
+    "Do not simulate hand drawing with random grain, distressed lines or anatomical mistakes. "
+    "Translate all reference lighting and materials into this drawn medium while preserving the required identity, outfit and pose."
+)
+
+
 PHOTOSET_RENDER_AUTHORITY = (
     "All uploaded images except the last are identity references; the last image is the single current shot reference. "
     "Identity reference authority stops at canonical face design, eyes, hair, fixed identity accessories, species anatomy and proportions. "
@@ -1034,7 +1047,9 @@ Template {template.template_id}, image {shot.index} of {len(template.shots)}: {s
 
 def prompt_for_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     if _is_a3_template(template):
-        return _prompt_for_a3_shot(character_name, template, shot)
-    if _is_adapted_template(template):
-        return _prompt_for_adapted_shot(character_name, template, shot)
-    return _prompt_for_original_shot(character_name, template, shot)
+        body = _prompt_for_a3_shot(character_name, template, shot)
+    elif _is_adapted_template(template):
+        body = _prompt_for_adapted_shot(character_name, template, shot)
+    else:
+        body = _prompt_for_original_shot(character_name, template, shot)
+    return f"{PHOTOSET_STYLE_PREFIX}\n\n{body}"

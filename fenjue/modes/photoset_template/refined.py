@@ -7,6 +7,7 @@ from .library import (
     A3_NEGATIVE,
     ANIME_FACE_DETAIL,
     PHOTOSET_RENDER_AUTHORITY,
+    PHOTOSET_STYLE_PREFIX,
     PhotosetShot,
     PhotosetTemplate,
     _adapt_shot_prompt,
@@ -269,6 +270,8 @@ def prompt_for_refined_shot(
     title = _neutralize_outfit_color_locks(refined_shot_title(template, shot))
 
     return _english_only_text(f"""
+{PHOTOSET_STYLE_PREFIX}
+
 Independent image task. Create exactly one polished hand-drawn Japanese anime illustration.
 
 [ABSOLUTE HIGHEST PRIORITY: HAND-DRAWN 2D ANIME]

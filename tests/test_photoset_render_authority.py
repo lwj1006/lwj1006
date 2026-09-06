@@ -1,9 +1,17 @@
 import unittest
-from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY
+from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY,PHOTOSET_STYLE_PREFIX
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 from fenjue.modes.original.plans import required_identity_tokens_for
 
 class RenderAuthorityTests(unittest.TestCase):
+    def test_style_is_first_in_every_production_variant(self):
+        for variant in ('607', '607_ADAPTED', '607_A_3'):
+            template=load_template(variant)
+            for fn in (prompt_for_shot,prompt_for_refined_shot):
+                output=fn('艾尔妲',template,template.shots[0])
+                self.assertTrue(output.startswith(PHOTOSET_STYLE_PREFIX + '\n\n'))
+                self.assertEqual(output.count(PHOTOSET_STYLE_PREFIX),1)
+
     def test_a3_and_e2_include_face_rules_after_final_assembly(self):
         for tid in (139,599,607,622,626,632):
             t=load_template(f'{tid}_A_3')
