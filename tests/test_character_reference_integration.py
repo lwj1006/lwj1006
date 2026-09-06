@@ -7,8 +7,8 @@ from fenjue.modes.photoset_template.library import load_template, prompt_for_sho
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 
 
-ZZZ_ADDITIONS = ('希希芙', '德蕾琪娜·挽昼')
-WW_ADDITIONS = ('奥古斯塔', '清宵', '折枝', '漂泊者', '弗洛洛', '林德薇恩', '穗穗')
+ZZZ_ADDITIONS = ('希希芙', '德蕾琪娜·挽昼', '林德薇恩')
+WW_ADDITIONS = ('奥古斯塔', '清宵', '折枝', '漂泊者', '弗洛洛', '穗穗')
 REPLACEMENTS = ('千咲', '琳奈', '绯雪')
 
 
@@ -66,6 +66,16 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
         self.assertIn('turquoise elongated four-point star earrings', prompt('琳奈'))
         self.assertIn('white blossom ornament beside the topknot', prompt('绯雪'))
         self.assertIn('oversized white wide-brim hat', prompt('菲比'))
+
+    def test_corrected_game_classification_stays_stable(self):
+        self.assertIn('林德薇恩', batch.ZENLESS_ZONE_ZERO_CHARACTERS)
+        self.assertNotIn('林德薇恩', batch.WUTHERING_WAVES_CHARACTERS)
+        self.assertTrue(all(Path(path).parent.name == '绝区零'
+                            for path in batch.reference_files_for_character('林德薇恩')))
+        self.assertIn('卡芙卡', batch.HONKAI_STAR_RAIL_CHARACTERS)
+        self.assertNotIn('卡芙卡', batch.GENSHIN_IMPACT_CHARACTERS)
+        self.assertTrue(all(Path(path).parent.name == '星铁'
+                            for path in batch.reference_files_for_character('卡芙卡')))
 
 
 if __name__ == '__main__':
