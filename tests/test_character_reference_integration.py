@@ -7,7 +7,7 @@ from fenjue.modes.photoset_template.library import load_template, prompt_for_sho
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 
 
-ZZZ_ADDITIONS = ('希希芙', '德蕾琪娜·挽昼', '林德薇恩')
+ZZZ_ADDITIONS = ('希希芙', '德蕾琪娜·挽昼', '林德薇恩', '艾尔妲')
 WW_ADDITIONS = ('奥古斯塔', '清宵', '折枝', '漂泊者', '弗洛洛', '穗穗')
 REPLACEMENTS = ('千咲', '琳奈', '绯雪')
 
@@ -76,6 +76,43 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
         self.assertNotIn('卡芙卡', batch.GENSHIN_IMPACT_CHARACTERS)
         self.assertTrue(all(Path(path).parent.name == '星铁'
                             for path in batch.reference_files_for_character('卡芙卡')))
+
+    def test_three_related_characters_have_separate_complete_reference_sets(self):
+        expected = {
+            '德蕾琪娜·挽昼': ['德蕾琪娜·挽昼1.png', '德蕾琪娜·挽昼2.png'],
+            '林德薇恩': ['林德薇恩1.png', '林德薇恩2.png', '林德薇恩3.png'],
+            '艾尔妲': ['艾尔妲1.png', '艾尔妲2.png', '艾尔妲3.png'],
+        }
+        all_paths = []
+        for name, names in expected.items():
+            paths = list(map(Path, batch.reference_files_for_character(name)))
+            self.assertEqual([p.name for p in paths], names)
+            self.assertTrue(all(p.is_file() and p.parent.name == '绝区零' for p in paths))
+            self.assertIn(name, batch.ZENLESS_ZONE_ZERO_CHARACTERS)
+            self.assertNotIn(name, batch.WUTHERING_WAVES_CHARACTERS)
+            self.assertEqual(batch._parse_character_selection(name), [name])
+            all_paths.extend(paths)
+        self.assertEqual(len(all_paths), len(set(all_paths)))
+        self.assertFalse((batch.PROJECT_DIR / 'assets' / '绝区零' / '德蕾琪娜·挽昼2.jpeg').exists())
+        self.assertNotEqual(batch._parse_character_selection('艾尔妲'), batch._parse_character_selection('艾尔黛拉'))
+
+    def test_three_reference_profiles_remain_distinct_in_production(self):
+        expected = {
+            '德蕾琪娜·挽昼': ('compact human proportions', 'fringe covering her left eye', 'gold rings beside the neck'),
+            '林德薇恩': ('high twin tails rooted separately', 'four-petal front plates and hot-pink diamond centers'),
+            '艾尔妲': ('tall mature feminine human proportions', 'loose silver-white hair falling from the rear crown', 'four-point star drop earrings'),
+        }
+        for tid in ('045_A_3', '248_A_3', '532_A_3', '599_A_3', '604_A_3', '606_A_3'):
+            template = load_template(tid)
+            for shot in template.shots:
+                for name, facts in expected.items():
+                    for assembler in (prompt_for_shot, prompt_for_refined_shot):
+                        with self.subTest(template=tid, shot=shot.index, character=name, mode=assembler.__name__):
+                            result = assembler(name, template, shot)
+                            for fact in facts + tuple(required_identity_tokens_for(name)):
+                                self.assertIn(fact, result)
+                            self.assertNotRegex(result, r'[\u4e00-\u9fff]')
+                            self.assertNotIn('The four-panel reference shows', result)
 
 
 if __name__ == '__main__':

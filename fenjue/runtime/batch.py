@@ -204,10 +204,16 @@ CHARACTER_REFERENCES = {
     "林德薇恩": [
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩2.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩3.png"),
+    ],
+    "艾尔妲": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲1.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲2.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲3.png"),
     ],
     "德蕾琪娜·挽昼": [
         str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼1.png"),
-        str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼2.jpeg"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼2.png"),
     ],
     "奥古斯塔": [
         str(PROJECT_DIR / "assets" / "鸣潮" / "奥古斯塔1.png"),
@@ -477,6 +483,7 @@ CHARACTER_SEQUENCE = [
     "希希芙",
     "德蕾琪娜·挽昼",
     "林德薇恩",
+    "艾尔妲",
     "今汐",
     "千咲",
     "卡提希娅",
@@ -535,11 +542,11 @@ CHARACTER_SEQUENCE = [
     "银狼LV.999",
     "风堇",
 ]
-ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:33]
-WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[33:55]
-ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[55:62]
-GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[62:66]
-HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[66:]
+ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:34]
+WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[34:56]
+ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[56:63]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[63:67]
+HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[67:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,
