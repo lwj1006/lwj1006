@@ -6,6 +6,7 @@ from .library import (
     A3_HAND_DRAWN_STYLE,
     A3_NEGATIVE,
     ANIME_FACE_DETAIL,
+    PHOTOSET_RENDER_AUTHORITY,
     PhotosetShot,
     PhotosetTemplate,
     _adapt_shot_prompt,
@@ -276,6 +277,9 @@ The final image must be an unmistakable hand-drawn Japanese 2D anime illustratio
 [ANIME FACE AND EXPRESSION PRECISION]
 {ANIME_FACE_DETAIL}
 
+[REFERENCE DOMAINS AND RENDERING]
+{PHOTOSET_RENDER_AUTHORITY}
+
 [E2 REFERENCE AUTHORITY]
 The uploaded character references and the single photoset reference image have different jobs.
 Character references are the only authority for identity, anatomy, and character color harmony. The photoset reference image is the only authority for this shot's pose geometry, framing, outfit construction, set layout, and lighting. The written notes are a precise aid; whenever wording and visible evidence differ, follow the visible current-shot reference.
@@ -295,13 +299,14 @@ Exact shot read: {title}
 Reconstruct the reference image's camera distance, camera height, pitch, roll, crop boundaries, subject occupancy, head position, body direction, weight-bearing point, limb foreshortening, hand placement, leg placement, gaze direction, foreground overlap, and negative-space distribution. Keep the same visible body range. Do not automatically turn a close-up into a full-body image or center an off-center composition. Preserve which objects sit in front of, beside, and behind the subject.
 
 [OUTFIT TRANSLATION]
+The final uploaded image is the exclusive garment-construction source. Replace all changeable clothing from the character references; do not import their armor, cape, collar hardware, gauntlets, belts or costume ornaments. Fixed head fixtures, permanent jewelry and species structures remain identity features. E2 permits changing clothing color only: it does not permit changing neckline, sleeves, panel construction, silhouette, trim or motif into the original character costume. Any costume descriptions inside identity notes identify excluded clothing, not a design to reproduce.
 Match this shot's visible garment category, silhouette, neckline shape, sleeve shape, waist position, hem length, layer count, pattern scale, trim placement, and fabric weight. Do not lock the garment to the photoset reference's exact clothing color. Recolor the outfit into a tasteful anime palette that suits {subject_name}'s canonical hair color, eye color, fixed accessories, personality impression, and the current scene lighting. Preserve visible pattern logic and trim placement, but allow hue, accent color, and saturation to shift so the character looks intentionally styled for this setting. Fit that design to {subject_name}'s canonical body. Render it as a coherent finished anime garment with connected panels, stable seams, and an opaque lining where needed. Preserve fashionable shape and delicacy; do not replace it with generic conservative clothing. Do not copy the reference model's hairstyle or use hair as part of the outfit.
 
 [POSE AND HANDS]
 Treat the pose as a joint-and-support diagram. State one clear support for the pelvis and torso, preserve the reference shoulder and hip rotation, and keep every visible hand anatomically readable. A hand touching hair, face, flower, glass, book, fruit, chair, floor, or clothing must make the same contact shown in the reference. Do not invent a second prop, extra fingers, extra limbs, crossed anatomy, or a new body direction.
 
 [SCENE, LIGHT, AND COLOR]
-Use the current photoset reference image, not any other template, for environmental geometry and scene lighting. Match its dominant background hue, white balance, exposure level, highlight color, shadow color, contrast, saturation, light-source direction, shadow hardness, rim-light strength, depth of field, and atmospheric density. Clothing color is the exception: choose a character-adaptive outfit palette that harmonizes with the selected character and this scene instead of copying the template model's exact garment color. Preserve the reference's key furniture, flowers, windows, plants, vessels, fabric, water, or architectural forms at approximately the same positions and scale. Do not add a generic warm vintage room, golden window light, cream walls, or sepia grading unless they are visibly present in this exact reference image.
+Use the current photoset reference image, not any other template, for environmental geometry and scene lighting. Match its dominant background hue, white balance, exposure level, highlight color, shadow color, contrast, saturation, light-source direction, shadow hardness and rim-light placement as illustrated light shapes. Express distance and atmosphere through simplified background shapes and value separation, not lens blur or volumetric rendering. Clothing color is the exception: choose a character-adaptive outfit palette that harmonizes with the selected character and this scene instead of copying the template model's exact garment color. Preserve the reference's key furniture, flowers, windows, plants, vessels, fabric, water, or architectural forms at approximately the same positions and scale. Do not add a generic warm vintage room, golden window light, cream walls, or sepia grading unless they are visibly present in this exact reference image.
 
 [CONTINUITY WITHOUT FALSE UNIFORMITY]
 Keep character identity constant across the set. Carry over outfit construction, set, and scene-lighting details only when they are visibly shared by adjacent reference images. Keep the chosen character-adaptive outfit palette coherent across shots in the same template, while allowing small value shifts caused by lighting. If this shot changes outfit, location, prop system, time of day, or scene palette, this shot's reference wins. Never force one room or one garment across a deliberately mixed-concept template.

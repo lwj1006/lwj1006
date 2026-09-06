@@ -138,6 +138,20 @@ ANIME_FACE_DETAIL = (
 )
 
 
+PHOTOSET_RENDER_AUTHORITY = (
+    "All uploaded images except the last are identity references; the last image is the single current shot reference. "
+    "Identity reference authority stops at canonical face design, eyes, hair, fixed identity accessories, species anatomy and proportions. "
+    "It does not extend to clothes, costume ornament, pose, scenery or rendering medium. "
+    "The final reference supplies garment construction, pose and scene design, never the model's facial anatomy or photographic finish. "
+    "Render the entire image, including the face, skin, water and background, in the same hand-drawn Japanese 2D anime medium. "
+    "Use a drawn nose contour or small nose mark, simplified nostrils, a restrained mouth shape, graphic iris shapes and grouped cel shadows. "
+    "Do not sculpt a realistic nose bridge, glossy volumetric lips, pore-level skin, translucent waxy flesh or a 3D doll face. "
+    "Shot notes about soft light, rim light, reflections, blur, bokeh, flare or material highlights describe placement and color only: "
+    "translate them into drawn shapes, selective highlights and simplified distant color masses, not optical simulation or photographic skin shading. "
+    "Keep every recorded pose, hand contact, garment seam and scene anchor while applying this rendering translation."
+)
+
+
 @dataclass(frozen=True)
 class PhotosetShot:
     index: int
@@ -988,8 +1002,11 @@ Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart
 [JAPANESE ANIME DRAWING DIRECTION]
 Keep a strong Japanese animation and manga illustration language: expressive canonical anime faces, economical nose and mouth marks, purposeful tapered strokes, clear hair-lock silhouettes, and cel-shadow shapes that describe form. Prioritize readable drawing and composition over surface polish. Vary line weight with overlap and depth; concentrate detail around the face, hands, and important garment construction, and simplify secondary surfaces without losing reference evidence. Allow subtle organic variation in strokes and cloth folds while keeping eyes, anatomy, perspective, and repeated patterns consistent. Keep highlights selective and material-specific. Preserve the reference's lighting direction and palette without adding unmotivated glow, rim lights, particles, or glossy reflections. Keep expression understated and specific to the shot. Achieve a deliberate hand-drawn finish without adding random grain, distressed lines, or sketch defects.
 
-[NATURAL EXPRESSION CONTROL]
-{NATURAL_EXPRESSION_CONTROL}
+[ANIME FACE AND EXPRESSION PRECISION]
+{ANIME_FACE_DETAIL}
+
+[REFERENCE DOMAINS AND RENDERING]
+{PHOTOSET_RENDER_AUTHORITY}
 
 [PRIORITY 1: CHARACTER]
 The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
@@ -998,6 +1015,9 @@ The subject is {subject_name}. Use all character images together only for canoni
 
 [PRIORITY 2: CURRENT PHOTOSET IMAGE]
 The final uploaded image alone defines this shot's pose, visible hand contacts, camera distance and angle, crop, outfit construction, props, set layout, light direction, and palette. Replace its person completely. Never copy that person's face, hair, body type, makeup, or personal accessories. Preserve one coherent pose and exactly two continuous arms; cropped or occluded limbs stay hidden.
+
+[EXCLUSIVE PHOTOSET GARMENT]
+Replace all changeable character-reference clothing with the garment in the final uploaded image. Match its color, neckline, straps or sleeves, bodice panels, waist, lower garment, hem, layers, fabric, pattern and trim. Do not hybridize it with character-reference armor, cape, corset hardware, neck armor, gauntlets, belts or costume flower ornaments. Fixed identity accessories means the canonical head fixtures, permanent jewelry and species structures established by the character profile, not every accessory worn with the original costume. Keep those fixed accessories, including a character's signature hat. Costume descriptions inside identity notes only identify excluded clothing; they are never outfit instructions. The current shot's garment controls even when all character references repeat the same original costume.
 
 [PHOTOSET DESIGN]
 {template.global_identity}
