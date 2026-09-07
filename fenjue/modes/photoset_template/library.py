@@ -81,10 +81,10 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Jue adaptation: keep the short silver-mint bob, long high-back locks, two tall black crown feather tufts, separate horizontal white-gray side crests, violet-cyan eyes, and red facial marks. The feather structures are never mammal ears or a hat."
     ),
     "洛茜": (
-        "Rossi adaptation: keep two tall blonde fox ears, exactly one enormous golden fox tail, warm blonde curls, and amber eyes. Preserve a human face and limbs; never add extra tails."
+        "Rossi adaptation: keep two tall blonde fox ears, warm blonde curls, and amber eyes. Preserve a human face and limbs."
     ),
     "庄方宜": (
-        "Zhuang Fangyi adaptation: keep the black-green hair with red-teal face layers, yellow-green eyes, pointed ears, two huge black-crimson branching horns, and one scaled teal tail. Never shrink horns or duplicate the tail."
+        "Zhuang Fangyi adaptation: keep the black-green hair with red-teal face layers, yellow-green eyes, pointed ears, two huge black-crimson branching horns. Never shrink horns."
     ),
     "艾尔黛拉": (
         "Ardelia adaptation: keep compact youthful proportions, the short chestnut crown bob, enormous looped rear-side ponytail, rose eyes, two gray ridged horns, dark pointed ears, and red-blue clips. Keep every structure separate and readable."
@@ -93,7 +93,7 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Perlica adaptation: keep the towering silver-white fountain ponytail, ice-blue eyes, curled face locks, and large horizontal dark-tipped feather crests. The crests are never clips or cat ears."
     ),
     "陈千语": (
-        "Chen Qianyu adaptation: keep compact youthful proportions, short black crown hair, two long rear twin tails, red-orange eyes, exactly two narrow colored dragon horns, and one continuous fin-tipped tail."
+        "Chen Qianyu adaptation: keep compact youthful proportions, short black crown hair, two long rear twin tails, red-orange eyes, exactly two narrow colored dragon horns."
     ),
     "弭弗": (
         "Mi Fu adaptation: keep the voluminous pale pink-white hair, one-eye fringe, multitone eyes, pointed ears, and two huge navy cyan-edged branching horns attached at the temples. Never shrink the horns into clips."
