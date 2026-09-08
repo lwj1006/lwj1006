@@ -52,7 +52,7 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
                             self.assertIn(token, result)
                         self.assertIn(CHARACTER_PROFILES[name]['interaction_rule'], result)
                         self.assertNotRegex(result, r'[\u4e00-\u9fff]')
-                        self.assertEqual('[JAPANESE ANIME DRAWING DIRECTION]' in result,
+                        self.assertEqual('[EXCLUSIVE PHOTOSET GARMENT]' in result,
                                          assembler is prompt_for_shot)
 
     def test_critical_visual_distinctions_survive(self):

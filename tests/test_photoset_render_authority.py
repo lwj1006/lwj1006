@@ -38,6 +38,19 @@ class RenderAuthorityTests(unittest.TestCase):
                         if character=='菲比':
                             self.assertIn('oversized white wide-brim hat',output)
 
+    def test_e_preserves_outfit_color_choices_without_changing_e2_filter(self):
+        from fenjue.modes.photoset_template.library import _adapt_shot_prompt
+        source = "warm beige or peach gauze dress with soft drape, sitting or standing beside a vase"
+        e = _adapt_shot_prompt('艾尔妲', source, preserve_design_choices=True)
+        legacy = _adapt_shot_prompt('艾尔妲', source)
+        self.assertIn('warm beige or peach gauze dress with soft drape', e)
+        self.assertNotIn('sitting or standing', e)
+        self.assertNotIn('warm beige or peach gauze dress', legacy)
+        template = load_template('020_A_3')
+        from dataclasses import replace
+        actual = prompt_for_shot('艾尔妲', template, replace(template.shots[2], ready_prompt=source))
+        self.assertIn('warm beige or peach gauze dress with soft drape', actual)
+
     def test_recolor_permission_does_not_override_garment_construction(self):
         t=load_template('622_A_3')
         e=prompt_for_shot('艾尔妲',t,t.shots[0])

@@ -467,7 +467,7 @@ MULTI_SHOT_TRANSITION_WORDS = re.compile(
 )
 
 
-def _remove_ambiguous_pose_and_camera_choices(text: str) -> str:
+def _remove_ambiguous_pose_and_camera_choices(text: str, *, preserve_design_choices: bool = False) -> str:
     """Remove set-wide alternatives that conflict with one current shot image."""
     text = re.sub(
         r"\b(?:\d{2,3}\s*mm\s*(?:to|[-–—])\s*\d{2,3}\s*mm|"
@@ -518,7 +518,12 @@ def _remove_ambiguous_pose_and_camera_choices(text: str) -> str:
                 clause_actions = POSE_ACTION_WORDS.findall(clause)
                 clause_hands = HAND_ACTION_WORDS.findall(clause)
                 clause_cameras = CAMERA_CHOICE_WORDS.findall(clause)
-                if clause_has_choice:
+                if clause_has_choice and (
+                    not preserve_design_choices
+                    or clause_actions or clause_hands or clause_cameras
+                    or POSTURE_WORDS.search(clause)
+                    or EXPRESSION_CHOICE_WORDS.search(clause)
+                ):
                     continue
                 if len({item.lower() for item in clause_cameras}) >= 2 and re.search(r"\b(?:and|or|to)\b", clause, re.IGNORECASE):
                     kept_clauses.append("reference-matched camera framing and perspective")
@@ -688,7 +693,7 @@ def _has_explicit_reference_role_lock(text: str) -> bool:
     return legacy_role_lock or standardized_shot or direct_reproduction
 
 
-def _adapt_shot_prompt(character_name: str, text: str) -> str:
+def _adapt_shot_prompt(character_name: str, text: str, *, preserve_design_choices: bool = False) -> str:
     current = _current_shot_only(text)
     trusted_role_separation = _has_explicit_reference_role_lock(current)
     cleaned = current if trusted_role_separation else _remove_template_person_clauses(current)
@@ -696,7 +701,7 @@ def _adapt_shot_prompt(character_name: str, text: str) -> str:
     cleaned = _remove_character_trait_conflicts(character_name, cleaned)
     if not trusted_role_separation:
         cleaned = _soften_platform_sensitive_terms(cleaned)
-        cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned)
+        cleaned = _remove_ambiguous_pose_and_camera_choices(cleaned, preserve_design_choices=preserve_design_choices)
     subject_name = _prompt_subject_name(character_name)
     cleaned = _english_only_text(cleaned)
     cleaned = _anime_only_positive_text(cleaned)
@@ -985,11 +990,24 @@ Third hand, more than two arms, duplicated hand, floating hand, hand emerging fr
 """.strip()
 
 
+def _compact_profile_identity_block(character_name: str) -> str:
+    """E-only deduplication; retain the full core and every distinct identity token."""
+    profile = propagation_profile_for(character_name)
+    core = profile['official_core']
+    missing = [token for token in required_identity_tokens_for(character_name) if token not in core]
+    lines = [f"Official identity: {core}"]
+    if missing:
+        lines.append("Additional identity features: " + "; ".join(missing) + ".")
+    lines.append(f"Character behavior: {profile['interaction_rule']}")
+    lines.append(f"Color identity anchor: {profile['color_anchor']}")
+    return "\n".join(lines)
+
+
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     source_prompt = shot.ready_prompt or shot.section_text
     rewritten_prompt = _has_explicit_reference_role_lock(source_prompt)
-    shot_prompt = _adapt_shot_prompt(character_name, source_prompt)
+    shot_prompt = _adapt_shot_prompt(character_name, source_prompt, preserve_design_choices=True)
     if rewritten_prompt:
         shot_prompt = _compact_rewritten_shot_prompt(shot_prompt)
     if not shot_prompt:
@@ -1010,12 +1028,6 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     prompt = f"""
 Independent image task. Create exactly one finished image.
 
-[STYLE]
-Premium hand-drawn Japanese 2D anime key visual with clean visible black lineart and elegant line-weight variation. Use refined layered cel shading, restrained soft transitions, aligned detailed eyes, carefully grouped hair locks, coherent fabric folds, and luminous illustrated lighting. Translate the current reference's palette and shadow pattern into graphic anime color regions while simplifying only minor distant clutter. Aim for polished light-novel-cover quality, never a generic flat avatar, rough sketch, photograph, semi-realistic painting, 3D render, cosplay, or live action.
-
-[JAPANESE ANIME DRAWING DIRECTION]
-Keep a strong Japanese animation and manga illustration language: expressive canonical anime faces, economical nose and mouth marks, purposeful tapered strokes, clear hair-lock silhouettes, and cel-shadow shapes that describe form. Prioritize readable drawing and composition over surface polish. Vary line weight with overlap and depth; concentrate detail around the face, hands, and important garment construction, and simplify secondary surfaces without losing reference evidence. Allow subtle organic variation in strokes and cloth folds while keeping eyes, anatomy, perspective, and repeated patterns consistent. Keep highlights selective and material-specific. Preserve the reference's lighting direction and palette without adding unmotivated glow, rim lights, particles, or glossy reflections. Keep expression understated and specific to the shot. Achieve a deliberate hand-drawn finish without adding random grain, distressed lines, or sketch defects.
-
 [ANIME FACE AND EXPRESSION PRECISION]
 {ANIME_FACE_DETAIL}
 
@@ -1024,7 +1036,7 @@ Keep a strong Japanese animation and manga illustration language: expressive can
 
 [PRIORITY 1: CHARACTER]
 The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
-{_profile_identity_block(character_name)}
+{_compact_profile_identity_block(character_name)}
 {_character_adaptation(character_name)}
 
 [PRIORITY 2: CURRENT PHOTOSET IMAGE]

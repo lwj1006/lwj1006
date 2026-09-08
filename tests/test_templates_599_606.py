@@ -86,7 +86,7 @@ class NewPhotosetPrecisionTests(unittest.TestCase):
                         self.assertIn(token, output)
                     if character == '菲比':
                         self.assertIn('oversized white wide-brim hat', output)
-                    self.assertEqual('[JAPANESE ANIME DRAWING DIRECTION]' in output, assembler is prompt_for_shot)
+                    self.assertEqual('[EXCLUSIVE PHOTOSET GARMENT]' in output, assembler is prompt_for_shot)
                     self.assertEqual('Do not lock the garment to the photoset reference' in output, assembler is prompt_for_refined_shot)
 
 

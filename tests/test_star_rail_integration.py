@@ -54,7 +54,7 @@ class StarRailIntegrationTests(unittest.TestCase):
                             for token in required_identity_tokens_for(name):
                                 self.assertIn(token, text)
                             self.assertNotRegex(text, r'[\u4e00-\u9fff]')
-                            self.assertEqual('[JAPANESE ANIME DRAWING DIRECTION]' in text, assembler is prompt_for_shot)
+                            self.assertEqual('[EXCLUSIVE PHOTOSET GARMENT]' in text, assembler is prompt_for_shot)
 
     def test_fixed_hats_species_traits_and_companions_remain_distinct(self):
         expected = {
