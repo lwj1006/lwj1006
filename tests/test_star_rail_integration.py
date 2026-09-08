@@ -62,13 +62,13 @@ class StarRailIntegrationTests(unittest.TestCase):
             '大黑塔': ['pointed witch hat', 'ordinary human joints'],
             '风堇': ['small burgundy cap', 'not her body wings'],
             '菲比': ['oversized white wide-brim hat'],
-            '停云': ['exactly two tall brown fox ears', 'white foxes are separate companions'],
+            '停云': ['exactly two tall brown fox ears', 'human face and limbs'],
             '忘归人': ['gold floral hair ornaments and red tassels'],
-            '知更鸟': ['wings behind the ears', 'makeup artists'],
+            '知更鸟': ['wings behind the ears', 'separate halo'],
             '遐蝶': ['pointed ears', 'dragon and butterflies are separate creatures'],
             '灵砂': ['red coloration on the hands fading along the forearms'],
             '绯英': ['two long pale pink rabbit-like ear structures', 'its tail'],
-            '流萤': ['separate suit depiction'],
+            '流萤': ['ordinary human anatomy'],
         }
         template = load_template('045_A_3')
         for name, snippets in expected.items():

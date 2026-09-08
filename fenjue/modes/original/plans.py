@@ -630,12 +630,22 @@ CHARACTER_PROFILES = {
         "color_anchor": "golden blonde, peach brown, red, pale cyan, dark navy, white",
     },
     "德蕾琪娜·挽昼": {
-        "official_core": "compact human proportions and a soft rounded face; silver-white jaw-length rounded bob with cool blue shadows; heavy overlapping sweeping fringe covering her left eye; visible right eye in amber gold with a lime-green lower iris; two short low outward-fanning hair bundles secured by gold rings beside the neck, with layered curled tips reaching toward the shoulders; one short curved crown ahoge with a smaller split base; paired dark faceted triangular hair ornaments with black-and-gold hanging tabs; small dark-blue rear hair accents.",
-        "identity_tokens": ["compact human proportions and a soft rounded face", "silver-white jaw-length rounded bob with cool blue shadows", "heavy overlapping sweeping fringe covering her left eye", "visible right eye in amber gold with a lime-green lower iris", "two short low outward-fanning hair bundles secured by gold rings beside the neck", "layered curled tips reaching toward the shoulders", "one short curved crown ahoge with a smaller split base", "paired dark faceted triangular hair ornaments with black-and-gold hanging tabs", "small dark-blue rear hair accents"],
-        "viewer_relationship": "Quiet and gently attentive; convey expression through the visible eye and a small relaxed mouth.",
-        "thumbnail_strategy": "The one-eye fringe, gold-green visible eye, short ring-bound tufts and faceted dark clips define the silhouette.",
-        "interaction_rule": "Keep the left eye concealed by the sweeping fringe rather than an eyepatch; do not invent its hidden color. The pointed dark pieces are attached head ornaments, not animal ears or horns. Both gold-ring bundles begin low beside the neck and end around the shoulders; never convert them to braids or high long twin tails. Preserve the compact reference proportions without copying a taller template person's build. The blue flower dress, metal chest plate and arm gear are clothing, not permanent anatomy. Both references show this one character; generate one person and one scene.",
-        "color_anchor": "silver white, cool blue, amber gold, lime green, charcoal, dark blue",
+        "official_core": "silver-white jaw-length rounded bob with cool blue shadows, heavy overlapping sweeping fringe covering her left eye, visible right eye in amber gold with a lime-green lower iris, two short low outward-fanning hair bundles secured by gold rings beside the neck, layered curled tips reaching toward the shoulders, one short curved crown ahoge with a smaller split base, paired dark faceted triangular hair ornaments with black-and-gold hanging tabs, small dark-blue rear hair accents, compact human proportions and a soft rounded face.",
+        "identity_tokens": [
+            "silver-white jaw-length rounded bob with cool blue shadows",
+            "heavy overlapping sweeping fringe covering her left eye",
+            "visible right eye in amber gold with a lime-green lower iris",
+            "two short low outward-fanning hair bundles secured by gold rings beside the neck",
+            "layered curled tips reaching toward the shoulders",
+            "one short curved crown ahoge with a smaller split base",
+            "paired dark faceted triangular hair ornaments with black-and-gold hanging tabs",
+            "small dark-blue rear hair accents",
+            "compact human proportions and a soft rounded face"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep the left eye behind the fringe without inventing its color. Keep both ring-bound hair bundles short and low beside the neck. The dark triangular pieces are hair ornaments. Expression and gaze follow the current shot through the visible eye.",
+        "color_anchor": "silver white, cool blue, amber gold, lime green, charcoal, dark blue"
     },
     "奥古斯塔": {
         "official_core": "tall mature feminine proportions with long limbs; very long voluminous orange-red hair with golden-orange inner locks; layered sweeping bangs and curled face-framing strands; red-orange eyes; large gold sunburst crown with radiating pointed rays; paired gold sun-shaped drop earrings.",
@@ -678,20 +688,38 @@ CHARACTER_PROFILES = {
         "color_anchor": "pale gray green, pale pink, rose red",
     },
     "林德薇恩": {
-        "official_core": "very long silver-white high twin tails rooted separately behind the two crown fixtures, flowing behind both shoulders toward the hips with broad curling tapered ends; layered sweeping bangs leaving both eyes visible and outward-curving cheek locks; one looped crown ahoge; heterochromia: her right eye amber gold and her left eye sapphire blue; paired tall black segmented pointed head fixtures with rounded four-petal front plates and hot-pink diamond centers; soft mature feminine face and balanced human torso proportions.",
-        "identity_tokens": ["very long silver-white high twin tails rooted separately behind the two crown fixtures", "flowing behind both shoulders toward the hips with broad curling tapered ends", "layered sweeping bangs leaving both eyes visible and outward-curving cheek locks", "one looped crown ahoge", "heterochromia: her right eye amber gold and her left eye sapphire blue", "paired tall black segmented pointed head fixtures with rounded four-petal front plates and hot-pink diamond centers", "soft mature feminine face and balanced human torso proportions"],
-        "viewer_relationship": "Warmly composed, with a subtle confident smile and relaxed eyes.",
-        "thumbnail_strategy": "Retain the gold-right/blue-left eyes, two separate high white twin tails and paired black flower-faced fixtures with hot-pink centers.",
-        "interaction_rule": "In a frontal view the gold eye is on the viewer left and the blue eye on the viewer right; never swap or equalize their colors. Keep the two high tied roots visible and separate; do not flatten the twin tails into loose untied back hair or shorten them into neck-level bundles. Preserve the two black angular fixtures and their flower-faced plates exactly as shown; do not add another pair of horns or animal ears or infer biological structures beneath them. The references do not establish a tail or special leg anatomy. Navy armor, dark collar, gloves, pink flower brooches and trailing costume ribbons are changeable clothing, not mandatory body features or extra hair.",
-        "color_anchor": "silver white, amber gold, sapphire blue, black, hot pink",
+        "official_core": "very long silver-white high twin tails rooted separately behind the crown fixtures, broad curled tapered ends flowing toward the hips, layered sweeping bangs and outward-curving cheek locks, one looped crown ahoge, her right eye amber gold and her left eye sapphire blue, paired tall black segmented pointed head fixtures with rounded four-petal front plates and hot-pink diamond centers, soft mature feminine face and balanced human torso proportions.",
+        "identity_tokens": [
+            "very long silver-white high twin tails rooted separately behind the crown fixtures",
+            "broad curled tapered ends flowing toward the hips",
+            "layered sweeping bangs and outward-curving cheek locks",
+            "one looped crown ahoge",
+            "her right eye amber gold and her left eye sapphire blue",
+            "paired tall black segmented pointed head fixtures with rounded four-petal front plates and hot-pink diamond centers",
+            "soft mature feminine face and balanced human torso proportions"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep two separate high ponytail roots. The gold eye is viewer left and the blue eye viewer right in a frontal view; preserve anatomical sides when turning. The head fixtures are accessories. Expression, gaze and visible features follow the current shot.",
+        "color_anchor": "silver white, amber gold, sapphire blue, black, hot pink"
     },
     "艾尔妲": {
-        "official_core": "tall mature feminine human proportions with a long torso, long limbs, defined waist and fuller chest; an elongated softly tapered face with calm half-lidded eyes; very long loose silver-white hair falling from the rear crown past the hips in layered curling lengths; separated sweeping pointed bangs and long curved face-framing strands leaving both eyes visible; one slender upright curved crown ahoge; heterochromia: her right eye amber gold and her left eye sapphire blue; paired tall angular black pointed crown fixtures with small bronze-gold seams; long dark elongated four-point star drop earrings.",
-        "identity_tokens": ["tall mature feminine human proportions with a long torso, long limbs, defined waist and fuller chest", "an elongated softly tapered face with calm half-lidded eyes", "very long loose silver-white hair falling from the rear crown past the hips in layered curling lengths", "separated sweeping pointed bangs and long curved face-framing strands leaving both eyes visible", "one slender upright curved crown ahoge", "heterochromia: her right eye amber gold and her left eye sapphire blue", "paired tall angular black pointed crown fixtures with small bronze-gold seams", "long dark elongated four-point star drop earrings"],
-        "viewer_relationship": "Composed direct attention with gently lowered eyelids and a restrained neutral mouth.",
-        "thumbnail_strategy": "Keep the tall loose-haired silhouette, gold-right/blue-left eyes, pointed black crown fixtures and long dark star earrings legible.",
-        "interaction_rule": "Keep the gold eye on the viewer left and blue eye on the viewer right in a frontal view. Preserve loose rear-crown hair without high twin-tail ties or short gold-ring bundles. Keep the two pointed black fixtures as depicted without adding round pink-centered flower plates, another horn pair or animal ears; their biological origin is not established by these images. The black cloak with red lining, fitted navy-and-black bodice, metal gauntlets, chains, thigh strap and one-sided hosiery are changeable clothing. Visible armor does not establish mechanical forearms; preserve human anatomy and do not invent a tail. Keep this character's tall mature proportions distinct from a compact rounded character or the person in the photoset.",
-        "color_anchor": "silver white, amber gold, sapphire blue, black, small bronze-gold accents",
+        "official_core": "very long loose silver-white hair falling from the rear crown past the hips, layered curling lengths, sweeping pointed bangs and long curved face-framing strands, one slender curved crown ahoge, her right eye amber gold and her left eye sapphire blue, paired tall angular black pointed crown fixtures with bronze-gold seams, long dark four-point star drop earrings, softly tapered elongated face, tall mature feminine human proportions with a long torso, long limbs, defined waist and fuller chest.",
+        "identity_tokens": [
+            "very long loose silver-white hair falling from the rear crown past the hips",
+            "layered curling lengths",
+            "sweeping pointed bangs and long curved face-framing strands",
+            "one slender curved crown ahoge",
+            "her right eye amber gold and her left eye sapphire blue",
+            "paired tall angular black pointed crown fixtures with bronze-gold seams",
+            "long dark four-point star drop earrings",
+            "softly tapered elongated face",
+            "tall mature feminine human proportions with a long torso, long limbs, defined waist and fuller chest"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep the rear hair loose and the head fixtures separate. Let its long lengths fall naturally under gravity; use lateral spread only when the current shot shows wind or motion. The gold eye is viewer left and the blue eye viewer right in a frontal view; preserve anatomical sides when turning. Preserve human limbs. Eyelid openness, expression and gaze follow the current shot.",
+        "color_anchor": "silver white, amber gold, sapphire blue, black, small bronze-gold accents"
     },
     "穗穗": {
         "official_core": "slender mature human proportions; pale cream-blonde hair with golden-yellow lower accents; rounded brow-length bangs with a narrow central split; two curled cheek-length face locks; one very long high rear ponytail with broad curling ends; golden eyes with rose-red accents; blue-and-gold feather-shaped ornament at the ponytail base; fine red cords and pearl-like beads on the hair ornament; small turquoise drop earrings.",
@@ -774,20 +802,38 @@ CHARACTER_PROFILES = {
         "color_anchor": "periwinkle braid, aqua eyes, gold star halo",
     },
     "知更鸟": {
-        "official_core": "long loose periwinkle-lavender hair with sweeping fringe and curled front locks; aqua-green iridescent eyes; small colored dot accents beneath the outer left eye; tilted separate thin golden halo with pale hanging flower-like ornaments; small white-lavender feathered wings behind the ears; delicate star-shaped drop earrings; slender graceful human-shaped body.",
-        "identity_tokens": ["long loose periwinkle-lavender hair with sweeping fringe and curled front locks", "aqua-green iridescent eyes", "small colored dot accents beneath the outer left eye", "tilted separate thin golden halo with pale hanging flower-like ornaments", "small white-lavender feathered wings behind the ears", "delicate star-shaped drop earrings", "slender graceful human-shaped body"],
-        "viewer_relationship": "Gentle attentive eyes and a soft poised smile.",
-        "thumbnail_strategy": "Keep long loose periwinkle-lavender hair with sweeping fringe and curled front locks, aqua-green iridescent eyes, small colored dot accents beneath the outer left eye legible at thumbnail scale.",
-        "interaction_rule": "Preserve the loose-hair form and small ear wings, without importing the sunny version's thick side braid or star clip. The makeup artists' hands, gramophone, cage and birds are separate scene elements.",
-        "color_anchor": "periwinkle, aqua green, small gold halo",
+        "official_core": "long loose periwinkle-lavender hair, sweeping fringe and curled front locks, aqua-green iridescent eyes, small colored dots beneath her left outer eye, separate tilted thin golden halo with pale flower-like ornaments, small white-lavender feathered wings behind the ears, delicate star-shaped drop earrings, slender graceful human proportions, soft short oval face with gently full cheeks and a small rounded chin, large rounded almond-shaped anime eyes, small simply drawn nose and mouth.",
+        "identity_tokens": [
+            "long loose periwinkle-lavender hair",
+            "sweeping fringe and curled front locks",
+            "aqua-green iridescent eyes",
+            "small colored dots beneath her left outer eye",
+            "separate tilted thin golden halo with pale flower-like ornaments",
+            "small white-lavender feathered wings behind the ears",
+            "delicate star-shaped drop earrings",
+            "slender graceful human proportions",
+            "soft short oval face with gently full cheeks and a small rounded chin",
+            "large rounded almond-shaped anime eyes",
+            "small simply drawn nose and mouth"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep the loose-hair form, ear wings and separate halo. Preserve her soft reference face and young-adult anime appearance; do not import the template model's long angular face, hollow cheeks, narrow small eyes, pronounced nose bridge or volumetric lips. Keep normal adult proportions, not chibi or child proportions. Place the cheek dots ONLY beneath her anatomical left outer eye, viewer right in a frontal view; the opposite cheek has no dot accents. Never mirror or duplicate the dots when the head turns. Expression and gaze follow the current shot.",
+        "color_anchor": "periwinkle, aqua green, small gold halo"
     },
     "停云": {
-        "official_core": "chestnut-brown hair with swept bangs and gathered rear lengths; green-gold eyes; exactly two tall brown fox ears with pale inner fur; gold hair fittings with red accents; slender feminine torso and ordinary human arms and legs.",
-        "identity_tokens": ["chestnut-brown hair with swept bangs and gathered rear lengths", "green-gold eyes", "exactly two tall brown fox ears with pale inner fur", "gold hair fittings with red accents", "slender feminine torso and ordinary human arms and legs"],
-        "viewer_relationship": "Warm composed gaze with a knowing small smile.",
-        "thumbnail_strategy": "Keep chestnut-brown hair with swept bangs and gathered rear lengths, green-gold eyes, exactly two tall brown fox ears with pale inner fur legible at thumbnail scale.",
-        "interaction_rule": "The two small white foxes are separate companions, not part of her body.",
-        "color_anchor": "chestnut brown, green gold, red and gold hair accents",
+        "official_core": "chestnut-brown hair with swept bangs and gathered rear lengths, green-gold eyes, exactly two tall brown fox ears with pale inner fur, gold hair fittings with red accents, slender feminine torso and ordinary human arms and legs.",
+        "identity_tokens": [
+            "chestnut-brown hair with swept bangs and gathered rear lengths",
+            "green-gold eyes",
+            "exactly two tall brown fox ears with pale inner fur",
+            "gold hair fittings with red accents",
+            "slender feminine torso and ordinary human arms and legs"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Preserve the brown hair and two fox ears with a human face and limbs. Expression and gaze follow the current shot.",
+        "color_anchor": "chestnut brown, green gold, red and gold hair accents"
     },
     "忘归人": {
         "official_core": "very long dark chestnut hair with reddish lower lengths; layered swept bangs and long face-framing locks; green-gold eyes; two tall fox ears with pale interiors; gold floral hair ornaments and red tassels; slender feminine human-shaped torso and limbs.",
@@ -806,12 +852,19 @@ CHARACTER_PROFILES = {
         "color_anchor": "pink hair, violet forehead jewel, warm gold eyes",
     },
     "流萤": {
-        "official_core": "long loose silvery-ash hair with pale aqua lower tips; layered bangs crossing the center and curved cheek locks; iridescent eyes graduating from deep blue above to pink below; dark headband with angular gold-edged pale-green detailing; pale green leaf-shaped side hair ornament with a black bow; slim balanced human proportions.",
-        "identity_tokens": ["long loose silvery-ash hair with pale aqua lower tips", "layered bangs crossing the center and curved cheek locks", "iridescent eyes graduating from deep blue above to pink below", "dark headband with angular gold-edged pale-green detailing", "pale green leaf-shaped side hair ornament with a black bow", "slim balanced human proportions"],
-        "viewer_relationship": "Soft attentive eyes and a small sincere smile.",
-        "thumbnail_strategy": "Keep long loose silvery-ash hair with pale aqua lower tips, layered bangs crossing the center and curved cheek locks, iridescent eyes graduating from deep blue above to pink below legible at thumbnail scale.",
-        "interaction_rule": "Keep the human girl with loose silver-to-aqua hair. The large armored figure behind her is a separate suit depiction; do not turn her exposed limbs into machinery or add energy wings as anatomy.",
-        "color_anchor": "silvery ash, pale aqua, blue-pink eyes",
+        "official_core": "long loose silvery-ash hair with pale aqua tips, layered center-crossing bangs and curved cheek locks, iridescent eyes graduating from deep blue above to pink below, dark headband with angular gold-edged pale-green detailing, pale green leaf-shaped side ornament with a black bow, slim balanced human proportions.",
+        "identity_tokens": [
+            "long loose silvery-ash hair with pale aqua tips",
+            "layered center-crossing bangs and curved cheek locks",
+            "iridescent eyes graduating from deep blue above to pink below",
+            "dark headband with angular gold-edged pale-green detailing",
+            "pale green leaf-shaped side ornament with a black bow",
+            "slim balanced human proportions"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep the silver-to-aqua hair gradient and blue-to-pink iris gradient distinct. Preserve ordinary human anatomy. Expression and gaze follow the current shot.",
+        "color_anchor": "silvery ash, pale aqua, blue-pink eyes"
     },
     "爻光": {
         "official_core": "long silver-blue hair with swept layered bangs and outward-curving temple locks; fine side braid with a small gold bead; iridescent violet-pink eyes with cyan and gold facets; blue-teal peacock-feather head ornament; slender human body with long legs.",
@@ -838,12 +891,21 @@ CHARACTER_PROFILES = {
         "color_anchor": "dark ash brown, teal-green eyes, white and gold blossom",
     },
     "卡芙卡": {
-        "official_core": "wine-magenta hair with thick separated bangs and two long curved front locks; rear hair gathered into a loose low ponytail with looped side sections; pale pink-lavender eyes; round dark tinted sunglasses resting above the forehead; small pearl drop earrings; mature oval face and tall balanced human proportions.",
-        "identity_tokens": ["wine-magenta hair with thick separated bangs and two long curved front locks", "rear hair gathered into a loose low ponytail with looped side sections", "pale pink-lavender eyes", "round dark tinted sunglasses resting above the forehead", "small pearl drop earrings", "mature oval face and tall balanced human proportions"],
-        "viewer_relationship": "Relaxed half-lidded gaze and a knowing faint smile.",
-        "thumbnail_strategy": "Keep wine-magenta hair with thick separated bangs and two long curved front locks, rear hair gathered into a loose low ponytail with looped side sections, pale pink-lavender eyes legible at thumbnail scale.",
-        "interaction_rule": "Preserve the wine-colored low ponytail, front locks and forehead sunglasses without hiding her eyes. Guns, strings, umbrellas, cat and background people are separate props or subjects.",
-        "color_anchor": "wine magenta, pale lavender eyes, dark round sunglasses",
+        "official_core": "wine-magenta hair, thick separated bangs, two long curved face-framing locks, loose low ponytail with looped side sections, pale pink-lavender eyes, round dark sunglasses above the forehead, small pearl drop earrings, mature oval face and tall balanced human proportions.",
+        "identity_tokens": [
+            "wine-magenta hair",
+            "thick separated bangs",
+            "two long curved face-framing locks",
+            "loose low ponytail with looped side sections",
+            "pale pink-lavender eyes",
+            "round dark sunglasses above the forehead",
+            "small pearl drop earrings",
+            "mature oval face and tall balanced human proportions"
+        ],
+        "viewer_relationship": "Natural attention and expression appropriate to the current scene.",
+        "thumbnail_strategy": "Keep the distinctive hair silhouette, eye design and fixed head accessories readable within the current crop.",
+        "interaction_rule": "Keep the low ponytail and forehead sunglasses distinct; the eyes remain naturally visible when the shot allows. Expression and gaze follow the current shot.",
+        "color_anchor": "wine magenta, pale lavender eyes, dark round sunglasses"
     },
     "姬子": {
         "official_core": "very long copper-red hair with broad flowing waves; layered side-parted bangs and curled cheek locks; warm amber-gold eyes; mature oval face and tall long-legged human proportions.",

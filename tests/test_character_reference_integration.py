@@ -80,8 +80,8 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
     def test_three_related_characters_have_separate_complete_reference_sets(self):
         expected = {
             '德蕾琪娜·挽昼': ['德蕾琪娜·挽昼1.png', '德蕾琪娜·挽昼2.png'],
-            '林德薇恩': ['林德薇恩1.png', '林德薇恩2.png', '林德薇恩3.png'],
-            '艾尔妲': ['艾尔妲1.png', '艾尔妲2.png', '艾尔妲3.png'],
+            '林德薇恩': ['林德薇恩1.png', '林德薇恩2.png'],
+            '艾尔妲': ['艾尔妲1.png', '艾尔妲2.png'],
         }
         all_paths = []
         for name, names in expected.items():

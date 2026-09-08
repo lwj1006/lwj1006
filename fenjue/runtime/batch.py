@@ -203,12 +203,10 @@ CHARACTER_REFERENCES = {
     "林德薇恩": [
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩2.png"),
-        str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩3.png"),
     ],
     "艾尔妲": [
         str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲2.png"),
-        str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲3.png"),
     ],
     "德蕾琪娜·挽昼": [
         str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼1.png"),
