@@ -17,10 +17,10 @@ class StarRailIntegrationTests(unittest.TestCase):
     def test_all_current_images_are_reachable_exactly_once(self):
         self.assertEqual(list(STAR_RAIL_NAMES), batch.HONKAI_STAR_RAIL_CHARACTERS)
         paths = [Path(p) for name in STAR_RAIL_NAMES for p in batch.reference_files_for_character(name)]
-        self.assertEqual(len(paths), 54)
+        self.assertEqual(len(paths), 53)
         self.assertEqual(len(paths), len(set(paths)))
         self.assertTrue(all(p.is_file() for p in paths))
-        self.assertEqual(set(paths), set((batch.PROJECT_DIR / 'assets' / '星铁').iterdir()))
+        self.assertEqual(set(paths), {p for p in (batch.PROJECT_DIR / 'assets' / '星铁').rglob('*') if p.is_file()})
         self.assertFalse(set(STAR_RAIL_NAMES) & set(batch.GENSHIN_IMPACT_CHARACTERS))
 
     def test_launcher_names_numbers_and_random_aliases(self):
@@ -36,7 +36,7 @@ class StarRailIntegrationTests(unittest.TestCase):
     def test_incompatible_forms_do_not_share_references(self):
         def files(name):
             return [Path(p).name for p in batch.reference_files_for_character(name)]
-        self.assertEqual(files('停云'), ['停云2.png'])
+        self.assertEqual(files('停云'), ['1.png', '2.png'])
         self.assertEqual(files('忘归人'), ['停云1.png', '停云3.png'])
         self.assertEqual(files('银狼'), ['银狼1.png'])
         self.assertEqual(files('银狼LV.999'), ['银狼2.png', '银狼3.png'])
