@@ -1003,6 +1003,16 @@ def _compact_profile_identity_block(character_name: str) -> str:
     return "\n".join(lines)
 
 
+E_ANIME_FACE_DETAIL = (
+    "Keep the canonical anime face geometry; use the current shot's gaze, head tilt and broad mood. "
+    "Express it naturally with relaxed brows, eyelids and mouth; soften exaggerated grins, pouts and wide-open eyes. "
+    "Keep a wink only when shown in the shot. Draw crisp lashes, layered irises, centered pupils and restrained catchlights "
+    "in visible eyes; align both eyes when both are visible. Use a small drawn nose, simple mouth and subtle blush. "
+    "Keep eyes hidden by a canonical visor, eye covering, fringe, profile angle or crop hidden; never reveal or duplicate them. "
+    "Avoid blank stares, forced smiles, muddy eyes and realistic lips or nostrils."
+)
+
+
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     source_prompt = shot.ready_prompt or shot.section_text
@@ -1015,35 +1025,30 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
             f"Follow the visible final photoset reference exactly for this shot: {shot.title}. "
             "Preserve its outfit construction, pose, hand contacts, framing, main setting anchors, light direction, and palette."
         )
-    negative = _dedupe_negative_terms(
-        A3_NEGATIVE,
-        "waxy plastic skin, porcelain doll face, glassy mirror-like hair, excessive airbrush gradients, "
-        "uniform glossy surfaces, indiscriminate microdetail, repetitive decorative clutter, oversharpened edges, "
-        "unmotivated bloom, generic beauty-filter expression, "
-        "wrong character, copied photoset-model identity, clothing copied from character references, extra person, "
-        "wrong hair, wrong eyes, missing fixed accessory, extra arm, third hand, duplicated limb, fused hand, "
-        "extra fingers, broken joint, impossible pose, conflicting camera, wrong crop, wrong outfit, text, logo, watermark",
+    negative = (
+        "Identity drift, copied template face or hair, character-reference clothing, missing fixed accessories, "
+        "extra person, extra or disconnected limbs, fused hands, extra fingers, impossible joints, "
+        "conflicting poses, wrong crop or outfit, text, logos, watermarks."
     )
 
     prompt = f"""
 Independent image task. Create exactly one finished image.
 
 [ANIME FACE AND EXPRESSION PRECISION]
-{ANIME_FACE_DETAIL}
+{E_ANIME_FACE_DETAIL}
 
-[REFERENCE DOMAINS AND RENDERING]
-{PHOTOSET_RENDER_AUTHORITY}
+[REFERENCE ROLES]
+All images except the last define only the selected character's face, eyes, hair, fixed identity accessories, species anatomy, age impression and proportions. Ignore their clothing, weapons, poses, companions, backgrounds and lighting. The last image alone defines this shot's outfit, pose, hand contacts, camera, crop, props, setting, light direction and palette; never copy its person's identity, hair, makeup, body type or temporary accessories. The current shot overrides set-wide pose or outfit alternatives. Keep two continuous arms and the observed hand contacts; hidden or cropped limbs stay hidden.
 
-[PRIORITY 1: CHARACTER]
-The subject is {subject_name}. Use all character images together only for canonical face, eyes, exact hair and bangs, fixed identity accessories, species traits, age impression, and body proportions. Ignore their clothing, weapons, poses, companions, backgrounds, and lighting.
+[CHARACTER]
 {_compact_profile_identity_block(character_name)}
 {_character_adaptation(character_name)}
 
-[PRIORITY 2: CURRENT PHOTOSET IMAGE]
-The final uploaded image alone defines this shot's pose, visible hand contacts, camera distance and angle, crop, outfit construction, props, set layout, light direction, and palette. Replace its person completely. Never copy that person's face, hair, body type, makeup, or personal accessories. Preserve one coherent pose and exactly two continuous arms; cropped or occluded limbs stay hidden.
-
 [EXCLUSIVE PHOTOSET GARMENT]
-Replace all changeable character-reference clothing with the garment in the final uploaded image. Match its color, neckline, straps or sleeves, bodice panels, waist, lower garment, hem, layers, fabric, pattern and trim. Do not hybridize it with character-reference armor, cape, corset hardware, neck armor, gauntlets, belts or costume flower ornaments. Fixed identity accessories means the canonical head fixtures, permanent jewelry and species structures established by the character profile, not every accessory worn with the original costume. Keep those fixed accessories, including a character's signature hat. Costume descriptions inside identity notes only identify excluded clothing; they are never outfit instructions. The current shot's garment controls even when all character references repeat the same original costume.
+Use only the last image's garment, even when every character reference repeats the original costume. Match its color, neckline, straps or sleeves, panels, waist, lower garment, hem, layers, fabric, pattern and trim. Do not mix in character-reference clothing, armor, cape, belts or costume ornaments. Preserve canonical head fixtures, permanent jewelry, species structures and signature hats; these do not authorize copying the rest of the costume. Character color anchors apply to identity features, not garment recoloring.
+
+[DRAWN LIGHT AND MATERIALS]
+Reference highlights, soft light, rims, reflections, blur and bokeh specify placement and color, not photographic rendering. Translate them into drawn shapes, selective highlights and simplified distant color masses. Keep the face, skin, hair, fabric and background in the same 2D medium. Do not add window shadows, glow or effects absent from the current reference.
 
 [PHOTOSET DESIGN]
 {template.global_identity}

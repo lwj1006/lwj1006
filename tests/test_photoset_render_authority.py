@@ -1,5 +1,5 @@
 import unittest
-from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY,PHOTOSET_STYLE_PREFIX
+from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,E_ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY,PHOTOSET_STYLE_PREFIX
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 from fenjue.modes.original.plans import required_identity_tokens_for
 
@@ -31,8 +31,13 @@ class RenderAuthorityTests(unittest.TestCase):
                 for fn in (prompt_for_shot,prompt_for_refined_shot):
                     with self.subTest(template=tid,character=character,mode=fn.__name__):
                         output=fn(character,t,t.shots[0])
-                        self.assertIn(ANIME_FACE_DETAIL,output)
-                        self.assertIn(PHOTOSET_RENDER_AUTHORITY,output)
+                        if fn is prompt_for_shot:
+                            self.assertIn(E_ANIME_FACE_DETAIL,output)
+                            self.assertIn('[REFERENCE ROLES]',output)
+                            self.assertIn('[DRAWN LIGHT AND MATERIALS]',output)
+                        else:
+                            self.assertIn(ANIME_FACE_DETAIL,output)
+                            self.assertIn(PHOTOSET_RENDER_AUTHORITY,output)
                         for token in required_identity_tokens_for(character):
                             self.assertIn(token,output)
                         if character=='菲比':
