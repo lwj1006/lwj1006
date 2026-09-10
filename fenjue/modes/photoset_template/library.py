@@ -1003,16 +1003,6 @@ def _compact_profile_identity_block(character_name: str) -> str:
     return "\n".join(lines)
 
 
-E_ANIME_FACE_DETAIL = (
-    "Keep the canonical anime face geometry; use the current shot's gaze, head tilt and broad mood. "
-    "Express it naturally with relaxed brows, eyelids and mouth; soften exaggerated grins, pouts and wide-open eyes. "
-    "Keep a wink only when shown in the shot. Draw crisp lashes, layered irises, centered pupils and restrained catchlights "
-    "in visible eyes; align both eyes when both are visible. Use a small drawn nose, simple mouth and subtle blush. "
-    "Keep eyes hidden by a canonical visor, eye covering, fringe, profile angle or crop hidden; never reveal or duplicate them. "
-    "Avoid blank stares, forced smiles, muddy eyes and realistic lips or nostrils."
-)
-
-
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
     source_prompt = shot.ready_prompt or shot.section_text
@@ -1034,8 +1024,8 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
     prompt = f"""
 Independent image task. Create exactly one finished image.
 
-[ANIME FACE AND EXPRESSION PRECISION]
-{E_ANIME_FACE_DETAIL}
+[EXPRESSION AND VISIBILITY]
+Use the current shot's gaze, head tilt and expression with the selected character's own face. Keep eyes hidden by a canonical visor, eye covering, fringe, profile angle or crop hidden; never reveal or duplicate them.
 
 [REFERENCE ROLES]
 All images except the last define only the selected character's face, eyes, hair, fixed identity accessories, species anatomy, age impression and proportions. Ignore their clothing, weapons, poses, companions, backgrounds and lighting. The last image alone defines this shot's outfit, pose, hand contacts, camera, crop, props, setting, light direction and palette; never copy its person's identity, hair, makeup, body type or temporary accessories. The current shot overrides set-wide pose or outfit alternatives. Keep two continuous arms and the observed hand contacts; hidden or cropped limbs stay hidden.
@@ -1046,9 +1036,6 @@ All images except the last define only the selected character's face, eyes, hair
 
 [EXCLUSIVE PHOTOSET GARMENT]
 Use only the last image's garment, even when every character reference repeats the original costume. Match its color, neckline, straps or sleeves, panels, waist, lower garment, hem, layers, fabric, pattern and trim. Do not mix in character-reference clothing, armor, cape, belts or costume ornaments. Preserve canonical head fixtures, permanent jewelry, species structures and signature hats; these do not authorize copying the rest of the costume. Character color anchors apply to identity features, not garment recoloring.
-
-[DRAWN LIGHT AND MATERIALS]
-Reference highlights, soft light, rims, reflections, blur and bokeh specify placement and color, not photographic rendering. Translate them into drawn shapes, selective highlights and simplified distant color masses. Keep the face, skin, hair, fabric and background in the same 2D medium. Do not add window shadows, glow or effects absent from the current reference.
 
 [PHOTOSET DESIGN]
 {template.global_identity}
@@ -1070,4 +1057,4 @@ def prompt_for_shot(character_name: str, template: PhotosetTemplate, shot: Photo
         body = _prompt_for_adapted_shot(character_name, template, shot)
     else:
         body = _prompt_for_original_shot(character_name, template, shot)
-    return f"{PHOTOSET_STYLE_PREFIX}\n\n{body}"
+    return body

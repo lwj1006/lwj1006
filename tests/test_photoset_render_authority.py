@@ -1,5 +1,5 @@
 import unittest
-from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,E_ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY,PHOTOSET_STYLE_PREFIX
+from fenjue.modes.photoset_template.library import load_template,prompt_for_shot,ANIME_FACE_DETAIL,PHOTOSET_RENDER_AUTHORITY,PHOTOSET_STYLE_PREFIX
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 from fenjue.modes.original.plans import required_identity_tokens_for
 
@@ -9,15 +9,20 @@ class RenderAuthorityTests(unittest.TestCase):
             template=load_template(variant)
             for fn in (prompt_for_shot,prompt_for_refined_shot):
                 output=fn('艾尔妲',template,template.shots[0])
-                self.assertTrue(output.startswith(PHOTOSET_STYLE_PREFIX + '\n\n'))
-                self.assertEqual(output.count(PHOTOSET_STYLE_PREFIX),1)
+                if fn is prompt_for_refined_shot:
+                    self.assertTrue(output.startswith(PHOTOSET_STYLE_PREFIX + '\n\n'))
+                    self.assertEqual(output.count(PHOTOSET_STYLE_PREFIX),1)
+                else:
+                    self.assertNotIn(PHOTOSET_STYLE_PREFIX,output)
+                    self.assertTrue(output.startswith('Independent image task.'))
 
     def test_final_send_wrapper_preserves_style_and_other_modes(self):
         from fenjue.runtime.batch import with_image_prompt_prefix, IMAGE_PROMPT_PREFIX
         template=load_template('607_A_3')
         for fn in (prompt_for_shot,prompt_for_refined_shot):
             output=fn('扳机',template,template.shots[0])
-            self.assertEqual(with_image_prompt_prefix(output),output)
+            expected = output if fn is prompt_for_refined_shot else IMAGE_PROMPT_PREFIX+'\n'+output
+            self.assertEqual(with_image_prompt_prefix(output),expected)
             self.assertIn('Keep eyes hidden by a canonical visor',output)
             self.assertNotIn('Must keep visible:',output)
         ordinary='Create one image.'
@@ -32,9 +37,10 @@ class RenderAuthorityTests(unittest.TestCase):
                     with self.subTest(template=tid,character=character,mode=fn.__name__):
                         output=fn(character,t,t.shots[0])
                         if fn is prompt_for_shot:
-                            self.assertIn(E_ANIME_FACE_DETAIL,output)
+                            self.assertIn('[EXPRESSION AND VISIBILITY]',output)
                             self.assertIn('[REFERENCE ROLES]',output)
-                            self.assertIn('[DRAWN LIGHT AND MATERIALS]',output)
+                            self.assertNotIn('[DRAWN LIGHT AND MATERIALS]',output)
+                            self.assertNotIn('[ANIME FACE AND EXPRESSION PRECISION]',output)
                         else:
                             self.assertIn(ANIME_FACE_DETAIL,output)
                             self.assertIn(PHOTOSET_RENDER_AUTHORITY,output)

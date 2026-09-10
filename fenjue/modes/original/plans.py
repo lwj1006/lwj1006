@@ -621,6 +621,24 @@ CHARACTER_PROFILES = {
         "interaction_rule": "Keep exactly one high rear ponytail and exactly one crystalline right arm; the left arm remains ordinary. The right-arm crystal anatomy is continuous and body-fitted, never a second arm, loose sleeve, oversized weapon, or duplicated gauntlet. Swords, floating shards, combat effects, and the white-blue reference battle dress are optional and must not replace the selected photoset outfit or scene.",
         "color_anchor": "silver white, ice blue, dark indigo, electric cyan, vivid crimson",
     },
+    "克拉蕾": {
+        "official_core": "golden-blonde hair in two high voluminous ponytails with warm brown underlayers and layered outward-curled ends; thick segmented bangs and short outward-curving cheek locks; narrow crimson accents beside the face and long dark-red ribbon streamers along the ponytails; paired silver-white rounded ponytail fasteners; small silver crossed hair clips at the bangs; red-orange irises with bright pink diamond-like centers; small pointed upper fangs visible only when the mouth permits; a compact softly tapered face with large defined anime eyes; balanced slender feminine human proportions.",
+        "identity_tokens": [
+            "golden-blonde hair in two high voluminous ponytails with warm brown underlayers and layered outward-curled ends",
+            "thick segmented bangs and short outward-curving cheek locks",
+            "narrow crimson accents beside the face and long dark-red ribbon streamers along the ponytails",
+            "paired silver-white rounded ponytail fasteners",
+            "small silver crossed hair clips at the bangs",
+            "red-orange irises with bright pink diamond-like centers",
+            "small pointed upper fangs visible only when the mouth permits",
+            "a compact softly tapered face with large defined anime eyes",
+            "balanced slender feminine human proportions"
+        ],
+        "viewer_relationship": "Alert and self-possessed; follow the current shot for eye contact and expression.",
+        "thumbnail_strategy": "Keep the high blonde twin-ponytail silhouette, red accents, silver fasteners and red-orange eyes distinct.",
+        "interaction_rule": "Keep two separate high ponytails; ribbon streamers are accessories, not extra hair bundles or anatomy. Preserve human limbs. Do not force a wink or open mouth from the reference portrait. The polearm, blade shapes, arm guards, dark trailing fabric and bat-patterned legwear are removable equipment and clothing, not wings, body markings or fixed identity accessories. The current photoset alone determines clothing and pose.",
+        "color_anchor": "golden blonde, warm brown hair shadows, crimson hair accents, silver-white hair fasteners, red-orange eyes"
+    },
     "希希芙": {
         "official_core": "golden-blonde hair with warm peach-brown lower lengths; one long high side-back ponytail; thick curved bangs with a long central point; outward-curled cheek locks and a curved crown ahoge; a narrow temple braid; red eyes with pale cyan iris accents; small pointed fangs; dark loop-shaped forehead hair clip; white pompom and dark ribbon at the ponytail base; small silver ear ornaments; balanced feminine human proportions.",
         "identity_tokens": ["golden-blonde hair with warm peach-brown lower lengths", "one long high side-back ponytail", "thick curved bangs with a long central point", "outward-curled cheek locks and a curved crown ahoge", "a narrow temple braid", "red eyes with pale cyan iris accents", "small pointed fangs", "dark loop-shaped forehead hair clip", "white pompom and dark ribbon at the ponytail base", "small silver ear ornaments", "balanced feminine human proportions"],
@@ -1892,6 +1910,7 @@ KNOWN_CHARACTER_NAMES = [
     "希希芙",
     "德蕾琪娜·挽昼",
     "艾尔妲",
+    "克拉蕾",
     "今汐",
     "千咲",
     "卡提希娅",

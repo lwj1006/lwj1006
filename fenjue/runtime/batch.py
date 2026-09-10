@@ -95,6 +95,10 @@ def record_run_session_progress(run_number: int) -> None:
 
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
+    "克拉蕾": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "克拉蕾1.png"),
+        str(PROJECT_DIR / "assets" / "绝区零" / "克拉蕾2.png"),
+    ],
     "Saber": [
         str(PROJECT_DIR / "assets" / "星铁" / "Saber1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "Saber2.png"),
@@ -481,6 +485,7 @@ CHARACTER_SEQUENCE = [
     "德蕾琪娜·挽昼",
     "林德薇恩",
     "艾尔妲",
+    "克拉蕾",
     "今汐",
     "千咲",
     "卡提希娅",
@@ -539,11 +544,11 @@ CHARACTER_SEQUENCE = [
     "银狼LV.999",
     "风堇",
 ]
-ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:34]
-WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[34:56]
-ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[56:63]
-GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[63:67]
-HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[67:]
+ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:35]
+WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[35:57]
+ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[57:64]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[64:68]
+HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[68:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,

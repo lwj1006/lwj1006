@@ -7,7 +7,7 @@ from fenjue.modes.photoset_template.library import load_template, prompt_for_sho
 from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
 
 
-ZZZ_ADDITIONS = ('希希芙', '德蕾琪娜·挽昼', '林德薇恩', '艾尔妲')
+ZZZ_ADDITIONS = ('克拉蕾', '希希芙', '德蕾琪娜·挽昼', '林德薇恩', '艾尔妲')
 WW_ADDITIONS = ('奥古斯塔', '清宵', '折枝', '漂泊者', '弗洛洛', '穗穗')
 REPLACEMENTS = ('千咲', '琳奈', '绯雪')
 
@@ -29,6 +29,17 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
                 with self.subTest(character=name):
                     self.assertIn(name, group)
                     self.assertTrue(all(Path(p).parent.name == directory for p in batch.CHARACTER_REFERENCES[name]))
+
+    def test_claret_launcher_and_reference_order(self):
+        name = '克拉蕾'
+        index = batch.CHARACTER_SEQUENCE.index(name) + 1
+        self.assertEqual(batch._parse_character_selection(name), [name])
+        self.assertEqual(batch._parse_character_selection(str(index)), [name])
+        self.assertEqual([Path(p).name for p in batch.reference_files_for_character(name)],
+                         ['克拉蕾1.png', '克拉蕾2.png'])
+        self.assertIn(name, batch.ZENLESS_ZONE_ZERO_CHARACTERS)
+        self.assertEqual(batch.WUTHERING_WAVES_CHARACTERS[0], '今汐')
+        self.assertEqual(batch.HONKAI_STAR_RAIL_CHARACTERS[0], 'Saber')
 
     def test_replacement_refs_use_only_the_new_sets(self):
         for name, expected in {'千咲': ['千咲1.png', '千咲2.png', '千咲3.jpg'],
