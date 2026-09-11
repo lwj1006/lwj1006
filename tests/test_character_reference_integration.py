@@ -36,7 +36,7 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
         self.assertEqual(batch._parse_character_selection(name), [name])
         self.assertEqual(batch._parse_character_selection(str(index)), [name])
         self.assertEqual([Path(p).name for p in batch.reference_files_for_character(name)],
-                         ['克拉蕾1.png', '克拉蕾2.png'])
+                         ['克拉蕾_front.png', '克拉蕾1.png', '克拉蕾2.png'])
         self.assertIn(name, batch.ZENLESS_ZONE_ZERO_CHARACTERS)
         self.assertEqual(batch.WUTHERING_WAVES_CHARACTERS[0], '今汐')
         self.assertEqual(batch.HONKAI_STAR_RAIL_CHARACTERS[0], 'Saber')
@@ -90,9 +90,9 @@ class CharacterReferenceIntegrationTests(unittest.TestCase):
 
     def test_three_related_characters_have_separate_complete_reference_sets(self):
         expected = {
-            '德蕾琪娜·挽昼': ['德蕾琪娜·挽昼1.png', '德蕾琪娜·挽昼2.png'],
-            '林德薇恩': ['林德薇恩1.png', '林德薇恩2.png'],
-            '艾尔妲': ['艾尔妲1.png', '艾尔妲2.png'],
+            '德蕾琪娜·挽昼': ['德蕾琪娜·挽昼_front.png', '德蕾琪娜·挽昼1.png', '德蕾琪娜·挽昼2.png'],
+            '林德薇恩': ['林德薇恩_front.png', '林德薇恩1.png', '林德薇恩2.png'],
+            '艾尔妲': ['艾尔妲_front.png', '艾尔妲1.png', '艾尔妲2.png'],
         }
         all_paths = []
         for name, names in expected.items():

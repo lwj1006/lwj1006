@@ -96,85 +96,99 @@ def record_run_session_progress(run_number: int) -> None:
 # Random character mode. Each run can upload one, two, or three character references.
 CHARACTER_REFERENCES = {
     "克拉蕾": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "克拉蕾_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "克拉蕾1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "克拉蕾2.png"),
     ],
     "Saber": [
         str(PROJECT_DIR / "assets" / "星铁" / "Saber1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "Saber2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "Saber3.png"),
     ],
     "阿格莱雅": [
-        str(PROJECT_DIR / "assets" / "星铁" / "阿格莱雅1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "阿格莱雅1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "阿格莱雅2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "阿格莱雅3.png"),
     ],
     "火花": [
         str(PROJECT_DIR / "assets" / "星铁" / "火花1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "火花2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "火花3.png"),
     ],
     "花火": [
         str(PROJECT_DIR / "assets" / "星铁" / "花火1.png"),
-        str(PROJECT_DIR / "assets" / "星铁" / "花火2.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "花火2.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "花火3.png"),
     ],
     "青雀": [
-        str(PROJECT_DIR / "assets" / "星铁" / "青雀1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "青雀1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "青雀2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "青雀3.png"),
     ],
     "昔涟": [
         str(PROJECT_DIR / "assets" / "星铁" / "昔涟1.png"),
-        str(PROJECT_DIR / "assets" / "星铁" / "昔涟2.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "昔涟2.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "昔涟3.png"),
     ],
     "大丽花": [
-        str(PROJECT_DIR / "assets" / "星铁" / "大丽花1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "大丽花1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "大丽花2.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "大丽花3.png"),
     ],
     "大黑塔": [
         str(PROJECT_DIR / "assets" / "星铁" / "大黑塔1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "大黑塔2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "大黑塔3.png"),
     ],
     "知更鸟·晴歌": [
-        str(PROJECT_DIR / "assets" / "星铁" / "只更鸟晴歌1.png"),
-        str(PROJECT_DIR / "assets" / "星铁" / "只更鸟晴歌2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "知更鸟·晴歌1.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "知更鸟·晴歌2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "知更鸟·晴歌3.png"),
     ],
     "知更鸟": [
         str(PROJECT_DIR / "assets" / "星铁" / "知更鸟1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "知更鸟2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "知更鸟3.png"),
     ],
     "停云": [
         str(PROJECT_DIR / "assets" / "星铁" / "停云" / "1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "停云" / "2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "停云" / "3.png"),
     ],
     "忘归人": [
-        str(PROJECT_DIR / "assets" / "星铁" / "停云1.png"),
-        str(PROJECT_DIR / "assets" / "星铁" / "停云3.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "忘归人1.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "忘归人2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "忘归人3.png"),
     ],
     "符玄": [
-        str(PROJECT_DIR / "assets" / "星铁" / "符玄1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "符玄1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "符玄2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "符玄3.png"),
     ],
     "流萤": [
         str(PROJECT_DIR / "assets" / "星铁" / "流萤1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "流萤2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "流萤3.png"),
     ],
     "爻光": [
         str(PROJECT_DIR / "assets" / "星铁" / "爻光1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "爻光2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "爻光3.png"),
     ],
     "遐蝶": [
-        str(PROJECT_DIR / "assets" / "星铁" / "遐蝶1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "遐蝶1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "遐蝶2.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "遐蝶3.png"),
     ],
     "阮·梅": [
-        str(PROJECT_DIR / "assets" / "星铁" / "阮•梅2.jpg"),
-        str(PROJECT_DIR / "assets" / "星铁" / "阮•梅3.png"),
-        str(PROJECT_DIR / "assets" / "星铁" / "阮•梅1.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "阮·梅1.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "阮·梅2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "阮·梅3.png"),
     ],
     "卡芙卡": [
         str(PROJECT_DIR / "assets" / "星铁" / "卡芙卡1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "卡芙卡2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "卡芙卡3.png"),
     ],
     "姬子": [
         str(PROJECT_DIR / "assets" / "星铁" / "姬子1.png"),
@@ -184,35 +198,45 @@ CHARACTER_REFERENCES = {
     "灵砂": [
         str(PROJECT_DIR / "assets" / "星铁" / "灵砂1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "灵砂2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "灵砂3.png"),
     ],
     "绯英": [
         str(PROJECT_DIR / "assets" / "星铁" / "绯英1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "绯英2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "绯英3.png"),
     ],
     "银狼": [
         str(PROJECT_DIR / "assets" / "星铁" / "银狼1.png"),
-    ],
-    "银狼LV.999": [
         str(PROJECT_DIR / "assets" / "星铁" / "银狼2.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "银狼3.png"),
     ],
+    "银狼LV.999": [
+        str(PROJECT_DIR / "assets" / "星铁" / "银狼LV.9991.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "银狼LV.9992.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "银狼LV.9993.png"),
+    ],
     "风堇": [
-        str(PROJECT_DIR / "assets" / "星铁" / "风堇1.jpg"),
+        str(PROJECT_DIR / "assets" / "星铁" / "风堇1.png"),
         str(PROJECT_DIR / "assets" / "星铁" / "风堇2.png"),
+        str(PROJECT_DIR / "assets" / "星铁" / "风堇3.png"),
     ],
     "希希芙": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "希希芙_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "希希芙1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "希希芙2.png"),
     ],
     "林德薇恩": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "林德薇恩2.png"),
     ],
     "艾尔妲": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "艾尔妲2.png"),
     ],
     "德蕾琪娜·挽昼": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "德蕾琪娜·挽昼2.png"),
     ],
@@ -325,6 +349,7 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "绝区零" / "安比3.png"),
     ],
     "可琳": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "可琳_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "可琳1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "可琳2.png"),
     ],
@@ -334,6 +359,7 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "绝区零" / "艾莲3.png"),
     ],
     "琉音": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "琉音_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "琉音1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "琉音2.png"),
     ],
@@ -343,6 +369,7 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "绝区零" / "耀嘉音3.png"),
     ],
     "柏妮思": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "柏妮思_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "柏妮思1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "柏妮思2.png"),
     ],
@@ -357,22 +384,27 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "绝区零" / "简3.png"),
     ],
     "月城柳": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "月城柳_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "柳1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "柳2.png"),
     ],
     "青衣": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "青衣_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "青衣1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "青衣2.png"),
     ],
     "伊芙琳": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "伊芙琳_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "伊芙琳1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "伊芙琳2.png"),
     ],
     "朱鸢": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "朱鸢_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "朱鸢1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "朱鸢2.png"),
     ],
     "卢西娅": [
+        str(PROJECT_DIR / "assets" / "绝区零" / "卢西娅_front.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "卢西娅1.png"),
         str(PROJECT_DIR / "assets" / "绝区零" / "卢西娅2.png"),
     ],

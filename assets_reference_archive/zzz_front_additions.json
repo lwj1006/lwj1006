@@ -1,0 +1,171 @@
+{
+  "可琳": {
+    "generated": "assets/绝区零/可琳_front.png",
+    "originals": [
+      "assets/绝区零/可琳1.png",
+      "assets/绝区零/可琳2.png"
+    ],
+    "original_sha256": [
+      "18b6c9331735abedda638a2dd7a8cf5b1346d5a489241828fa94a0d2dbc402e0",
+      "e4301a7f82d3f5f11cc9f26a10c972fc79b05bc6e4e423530259aeec9257e561"
+    ],
+    "generated_sha256": "20ac96e543abbd7733ecbdde3dc00220014a6d87107c05b0bb41f31065d8baf2",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "琉音": {
+    "generated": "assets/绝区零/琉音_front.png",
+    "originals": [
+      "assets/绝区零/琉音1.png",
+      "assets/绝区零/琉音2.png"
+    ],
+    "original_sha256": [
+      "cccd81c1e856dbfbe44221f5ac5657796e9ef4f9e9eff2aa9b7d6d938b5c3694",
+      "df6fb6789f5c583c3accef199365a85d7045728db9b85537400857e76e616088"
+    ],
+    "generated_sha256": "4aee0c65513d381efa4031345c840ddce4b006105b09d91163a6695cafb076f2",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "柏妮思": {
+    "generated": "assets/绝区零/柏妮思_front.png",
+    "originals": [
+      "assets/绝区零/柏妮思1.png",
+      "assets/绝区零/柏妮思2.png"
+    ],
+    "original_sha256": [
+      "16195e2a4d98f7ccf1a8c2f20924b709e2671716ea52bd51ca1e2ffe5159c725",
+      "7ca4d2afc79c689e3bbda85a1c6229901b4856bf56a73f9353e6a1518b57b775"
+    ],
+    "generated_sha256": "2b95d86aa2694ac88efa081bf7f0b0197d6e992dbb794c3a94df9eef32af346d",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "月城柳": {
+    "generated": "assets/绝区零/月城柳_front.png",
+    "originals": [
+      "assets/绝区零/柳1.png",
+      "assets/绝区零/柳2.png"
+    ],
+    "original_sha256": [
+      "ced84eaf65598bf8ccbec0c6efad1eaabf0c770e2d7ed257e86b401457192199",
+      "d2d2f25c8ded194ad33ee75ddd079b543ef713ade56984d34ebb652785f021ec"
+    ],
+    "generated_sha256": "4103a262863e31d260516b1e68ce88d01871435df79c89163b38b372153ced78",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "青衣": {
+    "generated": "assets/绝区零/青衣_front.png",
+    "originals": [
+      "assets/绝区零/青衣1.png",
+      "assets/绝区零/青衣2.png"
+    ],
+    "original_sha256": [
+      "570bc734b23b0aa0e9b42b2fbbe950f1c8684656fa55662ca23b57d9fc1794bc",
+      "c00fe1c3110dc5e9ac908a49f5e1bc3b8fe809787db5a961635087566fa4e427"
+    ],
+    "generated_sha256": "91d7301d6b1e99bfcfdd80bd0de5779b0365c5bdd4f1abf4303cbc4f2f42e756",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "伊芙琳": {
+    "generated": "assets/绝区零/伊芙琳_front.png",
+    "originals": [
+      "assets/绝区零/伊芙琳1.png",
+      "assets/绝区零/伊芙琳2.png"
+    ],
+    "original_sha256": [
+      "9f8d2d8efde17be50cf0a5ee30b57f6e5ea8515c9ada994c7b7bd693138ebaa3",
+      "98ee26ce256c6cfb89baff83e32a47e0c6fc567e30b72113df4333c1dde10027"
+    ],
+    "generated_sha256": "ace0b8e9e68205849340651ddc8f1b606f9ac75b1757c673a8aad570495ae76a",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "朱鸢": {
+    "generated": "assets/绝区零/朱鸢_front.png",
+    "originals": [
+      "assets/绝区零/朱鸢1.png",
+      "assets/绝区零/朱鸢2.png"
+    ],
+    "original_sha256": [
+      "bfb00ffabd8efe57483d379621496ab889966e24f1aaf7bc79a819c897b47796",
+      "703c39cb85319dc78797eb864737c013ecde0aa7527e62e09f1482b69a9d04f6"
+    ],
+    "generated_sha256": "e13076b1a1fc22c1725b192fccafd5c8eadc9b6f7cd33155e9f6fce80bf844e6",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "卢西娅": {
+    "generated": "assets/绝区零/卢西娅_front.png",
+    "originals": [
+      "assets/绝区零/卢西娅1.png",
+      "assets/绝区零/卢西娅2.png"
+    ],
+    "original_sha256": [
+      "ffa7d029dae39500706f1bb0563437450aad67729cb16db1c6f405dffe14c170",
+      "e364cb928409c6123da284f4b1c2d807600656080ca01ec5a5fbcb4fd2c67660"
+    ],
+    "generated_sha256": "30eb54b334f07caeceec5e030e89e012bc0cab66a8fe959b4b3adeb2c14f4d5a",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "希希芙": {
+    "generated": "assets/绝区零/希希芙_front.png",
+    "originals": [
+      "assets/绝区零/希希芙1.png",
+      "assets/绝区零/希希芙2.png"
+    ],
+    "original_sha256": [
+      "9d71eca743dfd53a6d97d18e254f4c3707ac36cce619ed0530cfa73c5a5dba88",
+      "ba04ff18eabaa20092a26b67fea9699a2497f0fbab83a74c16c55d456c99acf9"
+    ],
+    "generated_sha256": "826f14894c467cb907925db19b3bf8d5d4ab158858b40bd8f3c55895b9384653",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "德蕾琪娜·挽昼": {
+    "generated": "assets/绝区零/德蕾琪娜·挽昼_front.png",
+    "originals": [
+      "assets/绝区零/德蕾琪娜·挽昼1.png",
+      "assets/绝区零/德蕾琪娜·挽昼2.png"
+    ],
+    "original_sha256": [
+      "f135468d2945c94068b0fe65180302ed763b49ba66644d0ab2394ded73346203",
+      "e19dbd7c27456187b3f3d1eccb33389a47f338841eca9a0857984dccd5163c70"
+    ],
+    "generated_sha256": "58b3075a450dbec39b73e5c7bb7be90821a87d1725e4f9283d9c98d16b65096d",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "林德薇恩": {
+    "generated": "assets/绝区零/林德薇恩_front.png",
+    "originals": [
+      "assets/绝区零/林德薇恩1.png",
+      "assets/绝区零/林德薇恩2.png"
+    ],
+    "original_sha256": [
+      "746a2367ce5e1e0cbd167327eb9d13e07e90833ed3f487c6e1fbbce432430876",
+      "63e1eee3d8a0a9d73d65622139ce40881360b8131b080225fbd759ef5b3284a3"
+    ],
+    "generated_sha256": "d1699fdfdb7aff7b29eb3ec2e28cc963ff5d4f9280e6f75495232d437b33fb94",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "艾尔妲": {
+    "generated": "assets/绝区零/艾尔妲_front.png",
+    "originals": [
+      "assets/绝区零/艾尔妲1.png",
+      "assets/绝区零/艾尔妲2.png"
+    ],
+    "original_sha256": [
+      "df468317dcb69ee4fe29699980a5bafede1d4831a014e2513e74f4384bd96dfc",
+      "3564b9790cd53d4fbeca9f715f16d86d7ed62585f8f1e2feab8e9e7c40f05a57"
+    ],
+    "generated_sha256": "cb9b1135f70365521eed550c3bc1282a2a311317d968acaad10e18b8bb1deaa1",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  },
+  "克拉蕾": {
+    "generated": "assets/绝区零/克拉蕾_front.png",
+    "originals": [
+      "assets/绝区零/克拉蕾1.png",
+      "assets/绝区零/克拉蕾2.png"
+    ],
+    "original_sha256": [
+      "e580b6689de3cd9ad34d73d3e026db6886d8e93debf0ddaeb39c2c43efcf14b5",
+      "40049bc292d8b7d555466dc05039f735708e200dd8e41df335bf50c92c098c88"
+    ],
+    "generated_sha256": "6651f23f45e25cefe744de5158f123df7049ce81f2d957fe728ef99f15e09041",
+    "review": "Both source images visually inspected; frontal full-body output reviewed for identity, ornaments, anatomy and complete footwear. Original pair preserved byte-for-byte."
+  }
+}

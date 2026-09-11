@@ -1,5 +1,7 @@
 from pathlib import Path
 import unittest
+import json
+import hashlib
 from unittest.mock import patch
 
 from fenjue.runtime import batch
@@ -14,14 +16,33 @@ STAR_RAIL_NAMES = ('Saber', '阿格莱雅', '火花', '花火', '青雀', '昔�
 
 
 class StarRailIntegrationTests(unittest.TestCase):
-    def test_all_current_images_are_reachable_exactly_once(self):
+    def test_all_characters_have_three_unique_active_references(self):
         self.assertEqual(list(STAR_RAIL_NAMES), batch.HONKAI_STAR_RAIL_CHARACTERS)
         paths = [Path(p) for name in STAR_RAIL_NAMES for p in batch.reference_files_for_character(name)]
-        self.assertEqual(len(paths), 53)
+        self.assertEqual(len(paths), 72)
+        for name in STAR_RAIL_NAMES:
+            self.assertEqual(len(batch.reference_files_for_character(name)), 3, name)
         self.assertEqual(len(paths), len(set(paths)))
         self.assertTrue(all(p.is_file() for p in paths))
-        self.assertEqual(set(paths), {p for p in (batch.PROJECT_DIR / 'assets' / '星铁').rglob('*') if p.is_file()})
+        self.assertTrue(set(paths).issubset({p for p in (batch.PROJECT_DIR / 'assets' / '星铁').rglob('*') if p.is_file()}))
         self.assertFalse(set(STAR_RAIL_NAMES) & set(batch.GENSHIN_IMPACT_CHARACTERS))
+
+    def test_original_art_and_reference_order_are_preserved(self):
+        root = batch.PROJECT_DIR
+        manifest = json.loads((root / 'assets_reference_archive/star_rail_three_refs.json').read_text(encoding='utf-8'))
+        digest = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+        self.assertEqual(set(manifest['characters']), set(STAR_RAIL_NAMES))
+        original_hashes = set()
+        for original in manifest['originals']:
+            self.assertEqual(digest(root / original['archive']), original['sha256'])
+            original_hashes.add(original['sha256'])
+        for name in STAR_RAIL_NAMES:
+            item = manifest['characters'][name]
+            actual = [Path(p) for p in batch.reference_files_for_character(name)]
+            self.assertEqual(actual, [root / p for p in item['references']])
+            self.assertEqual(item['roles'], ['front_full_body', 'front_upper_chest', 'original_official'])
+            self.assertEqual([digest(p) for p in actual], item['sha256'])
+            self.assertIn(digest(actual[2]), original_hashes, name)
 
     def test_launcher_names_numbers_and_random_aliases(self):
         first = batch.CHARACTER_SEQUENCE.index('Saber') + 1
@@ -36,10 +57,10 @@ class StarRailIntegrationTests(unittest.TestCase):
     def test_incompatible_forms_do_not_share_references(self):
         def files(name):
             return [Path(p).name for p in batch.reference_files_for_character(name)]
-        self.assertEqual(files('停云'), ['1.png', '2.png'])
-        self.assertEqual(files('忘归人'), ['停云1.png', '停云3.png'])
-        self.assertEqual(files('银狼'), ['银狼1.png'])
-        self.assertEqual(files('银狼LV.999'), ['银狼2.png', '银狼3.png'])
+        self.assertEqual(files('停云'), ['1.png', '2.png', '3.png'])
+        self.assertEqual(files('忘归人'), ['忘归人1.png', '忘归人2.png', '忘归人3.png'])
+        self.assertEqual(files('银狼'), ['银狼1.png', '银狼2.png', '银狼3.png'])
+        self.assertEqual(files('银狼LV.999'), ['银狼LV.9991.png', '银狼LV.9992.png', '银狼LV.9993.png'])
         for first, second in [('火花', '花火'), ('知更鸟', '知更鸟·晴歌')]:
             self.assertFalse(set(files(first)) & set(files(second)))
 

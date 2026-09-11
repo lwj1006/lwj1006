@@ -1,0 +1,778 @@
+{
+  "originals": [
+    {
+      "source": "assets/星铁/Saber1.png",
+      "archive": "assets_reference_archive/星铁/Saber1.png",
+      "sha256": "c8411770fef723fa9030ce9370d0fce4dabca95592d8ec2093b1503aa098838d"
+    },
+    {
+      "source": "assets/星铁/Saber2.png",
+      "archive": "assets_reference_archive/星铁/Saber2.png",
+      "sha256": "027fe271c909d5a5196f91de668613b8764b10a7a4730cddc29264e7daddc119"
+    },
+    {
+      "source": "assets/星铁/停云/1.png",
+      "archive": "assets_reference_archive/星铁/停云/1.png",
+      "sha256": "ac6bda8670bac56473b781fcff7a9325533c0870513f32d4576e9071784e980a"
+    },
+    {
+      "source": "assets/星铁/停云/2.png",
+      "archive": "assets_reference_archive/星铁/停云/2.png",
+      "sha256": "53c953b2de78562ae018d3e1bfd9eebc6a3bf3ae3e0c7f933674d755e6217b91"
+    },
+    {
+      "source": "assets/星铁/停云/3.png",
+      "archive": "assets_reference_archive/星铁/停云/3.png",
+      "sha256": "48e3858bcdf902fb6f7e712c3f03bf744c23c783ff81a5ade720fa4958f33e34"
+    },
+    {
+      "source": "assets/星铁/停云1.png",
+      "archive": "assets_reference_archive/星铁/停云1.png",
+      "sha256": "e33c9c03b14543d427e86b542bb23286a0b9e6020e1d7c4c5264dfb059d35f49"
+    },
+    {
+      "source": "assets/星铁/停云3.png",
+      "archive": "assets_reference_archive/星铁/停云3.png",
+      "sha256": "8f465c73d14a0375a95e5838508657d0fa24dd7fb5b5b8d9750ed61609056ef0"
+    },
+    {
+      "source": "assets/星铁/卡芙卡1.png",
+      "archive": "assets_reference_archive/星铁/卡芙卡1.png",
+      "sha256": "ed056723963f684650a67b2d050f2f22ebd95fe961f0cb4a9e266e6caf333631"
+    },
+    {
+      "source": "assets/星铁/卡芙卡2.png",
+      "archive": "assets_reference_archive/星铁/卡芙卡2.png",
+      "sha256": "91cbfc7b89d07f60cdd1f2f14e06cefc1ec703ee6bd8fe6c98bd506b11adee59"
+    },
+    {
+      "source": "assets/星铁/卡芙卡3.png",
+      "archive": "assets_reference_archive/星铁/卡芙卡3.png",
+      "sha256": "c1208b3d4d1248d100a5bcd7c45261d853d12d449bd63f7d24e4c4f7381c934f"
+    },
+    {
+      "source": "assets/星铁/只更鸟晴歌1.png",
+      "archive": "assets_reference_archive/星铁/只更鸟晴歌1.png",
+      "sha256": "5dec884f7befda6daac263ba62d75415e3f710206785a8305ce14d6e512e03f8"
+    },
+    {
+      "source": "assets/星铁/只更鸟晴歌2.png",
+      "archive": "assets_reference_archive/星铁/只更鸟晴歌2.png",
+      "sha256": "3a14794ad1dd65da743b94461a9734e0c34b509f256ad4cfadc17ce1852aa466"
+    },
+    {
+      "source": "assets/星铁/大丽花1.jpg",
+      "archive": "assets_reference_archive/星铁/大丽花1.jpg",
+      "sha256": "cd45566025a0b1a2c41428b059d13f8c637a9193ecc912b66e8ab5358df93928"
+    },
+    {
+      "source": "assets/星铁/大丽花2.png",
+      "archive": "assets_reference_archive/星铁/大丽花2.png",
+      "sha256": "35b952cd3f2ef140f431058f828c6ea6296bfd344110fbd0929700f0c44fbee6"
+    },
+    {
+      "source": "assets/星铁/大丽花3.png",
+      "archive": "assets_reference_archive/星铁/大丽花3.png",
+      "sha256": "f763f46a229346119ca6949a7bee034f5718714d70a53af9ce7e90be7ae74f6a"
+    },
+    {
+      "source": "assets/星铁/大黑塔1.png",
+      "archive": "assets_reference_archive/星铁/大黑塔1.png",
+      "sha256": "01668c432f3a1ead799c61f936b4c41e016e069beb32aae005e2a0119fa8adc3"
+    },
+    {
+      "source": "assets/星铁/大黑塔2.png",
+      "archive": "assets_reference_archive/星铁/大黑塔2.png",
+      "sha256": "555edef8355a9e09a7a26cebb9b979b0bfb382fed69e578acf3d368307e681ec"
+    },
+    {
+      "source": "assets/星铁/姬子1.png",
+      "archive": "assets_reference_archive/星铁/姬子1.png",
+      "sha256": "7a49767eb71fb3dfd90fe60acc7debf059ec639b09b7ab04a96129a306904840"
+    },
+    {
+      "source": "assets/星铁/姬子2.png",
+      "archive": "assets_reference_archive/星铁/姬子2.png",
+      "sha256": "43466c2c6d765903ca0e26f8e18b84173ed6dacdfff15e7210aad5b9c5567fad"
+    },
+    {
+      "source": "assets/星铁/姬子3.png",
+      "archive": "assets_reference_archive/星铁/姬子3.png",
+      "sha256": "c2e3f6f7038221e248b2577e15174d15451c82cabb600492684467c8ff3aa226"
+    },
+    {
+      "source": "assets/星铁/昔涟1.png",
+      "archive": "assets_reference_archive/星铁/昔涟1.png",
+      "sha256": "32f1f9957b0b579a8a1f5cbae5ca27370b0fb276afd374cb7b47dba29bb39c95"
+    },
+    {
+      "source": "assets/星铁/昔涟2.jpg",
+      "archive": "assets_reference_archive/星铁/昔涟2.jpg",
+      "sha256": "aa2bc6b6af2b2c8f79350e5ada1a751e28b436c74c475a3594489e96fb1c4c88"
+    },
+    {
+      "source": "assets/星铁/昔涟3.png",
+      "archive": "assets_reference_archive/星铁/昔涟3.png",
+      "sha256": "289209e8573ca268e65ecaa3af6173ce3069bf4841bf184e1744444b8f75d8cf"
+    },
+    {
+      "source": "assets/星铁/流萤1.png",
+      "archive": "assets_reference_archive/星铁/流萤1.png",
+      "sha256": "56dc3029817a5e55af6f96af1ddc9534e0c85419dfdac487e68d58837eef309b"
+    },
+    {
+      "source": "assets/星铁/流萤2.png",
+      "archive": "assets_reference_archive/星铁/流萤2.png",
+      "sha256": "3e2ef2002b299f0791bf3545be5158b8aff8a18b55587efe29f7abeec8d111ef"
+    },
+    {
+      "source": "assets/星铁/流萤3.png",
+      "archive": "assets_reference_archive/星铁/流萤3.png",
+      "sha256": "5c10c4d5f8f6b37846d03b9d678363005f92da7700d90567460422d2f64e04b9"
+    },
+    {
+      "source": "assets/星铁/火花1.png",
+      "archive": "assets_reference_archive/星铁/火花1.png",
+      "sha256": "d6ce1388c158505f2457c506e97700a66d043e8550391a0cf4d97f3e44f603b0"
+    },
+    {
+      "source": "assets/星铁/火花2.png",
+      "archive": "assets_reference_archive/星铁/火花2.png",
+      "sha256": "e02183e158c8354b52795b7c941b8beb48e4f089053d29b8ca9157aa92740d9e"
+    },
+    {
+      "source": "assets/星铁/灵砂1.png",
+      "archive": "assets_reference_archive/星铁/灵砂1.png",
+      "sha256": "c4b0fe3147e638e514d9389ace3b5c9135b511e33a4cdce854d39bd17d932b27"
+    },
+    {
+      "source": "assets/星铁/灵砂2.png",
+      "archive": "assets_reference_archive/星铁/灵砂2.png",
+      "sha256": "46525bd536f7ab38e196901210af8b353d5514d14e869cbd3662362cb3ab7b38"
+    },
+    {
+      "source": "assets/星铁/爻光1.png",
+      "archive": "assets_reference_archive/星铁/爻光1.png",
+      "sha256": "8180572f960b0559ba9312d3cf43165ce2608285e0ad6b8254c388a10352060e"
+    },
+    {
+      "source": "assets/星铁/爻光2.png",
+      "archive": "assets_reference_archive/星铁/爻光2.png",
+      "sha256": "f5b99e7fe58665d3035043645908534b609943a0d6adea20dfc8765138dcbb17"
+    },
+    {
+      "source": "assets/星铁/知更鸟1.png",
+      "archive": "assets_reference_archive/星铁/知更鸟1.png",
+      "sha256": "cfb4da39cc68b1b1c054be4d38e691a62d85587f5a6c292717b0ddc065124187"
+    },
+    {
+      "source": "assets/星铁/知更鸟2.png",
+      "archive": "assets_reference_archive/星铁/知更鸟2.png",
+      "sha256": "a9dbc263a16770ae0e725f945d14a40307b1b6087c72a5064802cdea4d1de666"
+    },
+    {
+      "source": "assets/星铁/知更鸟3.png",
+      "archive": "assets_reference_archive/星铁/知更鸟3.png",
+      "sha256": "32890b5cbc89969c88f93f732814cac015d0304b4d215036e03c95b89182fe24"
+    },
+    {
+      "source": "assets/星铁/符玄1.jpg",
+      "archive": "assets_reference_archive/星铁/符玄1.jpg",
+      "sha256": "5ec9a68b6cae2a1449df30048fa9a0a1aaa00b9759817014e226e60817e80d0f"
+    },
+    {
+      "source": "assets/星铁/符玄2.png",
+      "archive": "assets_reference_archive/星铁/符玄2.png",
+      "sha256": "65bd258f18fe976d9f4fcbe39e38882d9d568daf17f91e6b7a90e44a85f81a45"
+    },
+    {
+      "source": "assets/星铁/绯英1.png",
+      "archive": "assets_reference_archive/星铁/绯英1.png",
+      "sha256": "e4c407dbcecaf30e33091fa6d42cce85a0f8548ffeb42b78576936ca40c45b11"
+    },
+    {
+      "source": "assets/星铁/绯英2.png",
+      "archive": "assets_reference_archive/星铁/绯英2.png",
+      "sha256": "b52fd0c6e1fbf82db1b15a13b6b77643fa79f398e70f1d66e46848660725b466"
+    },
+    {
+      "source": "assets/星铁/花火1.png",
+      "archive": "assets_reference_archive/星铁/花火1.png",
+      "sha256": "1ef727d6c2dd57ee75bf6f345cce7f6cbb9f7f4269dde01a9a9c1f7636867718"
+    },
+    {
+      "source": "assets/星铁/花火2.jpg",
+      "archive": "assets_reference_archive/星铁/花火2.jpg",
+      "sha256": "4f4885cef6c05f093caa1466b13c539071051c38aa6a702ab19139a2475d949f"
+    },
+    {
+      "source": "assets/星铁/花火3.png",
+      "archive": "assets_reference_archive/星铁/花火3.png",
+      "sha256": "549d6d3d0d6314b5c854375e4fb4d371a4ec9170a680b5599fd34f6b0e9f6a29"
+    },
+    {
+      "source": "assets/星铁/遐蝶1.jpg",
+      "archive": "assets_reference_archive/星铁/遐蝶1.jpg",
+      "sha256": "55a07961b5c7853a352e78efc038396baaf7899a7a1241e78369964357031b55"
+    },
+    {
+      "source": "assets/星铁/遐蝶2.png",
+      "archive": "assets_reference_archive/星铁/遐蝶2.png",
+      "sha256": "af2997fcaef1eb737c76870e49385850ec26aa918f00a35ba4169707b9797971"
+    },
+    {
+      "source": "assets/星铁/遐蝶3.png",
+      "archive": "assets_reference_archive/星铁/遐蝶3.png",
+      "sha256": "80e3b0b1fce392d5e67e64a11624a6933351c9ceb41d02b15321cfc2937f7d4e"
+    },
+    {
+      "source": "assets/星铁/银狼1.png",
+      "archive": "assets_reference_archive/星铁/银狼1.png",
+      "sha256": "63dcfe45823a5b3d058e88c1a7179fbaea9598a1885413440426709d236ff535"
+    },
+    {
+      "source": "assets/星铁/银狼2.png",
+      "archive": "assets_reference_archive/星铁/银狼2.png",
+      "sha256": "d4d6512ade6acf670c0c0d2da9af06a4ed45f0950d213f1487443639816d54d7"
+    },
+    {
+      "source": "assets/星铁/银狼3.png",
+      "archive": "assets_reference_archive/星铁/银狼3.png",
+      "sha256": "148e4f0ca3200372543784c1805302870698baf83a1502eb87b2083c1a309b7d"
+    },
+    {
+      "source": "assets/星铁/阮•梅1.png",
+      "archive": "assets_reference_archive/星铁/阮•梅1.png",
+      "sha256": "8b2975eafcfcf23dc973cfca096eb6a747d62bcbb60b03a6b0b042dce6f6995c"
+    },
+    {
+      "source": "assets/星铁/阮•梅2.jpg",
+      "archive": "assets_reference_archive/星铁/阮•梅2.jpg",
+      "sha256": "589d9779090b63f839adb8e077281d19c7fbae5e745f27330a99ff943536ceb1"
+    },
+    {
+      "source": "assets/星铁/阮•梅3.png",
+      "archive": "assets_reference_archive/星铁/阮•梅3.png",
+      "sha256": "03d2b538fea4d8d66fd5fee6251bd741456dbb13f810546d8c85d1142bd2709d"
+    },
+    {
+      "source": "assets/星铁/阿格莱雅1.jpg",
+      "archive": "assets_reference_archive/星铁/阿格莱雅1.jpg",
+      "sha256": "f8e9c6ff995ad06bf070f64ec603254f9e1c37ec907b7a12ae29ef3049b43178"
+    },
+    {
+      "source": "assets/星铁/阿格莱雅2.png",
+      "archive": "assets_reference_archive/星铁/阿格莱雅2.png",
+      "sha256": "99edc2e8b1bc955408f561490009040a7ae2fe01b6e5eb4ef05fe57ddbd6302c"
+    },
+    {
+      "source": "assets/星铁/青雀1.jpg",
+      "archive": "assets_reference_archive/星铁/青雀1.jpg",
+      "sha256": "a3be7a1324c617b4cce823f890a7ddd71d015d20edb3ff5021f78adc9b1bec31"
+    },
+    {
+      "source": "assets/星铁/青雀2.png",
+      "archive": "assets_reference_archive/星铁/青雀2.png",
+      "sha256": "fc6321fbffe0a2f3c49e39f057d5ced0c1032070e9af960e8b34fa0659f4305e"
+    },
+    {
+      "source": "assets/星铁/风堇1.jpg",
+      "archive": "assets_reference_archive/星铁/风堇1.jpg",
+      "sha256": "21a84bda6851f0e10b85117f1e50f3b42adffbede76e36ff92c6d9bca18e8753"
+    },
+    {
+      "source": "assets/星铁/风堇2.png",
+      "archive": "assets_reference_archive/星铁/风堇2.png",
+      "sha256": "dfc0db20ad76f1ab262513676c6cae6a3ea43eb13efd3dc61318fea92014847a"
+    },
+    {
+      "source": "prior-reference/停云1.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/停云1.png",
+      "sha256": "e33c9c03b14543d427e86b542bb23286a0b9e6020e1d7c4c5264dfb059d35f49"
+    },
+    {
+      "source": "prior-reference/停云2.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/停云2.png",
+      "sha256": "48e3858bcdf902fb6f7e712c3f03bf744c23c783ff81a5ade720fa4958f33e34"
+    },
+    {
+      "source": "prior-reference/停云3.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/停云3.png",
+      "sha256": "8f465c73d14a0375a95e5838508657d0fa24dd7fb5b5b8d9750ed61609056ef0"
+    },
+    {
+      "source": "prior-reference/卡芙卡1.jpg",
+      "archive": "assets_reference_archive/星铁/before_20260908/卡芙卡1.jpg",
+      "sha256": "416dbceeb15864dedd7bb1c0c45e554b3e6d8e50d07541a342e5dddee5d04173"
+    },
+    {
+      "source": "prior-reference/卡芙卡2.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/卡芙卡2.png",
+      "sha256": "38b7745b774103d5d20783a25434431c6bbfcdbfe9d47f869a31dc4f144760d9"
+    },
+    {
+      "source": "prior-reference/卡芙卡3.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/卡芙卡3.png",
+      "sha256": "c1208b3d4d1248d100a5bcd7c45261d853d12d449bd63f7d24e4c4f7381c934f"
+    },
+    {
+      "source": "prior-reference/流萤1.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/流萤1.png",
+      "sha256": "34321ce898f89771d04b7234c48400e9d8f2daafba3e7d3911fd3b201d26c765"
+    },
+    {
+      "source": "prior-reference/流萤2.jpg",
+      "archive": "assets_reference_archive/星铁/before_20260908/流萤2.jpg",
+      "sha256": "794ad89bfea072ba82bc980be2dee33acc777b05adfa335a38c944149ae17dea"
+    },
+    {
+      "source": "prior-reference/流萤3.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/流萤3.png",
+      "sha256": "5c10c4d5f8f6b37846d03b9d678363005f92da7700d90567460422d2f64e04b9"
+    },
+    {
+      "source": "prior-reference/知更鸟1.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/知更鸟1.png",
+      "sha256": "13e81a09e8b90e77e6fdd3ffaf172f5e7d6aa3ba024394bae02f8da67de99902"
+    },
+    {
+      "source": "prior-reference/知更鸟2.png",
+      "archive": "assets_reference_archive/星铁/before_20260908/知更鸟2.png",
+      "sha256": "32890b5cbc89969c88f93f732814cac015d0304b4d215036e03c95b89182fe24"
+    }
+  ],
+  "characters": {
+    "Saber": {
+      "references": [
+        "assets/星铁/Saber1.png",
+        "assets/星铁/Saber2.png",
+        "assets/星铁/Saber3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "28b8d460d09f5f2438775cf597198bc4b15765937623285de64cce624138741d",
+        "dd08150481d195a76be48cd4ef762a8d8a09337a3d51d6d2bd05b8fde0d6c1f6",
+        "027fe271c909d5a5196f91de668613b8764b10a7a4730cddc29264e7daddc119"
+      ],
+      "review": "Both generated images visually reviewed: frontal face and shoulders, full body includes feet, chest portrait retains head ornaments; official source kept unchanged."
+    },
+    "阿格莱雅": {
+      "references": [
+        "assets/星铁/阿格莱雅1.png",
+        "assets/星铁/阿格莱雅2.png",
+        "assets/星铁/阿格莱雅3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "5c8c0eaa26c211b79f85352f7d36ee811c7c2cdcb1c621e522db482ef752150f",
+        "249aa1798fa4d5f574157dcd05064375720040efc752952f7dca019870991686",
+        "99edc2e8b1bc955408f561490009040a7ae2fe01b6e5eb4ef05fe57ddbd6302c"
+      ],
+      "review": "Both generated images visually reviewed: frontal face and shoulders, full body includes feet, chest portrait retains head ornaments; official source kept unchanged."
+    },
+    "火花": {
+      "references": [
+        "assets/星铁/火花1.png",
+        "assets/星铁/火花2.png",
+        "assets/星铁/火花3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "16eca039df62e2c73184dd6170b9a3041299716fd96082b18af9e586d5d4ca7e",
+        "dfeeefe752afbc810193574f286b7e9cbe7847f8b0cc8f762da3754680c8dd4a",
+        "e02183e158c8354b52795b7c941b8beb48e4f089053d29b8ca9157aa92740d9e"
+      ],
+      "review": "Both generated images visually reviewed: frontal face and shoulders, full body includes feet, chest portrait retains head ornaments; official source kept unchanged."
+    },
+    "花火": {
+      "references": [
+        "assets/星铁/花火1.png",
+        "assets/星铁/花火2.png",
+        "assets/星铁/花火3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "356ebb9e8ab761e36f1d6a519de38c56f24d562a282e75285807801728887d71",
+        "1834347a7a27419afc54252a3f793c1487eb87f05533af077347e288ea597c3d",
+        "549d6d3d0d6314b5c854375e4fb4d371a4ec9170a680b5599fd34f6b0e9f6a29"
+      ],
+      "review": "Originals and both generated views individually inspected. Frontal face/torso, full feet and fixed ornaments retained; official third preserves original bytes."
+    },
+    "青雀": {
+      "references": [
+        "assets/星铁/青雀1.png",
+        "assets/星铁/青雀2.png",
+        "assets/星铁/青雀3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "0e93fe8bad1667b8342dd5e0c354efb4fbf1ec6487136ff72a56297800078b92",
+        "96c705cf51cf12fed2b2714d3a5004b2dddfbffd44cf600b1a54bab1432cf6a6",
+        "fc6321fbffe0a2f3c49e39f057d5ced0c1032070e9af960e8b34fa0659f4305e"
+      ],
+      "review": "Originals and both generated views individually inspected. Frontal face/torso, full feet and fixed ornaments retained; official third preserves original bytes."
+    },
+    "昔涟": {
+      "references": [
+        "assets/星铁/昔涟1.png",
+        "assets/星铁/昔涟2.png",
+        "assets/星铁/昔涟3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "cb23b4b7dad54c153ede0cd9c392e62b52f83cf97c95a61cfe43f14639676e7d",
+        "a89b4b63cfea04cc5a0cf73cd17e3525d4be68a50d157d16ecb81a25cf9cd8c3",
+        "289209e8573ca268e65ecaa3af6173ce3069bf4841bf184e1744444b8f75d8cf"
+      ],
+      "review": "Originals and both generated views individually inspected. Frontal face/torso, full feet and fixed ornaments retained; official third preserves original bytes."
+    },
+    "大黑塔": {
+      "references": [
+        "assets/星铁/大黑塔1.png",
+        "assets/星铁/大黑塔2.png",
+        "assets/星铁/大黑塔3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "0326a7ef89855f6ef37bc202f80c96a2b0e91fd26f38559133d546dcfab95bcb",
+        "04df96a71e8419cc891ffc9582065028957f596b9c32308ea3ef2a125581a4f1",
+        "555edef8355a9e09a7a26cebb9b979b0bfb382fed69e578acf3d368307e681ec"
+      ],
+      "review": "Originals and both generated views individually inspected. Frontal face/torso, full feet and fixed ornaments retained; official third preserves original bytes."
+    },
+    "大丽花": {
+      "references": [
+        "assets/星铁/大丽花1.png",
+        "assets/星铁/大丽花2.png",
+        "assets/星铁/大丽花3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "7f5a552749137f6a4b202c2f180b97784c82cf89256c466f1ba1b23ab3654f91",
+        "6d3d64359158aa2e4dd8725b012410fea83e0e680def8ff687b6f3d96179d596",
+        "f763f46a229346119ca6949a7bee034f5718714d70a53af9ce7e90be7ae74f6a"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "知更鸟·晴歌": {
+      "references": [
+        "assets/星铁/知更鸟·晴歌1.png",
+        "assets/星铁/知更鸟·晴歌2.png",
+        "assets/星铁/知更鸟·晴歌3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "92d4d16ba57caf9710a234aeb2ce90fbbc0a5aa68acca0e04041af155f90bcfb",
+        "2c506fa5d60ca36e40a30cb3944e59a4924f0daa5df31b21f70624d54c77baf1",
+        "3a14794ad1dd65da743b94461a9734e0c34b509f256ad4cfadc17ce1852aa466"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "忘归人": {
+      "references": [
+        "assets/星铁/忘归人1.png",
+        "assets/星铁/忘归人2.png",
+        "assets/星铁/忘归人3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "7cdee15d9aef966e015b1b6c99ce97e7522287db9609c81f0ad76f86f6feeed4",
+        "dfa5fd2fe1aeae8e4578bd882d335c68517cfcbdf7ed676b9cfb9a07ea9c04f1",
+        "8f465c73d14a0375a95e5838508657d0fa24dd7fb5b5b8d9750ed61609056ef0"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "符玄": {
+      "references": [
+        "assets/星铁/符玄1.png",
+        "assets/星铁/符玄2.png",
+        "assets/星铁/符玄3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "9a6402b81f48949b0e03d440a4463004a0d69617d35011eb9cfdff42043cfcd6",
+        "cc652d5cf08647e262d9c7ef20cf19baf0c09339930472589b45c1b0e0afb21a",
+        "65bd258f18fe976d9f4fcbe39e38882d9d568daf17f91e6b7a90e44a85f81a45"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "爻光": {
+      "references": [
+        "assets/星铁/爻光1.png",
+        "assets/星铁/爻光2.png",
+        "assets/星铁/爻光3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "649fc58d4e281158b063de4e5b2b76fb5484a393dc47e830e765f14e830ed981",
+        "dd75485575821bc0985221cec760048ac19fefaf03dd2a16a2a41a599bdaed1b",
+        "f5b99e7fe58665d3035043645908534b609943a0d6adea20dfc8765138dcbb17"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "阮·梅": {
+      "references": [
+        "assets/星铁/阮·梅1.png",
+        "assets/星铁/阮·梅2.png",
+        "assets/星铁/阮·梅3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "da583f2c068b68f1d92d5dface1f4cae3fa7a4068d858e231e3e79f7218b4945",
+        "2eb42e2c08d5c9c480a7cd17ed9f19cb8b39b8f6cfdaae6bb6879d55a7cfcb8a",
+        "8b2975eafcfcf23dc973cfca096eb6a747d62bcbb60b03a6b0b042dce6f6995c"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "姬子": {
+      "references": [
+        "assets/星铁/姬子1.png",
+        "assets/星铁/姬子2.png",
+        "assets/星铁/姬子3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "f14d2e297fd142da8107231f70b50dc78f3b6824dc499ee394409bf3b8e7339d",
+        "6305f006aee2ae70eea0832f4c6abd3fc212d91c533d123e71b4dada2fca9f23",
+        "43466c2c6d765903ca0e26f8e18b84173ed6dacdfff15e7210aad5b9c5567fad"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "灵砂": {
+      "references": [
+        "assets/星铁/灵砂1.png",
+        "assets/星铁/灵砂2.png",
+        "assets/星铁/灵砂3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "38d0fe6980ed3b9d1c41120fbe35a1e32465c029515df346f63cc411b0f5346e",
+        "24c30eedac4f5368670bf1bc7c121ec29d1bf48f099c501ac57a7fe03be01f68",
+        "46525bd536f7ab38e196901210af8b353d5514d14e869cbd3662362cb3ab7b38"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "绯英": {
+      "references": [
+        "assets/星铁/绯英1.png",
+        "assets/星铁/绯英2.png",
+        "assets/星铁/绯英3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "4700fcfd496a7c5e0a1ee66e9c8eae378aafa24b5fe3485ce533f731d090fa9d",
+        "c8fcf1c3f7f287909f7573736d8319f77dccdad77ae66f8416b1bbc202fca4f2",
+        "b52fd0c6e1fbf82db1b15a13b6b77643fa79f398e70f1d66e46848660725b466"
+      ],
+      "review": "Originals and both generated views individually inspected: frontal face/torso, full feet and fixed ornaments retained; third reference unchanged official source. Chest framing corrected where head accessories were clipped."
+    },
+    "银狼": {
+      "references": [
+        "assets/星铁/银狼1.png",
+        "assets/星铁/银狼2.png",
+        "assets/星铁/银狼3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "9966c6772b7827fe1a41b82ccf6929a4d70282b47319fb6ba365c0f4a76dc39e",
+        "7803004c1f1dfed4a435bd1838fd1d06fb1d153a708cf1d591c871d4d614d75b",
+        "63dcfe45823a5b3d058e88c1a7179fbaea9598a1885413440426709d236ff535"
+      ],
+      "review": "Originals and both generated outputs individually inspected. Strict front poses, complete head accessories and footwear checked. LV.999 three-prong ornament corrected; Castorice crown framing corrected. Original official third image preserved byte-for-byte."
+    },
+    "银狼LV.999": {
+      "references": [
+        "assets/星铁/银狼LV.9991.png",
+        "assets/星铁/银狼LV.9992.png",
+        "assets/星铁/银狼LV.9993.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "afc034f2f0a28c1832f1792fa635c80ae135762c4b95a53dd21da7125f211144",
+        "cfcef9e42fff39183678ea0faac87452845815ccef7d670d5e2f6b5ce2faf1ea",
+        "148e4f0ca3200372543784c1805302870698baf83a1502eb87b2083c1a309b7d"
+      ],
+      "review": "Originals and both generated outputs individually inspected. Strict front poses, complete head accessories and footwear checked. LV.999 three-prong ornament corrected; Castorice crown framing corrected. Original official third image preserved byte-for-byte."
+    },
+    "风堇": {
+      "references": [
+        "assets/星铁/风堇1.png",
+        "assets/星铁/风堇2.png",
+        "assets/星铁/风堇3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "c2c005bfc276e2ec5ba74f509076a640e85be25d6e0791ad35e7dcdeabfb550f",
+        "2f261372be3470850c8548344c8f3ae529e3eca4c9e8d8fac4cff3ca2c429300",
+        "dfc0db20ad76f1ab262513676c6cae6a3ea43eb13efd3dc61318fea92014847a"
+      ],
+      "review": "Originals and both generated outputs individually inspected. Strict front poses, complete head accessories and footwear checked. LV.999 three-prong ornament corrected; Castorice crown framing corrected. Original official third image preserved byte-for-byte."
+    },
+    "遐蝶": {
+      "references": [
+        "assets/星铁/遐蝶1.png",
+        "assets/星铁/遐蝶2.png",
+        "assets/星铁/遐蝶3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "d359747922e1ea70d5b6aaf7985225bc13fd157a4c6955f0f77c68ffc1d26f17",
+        "5beef8d3755afed1919f1133ba5e04e9aaa0c13a3c9c20a557c8d4a6f3b1199d",
+        "80e3b0b1fce392d5e67e64a11624a6933351c9ceb41d02b15321cfc2937f7d4e"
+      ],
+      "review": "Originals and both generated outputs individually inspected. Strict front poses, complete head accessories and footwear checked. LV.999 three-prong ornament corrected; Castorice crown framing corrected. Original official third image preserved byte-for-byte."
+    },
+    "卡芙卡": {
+      "references": [
+        "assets/星铁/卡芙卡1.png",
+        "assets/星铁/卡芙卡2.png",
+        "assets/星铁/卡芙卡3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "ed056723963f684650a67b2d050f2f22ebd95fe961f0cb4a9e266e6caf333631",
+        "91cbfc7b89d07f60cdd1f2f14e06cefc1ec703ee6bd8fe6c98bd506b11adee59",
+        "c1208b3d4d1248d100a5bcd7c45261d853d12d449bd63f7d24e4c4f7381c934f"
+      ],
+      "review": "Retained previously generated frontal pair; restored and visually checked unmodified original official third reference."
+    },
+    "流萤": {
+      "references": [
+        "assets/星铁/流萤1.png",
+        "assets/星铁/流萤2.png",
+        "assets/星铁/流萤3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "56dc3029817a5e55af6f96af1ddc9534e0c85419dfdac487e68d58837eef309b",
+        "3e2ef2002b299f0791bf3545be5158b8aff8a18b55587efe29f7abeec8d111ef",
+        "5c10c4d5f8f6b37846d03b9d678363005f92da7700d90567460422d2f64e04b9"
+      ],
+      "review": "Retained previously generated frontal pair; restored and visually checked unmodified original official third reference."
+    },
+    "知更鸟": {
+      "references": [
+        "assets/星铁/知更鸟1.png",
+        "assets/星铁/知更鸟2.png",
+        "assets/星铁/知更鸟3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "cfb4da39cc68b1b1c054be4d38e691a62d85587f5a6c292717b0ddc065124187",
+        "a9dbc263a16770ae0e725f945d14a40307b1b6087c72a5064802cdea4d1de666",
+        "32890b5cbc89969c88f93f732814cac015d0304b4d215036e03c95b89182fe24"
+      ],
+      "review": "Retained previously generated frontal pair; restored and visually checked unmodified original official third reference."
+    },
+    "停云": {
+      "references": [
+        "assets/星铁/停云/1.png",
+        "assets/星铁/停云/2.png",
+        "assets/星铁/停云/3.png"
+      ],
+      "roles": [
+        "front_full_body",
+        "front_upper_chest",
+        "original_official"
+      ],
+      "sha256": [
+        "ac6bda8670bac56473b781fcff7a9325533c0870513f32d4576e9071784e980a",
+        "53c953b2de78562ae018d3e1bfd9eebc6a3bf3ae3e0c7f933674d755e6217b91",
+        "48e3858bcdf902fb6f7e712c3f03bf744c23c783ff81a5ade720fa4958f33e34"
+      ],
+      "review": "Retained previously generated frontal pair; restored and visually checked unmodified original official third reference."
+    }
+  }
+}
