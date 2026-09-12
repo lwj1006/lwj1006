@@ -12,3 +12,8 @@ The ZZZ manifest records the original pair hashes and generated file hashes.
 Generated illustrations were created with the built-in image generation tool and visually reviewed.
 These character images define identity; the final photoset reference continues to define clothing,
 pose and composition under the existing Mode E prompt rules.
+
+Genshin Impact: all four characters use frontal full-body, frontal waist-up, then unchanged
+official illustration. All 12 previous references are archived here; the eight replaced
+references are removed from active assets. Columbina now uses only the unmasked appearance;
+legacy blindfold selections migrate to unmasked without an interactive choice.

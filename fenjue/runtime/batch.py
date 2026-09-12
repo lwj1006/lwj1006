@@ -440,42 +440,29 @@ CHARACTER_REFERENCES = {
         for name in ("诀", "洛茜", "庄方宜", "艾尔黛拉", "佩丽卡", "陈千语", "弭弗")
     },
     "茜特菈莉": [
-        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉1.jpg"),
-        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉2.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "茜特菈莉3.png"),
     ],
     "桑多涅": [
-        str(PROJECT_DIR / "assets" / "原神" / "桑多涅1.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "桑多涅2.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "桑多涅_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "桑多涅_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "桑多涅3.png"),
     ],
     "哥伦比娅": [
-        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅1.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅2.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅3.jpg"),
     ],
     "丝柯克": [
-        str(PROJECT_DIR / "assets" / "原神" / "丝柯克1.jpg"),
-        str(PROJECT_DIR / "assets" / "原神" / "丝柯克2.jpg"),
+        str(PROJECT_DIR / "assets" / "原神" / "丝柯克_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "丝柯克_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "丝柯克3.png"),
     ],
 }
 
 
-CHARACTER_VARIANT_OPTIONS = {
-    "哥伦比娅": {
-        "blindfold": {
-            "label": "有眼罩",
-            "references": [CHARACTER_REFERENCES["哥伦比娅"][0]],
-            "profile_variant": None,
-        },
-        "unmasked": {
-            "label": "无眼罩",
-            "references": CHARACTER_REFERENCES["哥伦比娅"][1:],
-            "profile_variant": "unmasked",
-        },
-    },
-}
+CHARACTER_VARIANT_OPTIONS = {}
 
 ACTIVE_CHARACTER_VARIANTS: dict[str, str] = {}
 MOUSOU_TENSHI_CHARACTERS = ["南宫", "爱芮", "千夏"]
@@ -2817,6 +2804,10 @@ def _normalize_character_variant(character_name: str, raw_value: str) -> str:
 
 
 def set_character_variant(character_name: str, variant: str) -> None:
+    if character_name == "哥伦比娅":
+        ACTIVE_CHARACTER_VARIANTS[character_name] = "unmasked"
+        set_character_profile_variant(character_name, None)
+        return
     normalized = _normalize_character_variant(character_name, variant)
     option = CHARACTER_VARIANT_OPTIONS[character_name][normalized]
     ACTIVE_CHARACTER_VARIANTS[character_name] = normalized
@@ -2835,6 +2826,8 @@ def configure_character_variants(
     selected = set(character_names)
     arguments = list(sys.argv if arguments is None else arguments)
     saved_variants = saved_variants or {}
+    if "哥伦比娅" in selected:
+        set_character_variant("哥伦比娅", "unmasked")
 
     for character_name, options in CHARACTER_VARIANT_OPTIONS.items():
         if character_name not in selected:

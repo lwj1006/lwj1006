@@ -1,0 +1,78 @@
+{
+  "茜特菈莉": {
+    "references": [
+      "assets/原神/茜特菈莉_front.png",
+      "assets/原神/茜特菈莉_waist.png",
+      "assets/原神/茜特菈莉3.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "455821b5cf576a6e4703104a074c49bc376b6b3e814a18f7d2f27cb23f2482f1",
+      "bd4f5313d15e5f9a5d11a62fe553213458dd3853569624985272a7f50ea8eeaa",
+      "61ebd212fc64d5e1ec40b7e8e6feee3a1c78e0fa2967fadb4dc3e6a07916e7fd"
+    ],
+    "official_archive": "assets_reference_archive/原神/茜特菈莉3.png",
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+  },
+  "桑多涅": {
+    "references": [
+      "assets/原神/桑多涅_front.png",
+      "assets/原神/桑多涅_waist.png",
+      "assets/原神/桑多涅3.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "76a4d3bcd99225bed18d4d2dcf4342332e225ea6cc5e978a3023ee5dd0be0f53",
+      "4b4537d8b23a3c232a22530fd707d815165281e4c8c41e46d92afeaff0f7ba46",
+      "122347dca04cce7217a431d6d72b3fc58cfa6a8d37cb125e72645ed30e63a33d"
+    ],
+    "official_archive": "assets_reference_archive/原神/桑多涅3.png",
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+  },
+  "丝柯克": {
+    "references": [
+      "assets/原神/丝柯克_front.png",
+      "assets/原神/丝柯克_waist.png",
+      "assets/原神/丝柯克3.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "07f51d88a1504d23b63c186428d0e3bbc36e58f6b3fdc3452ecdbd1c9261e537",
+      "c64e4b39a0273b0a4d09f2994136682be9f9e51a87c0b969d5a94fcb1321671f",
+      "45a546c850b2460ff38ddb4e9364779252e9af0c628a26188d37681994bdd585"
+    ],
+    "official_archive": "assets_reference_archive/原神/丝柯克3.png",
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+  },
+  "哥伦比娅": {
+    "references": [
+      "assets/原神/哥伦比娅_front.png",
+      "assets/原神/哥伦比娅_waist.png",
+      "assets/原神/哥伦比娅2.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "f9d944a0f7570b9d757f3904088771e6dcab04df1d041d7b1d2e57d4279e76aa",
+      "0c472a9302ab52aae1efbcb581164b91e4e5b13f5c058f66e91909ea7ad32464",
+      "87c979de7edc812fca30b45b9c0ea1649d1f1067a7265ff837cd61b49ca453b4"
+    ],
+    "official_archive": "assets_reference_archive/原神/哥伦比娅2.png",
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+  }
+}
