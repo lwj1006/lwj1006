@@ -1025,7 +1025,7 @@ def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: P
 Independent image task. Create exactly one finished image.
 
 [EXPRESSION AND VISIBILITY]
-Use the current shot's gaze, head tilt and expression with the selected character's own face. Keep eyes hidden by a canonical visor, eye covering, fringe, profile angle or crop hidden; never reveal or duplicate them.
+Use the current shot's gaze, head tilt and expression with the selected character's own face. Clearly render all facial features and eyes that are visible in this view. Do not add face-covering bangs, shadows, props or cropping. Preserve only occlusion actually required by the character's established eye covering or hairstyle, or by the current shot's view and crop; otherwise keep the face and eyes unobstructed.
 
 [REFERENCE ROLES]
 All images except the last define only the selected character's face, eyes, hair, fixed identity accessories, species anatomy, age impression and proportions. Ignore their clothing, weapons, poses, companions, backgrounds and lighting. The last image alone defines this shot's outfit, pose, hand contacts, camera, crop, props, setting, light direction and palette; never copy its person's identity, hair, makeup, body type or temporary accessories. The current shot overrides set-wide pose or outfit alternatives. Keep two continuous arms and the observed hand contacts; hidden or cropped limbs stay hidden.

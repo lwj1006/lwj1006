@@ -23,7 +23,11 @@ class RenderAuthorityTests(unittest.TestCase):
             output=fn('扳机',template,template.shots[0])
             expected = output if fn is prompt_for_refined_shot else IMAGE_PROMPT_PREFIX+'\n'+output
             self.assertEqual(with_image_prompt_prefix(output),expected)
-            self.assertIn('Keep eyes hidden by a canonical visor',output)
+            if fn is prompt_for_refined_shot:
+                self.assertIn('Keep eyes hidden by a canonical visor',output)
+            else:
+                self.assertNotIn('Keep eyes hidden',output)
+                self.assertIn('Clearly render all facial features and eyes that are visible in this view.',output)
             self.assertNotIn('Must keep visible:',output)
         ordinary='Create one image.'
         self.assertEqual(with_image_prompt_prefix(ordinary),IMAGE_PROMPT_PREFIX+'\n'+ordinary)
@@ -48,6 +52,20 @@ class RenderAuthorityTests(unittest.TestCase):
                             self.assertIn(token,output)
                         if character=='菲比':
                             self.assertIn('oversized white wide-brim hat',output)
+
+    def test_e_visibility_does_not_instruct_new_eye_occlusion(self):
+        for variant in ('045_A_3', '607_A_3'):
+            template = load_template(variant)
+            for name in ('艾尔妲', '德蕾琪娜·挽昼', '扳机', '菲比'):
+                with self.subTest(variant=variant, name=name):
+                    output = prompt_for_shot(name, template, template.shots[0])
+                    self.assertNotIn('Keep eyes hidden', output)
+                    self.assertIn('Do not add face-covering bangs, shadows, props or cropping.', output)
+                    self.assertIn('otherwise keep the face and eyes unobstructed.', output)
+                    self.assertIn('Preserve only occlusion actually required', output)
+                    for token in required_identity_tokens_for(name):
+                        self.assertIn(token, output)
+                    self.assertIn('[EXCLUSIVE PHOTOSET GARMENT]', output)
 
     def test_e_preserves_outfit_color_choices_without_changing_e2_filter(self):
         from fenjue.modes.photoset_template.library import _adapt_shot_prompt
