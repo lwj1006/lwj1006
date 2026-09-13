@@ -61,7 +61,7 @@ class GenshinReferenceTests(unittest.TestCase):
                         self.assertIn(CHARACTER_PROFILES[name]['interaction_rule'], prompt)
                         self.assertEqual('[EXCLUSIVE PHOTOSET GARMENT]' in prompt, assembler is prompt_for_shot)
                         if name == '芙宁娜':
-                            self.assertIn('Preserve the fixed top hat', prompt)
+                            self.assertIn('Render bareheaded.', prompt)
                             self.assertIn('Do not transfer the royal-blue and white costume palette', prompt)
                         else:
                             self.assertIn('one small dark beauty mole below her right eye', prompt)
@@ -96,3 +96,19 @@ class GenshinReferenceTests(unittest.TestCase):
                         for token in required_identity_tokens_for(name):
                             self.assertIn(token, prompt)
                         self.assertEqual('[EXCLUSIVE PHOTOSET GARMENT]' in prompt, assemble is prompt_for_shot)
+
+    def test_hatless_characters_and_furina_eyes_in_production(self):
+        from fenjue.modes.photoset_template.refined import prompt_for_refined_shot
+        for name in ('芙宁娜', '胡桃'):
+            for tid in ('045_A_3', '244_A_3', '248_A_3', '532_A_3', '538_A_3'):
+                t = load_template(tid)
+                for assemble in (prompt_for_shot, prompt_for_refined_shot):
+                    p = assemble(name, t, t.shots[0])
+                    self.assertIn('Render bareheaded.', p)
+                    self.assertIn('overrides general signature-hat preservation', p)
+                    self.assertNotIn('Preserve the fixed top hat', p)
+                    self.assertNotIn('Preserve the fixed plum-decorated hat', p)
+                    if name == '芙宁娜':
+                        self.assertIn('light blue iris with a dark blue droplet-shaped pupil', p)
+                        self.assertIn('deep blue iris with a light blue droplet-shaped pupil', p)
+                        self.assertNotIn('deeper violet-blue', p)

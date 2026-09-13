@@ -590,22 +590,20 @@ CHARACTER_PROFILES = {
         "color_anchor": "pale pink white, dark navy, electric cyan, magenta, small gold accents",
     },
     "芙宁娜": {
-        "official_core": "A delicate face with a small tapered chin and asymmetric blue eyes: her right iris is light cyan-blue and her left iris is deeper violet-blue, with contrasting droplet-like pupil details. White hair has pale ice-blue inner layers, sweeping separated bangs, curled cheek-length side locks, one long curved crown ahoge, and two separate long flowing rear lengths with curled ends. This reference set uses the long-haired appearance. One small ornate royal-blue top hat tilts toward her left, decorated with gold crown-like points, blue teardrop jewels, a blue-and-white striped bow and white trim.",
+        "official_core": "A delicate face with a small tapered chin and asymmetric blue eyes: her anatomical right eye has a light blue iris with a dark blue droplet-shaped pupil; her anatomical left eye has a deep blue iris with a light blue droplet-shaped pupil. White hair has pale ice-blue inner layers, sweeping separated bangs, curled cheek-length side locks, one long curved crown ahoge, and two separate long flowing rear lengths with curled ends. This reference set uses the long-haired, hatless appearance.",
         "identity_tokens": [
             "white hair with pale ice-blue inner layers",
             "sweeping separated bangs and curled cheek-length side locks",
             "one long curved crown ahoge",
             "two separate long flowing rear hair lengths with curled ends",
-            "her right iris light cyan-blue and her left iris deeper violet-blue",
-            "contrasting droplet-like pupil details",
-            "small ornate royal-blue top hat tilted toward her left",
-            "gold crown-like hat points and blue teardrop jewels",
-            "blue-and-white striped hat bow and white trim"
+            "her anatomical right eye has a light blue iris with a dark blue droplet-shaped pupil",
+            "her anatomical left eye has a deep blue iris with a light blue droplet-shaped pupil",
+            "hatless appearance"
         ],
         "viewer_relationship": "Expressive and poised, with a lively attentive gaze; use the current shot for the exact expression rather than forcing a grin or theatrical pose.",
-        "thumbnail_strategy": "Keep the unequal blue eyes, pale curled front locks, single curved ahoge and small tilted crowned top hat legible, with a compact slender adult silhouette and soft facial contours.",
-        "interaction_rule": "Keep the selected long-haired appearance consistent; do not replace the long rear lengths with a short bob or merge them into the coat. Preserve the fixed top hat and its attached decorations independently of the outfit. Eye colors follow her anatomical right and left, never swap them by mirroring. Character reference clothing, gloves, jewelry attached to garments, cane, sword, water effects, companions, pose and framing are not identity requirements; the selected photoset defines clothing, pose, composition, environment and light. Do not transfer the royal-blue and white costume palette onto the photoset garment.",
-        "color_anchor": "white and pale ice blue hair, light cyan and violet-blue eyes, royal blue and gold fixed headwear; these are identity colors, not a garment palette"
+        "thumbnail_strategy": "Keep the contrasting blue irises and droplet pupils, pale curled front locks and single curved ahoge legible, with compact slender proportions and soft facial contours.",
+        "interaction_rule": "Keep the selected long-haired appearance consistent; do not replace the long rear lengths with a short bob or merge them into the coat. Eye colors follow her anatomical right and left, never swap them by mirroring. Character reference clothing, gloves, jewelry attached to garments, cane, sword, water effects, companions, pose and framing are not identity requirements; the selected photoset defines clothing, pose, composition, environment and light. Do not transfer the royal-blue and white costume palette onto the photoset garment. Both irises are blue, not purple or magenta. In frontal view, viewer-left is the light iris with dark droplet and viewer-right is the dark iris with light droplet. Render bareheaded. Ignore the hat and every hat-mounted decoration in the retained official reference; do not move those decorations onto the hair. This character-specific hatless choice overrides general signature-hat preservation and template headwear.",
+        "color_anchor": "white and pale ice-blue hair; light blue and deep blue irises with contrasting blue droplet pupils; no mandatory garment palette"
     },
     "雷电将军": {
         "official_core": "A composed oval face with violet eyes, defined upper lash lines and one small dark beauty mole below the outer portion of her right eye. Deep violet hair has a smooth crown, straight segmented eyebrow-length bangs and separate long face-framing side locks. The rear hair forms exactly one very long thick interwoven braid, grading to lighter lavender toward the lower end. A fixed purple flower cluster with pale centers and angular gold fan-like fittings sits above her right ear. Preserve tall slender adult proportions, a long neck and balanced elongated limbs.",
@@ -627,21 +625,19 @@ CHARACTER_PROFILES = {
         "color_anchor": "deep violet hair with lavender lower braid, violet eyes, purple flowers and gold fixed hair fittings; no mandatory clothing colors"
     },
     "胡桃": {
-        "official_core": "A small tapered face, red eyes with white five-petal flower-shaped pupils, and very long dark brown hair grading to muted red-brown ends. Layered swept bangs cross the forehead without hiding the eyes; curved cheek locks frame the face and two long rear sections flow behind her. A fixed dark flat-brim hat carries a tan frontal talisman plaque, red plum blossoms on her left side and dark ribbon tassels. Preserve a compact slender silhouette.",
+        "official_core": "A small tapered face, red eyes with white five-petal flower-shaped pupils, and very long dark brown hair grading to muted red-brown ends. Layered swept bangs cross the forehead without hiding the eyes; curved cheek locks frame the face and two long rear sections flow behind her. Preserve a compact slender silhouette. Use the hatless appearance.",
         "identity_tokens": [
             "red eyes with white five-petal flower-shaped pupils",
             "very long dark brown hair with muted red-brown ends",
             "layered swept bangs and curved cheek locks",
             "two long flowing rear hair sections",
-            "fixed dark flat-brim hat with a tan frontal talisman plaque",
-            "red plum blossoms on her left side of the hat",
-            "dark hat ribbon tassels",
-            "compact slender silhouette"
+            "compact slender silhouette",
+            "hatless appearance"
         ],
         "viewer_relationship": "Lively attentive eyes and subtle playful facial tension; the shot determines the actual expression and gaze.",
-        "thumbnail_strategy": "Keep the pale flower-shaped pupils, long brown hair and plum-decorated flat hat legible.",
-        "interaction_rule": "Preserve the fixed plum-decorated hat independently of clothing; do not replace it with a template hat. Hair follows the current pose without changing its cut or adding tied sections. The dark coat, shorts, socks, shoes, garment embroidery, polearm, ghosts and flame effects are reference styling, not mandatory identity. Use the photoset clothing and its colors; do not reproduce the reference costume or hat-touching pose.",
-        "color_anchor": "dark brown to muted red-brown hair, red irises and white flower pupils, dark fixed hat with red plum flowers"
+        "thumbnail_strategy": "Keep the white flower-shaped pupils, red eyes, layered brown bangs and very long brown hair legible.",
+        "interaction_rule": "Hair follows the current pose without changing its cut or adding tied sections. The dark coat, shorts, socks, shoes, garment embroidery, polearm, ghosts and flame effects are reference styling, not mandatory identity. Use the photoset clothing and its colors; do not reproduce the reference costume or hat-touching pose. Render bareheaded. Ignore the hat and every hat-mounted decoration in the retained official reference; do not move those decorations onto the hair. This character-specific hatless choice overrides general signature-hat preservation and template headwear.",
+        "color_anchor": "dark brown to muted red-brown hair, red irises and white flower pupils; no mandatory garment palette"
     },
     "八重神子": {
         "official_core": "A slender oval face with violet eyes, fine red upper-eyelid accents and a small chin. Very long soft pink hair is loosely gathered low behind her, with layered center fringe and curved face-framing locks. Two pink fox ears extend outward and downward from the sides of her head. Preserve the curved gold shrine head ornament and gold ear fittings with purple jewels. Tall slender proportions and a long neck remain distinct from the garment silhouette.",

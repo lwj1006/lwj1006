@@ -93,14 +93,14 @@
       "original_official"
     ],
     "sha256": [
-      "3f459062b1cf94ac8ff1d0637483550b079b9aa6cf235e5a347228574f375495",
-      "50f71464476b556e38ef95879bc7338a57b905a0731d902c3b5520a5d8eaa2a4",
+      "0afbae7505cb0c6710d7b3c71235f786759dac22998f8335f01ddcc0c53c688d",
+      "375c8ff3e4d22bbe731226573a47a715d4325db9319b78e66c1263161eb82247",
       "99712289f165637eca3794ef01042f7655b8f7edcb80823cbc297a2eeb8185fe"
     ],
     "official_archive": "assets_reference_archive/原神/芙宁娜_official.jpg",
     "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/4376?lang=en-us",
     "source_image": "https://upload-static.hoyoverse.com/hoyolab-wiki/2023/09/25/151578876/129c1cc128b848f9e5b45a3649a93ccd_7558186121887964453.jpeg",
-    "review": "All official sources and four generated images individually inspected. Furina: long-hair appearance, lighter viewer-left and deeper viewer-right eyes, curled locks and ornate fixed hat; coat/cane are not identity. Raiden: right-eye mole and right-side flowers, single braid and lavender tip; armor, obi and sword are not identity. Full figures face forward with complete feet; upper portraits retain clear eyes and head ornaments."
+    "review": "User-requested hatless full-body and waist-up references, individually reviewed; original official reference retained unchanged. Hat-mounted decorations omitted. Furina eyes use contrasting light/deep blue irises with inverse dark/light droplet pupils."
   },
   "雷电将军": {
     "references": [
@@ -135,14 +135,14 @@
       "original_official"
     ],
     "sha256": [
-      "a96a01fa0967e1e9ded9013ddf1d4b3c328e9615d15423ce30c4a2f0e68aca53",
-      "8f816cdaadb721d59ca3f6855998862e9f503210ef9ec9f33d590992c428dda0",
+      "589401f3eb5dedf8de5f6406a61b187fa3d20c232ba16fa46cc740b529e4e7cd",
+      "a3b7ab347cf34560c9670157b3563d6dfedf4613ecf63776719c6ed91f4f5211",
       "85ba61890e93777952b51156bde2fdbaff1d4c4c880e777cc6f6a87ec4fbe88d"
     ],
     "official_archive": "assets_reference_archive/原神/胡桃_official.jpg",
     "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/34?lang=en-us",
     "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E8%83%A1%E6%A1%83/avatar_header.jpg",
-    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+    "review": "User-requested hatless full-body and waist-up references, individually reviewed; original official reference retained unchanged. Hat-mounted decorations omitted. Furina eyes use contrasting light/deep blue irises with inverse dark/light droplet pupils."
   },
   "八重神子": {
     "references": [
