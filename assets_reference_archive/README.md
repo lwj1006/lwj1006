@@ -13,7 +13,20 @@ Generated illustrations were created with the built-in image generation tool and
 These character images define identity; the final photoset reference continues to define clothing,
 pose and composition under the existing Mode E prompt rules.
 
-Genshin Impact: all four characters use frontal full-body, frontal waist-up, then unchanged
+Genshin Impact: all fourteen characters use frontal full-body, frontal waist-up, then unchanged
 official illustration. All 12 previous references are archived here; the eight replaced
 references are removed from active assets. Columbina now uses only the unmasked appearance;
 legacy blindfold selections migrate to unmasked without an interactive choice.
+
+Furina and Raiden Shogun were added from the linked HoYoWiki official character cards.
+Each has two generated frontal references plus the original downloaded card. The manifest
+records source URLs and hashes. Furina consistently uses the long-haired appearance.
+
+Eight additional Genshin entries each retain their original source as reference 3 and
+in this archive. Six sources come from HoYoWiki character cards; Lumine uses a press-art
+mirror linked in the manifest; Odetta uses the user-provided original unchanged.
+References 1 and 2 are generated frontal full-body and waist-up illustrations.
+
+Proportion correction: Odetta, Columbina and Sandrone have refreshed full-body and
+waist-up references based on the retained originals. Skirk also has corrected full-body and waist-up references. All four original source
+illustrations remain unchanged.

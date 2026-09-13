@@ -99,7 +99,7 @@ CHARACTER_PHOTOSET_ADAPTATIONS = {
         "Mi Fu adaptation: keep the voluminous pale pink-white hair, one-eye fringe, multitone eyes, pointed ears, and two huge navy cyan-edged branching horns attached at the temples. Never shrink the horns into clips."
     ),
     "丝柯克": (
-        "Skirk adaptation: keep mature athletic proportions, one large high rear ponytail within the very long silver-white hair, crimson eyes, and the black-and-cyan crystalline butterfly-fin head ornament. Keep exactly one continuous dark indigo crystalline right arm with blue-violet facets from upper arm through hand; the left arm remains ordinary. Never duplicate the arm, convert it into a weapon, or let a visible short-sleeve photoset outfit rewrite it as ordinary skin."
+        "Skirk adaptation: keep the reference body proportions without exaggerating the bust, waist or leg length, long loose silver-white rear hair without an added ponytail knot, crimson eyes, and the black-and-cyan crystalline butterfly-fin head ornament. Keep exactly one continuous dark indigo crystalline left arm with blue-violet facets from upper arm through hand; the right arm remains ordinary. Never duplicate the arm, convert it into a weapon, or let a visible short-sleeve photoset outfit rewrite it as ordinary skin."
     ),
 }
 

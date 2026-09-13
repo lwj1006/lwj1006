@@ -30,12 +30,14 @@
       "original_official"
     ],
     "sha256": [
-      "76a4d3bcd99225bed18d4d2dcf4342332e225ea6cc5e978a3023ee5dd0be0f53",
-      "4b4537d8b23a3c232a22530fd707d815165281e4c8c41e46d92afeaff0f7ba46",
+      "3690e7c899cc1da4f98611e64bd97ec97bc19edf02a3e8c55f35b43a0eebb2a2",
+      "af31dd6a830fd9dae0f8e92fab237e95f3002d28fb277f1ec88dacf912049cee",
       "122347dca04cce7217a431d6d72b3fc58cfa6a8d37cb125e72645ed30e63a33d"
     ],
     "official_archive": "assets_reference_archive/原神/桑多涅3.png",
-    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified.",
+    "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
+    "pending": ""
   },
   "丝柯克": {
     "references": [
@@ -49,12 +51,14 @@
       "original_official"
     ],
     "sha256": [
-      "07f51d88a1504d23b63c186428d0e3bbc36e58f6b3fdc3452ecdbd1c9261e537",
-      "c64e4b39a0273b0a4d09f2994136682be9f9e51a87c0b969d5a94fcb1321671f",
+      "889e4b0052c1ae11b4095a11c7eb111a3e68b65c2829b568dc23c402d46460d2",
+      "ecb36174f411bf137d7169b23605cf646e29e5ee353dea6999959e9e5b94b129",
       "45a546c850b2460ff38ddb4e9364779252e9af0c628a26188d37681994bdd585"
     ],
     "official_archive": "assets_reference_archive/原神/丝柯克3.png",
-    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+    "review": "Final redraw follows user-supplied in-game model for neutral proportions and bodice coverage; loose rear hair without invented high ponytail, no exaggerated cleavage or enlarged bust. Official source retained unchanged.",
+    "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
+    "pending": ""
   },
   "哥伦比娅": {
     "references": [
@@ -68,11 +72,225 @@
       "original_official"
     ],
     "sha256": [
-      "f9d944a0f7570b9d757f3904088771e6dcab04df1d041d7b1d2e57d4279e76aa",
-      "0c472a9302ab52aae1efbcb581164b91e4e5b13f5c058f66e91909ea7ad32464",
+      "91f2d82b04408b2bf1fd0012a2716881b32049f6cdd1eae8a6de1ebfda6afb5e",
+      "8b39071e29ac584cbeaedba448ff40f018ca4ad8e0c564b2ec0946e01aebcb72",
       "87c979de7edc812fca30b45b9c0ea1649d1f1067a7265ff837cd61b49ca453b4"
     ],
     "official_archive": "assets_reference_archive/原神/哥伦比娅2.png",
-    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified."
+    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified.",
+    "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
+    "pending": ""
+  },
+  "芙宁娜": {
+    "references": [
+      "assets/原神/芙宁娜_front.png",
+      "assets/原神/芙宁娜_waist.png",
+      "assets/原神/芙宁娜_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "3f459062b1cf94ac8ff1d0637483550b079b9aa6cf235e5a347228574f375495",
+      "50f71464476b556e38ef95879bc7338a57b905a0731d902c3b5520a5d8eaa2a4",
+      "99712289f165637eca3794ef01042f7655b8f7edcb80823cbc297a2eeb8185fe"
+    ],
+    "official_archive": "assets_reference_archive/原神/芙宁娜_official.jpg",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/4376?lang=en-us",
+    "source_image": "https://upload-static.hoyoverse.com/hoyolab-wiki/2023/09/25/151578876/129c1cc128b848f9e5b45a3649a93ccd_7558186121887964453.jpeg",
+    "review": "All official sources and four generated images individually inspected. Furina: long-hair appearance, lighter viewer-left and deeper viewer-right eyes, curled locks and ornate fixed hat; coat/cane are not identity. Raiden: right-eye mole and right-side flowers, single braid and lavender tip; armor, obi and sword are not identity. Full figures face forward with complete feet; upper portraits retain clear eyes and head ornaments."
+  },
+  "雷电将军": {
+    "references": [
+      "assets/原神/雷电将军_front.png",
+      "assets/原神/雷电将军_waist.png",
+      "assets/原神/雷电将军_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "4f41f3863a4f73351fb1fcc426347e437232c2b2074ed2d2f5526936f15e843f",
+      "1a5306ae1b8ab651de71985ea8e5ace8a77d84eddd48a5fd8ff983f7288b3a45",
+      "aef2a2e76a010c575dc838c887ffa4ab2011008c8b2d9fae81f8d25f6bf25af6"
+    ],
+    "official_archive": "assets_reference_archive/原神/雷电将军_official.jpg",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/49?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E9%9B%B7%E7%94%B5%E5%B0%86%E5%86%9B/avatar_header.jpg",
+    "review": "All official sources and four generated images individually inspected. Furina: long-hair appearance, lighter viewer-left and deeper viewer-right eyes, curled locks and ornate fixed hat; coat/cane are not identity. Raiden: right-eye mole and right-side flowers, single braid and lavender tip; armor, obi and sword are not identity. Full figures face forward with complete feet; upper portraits retain clear eyes and head ornaments."
+  },
+  "胡桃": {
+    "references": [
+      "assets/原神/胡桃_front.png",
+      "assets/原神/胡桃_waist.png",
+      "assets/原神/胡桃_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "a96a01fa0967e1e9ded9013ddf1d4b3c328e9615d15423ce30c4a2f0e68aca53",
+      "8f816cdaadb721d59ca3f6855998862e9f503210ef9ec9f33d590992c428dda0",
+      "85ba61890e93777952b51156bde2fdbaff1d4c4c880e777cc6f6a87ec4fbe88d"
+    ],
+    "official_archive": "assets_reference_archive/原神/胡桃_official.jpg",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/34?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E8%83%A1%E6%A1%83/avatar_header.jpg",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "八重神子": {
+    "references": [
+      "assets/原神/八重神子_front.png",
+      "assets/原神/八重神子_waist.png",
+      "assets/原神/八重神子_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "c49bca83084e8f79c59998912203541541a84614fd82a38e85558d8c0c31643c",
+      "085b7bdc815c41363d0606443394d91e65e2e693f8a420f9a6134870392ff1ed",
+      "52f0b1b6f5ba36a5ca4295e2bd60b9246ddf8b322fc123b9a2f3dc8b02613cab"
+    ],
+    "official_archive": "assets_reference_archive/原神/八重神子_official.png",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/7?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90/avatar_header.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "神里绫华": {
+    "references": [
+      "assets/原神/神里绫华_front.png",
+      "assets/原神/神里绫华_waist.png",
+      "assets/原神/神里绫华_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "56d6744e12c18423469e292af940e80774a474a94b906debe2dc65b50184cbfd",
+      "7d248666171a273cab4c2d289306f6efec282744103eb8f7249492c655dfe983",
+      "37142bd8c7037741e86b94484f908e55159429b8fdc5b913021bae9950f33dca"
+    ],
+    "official_archive": "assets_reference_archive/原神/神里绫华_official.png",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/32?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E7%A5%9E%E9%87%8C%E7%BB%AB%E5%8D%8E/avatar_header.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "宵宫": {
+    "references": [
+      "assets/原神/宵宫_front.png",
+      "assets/原神/宵宫_waist.png",
+      "assets/原神/宵宫_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "3a3ad67afa45289a98b107895cbf09543cbcc9012f49b9706802453861c8cf38",
+      "ba1e52724164ec82ed229007feddbfc2f313acf014ee85880a7a6271a10ff5e1",
+      "c5da613b4dc36e31199eefe74ebffc638f9b36ab8d0eee6b8d748d6de11424c9"
+    ],
+    "official_archive": "assets_reference_archive/原神/宵宫_official.png",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/15?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E5%AE%B5%E5%AE%AB/avatar_header.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "甘雨": {
+    "references": [
+      "assets/原神/甘雨_front.png",
+      "assets/原神/甘雨_waist.png",
+      "assets/原神/甘雨_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "cd9059ceec3d2ed6864a92f1a23d8b42daf70ae8e5b75f7002cbd33c5db987e6",
+      "4875fbc27b4d20cc1557e9961e1376af6ba2f50261d0a903d65dc7bb53fb7e45",
+      "f8eb29d9b1db55518f74635c0d403b8d2a26ad41b0e6e03e5efd7dbf780673e6"
+    ],
+    "official_archive": "assets_reference_archive/原神/甘雨_official.png",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/28?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E7%94%98%E9%9B%A8/avatar_header.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "申鹤": {
+    "references": [
+      "assets/原神/申鹤_front.png",
+      "assets/原神/申鹤_waist.png",
+      "assets/原神/申鹤_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "0ae479ce8f98f8e48e6e4de4ae82b2f507c6d173860bfc9942a824d2888655b7",
+      "5e2309c07eaf6a5f81e491d969d91729c163afe1502c127e77f8471b2e256aca",
+      "c9c89c9f6712273970330c3902fb488d81b4da0266b852c6f1be3a42e2d9f11e"
+    ],
+    "official_archive": "assets_reference_archive/原神/申鹤_official.jpg",
+    "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/29?lang=en-us",
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E7%94%B3%E9%B9%A4/avatar_header.jpg",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "荧": {
+    "references": [
+      "assets/原神/荧_front.png",
+      "assets/原神/荧_waist.png",
+      "assets/原神/荧_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_official"
+    ],
+    "sha256": [
+      "41f9c6b7df402a9ee28f08979c5c78858a4f7da296901f3786e0091ab42638c3",
+      "8726908128c849fb6c97f03ff08bfa2c820c47af350d941cf9cebafb036e1c8f",
+      "7599151bcd392b81bbf11441330321b93c2c5d2f3d4f22a14d5103174de1abd0"
+    ],
+    "official_archive": "assets_reference_archive/原神/荧_official.png",
+    "source_page": "https://www.gamegrin.com/directory/game/genshin-impact/images",
+    "source_image": "https://www.gamegrin.com/assets/game/genshin-impact/characters/_resampled/SetWidth1920-Lumine.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+  },
+  "奥黛塔": {
+    "references": [
+      "assets/原神/奥黛塔_front.png",
+      "assets/原神/奥黛塔_waist.png",
+      "assets/原神/奥黛塔_official.png"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_waist_up",
+      "original_source"
+    ],
+    "sha256": [
+      "9eb3a343d7ad1cbd6368a3232c7abf7ae818bfb479dc79e221d87c9acbb1fcbf",
+      "653ace7102ab9794afbfdc8264b1c864f9f1ba887713b9cc3249050af534d070",
+      "8d132e9d4a54059d63ddad00f5bdbaaa64676427b5c6acbaa0a0b300ecbc6d2a"
+    ],
+    "official_archive": "assets_reference_archive/原神/奥黛塔_official.png",
+    "source_page": "user-provided reference",
+    "source_image": "D:\\workspace\\temp\\奥黛塔.png",
+    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only.",
+    "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
+    "pending": ""
   }
 }

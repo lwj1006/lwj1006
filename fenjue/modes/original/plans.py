@@ -589,6 +589,172 @@ CHARACTER_PROFILES = {
         "interaction_rule": "Keep both horns attached at the temples and both pointed ears visible; never reduce the horns into clips or detach them as a crown. Combat outfit, gauntlets, cans, and effects are optional.",
         "color_anchor": "pale pink white, dark navy, electric cyan, magenta, small gold accents",
     },
+    "芙宁娜": {
+        "official_core": "A delicate face with a small tapered chin and asymmetric blue eyes: her right iris is light cyan-blue and her left iris is deeper violet-blue, with contrasting droplet-like pupil details. White hair has pale ice-blue inner layers, sweeping separated bangs, curled cheek-length side locks, one long curved crown ahoge, and two separate long flowing rear lengths with curled ends. This reference set uses the long-haired appearance. One small ornate royal-blue top hat tilts toward her left, decorated with gold crown-like points, blue teardrop jewels, a blue-and-white striped bow and white trim.",
+        "identity_tokens": [
+            "white hair with pale ice-blue inner layers",
+            "sweeping separated bangs and curled cheek-length side locks",
+            "one long curved crown ahoge",
+            "two separate long flowing rear hair lengths with curled ends",
+            "her right iris light cyan-blue and her left iris deeper violet-blue",
+            "contrasting droplet-like pupil details",
+            "small ornate royal-blue top hat tilted toward her left",
+            "gold crown-like hat points and blue teardrop jewels",
+            "blue-and-white striped hat bow and white trim"
+        ],
+        "viewer_relationship": "Expressive and poised, with a lively attentive gaze; use the current shot for the exact expression rather than forcing a grin or theatrical pose.",
+        "thumbnail_strategy": "Keep the unequal blue eyes, pale curled front locks, single curved ahoge and small tilted crowned top hat legible, with a compact slender adult silhouette and soft facial contours.",
+        "interaction_rule": "Keep the selected long-haired appearance consistent; do not replace the long rear lengths with a short bob or merge them into the coat. Preserve the fixed top hat and its attached decorations independently of the outfit. Eye colors follow her anatomical right and left, never swap them by mirroring. Character reference clothing, gloves, jewelry attached to garments, cane, sword, water effects, companions, pose and framing are not identity requirements; the selected photoset defines clothing, pose, composition, environment and light. Do not transfer the royal-blue and white costume palette onto the photoset garment.",
+        "color_anchor": "white and pale ice blue hair, light cyan and violet-blue eyes, royal blue and gold fixed headwear; these are identity colors, not a garment palette"
+    },
+    "雷电将军": {
+        "official_core": "A composed oval face with violet eyes, defined upper lash lines and one small dark beauty mole below the outer portion of her right eye. Deep violet hair has a smooth crown, straight segmented eyebrow-length bangs and separate long face-framing side locks. The rear hair forms exactly one very long thick interwoven braid, grading to lighter lavender toward the lower end. A fixed purple flower cluster with pale centers and angular gold fan-like fittings sits above her right ear. Preserve tall slender adult proportions, a long neck and balanced elongated limbs.",
+        "identity_tokens": [
+            "violet eyes with defined upper lash lines",
+            "one small dark beauty mole below her right eye",
+            "deep violet hair with a smooth crown",
+            "straight segmented eyebrow-length bangs",
+            "separate long face-framing side locks",
+            "exactly one very long thick interwoven rear braid",
+            "lighter lavender at the lower braid and loose tip",
+            "purple flower cluster with pale centers above her right ear",
+            "angular gold fan-like hair fittings",
+            "tall slender adult proportions with a long neck"
+        ],
+        "viewer_relationship": "Calm and self-possessed with restrained facial tension; retain her face while following the current shot for gaze, head angle and expression.",
+        "thumbnail_strategy": "The violet eyes, small right-eye beauty mole, straight fringe, single massive long braid and one-sided purple-and-gold hair ornament are the recognition anchors.",
+        "interaction_rule": "Keep exactly one braid rooted at the rear head; its position follows gravity and the current pose, not the original sword-drawing stance. The beauty mole and flower ornament stay on her anatomical right, not mirrored or duplicated. Keep fixed hair accessories, but do not treat the kimono, obi, shoulder armor, neck bow, stockings, footwear, sword, lightning or Electro emblems as anatomy or mandatory identity. The selected photoset alone defines clothing, pose, framing, environment and light. Do not force a purple costume or sword gesture into a different photoset.",
+        "color_anchor": "deep violet hair with lavender lower braid, violet eyes, purple flowers and gold fixed hair fittings; no mandatory clothing colors"
+    },
+    "胡桃": {
+        "official_core": "A small tapered face, red eyes with white five-petal flower-shaped pupils, and very long dark brown hair grading to muted red-brown ends. Layered swept bangs cross the forehead without hiding the eyes; curved cheek locks frame the face and two long rear sections flow behind her. A fixed dark flat-brim hat carries a tan frontal talisman plaque, red plum blossoms on her left side and dark ribbon tassels. Preserve a compact slender silhouette.",
+        "identity_tokens": [
+            "red eyes with white five-petal flower-shaped pupils",
+            "very long dark brown hair with muted red-brown ends",
+            "layered swept bangs and curved cheek locks",
+            "two long flowing rear hair sections",
+            "fixed dark flat-brim hat with a tan frontal talisman plaque",
+            "red plum blossoms on her left side of the hat",
+            "dark hat ribbon tassels",
+            "compact slender silhouette"
+        ],
+        "viewer_relationship": "Lively attentive eyes and subtle playful facial tension; the shot determines the actual expression and gaze.",
+        "thumbnail_strategy": "Keep the pale flower-shaped pupils, long brown hair and plum-decorated flat hat legible.",
+        "interaction_rule": "Preserve the fixed plum-decorated hat independently of clothing; do not replace it with a template hat. Hair follows the current pose without changing its cut or adding tied sections. The dark coat, shorts, socks, shoes, garment embroidery, polearm, ghosts and flame effects are reference styling, not mandatory identity. Use the photoset clothing and its colors; do not reproduce the reference costume or hat-touching pose.",
+        "color_anchor": "dark brown to muted red-brown hair, red irises and white flower pupils, dark fixed hat with red plum flowers"
+    },
+    "八重神子": {
+        "official_core": "A slender oval face with violet eyes, fine red upper-eyelid accents and a small chin. Very long soft pink hair is loosely gathered low behind her, with layered center fringe and curved face-framing locks. Two pink fox ears extend outward and downward from the sides of her head. Preserve the curved gold shrine head ornament and gold ear fittings with purple jewels. Tall slender proportions and a long neck remain distinct from the garment silhouette.",
+        "identity_tokens": [
+            "violet eyes with fine red upper-eyelid accents",
+            "very long soft pink hair loosely gathered low behind her",
+            "layered center fringe and curved face-framing locks",
+            "two outward-drooping pink fox ears",
+            "curved gold shrine head ornament",
+            "gold ear fittings with purple jewels",
+            "tall slender proportions and a long neck"
+        ],
+        "viewer_relationship": "Composed, perceptive eyes and relaxed lips; follow the shot for the exact expression.",
+        "thumbnail_strategy": "Recognize the outward fox ears, violet eyes, pink hair and gold-and-purple head fittings.",
+        "interaction_rule": "Keep the fox ears attached at the sides of the head and preserve their drooping shape. Hair is gathered low, not changed into high twin ponytails. The shrine dress, detached sleeves, chest brooch, waist ornaments, footwear, wand and magic are not fixed identity; replace them with the photoset outfit. Her reference costume palette must not recolor the selected garment.",
+        "color_anchor": "soft pink hair and ears, violet eyes, gold and purple fixed head fittings"
+    },
+    "神里绫华": {
+        "official_core": "A delicate face with blue eyes and a small tapered chin. Pale icy silver-blue hair has fine straight segmented blunt bangs, two short straight temple locks tied with pink cord bows, and exactly one very long high rear ponytail. A large black-and-gold bow and gold crest sit at the ponytail root. Preserve her compact slender proportions.",
+        "identity_tokens": [
+            "blue eyes and a small tapered chin",
+            "pale icy silver-blue hair",
+            "fine straight segmented blunt bangs",
+            "two short straight temple locks tied with pink cord bows",
+            "exactly one very long high rear ponytail",
+            "large black-and-gold bow and gold crest at the ponytail root",
+            "compact slender proportions"
+        ],
+        "viewer_relationship": "Gentle attentive facial expression, with the current shot controlling gaze and head angle.",
+        "thumbnail_strategy": "Keep the straight fringe, paired pink-tied temple locks and single high ponytail distinct.",
+        "interaction_rule": "Keep one high ponytail and two short temple locks; do not turn the short locks into long twin braids. Preserve the fixed hair bows and crest, but not the armor bodice, pleated skirt, sleeves, waist cords, sandals, fan or sword. Use the photoset outfit and pose without importing the blue-and-black reference clothing.",
+        "color_anchor": "icy silver-blue hair, blue eyes, pink temple ties and black-and-gold fixed hair bow"
+    },
+    "宵宫": {
+        "official_core": "Amber-gold eyes, a small soft-edged face and golden blonde hair with warm orange tips. Exactly one high messy ponytail fans into separate curved spikes behind the crown; swept separated bangs and loose curled side locks frame her face. Dark blue looped hair ties, a red-and-gold hairpiece and small floral pins decorate the ponytail base. A red-and-purple floral marking belongs on her left upper arm. Preserve her slender balanced proportions.",
+        "identity_tokens": [
+            "amber-gold eyes",
+            "golden blonde hair with warm orange tips",
+            "exactly one high messy fanned ponytail",
+            "swept separated bangs and loose curled side locks",
+            "dark blue looped hair ties",
+            "red-and-gold hairpiece and small floral pins",
+            "red-and-purple floral marking on her left upper arm",
+            "slender balanced proportions"
+        ],
+        "viewer_relationship": "Bright open eyes and lively facial energy, without forcing a smile when the shot calls for another expression.",
+        "thumbnail_strategy": "The high fan-shaped ponytail, warm hair gradient and amber eyes are primary recognition anchors.",
+        "interaction_rule": "Keep the floral marking on her anatomical left upper arm when that skin is visible; do not print it on sleeves or mirror it. The large red rope bundle belongs to the reference costume, not to her body or hair. The orange festival outfit, white wraps, obi, shin guards, sandals, bow and fireworks are not identity requirements. Follow the photoset for clothing, color, pose and environment.",
+        "color_anchor": "golden blonde hair with orange tips, amber-gold eyes, dark blue and red fixed hair accessories"
+    },
+    "甘雨": {
+        "official_core": "A softly tapered face with violet-pink multitone eyes. Pale blue hair has darker periwinkle lower curls, thick layered bangs, a central curved crown tuft and curled cheek-framing locks. Long rear hair is gathered low and flows down the back. Exactly two dark red-black curved horns with red ridged markings root at the upper sides of the head. Preserve a slender graceful silhouette.",
+        "identity_tokens": [
+            "violet-pink multitone eyes",
+            "pale blue hair with darker periwinkle lower curls",
+            "thick layered bangs and a central curved crown tuft",
+            "curled cheek-framing locks",
+            "long rear hair gathered low",
+            "exactly two dark red-black curved horns with red ridged markings",
+            "slender graceful silhouette"
+        ],
+        "viewer_relationship": "Soft attentive eyes and relaxed facial contours; the shot determines expression and gaze.",
+        "thumbnail_strategy": "Keep the paired dark red-marked horns, pale blue layered hair and violet-pink irises clearly distinguished.",
+        "interaction_rule": "The two horns remain attached to the upper head, not duplicated as accessories or replaced by a template headdress. Keep the low rear hair arrangement rather than inventing a high ponytail. The neck bell, red garment knots, bodysuit, hanging white-blue panels, detached sleeves, gloves and footwear are costume elements, not anatomy. Use the photoset garment and colors without importing the reference outfit.",
+        "color_anchor": "pale blue and periwinkle hair, violet-pink eyes, dark red-black horns with red markings"
+    },
+    "申鹤": {
+        "official_core": "A slender oval face with pale iridescent cyan-lavender eyes. Silver-white hair with cool gray-blue shadows has a diagonal swept fringe and curled chin-length side locks. Exactly one very long thick low rear braid is secured with red cord. A pointed black-and-white feather-like hair ornament has a gold mount and red cord; a red tassel earring accents the face. Preserve tall elongated proportions, a long neck and balanced long limbs.",
+        "identity_tokens": [
+            "pale iridescent cyan-lavender eyes",
+            "silver-white hair with cool gray-blue shadows",
+            "diagonal swept fringe and curled chin-length side locks",
+            "exactly one very long thick low rear braid secured with red cord",
+            "pointed black-and-white feather-like hair ornament with a gold mount",
+            "red tassel earring",
+            "tall elongated proportions and a long neck"
+        ],
+        "viewer_relationship": "Calm reserved facial tension; retain her own face while using the current shot's gaze and expression.",
+        "thumbnail_strategy": "Keep both eyes readable, the diagonal silver fringe, single long braid and contrasting feather-like hair ornament.",
+        "interaction_rule": "Do not enforce hidden eyes: separate the diagonal fringe enough to keep the visible face and eyes readable in the current shot. Preserve one rear braid, not two; its placement follows the pose and gravity. The feather-like headpiece is an accessory, not a horn. The black-white outfit, red body cords, gold chest fastenings, legwear, shoes, weapon and spectral effects are not mandatory identity; the photoset defines clothing and pose.",
+        "color_anchor": "silver-white hair, cyan-lavender eyes, black-white and gold fixed hair ornament with red cord"
+    },
+    "荧": {
+        "official_core": "Amber-gold eyes and a small softly tapered face. Warm golden-blonde hair forms a short layered bob around the jaw and nape, with swept asymmetrical bangs and two separate shoulder-length curled front locks. Two pale white-blue flowers sit above her right ear. Preserve compact slender proportions and the short rear hair silhouette.",
+        "identity_tokens": [
+            "amber-gold eyes and a small softly tapered face",
+            "warm golden-blonde short layered bob around the jaw and nape",
+            "swept asymmetrical bangs",
+            "two separate shoulder-length curled front locks",
+            "two pale white-blue flowers above her right ear",
+            "compact slender proportions"
+        ],
+        "viewer_relationship": "Clear attentive eyes and natural facial tension; use the shot's expression rather than imposing a heroic pose.",
+        "thumbnail_strategy": "Keep the short golden bob, curved front locks, amber eyes and right-side pale flowers visible.",
+        "interaction_rule": "The long pale blue trailing pieces in the reference are scarf fabric, not long hair. Do not extend the bob into long twin ponytails. Preserve the two flowers on her anatomical right, without mirroring them. Her white-blue dress, scarf, gloves, boots, gold garment trim and sword are not identity requirements; use the photoset clothing, pose, colors and setting.",
+        "color_anchor": "warm golden-blonde hair, amber-gold eyes and pale white-blue fixed hair flowers"
+    },
+    "奥黛塔": {
+        "official_core": "The light-blue-haired foreground woman in the supplied original is the sole identity reference. She has violet eyes, a softly tapered face, pale icy blue hair with layered sweeping bangs, curled cheek-to-shoulder locks and coiled side hair loops. A fine white-and-gold feather-like head ornament includes a small lavender forehead jewel and gold side accents. Preserve the balanced compact figure with natural neck and limb lengths.",
+        "identity_tokens": [
+            "violet eyes and a softly tapered face",
+            "pale icy blue hair with layered sweeping bangs",
+            "curled cheek-to-shoulder locks",
+            "coiled side hair loops",
+            "fine white-and-gold feather-like head ornament",
+            "small lavender forehead jewel and gold side accents",
+            "balanced compact figure with natural neck and limb lengths"
+        ],
+        "viewer_relationship": "A gentle attentive gaze; follow the shot for head angle, expression and gesture.",
+        "thumbnail_strategy": "Keep the icy blue coiled hair, violet eyes and fine forehead jewel recognizable without importing background figures.",
+        "interaction_rule": "Ignore the dark blue silhouette behind the foreground woman in the original reference: it is not her hair, anatomy or a required second person. The white feather-like shoulder trim belongs to the ballet costume, not to fixed wings. The blue-white ballet dress, gloves, tights, dance shoes and magical effects are not identity requirements. Use the photoset for clothing, pose, framing, colors and environment; do not force a ballet stance. Preserve the original illustration's relative head size, shoulder width, torso length and limb proportions. Do not shrink the head, lengthen the neck or stretch the legs into fashion-model proportions.",
+        "color_anchor": "pale icy blue hair, violet eyes and white-gold head ornament with lavender jewel"
+    },
     "茜特菈莉": {
         "official_core": "very long voluminous pastel pink hair fading through pale lavender into cool violet at the lower lengths, thick layered separated bangs, paired slim front braids, clear blue eyes with pink-violet lower iris accents, and two large black circular ring ornaments mounted high at the left and right sides of the head with luminous cyan centers, small gold fittings, and purple-pink ribbon tassels.",
         "identity_tokens": ["very long pastel pink hair", "pale lavender-to-cool-violet lower hair gradient", "thick layered separated bangs", "paired slim front braids", "clear blue eyes with pink-violet lower iris accents", "two large black circular side-ring head ornaments", "luminous cyan ornament centers with gold fittings", "purple-pink ribbon tassels"],
@@ -599,27 +765,56 @@ CHARACTER_PROFILES = {
     },
     "桑多涅": {
         "official_core": "soft ash-taupe hair built from a rounded jaw-to-nape curled bob with layered inward-turning cheek locks plus several very long thin trailing curled strands behind it, vivid sapphire-blue eyes, and one large ornate white-and-gold mechanical ruffled headpiece around the crown and rear-right side with a black bow, small crimson details, and long red ribbon streamers.",
-        "identity_tokens": ["soft ash-taupe hair", "rounded jaw-to-nape curled bob", "layered inward-turning cheek locks", "very long thin trailing curled rear strands", "vivid sapphire-blue eyes", "large white-and-gold mechanical ruffled headpiece", "black bow and small crimson headpiece details", "long red ribbon streamers"],
+        "identity_tokens": [
+            "soft ash-taupe hair",
+            "rounded jaw-to-nape curled bob",
+            "layered inward-turning cheek locks",
+            "very long thin trailing curled rear strands",
+            "vivid sapphire-blue eyes",
+            "large white-and-gold mechanical ruffled headpiece",
+            "black bow and small crimson headpiece details",
+            "long red ribbon streamers",
+            "balanced reference head-to-body proportions with a natural neck and leg length"
+        ],
         "viewer_relationship": "quietly elegant, observant, and controlled, with a restrained expression and calm direct or slightly averted gaze.",
         "thumbnail_strategy": "the ash-taupe curled bob, sapphire eyes, white-gold mechanical ruffles, black bow, and red streamers must remain distinct from one another.",
-        "interaction_rule": "Preserve the short rounded bob and separate trailing curled strands rather than turning all hair into one long hairstyle. The headpiece is mechanical and ruffled, never animal ears or an ordinary soft fabric cap. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
-        "color_anchor": "ash taupe, sapphire blue, pearl white, antique gold, black, restrained crimson",
+        "interaction_rule": "Preserve the short rounded bob and separate trailing curled strands rather than turning all hair into one long hairstyle. The headpiece is mechanical and ruffled, never animal ears or an ordinary soft fabric cap. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements. Preserve the original illustration's relative head size, shoulder width, torso length and limb proportions. Do not shrink the head, lengthen the neck or stretch the legs into fashion-model proportions.",
+        "color_anchor": "ash taupe, sapphire blue, pearl white, antique gold, black, restrained crimson"
     },
     "哥伦比娅": {
         "official_core": "extremely long black hair transitioning into deep violet and muted magenta at the lower lengths, a smooth dark crown with thick straight blunt bangs, fully visible pale lavender-violet half-lidded eyes, and one fixed white feathered wing-like halo ornament rising and spreading behind the crown with small white side fittings near the temples. Her face is unobstructed: both eyes, both upper lash lines, the nose bridge, and the area between the bangs and cheekbones remain visible.",
-        "identity_tokens": ["extremely long black hair", "deep violet-to-muted-magenta lower hair gradient", "smooth dark crown", "thick straight blunt bangs", "fully visible pale lavender-violet half-lidded eyes", "unobstructed eye area and nose bridge", "white feathered wing-like halo ornament behind the crown", "small white temple fittings"],
+        "identity_tokens": [
+            "extremely long black hair",
+            "deep violet-to-muted-magenta lower hair gradient",
+            "smooth dark crown",
+            "thick straight blunt bangs",
+            "fully visible pale lavender-violet half-lidded eyes",
+            "unobstructed eye area and nose bridge",
+            "white feathered wing-like halo ornament behind the crown",
+            "small white temple fittings",
+            "balanced reference head-to-body proportions with a natural neck and leg length"
+        ],
         "viewer_relationship": "serene, distant, and dreamlike, with relaxed half-lidded eyes and a subtle neutral expression rather than theatrical sadness or a broad smile.",
         "thumbnail_strategy": "the fully visible pale lavender eyes, black-to-violet long hair, blunt fringe, and separate white feathered crown halo must remain the dominant recognition points.",
-        "interaction_rule": "This is the unmasked version. Keep both pale lavender-violet eyes fully visible and unobstructed in every outfit and scene. Never add the geometric blindfold, an eye patch, cloth band, sleep mask, glasses, sunglasses, visor, lace veil, opaque bar, face seal, or painted markings across the eyes. Keep the feather structure separate and attached behind the crown as a wing-like halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
-        "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white",
+        "interaction_rule": "This is the unmasked version. Keep both pale lavender-violet eyes fully visible and unobstructed in every outfit and scene. Never add the geometric blindfold, an eye patch, cloth band, sleep mask, glasses, sunglasses, visor, lace veil, opaque bar, face seal, or painted markings across the eyes. Keep the feather structure separate and attached behind the crown as a wing-like halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements. Preserve the original illustration's relative head size, shoulder width, torso length and limb proportions. Do not shrink the head, lengthen the neck or stretch the legs into fashion-model proportions.",
+        "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white"
     },
     "丝柯克": {
-        "official_core": "very long silver-white hair with cool ice-blue shadows, layered separated bangs and face-framing locks, one large high rear ponytail that sweeps outward into a broad flowing mass, vivid crimson-red eyes, one angular black-and-cyan crystalline butterfly-fin ornament at the side of the crown, and one continuous dark indigo crystalline right arm with translucent blue-violet facets from the upper arm through the hand.",
-        "identity_tokens": ["very long silver-white hair with cool ice-blue shadows", "layered separated bangs and face-framing locks", "one large high flowing rear ponytail", "vivid crimson-red eyes", "angular black-and-cyan crystalline butterfly-fin head ornament", "one continuous dark indigo crystalline right arm", "translucent blue-violet facets through the right hand"],
-        "viewer_relationship": "mature, focused, and self-possessed, with an athletic poised presence and a controlled direct or side gaze.",
-        "thumbnail_strategy": "the silver high-ponytail silhouette, crimson eyes, cyan-edged black head crystal, and asymmetrical indigo right arm must remain clearly readable whenever included by the crop.",
-        "interaction_rule": "Keep exactly one high rear ponytail and exactly one crystalline right arm; the left arm remains ordinary. The right-arm crystal anatomy is continuous and body-fitted, never a second arm, loose sleeve, oversized weapon, or duplicated gauntlet. Swords, floating shards, combat effects, and the white-blue reference battle dress are optional and must not replace the selected photoset outfit or scene.",
-        "color_anchor": "silver white, ice blue, dark indigo, electric cyan, vivid crimson",
+        "official_core": "very long silver-white hair with cool ice-blue shadows, layered separated bangs and face-framing locks, long loose rear hair that separates into broad flowing lengths, vivid crimson-red eyes, one angular black-and-cyan crystalline butterfly-fin ornament at the side of the crown, and one continuous dark indigo crystalline left arm with translucent blue-violet facets from the upper arm through the hand.",
+        "identity_tokens": [
+            "very long silver-white hair with cool ice-blue shadows",
+            "layered separated bangs and face-framing locks",
+            "long loose rear hair with broad separated flowing lengths",
+            "vivid crimson-red eyes",
+            "angular black-and-cyan crystalline butterfly-fin head ornament",
+            "one continuous dark indigo crystalline left arm",
+            "translucent blue-violet facets through the left hand",
+            "balanced reference head-to-body proportions with a natural neck and leg length"
+        ],
+        "viewer_relationship": "focused and self-possessed, with the original soft facial proportions and a controlled gaze; do not age up the face.",
+        "thumbnail_strategy": "the long loose silver hair silhouette, crimson eyes, cyan-edged black head crystal, and asymmetrical indigo left arm must remain clearly readable whenever included by the crop.",
+        "interaction_rule": "Preserve the loose rear hair without adding a high ponytail knot, bun or new hair tie. Keep exactly one crystalline left arm; the right arm remains ordinary. The left-arm crystal anatomy is continuous and body-fitted, never a second arm, loose sleeve, oversized weapon, or duplicated gauntlet. Swords, floating shards, combat effects, and the white-blue reference battle dress are optional and must not replace the selected photoset outfit or scene. Preserve the original illustration's relative head size, shoulder width, torso length and limb proportions. Do not shrink the head, lengthen the neck or stretch the legs into fashion-model proportions.",
+        "color_anchor": "silver white, ice blue, dark indigo, electric cyan, vivid crimson"
     },
     "克拉蕾": {
         "official_core": "golden-blonde hair in two high voluminous ponytails with warm brown underlayers and layered outward-curled ends; thick segmented bangs and short outward-curving cheek locks; narrow crimson accents beside the face and long dark-red ribbon streamers along the ponytails; paired silver-white rounded ponytail fasteners; small silver crossed hair clips at the bangs; red-orange irises with bright pink diamond-like centers; small pointed upper fangs visible only when the mouth permits; a compact softly tapered face with large defined anime eyes; balanced slender feminine human proportions.",
@@ -1945,6 +2140,16 @@ KNOWN_CHARACTER_NAMES = [
     "桑多涅",
     "哥伦比娅",
     "丝柯克",
+    "芙宁娜",
+    "雷电将军",
+    "胡桃",
+    "八重神子",
+    "神里绫华",
+    "宵宫",
+    "甘雨",
+    "申鹤",
+    "荧",
+    "奥黛塔",
     "Saber",
     "阿格莱雅",
     "火花",

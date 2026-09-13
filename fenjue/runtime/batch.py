@@ -3,6 +3,7 @@ import datetime as dt
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -459,6 +460,56 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "原神" / "丝柯克_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "丝柯克3.png"),
     ],
+    "芙宁娜": [
+        str(PROJECT_DIR / "assets" / "原神" / "芙宁娜_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "芙宁娜_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "芙宁娜_official.jpg"),
+    ],
+    "雷电将军": [
+        str(PROJECT_DIR / "assets" / "原神" / "雷电将军_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "雷电将军_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "雷电将军_official.jpg"),
+    ],
+    "胡桃": [
+        str(PROJECT_DIR / "assets" / "原神" / "胡桃_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "胡桃_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "胡桃_official.jpg"),
+    ],
+    "八重神子": [
+        str(PROJECT_DIR / "assets" / "原神" / "八重神子_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "八重神子_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "八重神子_official.png"),
+    ],
+    "神里绫华": [
+        str(PROJECT_DIR / "assets" / "原神" / "神里绫华_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "神里绫华_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "神里绫华_official.png"),
+    ],
+    "宵宫": [
+        str(PROJECT_DIR / "assets" / "原神" / "宵宫_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "宵宫_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "宵宫_official.png"),
+    ],
+    "甘雨": [
+        str(PROJECT_DIR / "assets" / "原神" / "甘雨_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "甘雨_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "甘雨_official.png"),
+    ],
+    "申鹤": [
+        str(PROJECT_DIR / "assets" / "原神" / "申鹤_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "申鹤_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "申鹤_official.jpg"),
+    ],
+    "荧": [
+        str(PROJECT_DIR / "assets" / "原神" / "荧_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "荧_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "荧_official.png"),
+    ],
+    "奥黛塔": [
+        str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_official.png"),
+    ],
 }
 
 
@@ -538,6 +589,16 @@ CHARACTER_SEQUENCE = [
     "桑多涅",
     "哥伦比娅",
     "丝柯克",
+    "芙宁娜",
+    "雷电将军",
+    "胡桃",
+    "八重神子",
+    "神里绫华",
+    "宵宫",
+    "甘雨",
+    "申鹤",
+    "荧",
+    "奥黛塔",
     "Saber",
     "阿格莱雅",
     "火花",
@@ -566,8 +627,8 @@ CHARACTER_SEQUENCE = [
 ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:35]
 WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[35:57]
 ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[57:64]
-GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[64:68]
-HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[68:]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[64:78]
+HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[78:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,
@@ -2413,7 +2474,11 @@ def save_used_character_batch(used_characters: list[str]) -> None:
 
 
 def active_character_random_pool() -> list[str]:
-    return CHARACTER_RANDOM_POOLS[_active_character_random_pool_name][:]
+    return list(dict.fromkeys(
+        name
+        for pool_name in _active_character_random_pool_name.split("+")
+        for name in (CHARACTER_RANDOM_POOLS[pool_name] if pool_name in CHARACTER_RANDOM_POOLS else [pool_name])
+    ))
 
 
 def active_character_random_pool_name() -> str:
@@ -2422,7 +2487,10 @@ def active_character_random_pool_name() -> str:
 
 def _select_character_random_pool(pool_name: str) -> None:
     global _active_character_random_pool_name
-    _active_character_random_pool_name = pool_name
+    pools = list(dict.fromkeys(pool_name.split("+")))
+    if any(name not in CHARACTER_RANDOM_POOLS and name not in CHARACTER_REFERENCES for name in pools):
+        raise ValueError(f"Unknown random pool: {pool_name!r}")
+    _active_character_random_pool_name = "全部" if "全部" in pools else "+".join(pools)
 
 
 def choose_character_batch(used_characters: list[str]) -> list[str]:
@@ -2466,6 +2534,10 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
         "全随机": "全部",
         "全部随机": "全部",
         "随机": "全部",
+        "g": "原神",
+        "genshin": "原神",
+        "原神": "原神",
+        "原神随机": "原神",
         "z": "绝区零",
         "zzz": "绝区零",
         "zenless": "绝区零",
@@ -2493,15 +2565,13 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
         _select_character_random_pool(random_pool_aliases[lowered])
         return None
 
-    selected: list[str] = []
-    if choice.isdigit():
-        tokens = [choice]
-    else:
-        normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
-        tokens = [token.strip() for token in normalized.split(",") if token.strip()]
-
     name_to_character = {name.lower(): name for name in CHARACTER_SEQUENCE}
     name_to_character.update({
+        "星间雅": "星见雅",
+        "神里凌华": "神里绫华",
+        "萤": "荧",
+        "女主角萤": "荧",
+        "女主角荧": "荧",
         "挽昼": "德蕾琪娜·挽昼",
         "德蕾琪娜挽昼": "德蕾琪娜·挽昼",
         "德蕾琪娜•挽昼": "德蕾琪娜·挽昼",
@@ -2510,6 +2580,38 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
         "只更鸟晴歌": "知更鸟·晴歌",
         "知更鸟晴歌": "知更鸟·晴歌",
     })
+    pool_choice = lowered
+    explicit_random = pool_choice.endswith("随机")
+    if explicit_random:
+        pool_choice = pool_choice[:-2].strip()
+    pool_tokens = [part for part in re.split(r"[+＋,，、\s]+", pool_choice) if part]
+    normalized_pools = []
+    for part in pool_tokens:
+        for suffix in ("全部人物", "全人物", "人物"):
+            if part.endswith(suffix) and part[:-len(suffix)] in random_pool_aliases:
+                part = part[:-len(suffix)]
+                break
+        normalized_pools.append(part)
+    is_random_pool = explicit_random or any(part in random_pool_aliases for part in normalized_pools)
+    if is_random_pool:
+        members = []
+        for part in normalized_pools:
+            member = random_pool_aliases.get(part) or name_to_character.get(part)
+            if member is None:
+                raise ValueError(f"Unknown random-pool game or character: {part!r}")
+            members.append(member)
+        if not members:
+            raise ValueError("No random-pool members selected")
+        _select_character_random_pool("+".join(members))
+        return None
+
+    selected: list[str] = []
+    if choice.isdigit():
+        tokens = [choice]
+    else:
+        normalized = choice.replace("，", ",").replace("、", ",").replace(" ", ",")
+        tokens = [token.strip() for token in normalized.split(",") if token.strip()]
+
     for token in tokens:
         character_names: list[str] = []
         if "-" in token:
@@ -2548,7 +2650,9 @@ def prompt_character_selection() -> list[str] | None:
     print("Choose characters for this run:", flush=True)
     for index, character_name in enumerate(CHARACTER_SEQUENCE, start=1):
         print(f"  {index}. {character_name}", flush=True)
-    print("Random pools: Z = 绝区零随机; W = 鸣潮随机; E = 终末地随机; H = 星铁随机; R/Enter = 全部随机.", flush=True)
+    print("Random pools: Z = 绝区零随机; W = 鸣潮随机; E = 终末地随机; G = 原神随机; H = 星铁随机; R/Enter = 全部随机.", flush=True)
+    print("组合随机：绝区零+原神 / Z+G / 原神全人物+星见雅 随机；支持游戏与人物混合。", flush=True)
+    print("组合随机：绝区零+原神 / Z+G / 原神全人物+星见雅 随机；支持游戏与人物混合。", flush=True)
     print("Fixed examples: 1 2 3; 10-15; or character names.", flush=True)
 
     while True:
