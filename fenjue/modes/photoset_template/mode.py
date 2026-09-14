@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -280,27 +281,66 @@ def _choose_shots_per_template(argv: list[str], batch) -> int | None:
             print(f"{exc}. Please try again.")
 
 
-def _load_used_templates(available: list[str]) -> dict[str, list[str]]:
-    if not USED_TEMPLATE_FILE.exists():
+def _read_history(path: Path, value_type: type) -> dict:
+    if not path.exists():
         return {}
     try:
-        data = json.loads(USED_TEMPLATE_FILE.read_text(encoding="utf-8"))
-    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
-        print(f"E 模式历史文件无效，本次将从空历史开始：{exc}", flush=True)
-        return {}
-    if not isinstance(data, dict):
-        return {}
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
+        if not isinstance(data, dict):
+            raise ValueError("history root must be an object")
+        for key, values in data.items():
+            if not isinstance(key, str) or not isinstance(values, list):
+                raise ValueError("invalid history entry")
+            if any(type(value) is not value_type for value in values):
+                raise ValueError("invalid history value")
+            if value_type is int and any(value <= 0 for value in values):
+                raise ValueError("invalid shot index")
+        return {key: list(dict.fromkeys(values)) for key, values in data.items()}
+    except (OSError, ValueError, TypeError) as exc:
+        raise PhotosetSessionError(
+            f"无法可靠读取去重历史，已停止，绝不按空历史继续：{path}；{exc}"
+        ) from exc
 
-    valid_ids = set(available)
-    cleaned: dict[str, list[str]] = {}
-    for character_name, template_ids in data.items():
-        if not isinstance(character_name, str) or not isinstance(template_ids, list):
-            continue
-        cleaned[character_name] = list(dict.fromkeys(
-            template_id for template_id in template_ids
-            if isinstance(template_id, str) and template_id in valid_ids
-        ))
-    return cleaned
+
+def _load_used_templates(available: list[str]) -> dict[str, list[str]]:
+    history = _read_history(USED_TEMPLATE_FILE, str)
+    # Successful legacy E runs also leave an outfit-use entry. Recover only
+    # character/template facts; this log cannot establish individual shot IDs.
+    log_path = USED_TEMPLATE_FILE.parent / "clothing_theme_usage_log.jsonl"
+    recovered = 0
+    if log_path.exists():
+        for line_number, line in enumerate(log_path.read_text(encoding="utf-8-sig").splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                print(f"跳过无法解析的旧服装日志行：{log_path}:{line_number}", flush=True)
+                continue
+            if not isinstance(entry, dict):
+                continue
+            match = re.fullmatch(
+                r"(.+?): photoset (\d+_A_3) outfit system \(scene-only strong outfit, not cycle-counted\)",
+                str(entry.get("theme", "")),
+            )
+            if match:
+                character, template_id = match.groups()
+                used = history.setdefault(character, [])
+                if template_id not in used:
+                    used.append(template_id)
+                    recovered += 1
+    # A successful shot is also sufficient to lock its entire garment, even
+    # if a prior interruption happened before the character history was saved.
+    shot_history = _read_history(USED_SHOT_FILE, int)
+    known = {tid for ids in history.values() for tid in ids}
+    recovered_from_shots = [tid for tid, indices in shot_history.items() if indices and tid not in known]
+    if recovered_from_shots:
+        history.setdefault("__global__", []).extend(recovered_from_shots)
+        recovered += len(recovered_from_shots)
+    if recovered:
+        _save_used_templates(history)
+        print(f"从既有使用记录补回 {recovered} 条服装锁定记录；未推测单图编号。", flush=True)
+    return history
 
 
 def _save_used_templates(history: dict[str, list[str]]) -> None:
@@ -314,32 +354,9 @@ def _save_used_templates(history: dict[str, list[str]]) -> None:
 
 
 def _load_used_shots(templates: tuple[PhotosetTemplate, ...]) -> dict[str, list[int]]:
-    if not USED_SHOT_FILE.exists():
-        return {}
-    try:
-        data = json.loads(USED_SHOT_FILE.read_text(encoding="utf-8"))
-    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
-        print(f"E/E2 单图历史文件无效，本次将从空历史开始：{exc}", flush=True)
-        return {}
-    if not isinstance(data, dict):
-        return {}
-
-    valid_indices = {
-        template.template_id: {shot.index for shot in template.shots}
-        for template in templates
-    }
-    cleaned: dict[str, list[int]] = {}
-    for template_id, shot_indices in data.items():
-        if not isinstance(template_id, str) or not isinstance(shot_indices, list):
-            continue
-        allowed_indices = valid_indices.get(template_id)
-        cleaned[template_id] = list(dict.fromkeys(
-            index for index in shot_indices
-            if isinstance(index, int)
-            and index > 0
-            and (allowed_indices is None or index in allowed_indices)
-        ))
-    return cleaned
+    # Keep records even when a template/image is temporarily absent. Loading a
+    # smaller selection must never erase history for later selections.
+    return _read_history(USED_SHOT_FILE, int)
 
 
 def _save_used_shots(history: dict[str, list[int]]) -> None:
@@ -375,23 +392,7 @@ def _select_random_unused_shots(
     count: int,
     used_by_template: dict[str, list[int]],
 ) -> list[PhotosetShot]:
-    valid_indices = {shot.index for shot in template.shots}
-    used_indices = used_by_template.setdefault(template.template_id, [])
-    used_indices[:] = list(dict.fromkeys(
-        index for index in used_indices if index in valid_indices
-    ))
-    used = set(used_indices)
-
-    if len(used) >= len(template.shots):
-        used_indices.clear()
-        used.clear()
-        _save_used_shots(used_by_template)
-        print(
-            f"E/E2 单图轮次：模板 {_display_template_id(template.template_id)} 的 "
-            f"{len(template.shots)} 张已全部跑通，现开始下一轮。",
-            flush=True,
-        )
-
+    used = set(used_by_template.get(template.template_id, []))
     available = [shot for shot in template.shots if shot.index not in used]
     selection_count = min(count, len(available))
     selected = random.sample(available, selection_count)
@@ -417,7 +418,7 @@ def _mark_template_used(
     _save_used_templates(used_by_character)
     print(
         f"E 模式历史：{character_name} 的模板 {_display_template_id(template.template_id)} "
-        f"第一张已成功，整套已标记为使用；全库进度 {len(used_ids)}/{available_count}。历史文件：{USED_TEMPLATE_FILE}",
+        f"第一张已成功，整套服装已全局锁定，其他人物也不会重选。历史文件：{USED_TEMPLATE_FILE}",
         flush=True,
     )
     return True
@@ -430,38 +431,22 @@ def _resolve_template_assignments(
     available_ids: list[str],
 ) -> tuple[tuple[str, PhotosetTemplate], ...]:
     assignments: list[tuple[str, PhotosetTemplate]] = []
-    scheduled_by_character = {character_name: set() for character_name in characters}
-    history_changed = False
-
+    # Storage retains legacy character keys, but a garment belongs to the
+    # global template pool. Changing character must never unlock it again.
+    used_globally = {tid for ids in used_by_character.values() for tid in ids}
+    scheduled: set[str] = set()
     for slot_index, requested_template in enumerate(requested_templates):
-        character_name = characters[slot_index % len(characters)]
-        used_list = used_by_character.setdefault(character_name, [])
-        used = set(used_list)
-        if len(used) >= len(available_ids):
-            used_list.clear()
-            used.clear()
-            history_changed = True
-            print(
-                f"E 模式历史：{character_name} 已用完全部 {len(available_ids)} 个模板，现已开始新一轮。",
-                flush=True,
-            )
-
-        scheduled = scheduled_by_character[character_name]
         selected_id = requested_template.template_id
-        if selected_id in used or selected_id in scheduled:
-            reason = "历史中已使用" if selected_id in used else "本批次已经安排"
+        if selected_id in used_globally or selected_id in scheduled:
+            reason = "该服装历史中已使用（跨人物）" if selected_id in used_globally else "本批次已经安排"
             print(
-                f"E 模式历史：跳过 {character_name} 的模板 {_display_template_id(selected_id)}，原因：{reason}。"
-                "不会从当前选择池之外补充模板。",
-                flush=True,
+                f"E 模式历史：跳过服装模板 {_display_template_id(selected_id)}，原因：{reason}。"
+                "不会清空历史，也不会从选择池外补充。", flush=True,
             )
             continue
-
+        character_name = characters[slot_index % len(characters)]
         scheduled.add(selected_id)
         assignments.append((character_name, requested_template))
-
-    if history_changed:
-        _save_used_templates(used_by_character)
     return tuple(assignments)
 
 
@@ -638,20 +623,12 @@ def activate(batch, args=None) -> None:
             configure_variants(_active_characters, argv)
         shots_per_template = _choose_shots_per_template(argv, batch)
         requested_ids = {template.template_id for template in requested_templates}
-        for character_name in _active_characters:
-            used_ids = set(_used_templates_by_character.get(character_name, []))
-            used_count = len(used_ids)
-            remaining_in_selection = len(requested_ids - used_ids)
-            print(
-                f"E 模式历史：{character_name} 全库已使用 {used_count}/{len(available_ids)}，"
-                f"当前轮次还剩 {len(available_ids) - used_count} 个未使用模板。",
-                flush=True,
-            )
-            print(
-                f"E 模式当前选择池：{character_name} 在本次选择的 {len(requested_ids)} 个现存模板中，"
-                f"还有 {remaining_in_selection} 个未使用。",
-                flush=True,
-            )
+        globally_used = {tid for ids in _used_templates_by_character.values() for tid in ids}
+        print(
+            f"E 服装全局去重：全库已使用 {len(globally_used & set(available_ids))}/{len(available_ids)}；"
+            f"当前选择池剩余 {len(requested_ids - globally_used)} 套未使用服装。"
+            "更换人物不重置；用完即结束；L 仅续跑上次未完成任务。", flush=True,
+        )
         assignments = _resolve_template_assignments(
             requested_templates,
             _active_characters,
@@ -660,7 +637,7 @@ def activate(batch, args=None) -> None:
         )
         if not assignments:
             print(
-                "E 模式：当前选择池中已没有可供所选人物使用的模板，本次任务正常结束。"
+                "E 模式：当前选择池中已没有全局未使用的服装模板，本次任务正常结束。"
                 "不会清空全库历史，也不会从选择池之外补充模板。",
                 flush=True,
             )
@@ -673,6 +650,9 @@ def activate(batch, args=None) -> None:
             _used_shots_by_template,
         )
         full_photoset_schedule = photoset_schedule
+        if not photoset_schedule:
+            print("所选模板图片已全部使用，本次正常结束；保留历史，不开启新一轮。", flush=True)
+            raise SystemExit(0)
 
     _active_character_schedule = tuple(character_name for character_name, _, _ in photoset_schedule)
     _active_shot_schedule = tuple((template, shot) for _, template, shot in photoset_schedule)

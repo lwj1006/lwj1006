@@ -19,7 +19,7 @@ from fenjue.modes.photoset_template.mode import (
 
 
 class PhotosetHistoryTests(unittest.TestCase):
-    def test_random_shots_do_not_repeat_until_the_template_cycle_finishes(self) -> None:
+    def test_random_shots_remain_exhausted_without_reset(self) -> None:
         shots = tuple(SimpleNamespace(index=index) for index in range(1, 5))
         template = SimpleNamespace(template_id="900_A_3", shots=shots)
         history = {"900_A_3": [1, 2]}
@@ -34,8 +34,8 @@ class PhotosetHistoryTests(unittest.TestCase):
             _mark_shot_used(template, remaining[1], history)
             next_cycle = _select_random_unused_shots(template, 2, history)
 
-        self.assertEqual([shot.index for shot in next_cycle], [1, 2])
-        self.assertEqual(history["900_A_3"], [])
+        self.assertEqual([shot.index for shot in next_cycle], [])
+        self.assertEqual(history["900_A_3"], [1, 2, 3, 4])
 
     def test_shot_history_is_global_across_characters(self) -> None:
         shots = tuple(SimpleNamespace(index=index) for index in range(1, 4))
@@ -77,7 +77,7 @@ class PhotosetHistoryTests(unittest.TestCase):
                 _mark_shot_used(template, template.shots[1], history)
                 saved = json.loads(history_file.read_text(encoding="utf-8"))
 
-        self.assertEqual(saved, {"902_A_3": [1, 2], "903_A_3": [2]})
+        self.assertEqual(saved, {"902_A_3": [1, 99, 2], "903_A_3": [2]})
 
     def test_only_first_scheduled_shot_marks_template_used(self) -> None:
         template_a = object()
