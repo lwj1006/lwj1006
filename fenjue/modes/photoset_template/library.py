@@ -174,6 +174,7 @@ class PhotosetShot:
     section_text: str
     ready_prompt: str
     negative_prompt: str
+    full_ready_prompt: str = ""
 
 
 @dataclass(frozen=True)
@@ -826,6 +827,7 @@ def _parse_shots(folder: Path, markdown: str) -> tuple[PhotosetShot, ...]:
                 reference_image=_image_path(folder, index),
                 section_text=_compact(section, 7000),
                 ready_prompt=_compact(ready, 3500),
+                full_ready_prompt=ready,
                 negative_prompt=_compact(negative, 1800),
             )
         )
@@ -1003,9 +1005,45 @@ def _compact_profile_identity_block(character_name: str) -> str:
     return "\n".join(lines)
 
 
+def _e_source_prompt(template: PhotosetTemplate, shot: PhotosetShot) -> str:
+    """E-only corrections and complete ready text; E2 retains its original input."""
+    override = template.folder / f"{_base_template_id(template.template_id)}.e.md"
+    source = shot.ready_prompt or shot.section_text
+    if shot.full_ready_prompt and shot.ready_prompt == _compact(shot.full_ready_prompt, 3500):
+        source = shot.full_ready_prompt
+    if override.exists():
+        path = override
+        markdown = path.read_text(encoding="utf-8")
+        matches = list(_heading_pattern().finditer(markdown))
+        for position, match in enumerate(matches):
+            if int(match.group("index")) != shot.index:
+                continue
+            end = matches[position + 1].start() if position + 1 < len(matches) else len(markdown)
+            block = _named_prompt_block(markdown[match.end():end])
+            if block:
+                return block
+        if override.exists():
+            raise ValueError(f"Missing E prompt: {override}, image {shot.index}")
+    return source
+
+
+def _e_coherent_surface_text(text: str) -> str:
+    # Restrict replacements to rendering demands, not realistic garment
+    # construction, glass, painted props or the photographed pose geometry.
+    replacements = (
+        (r"\brealistic photo texture\b", "consistent illustrated surface shading"),
+        (r"\brealistic photography\b|\bphotographic realism\b|\bphotorealistic rendering\b", "coherent illustrated rendering"),
+        (r"\bskin with realistic highlights\b", "skin with simplified painted highlights"),
+        (r"\brealistic skin highlights\b", "simplified painted skin highlights"),
+    )
+    for pattern, replacement in replacements:
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+    return text
+
+
 def _prompt_for_a3_shot(character_name: str, template: PhotosetTemplate, shot: PhotosetShot) -> str:
     subject_name = _prompt_subject_name(character_name)
-    source_prompt = shot.ready_prompt or shot.section_text
+    source_prompt = _e_coherent_surface_text(_e_source_prompt(template, shot))
     rewritten_prompt = _has_explicit_reference_role_lock(source_prompt)
     shot_prompt = _adapt_shot_prompt(character_name, source_prompt, preserve_design_choices=True)
     if rewritten_prompt:
@@ -1027,6 +1065,9 @@ Independent image task. Create exactly one finished image.
 [EXPRESSION AND VISIBILITY]
 Use the current shot's gaze, head tilt and expression with the selected character's own face. Clearly render all facial features and eyes that are visible in this view. Do not add face-covering bangs, shadows, props or cropping. Preserve only occlusion actually required by the character's established eye covering or hairstyle, or by the current shot's view and crop; otherwise keep the face and eyes unobstructed.
 
+[WHOLE-FIGURE COHERENCE]
+Construct the head, neck, shoulders, torso and limbs as one continuous character in the current pose. Preserve the character reference's head-to-body scale, shoulder width and torso-to-limb proportions; refit the template garment and pose to that body. Apply the scene's light to the face as well as the body: consistent light direction, shadow hue, edge softness and highlight treatment across exposed skin. Match facial and bodily linework and shading detail; avoid a flat pasted-on face over a volumetrically rendered torso. Preserve character-specific nonhuman materials and markings.
+
 [REFERENCE ROLES]
 All images except the last define only the selected character's face, eyes, hair, fixed identity accessories, species anatomy, age impression and proportions. Ignore their clothing, weapons, poses, companions, backgrounds and lighting. The last image alone defines this shot's outfit, pose, hand contacts, camera, crop, props, setting, light direction and palette; never copy its person's identity, hair, makeup, body type or temporary accessories. The current shot overrides set-wide pose or outfit alternatives. Keep two continuous arms and the observed hand contacts; hidden or cropped limbs stay hidden.
 
@@ -1038,7 +1079,7 @@ All images except the last define only the selected character's face, eyes, hair
 Use only the last image's garment, even when every character reference repeats the original costume. Match its color, neckline, straps or sleeves, panels, waist, lower garment, hem, layers, fabric, pattern and trim. Do not mix in character-reference clothing, armor, cape, belts or costume ornaments. Preserve canonical head fixtures, permanent jewelry, species structures and signature hats; these do not authorize copying the rest of the costume. Character color anchors apply to identity features, not garment recoloring.
 
 [PHOTOSET DESIGN]
-{template.global_identity}
+{_e_coherent_surface_text(template.global_identity)}
 
 [CURRENT SHOT]
 Template {template.template_id}, image {shot.index} of {len(template.shots)}: {shot.title}
