@@ -641,6 +641,7 @@ _active_character_random_pool_name = "全部"
 CHARACTERS_PER_BATCH = 3
 REFERENCE_FILES = CHARACTER_REFERENCES["丹"][:]
 TOTAL_RUNS = 999
+MAX_RUNS_PER_LAUNCH = 80
 
 CHECK_INTERVAL_SECONDS = 400
 UPLOAD_SETTLE_SECONDS = 15
@@ -3363,6 +3364,10 @@ def main() -> None:
             raise ValueError("--runs requires a number")
         total_runs = int(sys.argv[runs_index + 1])
 
+    requested_runs = total_runs
+    total_runs = min(total_runs, MAX_RUNS_PER_LAUNCH)
+    info_log(f"本次最多生成 {total_runs} 张，硬上限 {MAX_RUNS_PER_LAUNCH}；限流重试也计入发送次数。")
+    generation_sends = 0
     recent_visual_tags: list[str] = []
     used_by_character = load_used_character_clothing_themes()
     used_plans_by_character = load_used_character_art_plans()
@@ -3504,6 +3509,9 @@ def main() -> None:
 
             generation_attempt = 1
             while True:
+                if generation_sends >= MAX_RUNS_PER_LAUNCH:
+                    info_log("已达到本次 80 次生成发送上限，停止；未完成的 E/E2 队列可下次用 L 继续。")
+                    return
                 try:
                     uploaded_files = upload_reference_images(reference_files)
                     run_id = log_prompt(
@@ -3527,6 +3535,7 @@ def main() -> None:
                         config_revision,
                         composition_plan,
                     )
+                    generation_sends += 1
                     send_prompt(prompt)
                     take_screenshot(f"run_{run_number:02d}_sent")
                     screenshot_path = wait_for_generation(run_number)
@@ -3536,6 +3545,9 @@ def main() -> None:
                         f"Run {run_number}/{total_runs} hit the image generation limit "
                         f"on attempt {generation_attempt}; preserving the current run."
                     )
+                    if generation_sends >= MAX_RUNS_PER_LAUNCH:
+                        info_log("本次已发送 80 次，停止限流重试；当前图片未记为完成，下次用 L 继续。")
+                        return
                     recover_after_generation_limit(error)
                     generation_attempt += 1
                     info_log(
@@ -3567,7 +3579,10 @@ def main() -> None:
             if random_character_mode:
                 mark_character_batch_used(batch_completed_characters, used_character_batch)
 
-    print("All runs completed. Safety shutdown remains scheduled.")
+    if requested_runs > total_runs:
+        info_log(f"本次达到 {total_runs} 张上限，已停止；E/E2 的剩余队列保留，下次用 L 继续。")
+    else:
+        print("All runs completed. Safety shutdown remains scheduled.")
 
 
 if __name__ == "__main__":
