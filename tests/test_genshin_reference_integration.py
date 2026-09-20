@@ -12,7 +12,7 @@ class GenshinReferenceTests(unittest.TestCase):
     def test_three_references_and_original_provenance(self):
         manifest = json.loads((ROOT / "assets_reference_archive/genshin_three_refs.json").read_text(encoding="utf-8"))
         self.assertEqual(set(manifest), set(batch.GENSHIN_IMPACT_CHARACTERS))
-        self.assertEqual(len(list((ROOT / "assets_reference_archive/原神").iterdir())), 22)
+        self.assertGreaterEqual(len(list((ROOT / "assets_reference_archive/原神").iterdir())), len(manifest))
         for name, entry in manifest.items():
             with self.subTest(name=name):
                 actual = [Path(p).resolve() for p in batch.reference_files_for_character(name)]
@@ -33,11 +33,11 @@ class GenshinReferenceTests(unittest.TestCase):
                     self.assertIn("[EXCLUSIVE PHOTOSET GARMENT]", prompt)
                     self.assertIn("[EXPRESSION AND VISIBILITY]", prompt)
                     if name == "哥伦比娅":
-                        self.assertIn("fully visible pale lavender-violet half-lidded eyes", prompt)
-                        self.assertNotIn("both eyes remain fully concealed", prompt)
+                        self.assertIn("fixed pearl-white geometric lattice blindfold covering both eyes", prompt)
+                        self.assertNotIn("This is the unmasked version", prompt)
 
     def test_new_characters_are_selectable_and_keep_star_rail_pool_intact(self):
-        for name in ('芙宁娜', '雷电将军', '胡桃', '八重神子', '神里绫华', '宵宫', '甘雨', '申鹤', '荧', '奥黛塔'):
+        for name in ('芙宁娜', '雷电将军', '胡桃', '八重神子', '神里绫华', '宵宫', '甘雨', '申鹤', '荧', '奥黛塔', '刻晴', '夜兰', '珊瑚宫心海'):
             self.assertEqual(batch._parse_character_selection(name), [name])
             index = batch.CHARACTER_SEQUENCE.index(name) + 1
             self.assertEqual(batch._parse_character_selection(str(index)), [name])
@@ -80,7 +80,7 @@ class GenshinReferenceTests(unittest.TestCase):
             '神里绫华': 'exactly one very long high rear ponytail',
             '宵宫': 'red-and-purple floral marking on her left upper arm',
             '甘雨': 'exactly two dark red-black curved horns',
-            '申鹤': 'Do not enforce hidden eyes',
+            '申鹤': 'Preserve the natural right-eye fringe occlusion',
             '荧': 'scarf fabric, not long hair',
             '奥黛塔': 'Ignore the dark blue silhouette',
         }

@@ -63,21 +63,21 @@
   "哥伦比娅": {
     "references": [
       "assets/原神/哥伦比娅_front.png",
-      "assets/原神/哥伦比娅_waist.png",
-      "assets/原神/哥伦比娅2.png"
+      "assets/原神/哥伦比娅_bust.png",
+      "assets/原神/哥伦比娅_official.png"
     ],
     "roles": [
       "front_full_body",
-      "front_waist_up",
+      "front_chest_up",
       "original_official"
     ],
     "sha256": [
-      "91f2d82b04408b2bf1fd0012a2716881b32049f6cdd1eae8a6de1ebfda6afb5e",
-      "8b39071e29ac584cbeaedba448ff40f018ca4ad8e0c564b2ec0946e01aebcb72",
-      "87c979de7edc812fca30b45b9c0ea1649d1f1067a7265ff837cd61b49ca453b4"
+      "1381b344368cb956514c6d8a91e9168f57a160ffcceac5a2896cd1ef53484e18",
+      "9503b02e0655f36ec7fe3a9288680432ec7204ac59a447edcb06247b10c35696",
+      "30837a8e904b41e3e8763d950c219b119ddc3126b8d801c89596527a37b2d317"
     ],
-    "official_archive": "assets_reference_archive/原神/哥伦比娅2.png",
-    "review": "Official source and both generated images individually reviewed. Front-facing head and torso, complete full-body feet, waist-up framing, fixed accessories and visible eyes verified.",
+    "official_archive": "assets_reference_archive/原神/哥伦比娅1.png",
+    "review": "User game screenshot controls larger relative head/compact body; official archive1 geometric white eye covering. Dark blunt bangs, black-violet long hair with magenta inner/lower lengths, curled tied side sections with white fittings, white feather crown. No physical back wings. First generated front rejected as too small-headed. New front follows game proportions.",
     "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
     "pending": ""
   },
@@ -147,23 +147,24 @@
   "八重神子": {
     "references": [
       "assets/原神/八重神子_front.png",
-      "assets/原神/八重神子_waist.png",
+      "assets/原神/八重神子_bust.png",
       "assets/原神/八重神子_official.png"
     ],
     "roles": [
       "front_full_body",
-      "front_waist_up",
+      "front_chest_up",
       "original_official"
     ],
     "sha256": [
-      "c49bca83084e8f79c59998912203541541a84614fd82a38e85558d8c0c31643c",
-      "085b7bdc815c41363d0606443394d91e65e2e693f8a420f9a6134870392ff1ed",
+      "817bc3cf5a674efb0358cf3a13266cd74179cf2df5c985af81e005e7eb53a25a",
+      "1ca647ad89d430366ec37b57ee114131a24ba940bbabd8101a54e9eb33fe965c",
       "52f0b1b6f5ba36a5ca4295e2bd60b9246ddf8b322fc123b9a2f3dc8b02613cab"
     ],
     "official_archive": "assets_reference_archive/原神/八重神子_official.png",
     "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/7?lang=en-us",
     "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E5%85%AB%E9%87%8D%E7%A5%9E%E5%AD%90/avatar_header.png",
-    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+    "review": "Official soft small tapered lower face, violet narrow eyes red lash accent, pink layered long hair and drooping fox ears, curved gold crown, gold purple ear fittings. Costume white-red shrine dress excluded from identity.",
+    "pending": ""
   },
   "神里绫华": {
     "references": [
@@ -231,23 +232,24 @@
   "申鹤": {
     "references": [
       "assets/原神/申鹤_front.png",
-      "assets/原神/申鹤_waist.png",
+      "assets/原神/申鹤_bust.png",
       "assets/原神/申鹤_official.jpg"
     ],
     "roles": [
       "front_full_body",
-      "front_waist_up",
+      "front_chest_up",
       "original_official"
     ],
     "sha256": [
-      "0ae479ce8f98f8e48e6e4de4ae82b2f507c6d173860bfc9942a824d2888655b7",
-      "5e2309c07eaf6a5f81e491d969d91729c163afe1502c127e77f8471b2e256aca",
+      "7bc9870b729cc08a12e3ba1f24722c70389b0d2b1e36604fb184d0171d08fde7",
+      "3c0752786ca5533bb910b6c35e69a8ea547b55c493242acc84607248491c1cdf",
       "c9c89c9f6712273970330c3902fb488d81b4da0266b852c6f1be3a42e2d9f11e"
     ],
     "official_archive": "assets_reference_archive/原神/申鹤_official.jpg",
     "source_page": "https://wiki.hoyolab.com/pc/genshin/entry/29?lang=en-us",
     "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E7%94%B3%E9%B9%A4/avatar_header.jpg",
-    "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only."
+    "review": "Official diagonal silver fringe crosses anatomical right eye, left iridescent cyan lavender eye visible, chin side locks, one thick rear braid red cord, feather accessory gold mount red cord, red tassel earring. Old forced both-eye visibility is wrong. Full-body re-generated to increase relative head and reduce leg stretch.",
+    "pending": ""
   },
   "荧": {
     "references": [
@@ -291,6 +293,69 @@
     "source_image": "D:\\workspace\\temp\\奥黛塔.png",
     "review": "Original and both generated references individually inspected. Full figure faces forward with complete head accessories and feet; waist portrait has readable eyes. Identity profile excludes reference clothing and pose. Shenhe fringe corrected to reveal both eyes; Odetta uses foreground woman only.",
     "proportion_review": "Rechecked against unchanged original source: increased relative head size, reduced neck and stretched leg length; no fashion-model elongation. Full-body image individually reviewed.",
+    "pending": ""
+  },
+  "刻晴": {
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E5%88%BB%E6%99%B4/avatar_header.jpg",
+    "references": [
+      "assets/原神/刻晴_front.png",
+      "assets/原神/刻晴_bust.png",
+      "assets/原神/刻晴_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_chest_up",
+      "original_official"
+    ],
+    "sha256": [
+      "945869d0285790ee558068e4c1eae89d409325497616fcb531d52b312f18b95a",
+      "c9e32a87b02b14cbfcc7c873e82068c8d1451786c447b61ed710a7367a6003e8",
+      "447d9f2965e734ba97b70d404d30784b2c7629b85e81ef4dc05926304b13390c"
+    ],
+    "official_archive": "assets_reference_archive/原神/刻晴_official.jpg",
+    "review": "Official lavender long twin tails, pointed hair buns not cat ears, layered swept fringe, curved cheek locks, gold pin pale flowers and blue gold earrings, magenta violet eyes and small face. Purple dress and tights not fixed identity.",
+    "pending": ""
+  },
+  "夜兰": {
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E5%A4%9C%E5%85%B0/avatar_header.jpg",
+    "references": [
+      "assets/原神/夜兰_front.png",
+      "assets/原神/夜兰_bust.png",
+      "assets/原神/夜兰_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_chest_up",
+      "original_official"
+    ],
+    "sha256": [
+      "1b5887d01b1b71e979a2373e8b61f8e43e02d54d3157d38188fabb3c37a4944d",
+      "93acd20fb402f789e834b35c599a96998b8cc0f10ebd4a12181cf0ddeb1ce20c",
+      "ee75ebe60da9ca41afb614bfc51f4259fc2b4c8b9f24911f028ec48111c5bb22"
+    ],
+    "official_archive": "assets_reference_archive/原神/夜兰_official.jpg",
+    "review": "Official dark navy asymmetric bob with bright blue ends, longer on anatomical right, side braid detail, green turquoise eyes, geometric blue silver earrings small gold ear fittings. White fur jacket, dice pendant, bracelets, blue black outfit are clothing not identity. Fullbody first rejected as stretched and redrawn.",
+    "pending": ""
+  },
+  "珊瑚宫心海": {
+    "source_image": "https://bbs.hoyolab.com/hoyowiki/picture/character/%E7%8F%8A%E7%91%9A%E5%AE%AB%E5%BF%83%E6%B5%B7/avatar_header.jpg",
+    "references": [
+      "assets/原神/珊瑚宫心海_front.png",
+      "assets/原神/珊瑚宫心海_bust.png",
+      "assets/原神/珊瑚宫心海_official.jpg"
+    ],
+    "roles": [
+      "front_full_body",
+      "front_chest_up",
+      "original_official"
+    ],
+    "sha256": [
+      "51d27a430c4f2c8f9aa7e34180bc6bdf53320f23849492c05fc7d7446cdc246f",
+      "ffdb7c2fd81630a34fdec072874f2471db90b716f06dcfabce465dbba6b37429",
+      "3c5fe576610bc199f822b304cdc5dd6b715d529c679f0ef3199237ddb4e8ba25"
+    ],
+    "official_archive": "assets_reference_archive/原神/珊瑚宫心海_official.jpg",
+    "review": "Official soft small face blue violet eyes, salmon pink hair with blue tips, segmented blunt fringe and rounded cheek locks, crown loop, very long paired tails and purple blue fin-shaped hair accessories, no animal anatomy. Large chest bow, finlike fabric, legwear not fixed identity.",
     "pending": ""
   }
 }

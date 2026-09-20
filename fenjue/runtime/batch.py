@@ -452,8 +452,8 @@ CHARACTER_REFERENCES = {
     ],
     "哥伦比娅": [
         str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_front.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_waist.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅2.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_bust.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "哥伦比娅_official.png"),
     ],
     "丝柯克": [
         str(PROJECT_DIR / "assets" / "原神" / "丝柯克_front.png"),
@@ -477,7 +477,7 @@ CHARACTER_REFERENCES = {
     ],
     "八重神子": [
         str(PROJECT_DIR / "assets" / "原神" / "八重神子_front.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "八重神子_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "八重神子_bust.png"),
         str(PROJECT_DIR / "assets" / "原神" / "八重神子_official.png"),
     ],
     "神里绫华": [
@@ -497,7 +497,7 @@ CHARACTER_REFERENCES = {
     ],
     "申鹤": [
         str(PROJECT_DIR / "assets" / "原神" / "申鹤_front.png"),
-        str(PROJECT_DIR / "assets" / "原神" / "申鹤_waist.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "申鹤_bust.png"),
         str(PROJECT_DIR / "assets" / "原神" / "申鹤_official.jpg"),
     ],
     "荧": [
@@ -509,6 +509,21 @@ CHARACTER_REFERENCES = {
         str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_front.png"),
         str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_waist.png"),
         str(PROJECT_DIR / "assets" / "原神" / "奥黛塔_official.png"),
+    ],
+    "刻晴": [
+        str(PROJECT_DIR / "assets" / "原神" / "刻晴_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "刻晴_bust.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "刻晴_official.jpg"),
+    ],
+    "夜兰": [
+        str(PROJECT_DIR / "assets" / "原神" / "夜兰_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "夜兰_bust.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "夜兰_official.jpg"),
+    ],
+    "珊瑚宫心海": [
+        str(PROJECT_DIR / "assets" / "原神" / "珊瑚宫心海_front.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "珊瑚宫心海_bust.png"),
+        str(PROJECT_DIR / "assets" / "原神" / "珊瑚宫心海_official.jpg"),
     ],
 }
 
@@ -599,6 +614,9 @@ CHARACTER_SEQUENCE = [
     "申鹤",
     "荧",
     "奥黛塔",
+    "刻晴",
+    "夜兰",
+    "珊瑚宫心海",
     "Saber",
     "阿格莱雅",
     "火花",
@@ -627,8 +645,8 @@ CHARACTER_SEQUENCE = [
 ZENLESS_ZONE_ZERO_CHARACTERS = CHARACTER_SEQUENCE[:35]
 WUTHERING_WAVES_CHARACTERS = CHARACTER_SEQUENCE[35:57]
 ENDFIELD_CHARACTERS = CHARACTER_SEQUENCE[57:64]
-GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[64:78]
-HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[78:]
+GENSHIN_IMPACT_CHARACTERS = CHARACTER_SEQUENCE[64:81]
+HONKAI_STAR_RAIL_CHARACTERS = CHARACTER_SEQUENCE[81:]
 CHARACTER_RANDOM_POOLS = {
     "绝区零": ZENLESS_ZONE_ZERO_CHARACTERS,
     "鸣潮": WUTHERING_WAVES_CHARACTERS,
@@ -2568,6 +2586,9 @@ def _parse_character_selection(raw_choice: str) -> list[str] | None:
 
     name_to_character = {name.lower(): name for name in CHARACTER_SEQUENCE}
     name_to_character.update({
+        "心海": "珊瑚宫心海",
+        "珊瑚宮心海": "珊瑚宫心海",
+        "夜蘭": "夜兰",
         "星间雅": "星见雅",
         "神里凌华": "神里绫华",
         "萤": "荧",
@@ -2910,7 +2931,7 @@ def _normalize_character_variant(character_name: str, raw_value: str) -> str:
 
 def set_character_variant(character_name: str, variant: str) -> None:
     if character_name == "哥伦比娅":
-        ACTIVE_CHARACTER_VARIANTS[character_name] = "unmasked"
+        ACTIVE_CHARACTER_VARIANTS[character_name] = "blindfold"
         set_character_profile_variant(character_name, None)
         return
     normalized = _normalize_character_variant(character_name, variant)
@@ -2932,7 +2953,7 @@ def configure_character_variants(
     arguments = list(sys.argv if arguments is None else arguments)
     saved_variants = saved_variants or {}
     if "哥伦比娅" in selected:
-        set_character_variant("哥伦比娅", "unmasked")
+        set_character_variant("哥伦比娅", "blindfold")
 
     for character_name, options in CHARACTER_VARIANT_OPTIONS.items():
         if character_name not in selected:

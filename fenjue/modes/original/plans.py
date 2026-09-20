@@ -640,20 +640,20 @@ CHARACTER_PROFILES = {
         "color_anchor": "dark brown to muted red-brown hair, red irises and white flower pupils; no mandatory garment palette"
     },
     "八重神子": {
-        "official_core": "A slender oval face with violet eyes, fine red upper-eyelid accents and a small chin. Very long soft pink hair is loosely gathered low behind her, with layered center fringe and curved face-framing locks. Two pink fox ears extend outward and downward from the sides of her head. Preserve the curved gold shrine head ornament and gold ear fittings with purple jewels. Tall slender proportions and a long neck remain distinct from the garment silhouette.",
+        "official_core": "An adult woman with soft cheeks, a short gently tapered lower face, violet eyes and fine red upper-lash accents. Very long soft pink hair is gathered low behind her, with layered center fringe and curved cheek locks. Two pink fox ears droop outward at the sides. Preserve the curved gold shrine crown and gold ear fittings with purple jewels. Her head, neck and body retain the balanced official proportions.",
         "identity_tokens": [
-            "violet eyes with fine red upper-eyelid accents",
-            "very long soft pink hair loosely gathered low behind her",
-            "layered center fringe and curved face-framing locks",
+            "soft cheeks and a short gently tapered lower face",
+            "violet eyes with fine red upper-lash accents",
+            "very long soft pink hair gathered low behind her",
+            "layered center fringe and curved cheek locks",
             "two outward-drooping pink fox ears",
-            "curved gold shrine head ornament",
-            "gold ear fittings with purple jewels",
-            "tall slender proportions and a long neck"
+            "curved gold shrine crown",
+            "gold ear fittings with purple jewels"
         ],
-        "viewer_relationship": "Composed, perceptive eyes and relaxed lips; follow the shot for the exact expression.",
-        "thumbnail_strategy": "Recognize the outward fox ears, violet eyes, pink hair and gold-and-purple head fittings.",
-        "interaction_rule": "Keep the fox ears attached at the sides of the head and preserve their drooping shape. Hair is gathered low, not changed into high twin ponytails. The shrine dress, detached sleeves, chest brooch, waist ornaments, footwear, wand and magic are not fixed identity; replace them with the photoset outfit. Her reference costume palette must not recolor the selected garment.",
-        "color_anchor": "soft pink hair and ears, violet eyes, gold and purple fixed head fittings"
+        "viewer_relationship": "Relaxed perceptive eyes and a slight playful quality; the current shot determines the actual expression and gaze.",
+        "thumbnail_strategy": "Keep the pink drooping ears, violet eyes, layered pink fringe and gold-purple head fittings distinct.",
+        "interaction_rule": "Keep fox ears attached at the head sides. Preserve the low rear hair arrangement, not high twin ponytails. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. The shrine dress, detached sleeves, chest brooch, waist decorations, footwear and wand belong to the reference costume. Replace them with the photoset clothing; do not impose the red-white costume palette.",
+        "color_anchor": "soft pink hair and ears, violet eyes, gold and purple head fittings"
     },
     "神里绫华": {
         "official_core": "A delicate face with blue eyes and a small tapered chin. Pale icy silver-blue hair has fine straight segmented blunt bangs, two short straight temple locks tied with pink cord bows, and exactly one very long high rear ponytail. A large black-and-gold bow and gold crest sit at the ponytail root. Preserve her compact slender proportions.",
@@ -705,20 +705,21 @@ CHARACTER_PROFILES = {
         "color_anchor": "pale blue and periwinkle hair, violet-pink eyes, dark red-black horns with red markings"
     },
     "申鹤": {
-        "official_core": "A slender oval face with pale iridescent cyan-lavender eyes. Silver-white hair with cool gray-blue shadows has a diagonal swept fringe and curled chin-length side locks. Exactly one very long thick low rear braid is secured with red cord. A pointed black-and-white feather-like hair ornament has a gold mount and red cord; a red tassel earring accents the face. Preserve tall elongated proportions, a long neck and balanced long limbs.",
+        "official_core": "An adult woman with soft cheeks and a small gently tapered lower face. Pale iridescent cyan-lavender eyes retain multicolor highlights. Silver-white hair with cool gray-blue shadows has a broad diagonal fringe sweeping across her anatomical right eye and curled chin-length side locks. Exactly one very long thick low rear braid is secured with red cord. Preserve the black-and-white feather-like hair ornament with gold mount and red cord, and the red tassel earring. Keep natural neck length and balanced official head-to-body proportions.",
         "identity_tokens": [
-            "pale iridescent cyan-lavender eyes",
+            "soft cheeks and a small gently tapered lower face",
+            "pale iridescent cyan-lavender eyes with multicolor highlights",
             "silver-white hair with cool gray-blue shadows",
-            "diagonal swept fringe and curled chin-length side locks",
+            "diagonal fringe naturally crossing her anatomical right eye",
+            "curled chin-length side locks",
             "exactly one very long thick low rear braid secured with red cord",
-            "pointed black-and-white feather-like hair ornament with a gold mount",
-            "red tassel earring",
-            "tall elongated proportions and a long neck"
+            "black-and-white feather-like hair ornament with gold mount and red cord",
+            "red tassel earring"
         ],
-        "viewer_relationship": "Calm reserved facial tension; retain her own face while using the current shot's gaze and expression.",
-        "thumbnail_strategy": "Keep both eyes readable, the diagonal silver fringe, single long braid and contrasting feather-like hair ornament.",
-        "interaction_rule": "Do not enforce hidden eyes: separate the diagonal fringe enough to keep the visible face and eyes readable in the current shot. Preserve one rear braid, not two; its placement follows the pose and gravity. The feather-like headpiece is an accessory, not a horn. The black-white outfit, red body cords, gold chest fastenings, legwear, shoes, weapon and spectral effects are not mandatory identity; the photoset defines clothing and pose.",
-        "color_anchor": "silver-white hair, cyan-lavender eyes, black-white and gold fixed hair ornament with red cord"
+        "viewer_relationship": "Quiet reserved expression; use the current head angle and gaze with her own facial contours.",
+        "thumbnail_strategy": "Keep the visible left eye, diagonal silver fringe, single thick braid and feather-like hair ornament recognizable.",
+        "interaction_rule": "Preserve the natural right-eye fringe occlusion: in frontal view her anatomical right eye is on image-left. Do not part or shorten the fringe just to expose both eyes. The amount of occlusion follows the current view; keep the other visible eye, nose and mouth clearly rendered, without hiding the whole face. Preserve one rear braid; its placement follows pose and gravity. The headpiece is an accessory, not a horn. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. The black-white-teal costume, red body cords, gold chest fastenings, legwear, shoes and weapon are reference clothing or props, not fixed identity. Use the photoset outfit and pose.",
+        "color_anchor": "silver-white hair, cyan-lavender iridescent eyes, black-white gold head ornament and red cord"
     },
     "荧": {
         "official_core": "Amber-gold eyes and a small softly tapered face. Warm golden-blonde hair forms a short layered bob around the jaw and nape, with swept asymmetrical bangs and two separate shoulder-length curled front locks. Two pale white-blue flowers sit above her right ear. Preserve compact slender proportions and the short rear hair silhouette.",
@@ -778,22 +779,20 @@ CHARACTER_PROFILES = {
         "color_anchor": "ash taupe, sapphire blue, pearl white, antique gold, black, restrained crimson"
     },
     "哥伦比娅": {
-        "official_core": "extremely long black hair transitioning into deep violet and muted magenta at the lower lengths, a smooth dark crown with thick straight blunt bangs, fully visible pale lavender-violet half-lidded eyes, and one fixed white feathered wing-like halo ornament rising and spreading behind the crown with small white side fittings near the temples. Her face is unobstructed: both eyes, both upper lash lines, the nose bridge, and the area between the bangs and cheekbones remain visible.",
+        "official_core": "A softly contoured small face with a short lower face and a fixed pearl-white geometric lattice blindfold covering both eyes. Extremely long black hair has deep violet and muted magenta inner and lower lengths, a smooth dark crown, straight blunt bangs and paired curled side sections secured with small white fittings. White feathered wing-like ornaments rise behind the crown. Preserve the compact game-reference head-to-body balance and natural neck length.",
         "identity_tokens": [
-            "extremely long black hair",
-            "deep violet-to-muted-magenta lower hair gradient",
-            "smooth dark crown",
-            "thick straight blunt bangs",
-            "fully visible pale lavender-violet half-lidded eyes",
-            "unobstructed eye area and nose bridge",
-            "white feathered wing-like halo ornament behind the crown",
-            "small white temple fittings",
-            "balanced reference head-to-body proportions with a natural neck and leg length"
+            "softly contoured small face with a short lower face",
+            "fixed pearl-white geometric lattice blindfold covering both eyes",
+            "extremely long black hair with deep violet and muted magenta inner and lower lengths",
+            "straight blunt bangs",
+            "paired curled side sections secured with small white fittings",
+            "white feathered wing-like crown ornaments",
+            "compact game-reference head-to-body balance"
         ],
-        "viewer_relationship": "serene, distant, and dreamlike, with relaxed half-lidded eyes and a subtle neutral expression rather than theatrical sadness or a broad smile.",
-        "thumbnail_strategy": "the fully visible pale lavender eyes, black-to-violet long hair, blunt fringe, and separate white feathered crown halo must remain the dominant recognition points.",
-        "interaction_rule": "This is the unmasked version. Keep both pale lavender-violet eyes fully visible and unobstructed in every outfit and scene. Never add the geometric blindfold, an eye patch, cloth band, sleep mask, glasses, sunglasses, visor, lace veil, opaque bar, face seal, or painted markings across the eyes. Keep the feather structure separate and attached behind the crown as a wing-like halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements. Preserve the original illustration's relative head size, shoulder width, torso length and limb proportions. Do not shrink the head, lengthen the neck or stretch the legs into fashion-model proportions.",
-        "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white"
+        "viewer_relationship": "Serene relaxed mouth and gentle facial tension; convey the current expression through the visible lower face and head angle.",
+        "thumbnail_strategy": "Keep the white geometric eye covering separate from the dark bangs, with a visible nose and mouth and distinct feather crown.",
+        "interaction_rule": "This is the blindfold version. Preserve the pearl-white geometric lattice eye covering as a fixed facial accessory; it is not a black sleep mask or a single-eye patch. Do not remove it to satisfy the template gaze, and do not add exposed eyes over the covering. Keep nose, mouth and cheeks visible. The feather crown is a head ornament, not wings growing from the back. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. Use the game reference for the compact silhouette. The layered white-blue dress, detached sleeves, neck jewelry and lower-leg ribbons are clothing; replace them with the photoset outfit without recoloring it.",
+        "color_anchor": "black, deep violet, muted magenta and pearl-white eye covering and crown"
     },
     "丝柯克": {
         "official_core": "very long silver-white hair with cool ice-blue shadows, layered separated bangs and face-framing locks, long loose rear hair that separates into broad flowing lengths, vivid crimson-red eyes, one angular black-and-cyan crystalline butterfly-fin ornament at the side of the crown, and one continuous dark indigo crystalline left arm with translucent blue-violet facets from the upper arm through the hand.",
@@ -1164,21 +1163,59 @@ CHARACTER_PROFILES = {
         "interaction_rule": "Retain the burgundy character cap and curled pink-blue hair. White wing shapes on the cap are ornaments; the enormous winged staff, floating little creature and rainbow are props or companions, not her body wings.",
         "color_anchor": "pastel pink, pale blue curls, aqua eyes, burgundy cap",
     },
-}
-
-
-CHARACTER_PROFILE_VARIANTS = {
-    "哥伦比娅": {
-        "unmasked": {
-            "official_core": "extremely long black hair transitioning into deep violet and muted magenta at the lower lengths, a smooth dark crown with thick straight blunt bangs, fully visible pale lavender-violet half-lidded eyes, and one fixed white feathered wing-like halo ornament rising and spreading behind the crown with small white side fittings near the temples. Her face is unobstructed: both eyes, both upper lash lines, the nose bridge, and the area between the bangs and cheekbones remain visible.",
-            "identity_tokens": ["extremely long black hair", "deep violet-to-muted-magenta lower hair gradient", "smooth dark crown", "thick straight blunt bangs", "fully visible pale lavender-violet half-lidded eyes", "unobstructed eye area and nose bridge", "white feathered wing-like halo ornament behind the crown", "small white temple fittings"],
-            "viewer_relationship": "serene, distant, and dreamlike, with relaxed half-lidded eyes and a subtle neutral expression rather than theatrical sadness or a broad smile.",
-            "thumbnail_strategy": "the fully visible pale lavender eyes, black-to-violet long hair, blunt fringe, and separate white feathered crown halo must remain the dominant recognition points.",
-            "interaction_rule": "This is the unmasked version. Keep both pale lavender-violet eyes fully visible and unobstructed in every outfit and scene. Never add the geometric blindfold, an eye patch, cloth band, sleep mask, glasses, sunglasses, visor, lace veil, opaque bar, face seal, or painted markings across the eyes. Keep the feather structure separate and attached behind the crown as a wing-like halo ornament, not mammal ears, horns, a conventional hat, or wings growing from the back. Ignore reference-only companions, props, effects, poses, and clothing; the selected photoset alone defines those elements.",
-            "color_anchor": "black, deep violet, muted magenta, pale lavender, feather white",
-        },
+    "刻晴": {
+        "official_core": "An adult woman with a small soft tapered face and magenta-violet eyes. Lavender-purple hair lightens toward the long paired tails. Two pointed upper hair buns, layered diagonally swept bangs and curved cheek locks define the silhouette. Preserve the gold hairpin, pale flower ornaments and blue-gold earrings. Keep her compact slender official proportions.",
+        "identity_tokens": [
+            "small soft tapered face and magenta-violet eyes",
+            "lavender-purple hair with lighter long paired tails",
+            "two pointed upper hair buns made of hair",
+            "layered diagonally swept bangs and curved cheek locks",
+            "gold hairpin and pale flower ornaments",
+            "blue-gold earrings",
+            "compact slender official proportions"
+        ],
+        "viewer_relationship": "Attentive focused eyes with a relaxed mouth; follow the current shot for gaze and expression.",
+        "thumbnail_strategy": "Distinguish the pointed hair buns from the long twin tails and keep the magenta-violet eyes readable.",
+        "interaction_rule": "The pointed upper forms are styled hair buns, not animal ears or horns. Preserve two long tails and the canonical hair ornaments. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. The purple layered dress, detached sleeves, neck ribbon, gloves, patterned tights, shoes and sword are costume or props, not fixed identity. Use only the photoset outfit and garment colors.",
+        "color_anchor": "lavender-purple hair, magenta-violet eyes, gold pale-flower hair fittings and blue-gold earrings"
+    },
+    "夜兰": {
+        "official_core": "An adult woman with a softly tapered face and vivid turquoise-green eyes. Dark navy hair forms a short asymmetrical bob with bright blue lower ends, longer on her anatomical right and shorter near the jaw on her left. Layered angled fringe and a narrow braided side section keep the cut distinct. Preserve silver-blue geometric dangling earrings and small gold ear fittings. Her adult slender build uses the official relative head size and natural neck, not stretched fashion proportions.",
+        "identity_tokens": [
+            "softly tapered face and vivid turquoise-green eyes",
+            "dark navy short asymmetrical bob with bright blue lower ends",
+            "longer hair on her anatomical right and shorter jaw-length hair on her left",
+            "layered angled fringe and a narrow braided side section",
+            "silver-blue geometric dangling earrings",
+            "small gold ear fittings"
+        ],
+        "viewer_relationship": "A calm confident gaze and subtle relaxed smile; allow the current shot to determine expression.",
+        "thumbnail_strategy": "Keep the asymmetric navy-blue bob and turquoise-green eyes recognizable without relying on the fur coat.",
+        "interaction_rule": "Do not lengthen the short bob into long hair or mirror its asymmetry. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. The white fur-trimmed jacket, blue-black outfit, neck choker and dice pendant, bracelets, gloves, legwear, shoes and bow belong to reference styling. Replace all garment layers with the photoset outfit; do not add the fur collar or dice pendant to unrelated clothing.",
+        "color_anchor": "dark navy and bright blue hair, turquoise-green eyes, silver-blue earrings with small gold ear fittings"
+    },
+    "珊瑚宫心海": {
+        "official_core": "An adult woman with soft cheeks, a short gently tapered lower face and blue-violet gradient eyes. Pale salmon-pink hair fades to pale blue at the ends, with segmented blunt bangs, rounded inward cheek locks, longer curved side locks, a small curled crown loop and two very long broad rear tails. Preserve the paired blue-purple fin-shaped hair ornaments with gold details. Keep her compact slender official proportions.",
+        "identity_tokens": [
+            "soft cheeks and a short gently tapered lower face",
+            "blue-violet gradient eyes",
+            "pale salmon-pink hair fading to pale blue ends",
+            "segmented blunt bangs and rounded inward cheek locks",
+            "longer curved side locks and a small curled crown loop",
+            "two very long broad rear tails",
+            "paired blue-purple fin-shaped hair ornaments with gold details",
+            "compact slender official proportions"
+        ],
+        "viewer_relationship": "Gentle attentive eyes and a small relaxed smile; follow the shot for exact expression and gaze.",
+        "thumbnail_strategy": "Keep the salmon-pink to pale-blue hair gradient, rounded fringe and paired fin-shaped ornaments clear.",
+        "interaction_rule": "The fin-shaped pieces beside the crown are hair ornaments, not animal ears. Long flowing fabric behind the outfit is costume, not a body appendage. Keep the reference head size relative to shoulders and torso, soft cheek contours and natural neck length. Do not lengthen the lower face, shrink the head or stretch the torso and legs. The navy-lavender outfit, large chest bow, neck jewelry, detached flared sleeves, gloves, pale legwear, shoes and aquatic effects are reference styling. Use the photoset clothing, garment colors, pose and environment without importing these costume pieces.",
+        "color_anchor": "pale salmon pink and pale blue hair, blue-violet eyes, blue-purple gold-trimmed hair ornaments"
     },
 }
+
+
+CHARACTER_PROFILE_VARIANTS = {}
+
 
 _ACTIVE_CHARACTER_PROFILE_VARIANTS: dict[str, str] = {}
 
@@ -2146,6 +2183,9 @@ KNOWN_CHARACTER_NAMES = [
     "申鹤",
     "荧",
     "奥黛塔",
+    "刻晴",
+    "夜兰",
+    "珊瑚宫心海",
     "Saber",
     "阿格莱雅",
     "火花",
