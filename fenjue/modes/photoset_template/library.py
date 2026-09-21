@@ -1098,4 +1098,5 @@ def prompt_for_shot(character_name: str, template: PhotosetTemplate, shot: Photo
         body = _prompt_for_adapted_shot(character_name, template, shot)
     else:
         body = _prompt_for_original_shot(character_name, template, shot)
-    return body
+    from .expressions import apply_e_expression_preference
+    return apply_e_expression_preference(body)
